@@ -1,0 +1,22 @@
+{
+  "students": [
+    {
+      "name": "Kevin",
+      "id": 12345
+    },
+    {
+      "name": "Noah",
+      "id": 23456
+    }
+  ],
+  "instructors": [
+    {
+      "name": "Jonathan_Calver",
+      "id": 78900
+    },
+    {
+      "name": "Lindsey_Shorser",
+      "id": 12135
+    }
+  ]
+}
