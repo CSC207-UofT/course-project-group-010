@@ -2,21 +2,25 @@
   "students": [
     {
       "name": "Kevin_Hart",
-      "id": 12345
+      "id": 12345,
+      "authlevel": 2
     },
     {
       "name": "Noah_Brooks",
-      "id": 23456
+      "id": 23456,
+      "authlevel": 2
     }
   ],
   "instructors": [
     {
       "name": "Jonathan_Calver",
-      "id": 78900
+      "id": 78900,
+      "authlevel": 3
     },
     {
       "name": "Lindsey_Shorser",
-      "id": 12135
+      "id": 12135,
+      "authlevel": 3
     }
   ]
 }
