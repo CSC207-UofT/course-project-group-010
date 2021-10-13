@@ -26,7 +26,7 @@ public class LoginCommand extends Command{
         checkArgumentsNum(arguments);
         String id = arguments.get(0);
         // TODO check if ce already has a user, throw otherwise
-        // TODO CHECK UTORID IN DATABASE AND INITIALIZE AN OBJECT, put into CE
+        // TODO check utorid in database, get data and initialize the usermanager if needed
         return "Couldn't login";
     }
 }

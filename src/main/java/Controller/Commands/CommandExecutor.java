@@ -2,6 +2,7 @@ package Controller.Commands;
 
 import Constants.CommandConstants;
 import Controller.Commands.CommandExceptions.ArgumentException;
+import Controller.Commands.CommandExceptions.CommandNotFoundException;
 import Interface.IGettable;
 import UseCase.UserManager.UserManager;
 
@@ -31,17 +32,40 @@ public class CommandExecutor {
      * @throws Exception
      */
     // TODO change the return type to the appropriate type
-    public void processRequest(CommandRequest request) throws Exception {
+    public String processRequest(CommandRequest request) {
         CommandConstants commandConstants = new CommandConstants();
-        Command command = commandConstants.get(request.getMethod());
-        command.run(this, request.getArguments());
+        try {
+            Command command = commandConstants.get(request.getMethod());
+            return command.run(this, request.getArguments());
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public void addUserManager(UserManager u) {
+        if (this.userManager == null) {
+            this.userManager = u;
+        }
+    }
+
+    public IGettable getPageManager() {
+        return pageManager;
+    }
+
+    public void setPageManager(IGettable pageManager) {
+        this.pageManager = pageManager;
     }
 
     /**
      * gets the single instance of CommandExecutor, makes a new one if none exist
      * @return the instance.
      */
-    public CommandExecutor getInstance() {
+    public static CommandExecutor getInstance() {
         if (instance == null) {
             instance = new CommandExecutor();
         }
