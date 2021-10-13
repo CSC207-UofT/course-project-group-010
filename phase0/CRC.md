@@ -52,6 +52,7 @@ Rating processor for a course
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |processRating||
+|getRating||
 
 ## Use Case Classes
 
