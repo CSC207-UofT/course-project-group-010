@@ -4,65 +4,75 @@ Will not be listed in the CRC card.
 ## Entity Classes
 Basic entity data
 
-|EntityData(abstract)||
+|User(abstract)||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|getProfile||
-getID ||
+|getName||
+|getID ||
 
 Student Entity
 
 |StudentEntityData||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-||extends EntityData|
+|getProgram|extends EntityData|
+|getYearOfStudy||
 
 Prof Entity
 
 |ProfEntityData||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-||extends EntityData|
+|getCurrentCourses|extends EntityData|
+|getPosition||
 
 Course Data
 
-|CourseData||
+|Course||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|get/setInfo||
-|get/setRating||
-|get/setMainComment||
+|get/setName||
+|getCode||
+|get/setDescription||
 
-Comment, tree structure
+Review[to be implemented later]
 
-|Comment||
+|Review||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|get/setContent|Inside CourseData|
+|getCourseID||
+|get/setContent||
 |getReplies||
 |addReply||
 |removeReply||
+
+Rating processor for a course
+
+|Rating||
+|:-------------|:--|
+|Responsibilities|Collaborators|
+|processRating||
 
 ## Use Case Classes
 
 |IDBSaveable|Interface|
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|giveEntries||
+|getData||
 
 Anything that has some sort of authorization requirement
 
 |IAuthorizable|Interface|
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|getAuthLevel||
+|getAuthRequirement||
 
 Anything that has an authorization level and will try to do things
 
-|IAuthorized|Interface|
+|IHasPermission|Interface|
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|getAuthLevel||
+|getPermissionLevel||
 
 Anything that will pass its data to a presenter
 
@@ -76,12 +86,12 @@ Use case manager for course object[will break into helper classes]
 |CourseManager||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|addRating|Interacts w/ course|
+|addRating|Has a course, review, rating stored in the object|
 |changeInfo|extends Authorizable, IGettable|
 |getCommentSection||
 
-Use case manager for comment section[will break into helper classes]
-Comments will be almost like a directory(has a tree structure, right?)
+Use case manager for comment/review section[will break into helper classes, will implement later]
+Comments will be almost like a directory(with a tree structure or something)
 
 |CommentManager||
 |:-------------|:--|
@@ -98,32 +108,27 @@ Manages use cases for a user. Will currently only report on its data
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |getUser|Implements IAuthorizable, IAuthorized, IGettable|
-|<getters for instance attrs here>||
+|getters for student attrs||
 
-Manages use cases for authorization of actions
+## Controllers, Presenters, Gateways
+
+Breaks up tasks dealing with authorization. Helper class to commandExecutor
 
 |AuthHelper||
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |checkAuth(action, Authorized a)||
 
-We may change this later, I feel like we can make classes that help with specific
-actions, that implement Authorizable, and we can pass that in as a parameter.
-
-## Controllers
-
 Command Executor. Will probably create a package that has a separate class with each
 command that all communicates with this class.
 
-Thinking about making it a client-side singleton
+Thinking about making it a client-side singleton class
 
 |CommandExecutor||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|viewCourse|Interacts w\ Agent, all Managers|
+|checkout(page)|Interacts w\ Agent, all Managers|
 |rateCourse||
-|comment||
-|voteComment||
 |login||
 |getInstance||
 
@@ -155,9 +160,10 @@ takes text input
 |Responsibilities|Collaborators|
 |sendCommand||
 
-Idk what im doing now
+# How does this work?
 
-|main||
-|:-------------|:--|
-|Responsibilities|Collaborators|
-|main() may just create a ScreenIO or something||
+- Entity classes store data for courses, users, etc.
+- Use case classes hold data and manage use cases pertaining to the data.
+  - eg. CourseManager holds everything related to a course: the course itself, the rating and review system
+- Controllers break up tasks into smaller tasks
+  - (eg. user wants to leave comment on a page. It deals with authorization then leaves the comment)
