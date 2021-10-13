@@ -1,6 +1,6 @@
-## Replace this README.md!
+# University Course Review System
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+This is a course review system for University Courses, kind of like RateMyProf with additional features.
+Students and professors will be able to view courses, leave reviews/ratings, and chat in the comments section.
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+Go to the phase0 folder for phase0, I would recommend looking at progress_report.md first
