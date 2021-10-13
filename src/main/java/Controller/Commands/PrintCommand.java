@@ -1,5 +1,6 @@
 package Controller.Commands;
 
+import Controller.Commands.CommandExceptions.ArgumentException;
 import Interface.IGettable;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class PrintCommand extends Command{
     }
 
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+    public String run(CommandExecutor ce, List<String> arguments) throws ArgumentException {
+        this.checkArgumentsNum(arguments);
         IGettable currentlyViewingPage = ce.getPageManager();
         if (currentlyViewingPage != null) {
             // TODO call its IGettable method to get the string and return it
