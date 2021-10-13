@@ -123,13 +123,13 @@ Breaks up tasks dealing with authorization. Helper class to commandExecutor
 Command Executor. Will probably create a package that has a separate class with each
 command that all communicates with this class.
 
-Thinking about making it a client-side singleton class
+(note: it's a lot different in code by the way it is implemented, with many helper classes)
 
 |CommandExecutor||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|checkout(page)|Interacts w\ Agent, all Managers|
-|rateCourse||
+|process Request|Interacts w\ Agent, all Managers|
+|checkout Page||
 |login||
 |getInstance||
 
