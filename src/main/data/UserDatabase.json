@@ -24,11 +24,3 @@
     }
   ]
 }
-
-/*
-Authorization Level :
-1 : "can only view pages"
-
-2 : "can view and rate"
-
-3 : "can view/rate/comment"*/
