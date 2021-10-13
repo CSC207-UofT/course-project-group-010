@@ -22,7 +22,7 @@ The CRC model for our program approximately follows a clean architecture structu
   - Database classes will probably be gateways to external databases(like SQL) in the future.
 - ScreenIO is our only outer layer class. It will take text input from the user and call the appropriate functions.
 
-## Scenario Walkthrough
+## Scenario Walkthrough - walkthrough.md
 
 ## Skeleton Program
 
