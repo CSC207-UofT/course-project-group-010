@@ -31,7 +31,7 @@ public class CommandExecutor {
      * @throws Exception
      */
     // TODO change the return type to the appropriate type
-    private void processRequest(CommandRequest request) throws Exception {
+    public void processRequest(CommandRequest request) throws Exception {
         CommandConstants commandConstants = new CommandConstants();
         Command command = commandConstants.get(request.getMethod());
         command.run(this, request.getArguments());
