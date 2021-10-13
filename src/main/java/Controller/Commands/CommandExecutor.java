@@ -1,6 +1,7 @@
 package Controller.Commands;
 
 import Constants.CommandConstants;
+import Controller.Commands.CommandExceptions.ArgumentException;
 import Interface.IGettable;
 import UseCase.UserManager.UserManager;
 
