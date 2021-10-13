@@ -48,7 +48,7 @@ public abstract class Command {
      */
     protected void checkArgumentsNum(List<String> arguments) throws ArgumentException {
         if (arguments.size() > maxArguments || arguments.size() < minArguments) {
-            throw new ArgumentException("Invalid number of arguments");
+            throw new ArgumentException();
         }
     }
 }
