@@ -1,0 +1,10 @@
+Scenario Walk-Through
+
+Scenario 1 : Rate the course
+Kevin Hart, a student from University of Toronto, entries name (Kevin_Hart) and ID (12345) in order to log in to the
+course review system to view the course information. Basing on his status as a student, the course review system assigns
+the permission level (2) to Kevin. Then, Kevin entries the course code, CSC207H1, in the course directory.
+This leads him to the course page which displays the course name, course code, course description, and course rate
+as well as the current year and instructor name. This course page also provides the option for Kevin to leave a review
+or rate the course. Kevin thinks CSC 207 course is pretty useful and decide to give it a rate of 8. The course review
+system will take Kevin’s input and recalculate the course rate.
