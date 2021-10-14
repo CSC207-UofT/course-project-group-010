@@ -1,5 +1,6 @@
 package Constants;
 
+import Controller.Commands.CheckoutCommand;
 import Controller.Commands.Command;
 import Controller.Commands.CommandExceptions.CommandNotFoundException;
 import Controller.Commands.LoginCommand;
@@ -17,6 +18,7 @@ public class CommandConstants {
     public CommandConstants () {
         command_dict.put("login", new LoginCommand());
         command_dict.put("print", new PrintCommand());
+        command_dict.put("checkout", new CheckoutCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {
