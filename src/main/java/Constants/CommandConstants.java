@@ -1,10 +1,7 @@
 package Constants;
 
-import Controller.Commands.CheckoutCommand;
-import Controller.Commands.Command;
+import Controller.Commands.*;
 import Controller.Commands.CommandExceptions.CommandNotFoundException;
-import Controller.Commands.LoginCommand;
-import Controller.Commands.PrintCommand;
 
 import java.util.Hashtable;
 
@@ -19,6 +16,7 @@ public class CommandConstants {
         command_dict.put("login", new LoginCommand());
         command_dict.put("print", new PrintCommand());
         command_dict.put("checkout", new CheckoutCommand());
+        command_dict.put("rate", new RateCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {
