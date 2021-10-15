@@ -36,7 +36,7 @@ public class CommandExecutor {
         CommandConstants commandConstants = new CommandConstants();
         try {
             Command command = commandConstants.get(request.getMethod());
-            return command.run(this, request.getArguments());
+            return command.run(getInstance(), request.getArguments());
         } catch (Exception e) {
             return e.getMessage();
         }
