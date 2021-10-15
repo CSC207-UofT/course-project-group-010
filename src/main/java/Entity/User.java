@@ -2,8 +2,7 @@ package Entity;
 
 public abstract class User {
     private String displayName; //Username
-    private final String ID; //UTemail
-    private int permissionLevel;
+    private String ID; //UTemail
     private int reviewCount; //Number of reviews left by this user
 
     // Student Permission level : 0
@@ -12,7 +11,7 @@ public abstract class User {
 
 
     //Constructors
-    User(String displayName, String ID) {
+    public User(String displayName, String ID) {
 
         this.displayName = displayName;
         this.ID = ID;
@@ -29,30 +28,16 @@ public abstract class User {
 
 
     //Getters
-    /**
-     * @return user's ID.
-     */
-    String getID() {
+    public String getID() {
         return this.ID;
     }
 
-
-    /**
-     * @return user's display name.
-     */
-    String getdisplayName() {
+    public String getdisplayName() {
         return this.displayName;
     }
 
 
-
     //Setters
-    public void setpermissionLevel(int level){
-        if(level >= 0){
-            this.permissionLevel = level;
-        }
-    }
-
     public void setreviewCount(int count){
         if(count >= 0){
             this.reviewCount = count;
