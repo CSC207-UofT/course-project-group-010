@@ -9,9 +9,9 @@ public class RatingTest {
 
     @Test(timeout=100)
     public void testInit() {
-        Rating r = new Rating();
-        r.processRating(50);
-        r.processRating(100);
-        assertEquals(r.getRating(), 75);
+        Rating r = new Rating(new Course("CSC207", "write code"));
+        r.processRating(50, new StudentUser("thelegend27", "noah@gmail.com", "CS"));
+        r.processRating(100,new StudentUser("Ben", "benten@gmail.com", "English"));
+        assertEquals(java.util.Optional.ofNullable(r.getRating()), 75);
     }
 }

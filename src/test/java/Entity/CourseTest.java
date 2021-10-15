@@ -13,6 +13,7 @@ public class CourseTest {
         Course c = new Course("bad course", "MAT237");
         assertEquals(c.getName(), "bad course");
         assertEquals(c.getCode(), "MAT237");
+        assertEquals(c.getDescription(), "There is currently no description available for this course");
     }
 
     @Test(timeout=100)

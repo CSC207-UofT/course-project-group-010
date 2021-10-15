@@ -1,53 +1,54 @@
 package Entity;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Review {
-    private final User writer; //Could also have only the User's ID and not the user object
-    private string content; //Review content
-    private final LocalDate date; //Date of review submission
-    private InstructorUser instructor; //Instrucor for the course this review belongs to
+    private User writer; //Could also have only the User's ID and not the user object
+    private String content; //Review content
+    private LocalDate date; //Date of review submission
+    private List<String> replies; //list containing replies/comment objects (to be implemented later).
 
-    public Review(User writer, String content, LocalDate date, InstructorUser instructor) {
+
+    //Constructors
+
+    public Review(User writer, String content, LocalDate date) {
         this.writer = writer;
         this.content = content;
         this.date = date;
-        this.instructor = instructor;
     }
 
-    void setWriter(User writer) {
-        this.writer = writer;
-    }
+    //Getters
 
     User getWriter() {
         return this.writer;
     }
-
-    void setContent(String content) {
-        this.content = content;
-    }
-
     String getContent() {
         return this.content;
     }
+    public int getYear() {
+        return this.date.getYear();
+    }
 
-    void setdate(LocalDate date) {
+    //Setters
+
+    public void setWriter(User writer) {
+        this.writer = writer;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setdate(LocalDate date) {
         this.date = date;
     }
 
-    int getYear() {
-        return this.year;
-    }
 
-    void setInstructor(InstructorUser instructor) {
-        this.instructor = instructor;
-    }
 
-    InstructorUser getInstructor() {
-        return this.instructor;
-    }
+
     @Override
     public String toString() {
-        return this.content + "\n\n" + "Year : " + this.year;
+        return this.content + "\n\n" + "Year : " + this.date.getYear();
     }
 
 }

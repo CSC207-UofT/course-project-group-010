@@ -1,52 +1,121 @@
 package Entity;
 
-/** My brain meltdown at the end of the meeting. I thought we have created a rule of ratings,
- *  but I can't comprehend now.
- */
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 public class Rating {
-    private int score;
-    private Course course;
-    private User user; // Program of study?? User??
+
+    private Course course; //Course object which this rating is for.
+    private HashMap<String, List<Integer>> scores; //Mapping Program names to list of ratings.
+    private List<StudentUser> users; //Contains list of StudentUser objects who have already provided a rating for this
+    //Course.
 
     /**
      * Map {Philosophy: [2/10, 3/10], CS: [9/10, 10/10]})
-     * I thought I understood what this map thing does, but not now...
      */
 
-    public Rating(int score, Course course, User user) {
-        this.score = score;
+    //Constructors
+    public Rating(Course course) {
         this.course = course;
-        this.user = user;
+        this.scores = new HashMap<String, List<Integer>>(); //Empty hashmap
+        this.users = new ArrayList<StudentUser>(); //Empty list
     }
 
-    @Override
-    public String toString() {
-        return String.format("(Score: %d, Course: %s, User: %s)", this.getScore(),
-                             this.getCourse().name, this.getUser().getDisplayName());
-    }
 
-    int getScore() {
-        return this.score;
-    }
+        //Methods
+        /**
+         * @return a string indicating that the student has successfully left a review iff this student
+         * has not already placed a review for this course rating.
+         * Precondition: Rating object has already set a scores
+         */
+        public String processRating(Integer rating, StudentUser student){
 
-    void setScore(int score) {
-        this.score = score;
-    }
+            if (!users.contains(student)) { //Student hasn't already left a review for this course
+                if (!this.scores.containsKey(student.getProgramDetail())) { //program_name not already in scores hashmap
 
-    Course getCourse() {
-        return this.course;
-    }
+                    this.scores.put(student.getProgramDetail(), new ArrayList<>()); //Make list value at program_name
 
-    void setCourse() {
-        this.course = course;
-    }
+                    this.scores.get(student.getProgramDetail()).add(rating); //Add rating to the list at program_name
 
-    User getUser() {
-        return this.user;
-    }
+                    this.users.add(student); //student can no longer leave another rating for this course
 
-    void setUser() {
-        this.user = user;
-    }
-}
+                    return student.getID() + "\n" + "has successfully rated" + "\n" + this.course.getName() +
+                            rating; //indicate successful addition of rating
+
+                } else { //program_name is already in scores hashmap
+                    this.scores.get(student.getProgramDetail()).add(rating); //add rating to list value at program_name
+                    this.users.add(student); //student can no longer leave another rating for this course
+                    return student.getdisplayName() + "\n" + "has successfully rated" + "\n" + this.course.getName() +
+                            rating;//indicate successful addition of rating
+                }
+            }
+            return student.getID() + "\n" + "has already placed a rating for this course.";
+        }
+
+        //Getters
+
+        public Integer getRating(){
+            List<List<Integer>> values = new ArrayList<>(this.scores.values());
+            int to_return;
+            to_return = 0;
+
+            for (List<Integer> l : values) {
+                int sum;
+                sum = 0;
+                for (int i : l){
+                    sum = sum + i;
+                }
+                to_return += sum;
+
+
+            }
+            return to_return;
+        }
+
+
+        //return the course this rating is for.
+        Course getCourse(){
+            return this.course;
+        }
+
+        //return the hashmap mapping program names and their score for the course.
+        HashMap<String, List<Integer>> getScores(){
+            return this.scores;
+        }
+
+        //return the list of all users who have left a rating for this course.
+        List<StudentUser> getUser(){
+            return this.users;
+        }
+
+
+        //Setters
+
+        public void setUsers (List < StudentUser > u) {
+            this.users = u;
+        }
+
+        public void setScores (HashMap<String, List<Integer>>s){
+            this.scores = s;
+        }
+
+        public void setCourse (Course c){
+            this.course = c;
+        }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,37 +1,34 @@
 package Entity;
 
 public abstract class User {
-    private final String displayName; //Username
+    private String displayName; //Username
     private final String ID; //UTemail
+    private int permissionLevel;
+    private int reviewCount; //Number of reviews left by this user
 
     // Student Permission level : 0
     // TA Permissionlevel : 1
     // Instructor Permission level : 2
-    int permissionLevel;
-    int reviewCount;
 
-    // TODO: maybe password also can be here. If we don't care about security things.
 
+    //Constructors
     User(String displayName, String ID) {
-        // This can be absolutely changeable
+
         this.displayName = displayName;
         this.ID = ID;
     }
 
-    /**
-     * @return user's profile.
-     */
-    String getProfile() {
-        // TODO: implement getProfile
-        return this.getDisplayName() + "\n" + this.getID();
-    }
 
+    /**
+     * @return string representation of this User; "Nima nima@gmail.com"
+     */
     @Override
     public String toString() {
-        // Same as getProfile for now
-        return this.getDisplayName() + "\n" + this.getID();
+        return this.getdisplayName() + "\n" + this.getID();
     }
 
+
+    //Getters
     /**
      * @return user's ID.
      */
@@ -39,10 +36,33 @@ public abstract class User {
         return this.ID;
     }
 
+
     /**
      * @return user's display name.
      */
-    String getDisplayName() {
+    String getdisplayName() {
         return this.displayName;
     }
+
+
+
+    //Setters
+    public void setpermissionLevel(int level){
+        if(level >= 0){
+            this.permissionLevel = level;
+        }
+    }
+
+    public void setreviewCount(int count){
+        if(count >= 0){
+            this.reviewCount = count;
+        }
+    }
+
+    public void setDisplayName(String s){
+        if (s.length() < 25){
+            this.displayName = s;
+        }
+    }
+
 }
