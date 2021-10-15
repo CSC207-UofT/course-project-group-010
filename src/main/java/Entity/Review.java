@@ -9,28 +9,35 @@ public class Review {
     private List<String> replies; //list containing replies/comment objects (to be implemented later).
 
 
-    //Constructors
 
+
+    //Constructors
     public Review(User writer, String content, LocalDate date) {
         this.writer = writer;
         this.content = content;
         this.date = date;
     }
 
-    //Getters
 
-    User getWriter() {
+
+
+    //Getters
+    public User getWriter() {
         return this.writer;
     }
-    String getContent() {
+
+    public String getContent() {
         return this.content;
     }
+
     public int getYear() {
         return this.date.getYear();
     }
 
-    //Setters
 
+
+
+    //Setters
     public void setWriter(User writer) {
         this.writer = writer;
     }
@@ -41,14 +48,6 @@ public class Review {
 
     public void setdate(LocalDate date) {
         this.date = date;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return this.content + "\n\n" + "Year : " + this.date.getYear();
     }
 
 }
