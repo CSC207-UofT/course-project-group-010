@@ -26,11 +26,11 @@ public class StudentUser extends User {
 
     //Getters
 
-    String getProgramDetail() {
+    public String getProgramDetail() {
         return this.programDetail;
     }
 
-    HashMap<Integer, List<Course>> getCourses(){
+    public HashMap<Integer, List<Course>> getCourses(){
         return this.courses;}
 
     //Setters

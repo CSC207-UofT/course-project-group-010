@@ -32,7 +32,7 @@ public abstract class User {
     /**
      * @return user's ID.
      */
-    String getID() {
+    public String getID() {
         return this.ID;
     }
 
@@ -40,8 +40,16 @@ public abstract class User {
     /**
      * @return user's display name.
      */
-    String getdisplayName() {
+    public String getdisplayName() {
         return this.displayName;
+    }
+
+
+    /**
+     * @return user's permission level.
+     */
+    public int getPermissionLevel() {
+        return this.permissionLevel;
     }
 
 

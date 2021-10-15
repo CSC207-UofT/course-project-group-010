@@ -26,14 +26,14 @@ public class InstructorUser extends User {
 
     //Getters
 
-    String getPosition() {
+    public String getPosition() {
         return this.position;
     }
-    List<Course> getCurrentlyTeaching() {
+    public List<Course> getCurrentlyTeaching() {
         return this.currentlyTeaching;
     }
 
-    HashMap<Integer, List<Course>> getCourses() {
+    public HashMap<Integer, List<Course>> getCourses() {
         return this.courses;
     }
 
