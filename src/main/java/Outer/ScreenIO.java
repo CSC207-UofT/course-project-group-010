@@ -21,7 +21,7 @@ public class ScreenIO {
 
         // TODO change the condition
         while(true) {
-            System.out.print("> ");
+            System.out.print(">> ");
             String commandLine = in.nextLine();
             try {
                 CommandRequest request = new CommandRequest(commandLine);
