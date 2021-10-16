@@ -26,7 +26,17 @@ CRC model is illustratred in a diagram called CRC.jpg, also in the same director
 
 ## Scenario Walkthrough - walkthrough.md
 
-Basic scenario walkthrough. Feel free to check it out!
+Basic scenario walkthrough.
+
+The scenario is: a user tries to login, view a page, then leave a rating on the page.
+
+It shows what classes would handle what responsibilities when these actions are taken. Also, to demonstrate how this works in the actual code, you can run the program and enter the following commands:
+
+> login 12345
+> checkout MAT137
+> print
+> rate 5
+> print
 
 ## Skeleton Program
 
