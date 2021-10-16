@@ -1,5 +1,6 @@
 All child classes/implementations of interfaces must implement abstract methods.
 Will not be listed in the CRC card.
+We will break classes with lots of responsibilities into helper classes later.
 
 ## Entity Classes
 Basic entity data
@@ -128,9 +129,8 @@ command that all communicates with this class.
 |CommandExecutor||
 |:-------------|:--|
 |Responsibilities|Collaborators|
-|process Request|Interacts w\ Agent, all Managers|
-|checkout Page||
-|login||
+|processes Requests eg. login, checkout page, leave rating|Interacts w\ Agent, all Managers|
+|stores state of the shell: current user/current page that is being viewed(if any)|Fetches data from the Database classes|
 |getInstance||
 
 |Database<T>|Abstract|

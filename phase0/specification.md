@@ -8,9 +8,8 @@
 - This application will have a command line interface, where users can enter text commands and get back text responses.
 
 # Features we considered(and may implement later)
-- Materials page(for posting syllabus, etc.)
 - Review page with text reviews, comments and ratings given by students
-- Comments will be shown as threads, like on Reddit. Each comment will have a tree structure, with replies.
+- Comments will be shown as threads, like on Reddit. Each comment will have replies. Users can leave replies or upvote comments.
 - Users can attempt to comment on a thread, or leave a review on a course
 - Users can change their profile information, such as their program of study.
 - Relative ratings - student ratings will be partitioned based on program, and average ratings for each program will be displayed on course pages.

@@ -13,6 +13,7 @@ public class CommandConstants {
             new Hashtable<String, Command>();
 
     public CommandConstants () {
+        command_dict.put("help", new HelpCommand());
         command_dict.put("login", new LoginCommand());
         command_dict.put("print", new PrintCommand());
         command_dict.put("checkout", new CheckoutCommand());

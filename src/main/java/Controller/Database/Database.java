@@ -7,17 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Database<T extends IDBSaveable> {
-    HashMap<String, List> userdata = new HashMap<String,List>();
 
     /**
      * Looks for an entry in the database the has the id [id]
-     * Then initializes a new T object and returns it.
+     * Returns a map of the data it found, returns null if no data was found.
      * @param id
      * @return
      */
-    // TODO update data type of arguments if necessary, I'm thinking it should be an id or something
+    // TODO update data type of arguments if necessary, Maybe it'll just be map<String, object>
     // because then it'll be like name: "kevin", "id": 1234 for example
-    abstract public T getEntry(String id);
+    abstract public Map<String, String> getEntry(String id);
 
     /**
      * sets an entry in the database, returning True if something was updated.

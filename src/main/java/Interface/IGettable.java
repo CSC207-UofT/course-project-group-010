@@ -9,5 +9,5 @@ public interface IGettable {
      * give up data to the course page for display
      */
 
-    HashMap<String, Object> getData(User user) throws IllegalArgumentException;
+    HashMap<String, Object> getData() throws IllegalArgumentException;
 }

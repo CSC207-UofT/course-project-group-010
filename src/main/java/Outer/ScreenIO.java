@@ -12,7 +12,8 @@ public class ScreenIO {
     /**
      * This is a CLI that prompts the user and prints the output.
      * Idea is basically stolen from Java-Shell, but this is academically integrit
-     * I swear.
+     * I swear
+     * because it literally just takes input in a loop.
      * @param args
      */
     public static void main(String[] args) {

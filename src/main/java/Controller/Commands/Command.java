@@ -1,6 +1,7 @@
 package Controller.Commands;
 
 import Controller.Commands.CommandExceptions.ArgumentException;
+import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
 
 import java.util.List;
 
@@ -49,6 +50,12 @@ public abstract class Command {
     protected void checkArgumentsNum(List<String> arguments) throws ArgumentException {
         if (arguments.size() > maxArguments || arguments.size() < minArguments) {
             throw new ArgumentException();
+        }
+    }
+
+    protected void checkUserExists(CommandExecutor ce) throws CommandNotAuthorizedException {
+        if (ce.getUserManager() == null) {
+            throw new CommandNotAuthorizedException("Not logged in.");
         }
     }
 }
