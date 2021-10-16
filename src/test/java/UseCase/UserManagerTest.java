@@ -1,13 +1,13 @@
-package UseCase;
-
-import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserManagerTest {
-
-    // TODO New implementation of UserManager, check then change tests
-    // or explain how to implement into commandExecutor.
+//package UseCase;
+//
+//import org.junit.Test;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//
+//class UserManagerTest {
+//
+//    // TODO New implementation of UserManager, check then change tests
+//    // or explain how to implement into commandExecutor.
 //    @Test(timeout = 100)
 //    public void testUserManager() {
 //        UserManager userManager = new UserManager();
@@ -27,4 +27,4 @@ class UserManagerTest {
 //        userManager.userSetDisplayName(s1, "Changed");
 //        assertEquals("Changed", s1.getdisplayName());
 //    }
-}
+//}
