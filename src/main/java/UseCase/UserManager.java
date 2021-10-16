@@ -71,9 +71,9 @@ public class UserManager implements IGettable, IDBSaveable {
      * @param user instance of a user.
      * @param level permission level.
      */
-    public void userSetPermissionLevel(User user, int level){
-        user.setpermissionLevel(level);
-    }
+//    public void userSetPermissionLevel(User user, int level){
+//        user.setpermissionLevel(level);
+//    }
 
     /** Set review count of a given user.
      *
