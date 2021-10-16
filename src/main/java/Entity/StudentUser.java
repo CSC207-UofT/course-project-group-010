@@ -19,19 +19,22 @@ public class StudentUser extends User {
         super(displayName, ID);
         this.programDetail = programDetail;
         this.courses = new HashMap<Integer, List<Course>>();
-        this.setpermissionLevel(0);
     }
 
-    //Necessary Actions
+
+
 
     //Getters
-
     public String getProgramDetail() {
         return this.programDetail;
     }
 
     public HashMap<Integer, List<Course>> getCourses(){
-        return this.courses;}
+        return this.courses;
+    }
+
+
+
 
     //Setters
 
