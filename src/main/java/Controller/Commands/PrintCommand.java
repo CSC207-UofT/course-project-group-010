@@ -1,9 +1,11 @@
 package Controller.Commands;
 
 import Controller.Commands.CommandExceptions.ArgumentException;
+import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
 import Interface.IGettable;
 
 import java.util.List;
+import java.util.Map;
 
 public class PrintCommand extends Command{
     /**
@@ -18,8 +20,13 @@ public class PrintCommand extends Command{
         this.checkArgumentsNum(arguments);
         IGettable currentlyViewingPage = ce.getPageManager();
         if (currentlyViewingPage != null) {
-            // TODO call its IGettable method to get the string and return it
+            Map<String, Object> dataMap = currentlyViewingPage.getData();
+            String returnString = "";
+            for (String o : dataMap.keySet()) {
+                returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
+            }
+            return returnString;
         }
-        return "you ran the print command!";
+        return "print command failed :(";
     }
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseManagerTest {
+    // Redo test to compensate for changes.
     @Test(timeout=100)
     public void testCourseManager(){
         Course sampleCourse = new Course("Sample Course", "SC100");

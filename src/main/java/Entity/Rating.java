@@ -1,6 +1,8 @@
 package Entity;
 
 
+import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,7 +33,7 @@ public class Rating {
          * has not already placed a review for this course rating.
          * Precondition: Rating object has already set a scores
          */
-        public String processRating(Integer rating, StudentUser student){
+        public String processRating(Integer rating, StudentUser student) throws CommandNotAuthorizedException {
 
             if (!users.contains(student)) { //Student hasn't already left a review for this course
                 if (!this.scores.containsKey(student.getProgramDetail())) { //program_name not already in scores hashmap
@@ -52,7 +54,9 @@ public class Rating {
                             rating;//indicate successful addition of rating
                 }
             }
-            return student.getID() + "\n" + "has already placed a rating for this course.";
+            // This line is bad, this string will never see the light of day
+            // return student.getID() + "\n" + "has already placed a rating for this course.";
+            throw new CommandNotAuthorizedException(student.getID() + " has already placed a rating for this course.");
         }
 
         //Getters
@@ -106,8 +110,12 @@ public class Rating {
             this.course = c;
         }
 
-
+        @Override
+        public String toString() {
+            return getRating().toString();
         }
+
+}
 
 
 

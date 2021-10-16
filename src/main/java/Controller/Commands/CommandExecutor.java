@@ -4,7 +4,7 @@ import Constants.CommandConstants;
 import Controller.Commands.CommandExceptions.ArgumentException;
 import Controller.Commands.CommandExceptions.CommandNotFoundException;
 import Interface.IGettable;
-import UseCase.UserManager.UserManager;
+import UseCase.UserManager;
 
 /**
  * CommandExecutor will hold the necessary information for executing a command, such as

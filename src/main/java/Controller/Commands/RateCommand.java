@@ -1,5 +1,7 @@
 package Controller.Commands;
 
+import UseCase.CourseManager.CourseManager;
+
 import java.util.List;
 
 /**
@@ -17,14 +19,25 @@ public class RateCommand extends Command{
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkArgumentsNum(arguments);
+        checkUserExists(ce);
         if (arguments.get(0) == "rm") {
-            // implement this
+            // TODO implement this
+            return "Removing rating is not implemented yet";
         } else {
             // remember to try catch
             // get the auth helper to handle rating. If a page can't be rated anyways it will say no
             // TODO make authhelper throw the notauthorizedexception so then it's not possible to move forward in this code.
-
             // if it's possible then we'll rate it by calling the right function.
+            // TODO change this, make a new interface or something to deal with this
+            if (ce.getUserManager() != null &&
+                    ce.getPageManager() instanceof CourseManager) {
+                ((CourseManager) ce.getPageManager()).updateRating(Integer.parseInt(arguments.get(0)),
+                        ce.getUserManager());
+                // TODO add getters for these things on CourseManager
+                // I can't get the rating for the course without either accessing the entire getData() map
+                // or accessing the entity object that is inside CourseManager
+                return "Rated " + ((CourseManager) ce.getPageManager()).getID();
+            }
         }
         return "method not implemented yet";
     }

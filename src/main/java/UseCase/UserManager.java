@@ -1,22 +1,44 @@
 package UseCase;
 
 import Entity.*;
+import Interface.IDBSaveable;
 import Interface.IGettable;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class UserManager implements IGettable {
+/**
+ * Description : Responsible for reading information from user objects
+ *     Create the user object within UserManager
+ *
+ *     Responsibilities:
+ *     (initializes with a userData object)
+ *     Getters for student attributes
+ *     Give up its info to a presenter
+ *     Implement interfaces
+ */
+public class UserManager implements IGettable, IDBSaveable {
+    private User user;
+
     /**
-     * Description : Responsible for reading information from user objects
-     *     Create the user object within UserManager
-     *
-     *     Responsibilities:
-     *     (initializes with a userData object)
-     *     Getters for student attributes
-     *     Give up its info to a presenter
-     *     Implement interfaces
+     * Initializes a new UserManager.
+     * UserManager works on use cases for a user object,
+     * so it will initialize with a student object
      */
+    // TODO add a dictionary for the other data, would make life easier
+    // TODO add a constants class for types of users, throw error if thing not in that package
+    public UserManager(String type, String displayName, String ID, String otherData) {
+        if (type == "instructor") {
+            user = createInstructorUser(displayName, ID, otherData);
+        } else {
+            user = createStudentUser(displayName, ID, otherData);
+        }
+        // When amount of data increases, would be good if otherData was always just a
+        // map with all the other data
+        // then no matter what I can ccall create[type]User(displayName, ID, otherData);
+        // and it would mean the same thing.
+    }
 
 
     // Constructs users.
@@ -124,14 +146,14 @@ public class UserManager implements IGettable {
 
 
 
+
     /** Return the information about the user.
      *
-     * @param user User that we want data from.
      * @return HashMap of <key, information> of user.
      * @throws IllegalArgumentException
      */
     @Override
-    public HashMap<String, Object> getData(User user) throws IllegalArgumentException {
+    public HashMap<String, Object> getData() throws IllegalArgumentException {
         // Create a HashMap
         HashMap<String, Object> result = new HashMap<String, Object>();
         // Input all general information of user
@@ -158,4 +180,28 @@ public class UserManager implements IGettable {
         return result;
     }
 
+    /**
+     * gives data to the Database input
+     * @return a map of its data
+     */
+    @Override
+    public Map<String, Object> giveDataToDatabase() {
+        return getData();
+    }
+
+    /**
+     * gets id
+     * @return the id
+     */
+    @Override
+    public String getID() {
+        return user.getID();
+    }
+
+    /**
+     * getter for the user.
+     */
+    public User getUser() {
+        return user;
+    }
 }

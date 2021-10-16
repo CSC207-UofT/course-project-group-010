@@ -29,21 +29,21 @@ public class Course {
     /**
      * @return course's name.
      */
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
     /**
      * @return course code.
      */
-    String getCode() {
+    public String getCode() {
         return this.code;
     }
 
     /**
      * @return course's description.
      */
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 

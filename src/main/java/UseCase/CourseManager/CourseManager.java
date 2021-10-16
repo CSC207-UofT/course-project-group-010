@@ -1,23 +1,30 @@
 package UseCase.CourseManager;
 
+import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
+import Entity.User;
+import Interface.IDBSaveable;
+import Interface.IGettable;
 import UseCase.CoursePage.CoursePage;
+import UseCase.UserManager;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class CourseManager {
+public class CourseManager implements IGettable, IDBSaveable {
     private CoursePage coursePage;
 
     public CourseManager(CoursePage coursePage){
         this.coursePage = coursePage;
     }
 
-    public void updateRating(int ratingNum, StudentUser student){
+    public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
+        // TODO check if rating is in the allowed range?
         Rating ratingToProcess = this.coursePage.getRating();
-        ratingToProcess.processRating(ratingNum, student);
+        // TODO this is bad casting, will only work for demo of skeleton.
+        ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
         this.coursePage.setRating(ratingToProcess);
     }
 
@@ -61,5 +68,14 @@ public class CourseManager {
         return infoMap;
     }
 
+    // IDBSAVEABLE methods
+    @Override
+    public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
+        return getData();
+    }
 
+    @Override
+    public String getID() {
+        return coursePage.getCourse().getCode();
+    }
 }

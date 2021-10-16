@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+// TODO look at Commands.CheckoutCommand. The constructor for this is way to complex. Not going to work.
+// also the constructor forces any class that constructs this to access entity classes, which is bad.
 public class CoursePage {
     private Course course; // course object
     private Rating rating; // rating object
