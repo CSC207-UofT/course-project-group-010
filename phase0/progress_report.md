@@ -51,6 +51,9 @@ Update: we hardcoded data into our program. This will be where future sample dat
 src/test/java is where our tests are stored
 
 ### Running the program:
+- If it can't run after cloning, try "new project from VCS" in the IntelliJ editor.
+  - github desktop cloning seems to encounter issues with problems
+  - main method is in src/main/java/Outer/ScreenIO.
 - the enter "help" to get help.
 - login 12345 and checkout MAT137 are the only valid login and checkout cases for now.
   - courses and users are currently hardcoded.
