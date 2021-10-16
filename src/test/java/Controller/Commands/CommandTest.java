@@ -27,13 +27,4 @@ public class CommandTest {
         CommandRequest request = new CommandRequest("print asdf agaj fklaj");
         assertEquals(ce.processRequest(request), "Invalid number of Arguments");
     }
-
-    /**
-     * Will quickly fail as we update the print command.
-     */
-    @Test(timeout = 100)
-    public void testRunCommand() {
-        CommandRequest request = new CommandRequest("print");
-        assertEquals(ce.processRequest(request), "you ran the print command!");
-    }
 }
