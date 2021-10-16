@@ -39,6 +39,12 @@ public class RateCommand extends Command{
                 return "Rated " + ((CourseManager) ce.getPageManager()).getID();
             }
         }
-        return "method not implemented yet";
+        return "Unable to rate.";
+    }
+
+    @Override
+    public String help() {
+        return "Rates a course, must be viewing a course to use. Format \"rate [1-10]\"\n currently we don't " +
+                "check if your rating is between 1-10.";
     }
 }

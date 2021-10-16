@@ -22,7 +22,7 @@ public class LoginCommand extends Command{
 
     @Override
     public String help() {
-        String s = "Format: login [utorid]";
+        String s = "Attempts login. Format: login [utorid]\n Format: \"login 12345\"";
         return s;
     }
 

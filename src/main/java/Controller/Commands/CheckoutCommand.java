@@ -61,4 +61,9 @@ public class CheckoutCommand extends Command{
         // set the pageManager to this manager if the action was allowed.
         return "couldn't view page";
     }
+
+    @Override
+    public String help() {
+        return "checks out a page. eg. checkout MAT137";
+    }
 }

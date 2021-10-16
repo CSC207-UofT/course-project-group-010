@@ -29,4 +29,9 @@ public class PrintCommand extends Command{
         }
         return "print command failed :(";
     }
+
+    @Override
+    public String help() {
+        return "Prints a course's info. Must be viewing a course to use. format: \"print\"";
+    }
 }
