@@ -1,4 +1,4 @@
-package UseCase;
+package Controller;
 
 import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
 import Entity.User;
