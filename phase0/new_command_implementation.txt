@@ -1,0 +1,7 @@
+This is just a text file of how a new command is implemented
+
+- CommandName extends Command
+- Call super in the constructor with min/max arguments
+- Implement run method and maybe help method
+- make sure run method runs the checkArguments() method before doing anything
+- add to commandConstants
