@@ -10,8 +10,9 @@ public class UserDatabase extends Database {
 
     public Map<String, String> getEntry(String id) {
         if (id.equals("12345"){
-            return ("12345","Kevin_Hart")
-
+            Map<String, String> newuser = new HashMap<>();
+            newuser.put("12345","Kevin_Hart");
+            return newuser;
         }
     }
 /*        if (userdata.containsKey(id)) {
