@@ -2,9 +2,12 @@ package Controller.Database;
 
 import Interface.IDBSaveable;
 
+import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Database<T extends IDBSaveable> {
+    HashMap<String, List> userdata = new HashMap<String,List>();
 
     /**
      * Looks for an entry in the database the has the id [id]
