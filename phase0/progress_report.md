@@ -22,7 +22,11 @@ The CRC model for our program approximately follows a clean architecture structu
   - Database classes will probably be gateways to external databases(like SQL) in the future.
 - ScreenIO is our only outer layer class. It will take text input from the user and call the appropriate functions.
 
+CRC model is illustratred in a diagram called CRC.jpg, also in the same directory. You will have to rightclick > open image in new tab to see the full image.
+
 ## Scenario Walkthrough - walkthrough.md
+
+Basic scenario walkthrough. Feel free to check it out!
 
 ## Skeleton Program
 
@@ -32,6 +36,7 @@ We have packages corresponding to each layer, with additional packages to group 
 They are in the src/main/java folder
 
 src/main/data is some sample data that allows the program to run
+Update: we hardcoded data into our program. This will be where future sample data goes.
 
 src/test/java is where our tests are stored
 
