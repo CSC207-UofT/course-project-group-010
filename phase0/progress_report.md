@@ -22,7 +22,21 @@ The CRC model for our program approximately follows a clean architecture structu
   - Database classes will probably be gateways to external databases(like SQL) in the future.
 - ScreenIO is our only outer layer class. It will take text input from the user and call the appropriate functions.
 
+CRC model is illustratred in a diagram called CRC.jpg, also in the same directory. You will have to rightclick > open image in new tab to see the full image.
+
 ## Scenario Walkthrough - walkthrough.md
+
+Basic scenario walkthrough.
+
+The scenario is: a user tries to login, view a page, then leave a rating on the page.
+
+It shows what classes would handle what responsibilities when these actions are taken. Also, to demonstrate how this works in the actual code, you can run the program and enter the following commands:
+
+> login 12345
+> checkout MAT137
+> print
+> rate 5
+> print
 
 ## Skeleton Program
 
@@ -32,10 +46,14 @@ We have packages corresponding to each layer, with additional packages to group 
 They are in the src/main/java folder
 
 src/main/data is some sample data that allows the program to run
+Update: we hardcoded data into our program. This will be where future sample data goes.
 
 src/test/java is where our tests are stored
 
 ### Running the program:
+- If it can't run after cloning, try "new project from VCS" in the IntelliJ editor.
+  - github desktop cloning seems to encounter issues with problems
+  - main method is in src/main/java/Outer/ScreenIO.
 - the enter "help" to get help.
 - login 12345 and checkout MAT137 are the only valid login and checkout cases for now.
   - courses and users are currently hardcoded.
