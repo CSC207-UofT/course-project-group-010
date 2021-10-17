@@ -14,8 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CourseManager implements IGettable, IDBSaveable {
+
     private CoursePage coursePage;
 
+    // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
+    // CoursePage only contains getters anyways...
     public CourseManager(CoursePage coursePage){
         this.coursePage = coursePage;
     }
