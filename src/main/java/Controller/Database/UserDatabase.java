@@ -13,15 +13,11 @@ import java.util.Map;
  */
 public class UserDatabase extends Database<UserManager> {
 
-    public Map<String, String> getEntry(String id) {
+    public UserManager getEntry(String id) {
+        // TODO create student/prof constants
         if (id.equals("12345")) {
-            Map<String, String> newuser = new HashMap<>();
-            newuser.put("type", "student");
-            newuser.put("id","12345");
-            newuser.put("name", "Kevin Hart");
-            // change this to an otherdata map that stores other data
-            newuser.put("other", "");
-            return newuser;
+            return new UserManager("student", "Kevin", "12345",
+                    Map.ofEntries(Map.entry("programDetail", "Data Science Specialist")));
         }
         return null;
     }

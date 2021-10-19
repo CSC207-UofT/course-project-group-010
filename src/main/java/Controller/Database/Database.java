@@ -6,6 +6,13 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A Gateway to a database, like an SQL database.
+ * Will be responsible for returning an object of type T from the database,
+ * and saving an object of type T to the database.
+ * Currently, most things will just be hard-coded as we don't actually have a database.
+ * @param <T>
+ */
 public abstract class Database<T extends IDBSaveable> {
 
     /**
@@ -14,9 +21,7 @@ public abstract class Database<T extends IDBSaveable> {
      * @param id
      * @return
      */
-    // TODO update data type of arguments if necessary, Maybe it'll just be map<String, object>
-    // because then it'll be like name: "kevin", "id": 1234 for example
-    abstract public Map<String, String> getEntry(String id);
+    abstract public T getEntry(String id);
 
     /**
      * sets an entry in the database, returning True if something was updated.

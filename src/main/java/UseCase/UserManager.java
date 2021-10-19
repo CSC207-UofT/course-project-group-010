@@ -28,7 +28,7 @@ public class UserManager implements IGettable, IDBSaveable {
      */
     // TODO add a dictionary for the other data, would make life easier
     // TODO add a constants class for types of users, throw error if thing not in that package
-    public UserManager(String type, String displayName, String ID, String otherData) {
+    public UserManager(String type, String displayName, String ID, Map<String, String> otherData) {
         if (type == "instructor") {
             user = createInstructorUser(displayName, ID, otherData);
         } else {
@@ -42,26 +42,27 @@ public class UserManager implements IGettable, IDBSaveable {
 
 
     // Constructs users.
+    // TODO consider changing User so that the map otherData is just an attribute of the user.
     /** Create an instance of StudentUser.
      *
      * @param displayName display name of StudentUser.
      * @param ID id of user.
-     * @param programDetail program details of StudentUser.
+     * @param otherData other data.
      * @return created user.
      */
-    public StudentUser createStudentUser(String displayName, String ID, String programDetail) {
-        return new StudentUser(displayName, ID, programDetail);
+    public StudentUser createStudentUser(String displayName, String ID, Map<String, String> otherData) {
+        return new StudentUser(displayName, ID, otherData);
     }
 
     /** Create an instance of InstructorUser.
      *
      * @param displayName display name of InstructorUser.
      * @param ID id of user.
-     * @param position position of InstructorUser.
+     * @param otherData other data.
      * @return
      */
-    public InstructorUser createInstructorUser(String displayName, String ID, String position) {
-        return new InstructorUser(displayName, ID, position);
+    public InstructorUser createInstructorUser(String displayName, String ID, Map<String, String> otherData) {
+        return new InstructorUser(displayName, ID, otherData);
     }
 
     // Modify User information

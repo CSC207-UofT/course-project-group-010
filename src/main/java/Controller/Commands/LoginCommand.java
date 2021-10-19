@@ -44,19 +44,16 @@ public class LoginCommand extends Command{
         }
         // TODO check utorid in database, get data and initialize the usermanager if needed
         UserDatabase userDB = new UserDatabase();
-        Map<String, String> userMap = userDB.getEntry(id);
 
         // Loads the user. This code is very dependent on the database, but it'll change in the future.
         // If userMap is not null, then we assume a user was returned with the appropriate fields.
-        if (userMap != null) {
+        try {
             // TODO we're assuming usermap will contain these, ensure it contains these later.
-            UserManager mgr = new UserManager(userMap.get("type"),
-                    userMap.get("name"),
-                    userMap.get("id"),
-                    userMap.get("other"));
+            UserManager mgr = userDB.getEntry(id);
             ce.addUserManager(mgr);
             return "Logged in as " + mgr.getID();
+        } catch (Exception e) {
+            return e.getMessage();
         }
-        return "Couldn't login as " + id;
     }
 }

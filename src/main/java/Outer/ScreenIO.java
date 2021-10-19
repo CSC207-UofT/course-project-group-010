@@ -19,11 +19,12 @@ public class ScreenIO {
     public static void main(String[] args) {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();
         Scanner in = new Scanner(System.in);
-
-        // TODO change the condition
-        while(true) {
-            System.out.print(">> ");
-            String commandLine = in.nextLine();
+        String commandLine = "";
+        // TODO consider a better way to implement then this possibly
+        System.out.println("type \"end\" to end program.");
+        while(!commandLine.equals("end")) {
+            System.out.print("$ ");
+            commandLine = in.nextLine();
             try {
                 CommandRequest request = new CommandRequest(commandLine);
                 String output = commandExecutor.processRequest(request);
