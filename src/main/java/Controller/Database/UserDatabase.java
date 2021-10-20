@@ -1,5 +1,6 @@
 package Controller.Database;
 
+import Exceptions.NotInDatabaseException;
 import Interface.IDBSaveable;
 import UseCase.UserManager;
 
@@ -19,7 +20,7 @@ public class UserDatabase extends Database<UserManager> {
             return new UserManager("student", "Kevin", "12345",
                     Map.ofEntries(Map.entry("programDetail", "Data Science Specialist")));
         }
-        return null;
+        throw new NotInDatabaseException("User not found in Database.");
     }
 /*        if (userdata.containsKey(id)) {
             HashMap<String, List> newuser = new HashMap<String, List>();
