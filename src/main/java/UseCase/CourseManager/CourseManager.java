@@ -1,10 +1,9 @@
 package UseCase.CourseManager;
 
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
-import Entity.User;
 import Interface.IDBSaveable;
 import Interface.IGettable;
 import UseCase.CoursePage.CoursePage;

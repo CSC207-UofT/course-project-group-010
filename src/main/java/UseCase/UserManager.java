@@ -1,5 +1,6 @@
 package UseCase;
 
+import Constants.UserTypeConstants;
 import Entity.*;
 import Interface.IDBSaveable;
 import Interface.IGettable;
@@ -26,13 +27,15 @@ public class UserManager implements IGettable, IDBSaveable {
      * UserManager works on use cases for a user object,
      * so it will initialize with a student object
      */
-    // TODO add a dictionary for the other data, would make life easier
     // TODO add a constants class for types of users, throw error if thing not in that package
-    public UserManager(String type, String displayName, String ID, Map<String, String> otherData) {
-        if (type == "instructor") {
+    public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
+        UserTypeConstants userTypes = new UserTypeConstants();
+        if (type == userTypes.INSTRUCTOR) {
             user = createInstructorUser(displayName, ID, otherData);
-        } else {
+        } else if (type == userTypes.STUDENT) {
             user = createStudentUser(displayName, ID, otherData);
+        } else {
+            throw new Exception("Couldn't initialize user");
         }
         // When amount of data increases, would be good if otherData was always just a
         // map with all the other data

@@ -21,7 +21,7 @@ public abstract class Database<T extends IDBSaveable> {
      * @param id
      * @return
      */
-    abstract public T getEntry(String id);
+    abstract public T getEntry(String id) throws Exception;
 
     /**
      * sets an entry in the database, returning True if something was updated.

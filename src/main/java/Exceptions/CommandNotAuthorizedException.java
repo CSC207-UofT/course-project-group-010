@@ -1,4 +1,4 @@
-package Controller.Commands.CommandExceptions;
+package Exceptions;
 
 public class CommandNotAuthorizedException extends Exception{
 

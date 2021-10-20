@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class UserDatabase extends Database<UserManager> {
 
-    public UserManager getEntry(String id) {
+    public UserManager getEntry(String id) throws Exception {
         // TODO create student/prof constants
         if (id.equals("12345")) {
             return new UserManager("student", "Kevin", "12345",

@@ -1,11 +1,10 @@
 package Controller.Commands;
 
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 import Controller.Database.UserDatabase;
 import UseCase.UserManager;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Login command.
