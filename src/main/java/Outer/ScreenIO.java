@@ -1,8 +1,14 @@
 package Outer;
 
+import Constants.FileConstants;
 import Controller.Commands.CommandExecutor;
 import Controller.Commands.CommandRequest;
+import Outer.Database.Database;
+import Outer.Database.DatabaseGetter.UserDatabaseGetter;
+import UseCase.UserManager;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ScreenIO {
@@ -16,8 +22,9 @@ public class ScreenIO {
      * because it literally just takes input in a loop.
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();
+        loadSampleData();
         Scanner in = new Scanner(System.in);
         String commandLine = "";
         // TODO consider a better way to implement then this possibly
@@ -36,5 +43,21 @@ public class ScreenIO {
             }
         }
         //in.close();
+    }
+
+    /**
+     * Bad sample data loading function
+     * @throws Exception
+     */
+    public static void loadSampleData() throws Exception {
+        UserManager um = new UserManager("student", "Kevin Wang", "12345",
+                Map.ofEntries(Map.entry("programDetail", "Data Science Specialist")));
+        UserManager um2 = new UserManager("instructor", "Asif Zaman", "237", null);
+        Database<UserManager> db = new Database<>();
+        Map<String, UserManager> map = new HashMap<>();
+        map.put(um.getID(), um);
+        map.put(um2.getID(), um2);
+        db.saveToFile(new FileConstants().USER_FILE, map);
+        // When courses come out we can load some sample course data too.
     }
 }

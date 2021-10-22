@@ -1,8 +1,9 @@
 package Entity;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String displayName; //Username
     private String ID; //UTemail
     private Map<String, String> otherData;

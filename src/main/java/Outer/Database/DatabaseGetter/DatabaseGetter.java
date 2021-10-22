@@ -1,10 +1,10 @@
-package Controller.Database;
+package Outer.Database.DatabaseGetter;
 
 import Interface.IDBSaveable;
+import Outer.Database.Database;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * A Gateway to a database, like an SQL database.
@@ -13,7 +13,7 @@ import java.util.Map;
  * Currently, most things will just be hard-coded as we don't actually have a database.
  * @param <T>
  */
-public abstract class Database<T extends IDBSaveable> {
+public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
 
     /**
      * Looks for an entry in the database the has the id [id]
@@ -30,7 +30,7 @@ public abstract class Database<T extends IDBSaveable> {
      * @param entry
      * @return
      */
-    abstract public boolean setEntry(T entry);
+    abstract public void setEntry(T entry) throws IOException, ClassNotFoundException;
 
     /*
     Quick explanation of databases:

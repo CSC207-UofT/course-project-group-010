@@ -1,7 +1,7 @@
 package Controller.Commands;
 
 import Exceptions.CommandNotAuthorizedException;
-import Controller.Database.UserDatabase;
+import Outer.Database.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class LoginCommand extends Command{
             throw new CommandNotAuthorizedException("Already logged in.");
         }
         // TODO check utorid in database, get data and initialize the usermanager if needed
-        UserDatabase userDB = new UserDatabase();
+        UserDatabaseGetter userDB = new UserDatabaseGetter();
 
         // Loads the user. This code is very dependent on the database, but it'll change in the future.
         // If userMap is not null, then we assume a user was returned with the appropriate fields.
@@ -50,7 +50,7 @@ public class LoginCommand extends Command{
             // TODO we're assuming usermap will contain these, ensure it contains these later.
             UserManager mgr = userDB.getEntry(id);
             ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getID();
+            return "Logged in as " + mgr.getUser().getdisplayName();
         } catch (Exception e) {
             return e.getMessage();
         }

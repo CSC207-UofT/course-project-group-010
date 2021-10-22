@@ -5,6 +5,7 @@ import Entity.*;
 import Interface.IDBSaveable;
 import Interface.IGettable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import java.util.Map;
  *     Give up its info to a presenter
  *     Implement interfaces
  */
-public class UserManager implements IGettable, IDBSaveable {
+public class UserManager implements IGettable, IDBSaveable, Serializable {
     private User user;
 
     /**

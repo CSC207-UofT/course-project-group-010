@@ -9,10 +9,11 @@ import Interface.IGettable;
 import UseCase.CoursePage.CoursePage;
 import UseCase.UserManager;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class CourseManager implements IGettable, IDBSaveable {
+public class CourseManager implements IGettable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
 
