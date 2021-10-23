@@ -19,8 +19,7 @@ public class Rating {
      */
 
     //Constructors
-    public Rating(Course course) {
-        this.course = course;
+    public Rating() {
         this.scores = new HashMap<String, List<Integer>>(); //Empty hashmap
         this.users = new ArrayList<StudentUser>(); //Empty list
     }
@@ -32,7 +31,7 @@ public class Rating {
          * has not already placed a review for this course rating.
          * Precondition: Rating object has already set a scores
          */
-        public String processRating(Integer rating, StudentUser student) throws CommandNotAuthorizedException {
+        public boolean processRating(Integer rating, StudentUser student) throws CommandNotAuthorizedException {
 
             if (!users.contains(student)) { //Student hasn't already left a review for this course
                 if (!this.scores.containsKey(student.getProgramDetail())) { //program_name not already in scores hashmap
@@ -43,14 +42,12 @@ public class Rating {
 
                     this.users.add(student); //student can no longer leave another rating for this course
 
-                    return student.getID() + "\n" + "has successfully rated" + "\n" + this.course.getName() +
-                            rating; //indicate successful addition of rating
+                    return true;
 
                 } else { //program_name is already in scores hashmap
                     this.scores.get(student.getProgramDetail()).add(rating); //add rating to list value at program_name
                     this.users.add(student); //student can no longer leave another rating for this course
-                    return student.getdisplayName() + "\n" + "has successfully rated" + "\n" + this.course.getName() +
-                            rating;//indicate successful addition of rating
+                    return true;
                 }
             }
             // This line is bad, this string will never see the light of day
@@ -79,11 +76,6 @@ public class Rating {
         }
 
 
-        //return the course this rating is for.
-        Course getCourse(){
-            return this.course;
-        }
-
         //return the hashmap mapping program names and their score for the course.
         HashMap<String, List<Integer>> getScores(){
             return this.scores;
@@ -103,10 +95,6 @@ public class Rating {
 
         public void setScores (HashMap<String, List<Integer>>s){
             this.scores = s;
-        }
-
-        public void setCourse (Course c){
-            this.course = c;
         }
 
         @Override
