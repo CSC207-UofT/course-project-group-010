@@ -1,5 +1,6 @@
 package Controller.Commands;
 
+import Exceptions.ArgumentException;
 import Exceptions.CommandNotAuthorizedException;
 import Outer.Database.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
@@ -46,13 +47,12 @@ public class LoginCommand extends Command{
 
         // Loads the user. This code is very dependent on the database, but it'll change in the future.
         // If userMap is not null, then we assume a user was returned with the appropriate fields.
-        try {
-            // TODO we're assuming usermap will contain these, ensure it contains these later.
-            UserManager mgr = userDB.getEntry(id);
-            ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getdisplayName();
-        } catch (Exception e) {
-            return e.getMessage();
+        // TODO we're assuming usermap will contain these, ensure it contains these later.
+        UserManager mgr = userDB.getEntry(id);
+        if (mgr == null) {
+            throw new ArgumentException("User not found in Database");
         }
+        ce.addUserManager(mgr);
+        return "Logged in as " + mgr.getUser().getdisplayName();
     }
 }

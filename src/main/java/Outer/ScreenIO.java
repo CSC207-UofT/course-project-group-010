@@ -24,7 +24,6 @@ public class ScreenIO {
      */
     public static void main(String[] args) throws Exception {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();
-        loadSampleData();
         Scanner in = new Scanner(System.in);
         String commandLine = "";
         // TODO consider a better way to implement then this possibly

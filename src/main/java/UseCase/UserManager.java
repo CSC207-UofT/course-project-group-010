@@ -28,7 +28,6 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
      * UserManager works on use cases for a user object,
      * so it will initialize with a student object
      */
-    // TODO add a constants class for types of users, throw error if thing not in that package
     public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
         UserTypeConstants userTypes = new UserTypeConstants();
         if (type == userTypes.INSTRUCTOR) {
@@ -46,7 +45,6 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
 
 
     // Constructs users.
-    // TODO consider changing User so that the map otherData is just an attribute of the user.
     /** Create an instance of StudentUser.
      *
      * @param displayName display name of StudentUser.
@@ -80,13 +78,12 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
 //        user.setpermissionLevel(level);
 //    }
 
-    /** Set review count of a given user.
+    /** Increment review count of a given user.
      *
      * @param user instance of a user.
-     * @para count review count.
      */
-    public void userSetReviewCount(User user,int count){
-        user.setreviewCount(count);
+    public void userIncrementReviewCount(User user,int count){
+        user.incrementReviewCount();
     }
 
     /** Set display name of a given user.

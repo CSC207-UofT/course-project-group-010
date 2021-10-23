@@ -55,8 +55,6 @@ public class Rating {
             throw new CommandNotAuthorizedException(student.getID() + " has already placed a rating for this course.");
         }
 
-        //Getters
-
         public Integer getRating(){
             List<List<Integer>> values = new ArrayList<>(this.scores.values());
             int to_return;
@@ -89,12 +87,17 @@ public class Rating {
 
         //Setters
 
-        public void setUsers (List < StudentUser > u) {
-            this.users = u;
+        public void addUser (StudentUser u) {
+            this.users.add(u);
         }
 
-        public void setScores (HashMap<String, List<Integer>>s){
-            this.scores = s;
+        public void addScore (String program, int score){
+            if (this.scores.containsKey(program)) {
+                List<Integer> listOfScores = this.scores.get(program);
+                listOfScores.add(score);
+            } else {
+                this.scores.put(program, List.of(score));
+            }
         }
 
         @Override

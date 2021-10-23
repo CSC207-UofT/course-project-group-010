@@ -31,6 +31,7 @@ public class CourseManager implements IGettable, IDBSaveable, Serializable {
         this.coursePage.setRating(ratingToProcess);
     }
 
+    // When will we use this?
     public void filterInstructor(InstructorUser instructor){
         List<InstructorUser> instructors = this.coursePage.getInstructors();
 

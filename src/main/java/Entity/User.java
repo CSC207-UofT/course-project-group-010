@@ -1,17 +1,15 @@
 package Entity;
 
+import Interface.IReviewer;
+
 import java.io.Serializable;
 import java.util.Map;
 
-public abstract class User implements Serializable {
+public abstract class User implements Serializable, IReviewer {
     private String displayName; //Username
-    private String ID; //UTemail
+    private String ID; //ID
     private Map<String, String> otherData;
     private int reviewCount; //Number of reviews left by this user
-
-    // Student Permission level : 0
-    // TA Permissionlevel : 1
-    // Instructor Permission level : 2
 
 
     //Constructors
@@ -20,6 +18,7 @@ public abstract class User implements Serializable {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
+        this.reviewCount = 0;
     }
 
 
@@ -45,11 +44,18 @@ public abstract class User implements Serializable {
         return otherData;
     }
 
+    public int getReviewCount() {return reviewCount; }
+
     //Setters
-    public void setreviewCount(int count){
-        if(count >= 0){
-            this.reviewCount = count;
-        }
+
+//    public void setreviewCount(int count){
+//        if(count >= 0){
+//            this.reviewCount = count;
+//        }
+//    }
+
+    public void incrementReviewCount() {
+        this.reviewCount++;
     }
 
     public void setDisplayName(String s){
