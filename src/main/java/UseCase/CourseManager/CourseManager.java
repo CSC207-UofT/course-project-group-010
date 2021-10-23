@@ -1,19 +1,19 @@
 package UseCase.CourseManager;
 
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
-import Entity.User;
 import Interface.IDBSaveable;
 import Interface.IGettable;
 import UseCase.CoursePage.CoursePage;
 import UseCase.UserManager;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class CourseManager implements IGettable, IDBSaveable {
+public class CourseManager implements IGettable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
 
@@ -26,7 +26,7 @@ public class CourseManager implements IGettable, IDBSaveable {
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
         // TODO check if rating is in the allowed range?
         Rating ratingToProcess = this.coursePage.getRating();
-        // TODO this is bad casting, will only work for demo of skeleton.
+        // TODO change the code such that the casting below is not required, user.getUser() will not always be a student
         ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
         this.coursePage.setRating(ratingToProcess);
     }
