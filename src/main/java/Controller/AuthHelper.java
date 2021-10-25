@@ -1,8 +1,5 @@
 package Controller;
 
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
-import Entity.User;
-
 public class AuthHelper {
 //    public boolean checkAuth(Authorizable a, int userPermission, String action) throws CommandNotAuthorizedException {
 //

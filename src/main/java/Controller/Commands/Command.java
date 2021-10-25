@@ -1,7 +1,7 @@
 package Controller.Commands;
 
-import Controller.Commands.CommandExceptions.ArgumentException;
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+import Exceptions.ArgumentException;
+import Exceptions.CommandNotAuthorizedException;
 
 import java.util.List;
 

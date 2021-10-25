@@ -1,10 +1,9 @@
 package Entity;
 
 
-import Controller.Commands.CommandExceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 

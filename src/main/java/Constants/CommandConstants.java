@@ -1,7 +1,7 @@
 package Constants;
 
 import Controller.Commands.*;
-import Controller.Commands.CommandExceptions.CommandNotFoundException;
+import Exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
 

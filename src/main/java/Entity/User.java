@@ -1,8 +1,12 @@
 package Entity;
 
-public abstract class User {
+import java.io.Serializable;
+import java.util.Map;
+
+public abstract class User implements Serializable {
     private String displayName; //Username
     private String ID; //UTemail
+    private Map<String, String> otherData;
     private int reviewCount; //Number of reviews left by this user
 
     // Student Permission level : 0
@@ -11,10 +15,11 @@ public abstract class User {
 
 
     //Constructors
-    public User(String displayName, String ID) {
+    public User(String displayName, String ID, Map<String, String> otherData) {
 
         this.displayName = displayName;
         this.ID = ID;
+        this.otherData = otherData;
     }
 
 
@@ -36,6 +41,9 @@ public abstract class User {
         return this.displayName;
     }
 
+    public Map<String, String> getOtherData() {
+        return otherData;
+    }
 
     //Setters
     public void setreviewCount(int count){
@@ -48,6 +56,9 @@ public abstract class User {
         if (s.length() < 25){
             this.displayName = s;
         }
+    }
+    public void setOtherData(Map<String, String> otherData) {
+        this.otherData = otherData;
     }
 
 }
