@@ -1,9 +1,11 @@
 package UseCase;
 
+import Constants.PermissionLevelConstants;
 import Constants.UserTypeConstants;
 import Entity.*;
 import Interface.IDBSaveable;
 import Interface.IGettable;
+import Interface.IHasPermission;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,8 +22,9 @@ import java.util.Map;
  *     Give up its info to a presenter
  *     Implement interfaces
  */
-public class UserManager implements IGettable, IDBSaveable, Serializable {
+public class UserManager implements IGettable, IDBSaveable, IHasPermission, Serializable {
     private User user;
+    private int permissionLevel;
 
     /**
      * Initializes a new UserManager.
@@ -30,10 +33,13 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
      */
     public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
         UserTypeConstants userTypes = new UserTypeConstants();
+        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
         if (type == userTypes.INSTRUCTOR) {
             user = createInstructorUser(displayName, ID, otherData);
+            this.permissionLevel = permissionLevels.INSTRUCTOR;
         } else if (type == userTypes.STUDENT) {
             user = createStudentUser(displayName, ID, otherData);
+            this.permissionLevel = permissionLevels.STUDENT;
         } else {
             throw new Exception("Couldn't initialize user");
         }
@@ -205,5 +211,10 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
      */
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public int getPermissionLevel() {
+        return this.permissionLevel;
     }
 }

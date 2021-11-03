@@ -1,26 +1,34 @@
 package UseCase.CourseManager;
 
+import Constants.PermissionLevelConstants;
 import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
+import Interface.IAuthorizable;
 import Interface.IDBSaveable;
 import Interface.IGettable;
+import Interface.IReadModifiable;
 import UseCase.CoursePage.CoursePage;
 import UseCase.UserManager;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-public class CourseManager implements IGettable, IDBSaveable, Serializable {
+public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
+    private HashMap<Integer, List<String>> permissionsDict;
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
     public CourseManager(CoursePage coursePage){
         this.coursePage = coursePage;
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
+        List<String> instructorPermissions = Arrays.asList("all");
+        this.permissionsDict.put(permLvl.STUDENT, studentPermissions);
+        this.permissionsDict.put(permLvl.INSTRUCTOR, instructorPermissions);
     }
 
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
@@ -81,5 +89,10 @@ public class CourseManager implements IGettable, IDBSaveable, Serializable {
     @Override
     public String getID() {
         return coursePage.getCourse().getCode();
+    }
+
+    @Override
+    public Map<Integer, List<String>> getAuthDict() {
+        return this.permissionsDict;
     }
 }

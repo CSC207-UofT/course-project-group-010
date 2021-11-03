@@ -15,6 +15,9 @@ import java.util.Map;
  */
 public class Database<T extends IDBSaveable & Serializable> {
 
+    // TODO make create user/course commands that make new objects and then save them to the db or something
+    // TODO make the database load on startup and save before the program closes.
+
     public void saveToFile(String filePath, Map<String, T> objects) throws IOException {
 
         File dbFile = new File(filePath);
