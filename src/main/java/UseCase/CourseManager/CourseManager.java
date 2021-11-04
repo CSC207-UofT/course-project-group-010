@@ -5,9 +5,7 @@ import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
-import Interface.IAuthorizable;
 import Interface.IDBSaveable;
-import Interface.IGettable;
 import Interface.IReadModifiable;
 import UseCase.CoursePage.CoursePage;
 import UseCase.UserManager;
@@ -18,17 +16,14 @@ import java.util.*;
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
-    private HashMap<Integer, List<String>> permissionsDict;
+    private Map<Integer, List<String>> authDict;
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
     public CourseManager(CoursePage coursePage){
         this.coursePage = coursePage;
-        PermissionLevelConstants permLvl = new PermissionLevelConstants();
-        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
-        List<String> instructorPermissions = Arrays.asList("all");
-        this.permissionsDict.put(permLvl.STUDENT, studentPermissions);
-        this.permissionsDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        this.authDict = getDefaultAuthDict();
+
     }
 
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
@@ -93,6 +88,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     @Override
     public Map<Integer, List<String>> getAuthDict() {
-        return this.permissionsDict;
+        return this.authDict;
+    }
+
+    public Map<Integer, List<String>> getDefaultAuthDict() {
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        Map<Integer, List<String>> retDict = new HashMap<>();
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
+        List<String> instructorPermissions = Arrays.asList("all");
+        retDict.put(permLvl.STUDENT, studentPermissions);
+        retDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        return retDict;
     }
 }
