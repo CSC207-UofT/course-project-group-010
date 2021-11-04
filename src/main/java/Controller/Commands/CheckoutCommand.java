@@ -46,7 +46,7 @@ public class CheckoutCommand extends Command{
                 // this is not cash money, why am I initializing entities
                 // this constructor is the most complex thing I've ever seen. Bad.
                 Course c1 = new Course("Calculus with Proofs", "MAT137");
-                Rating r1 = new Rating(c1);
+                Rating r1 = new Rating();
                 List<InstructorUser> l1 = new ArrayList<InstructorUser>();
                 List<Integer> years = new ArrayList<Integer>();
                 CoursePage matPage = new CoursePage(c1, r1, l1, years);
@@ -55,6 +55,7 @@ public class CheckoutCommand extends Command{
                 return "now viewing " + matManager.getID();
             }
         }
+        // TODO check auth
         // Then, no matter what, execute these:
         // look at ce studentmanager(may exception) to get student perm level
         // look at the gotten manager thing to check if action is allowed.

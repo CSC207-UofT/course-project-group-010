@@ -4,6 +4,7 @@ import Constants.FileConstants;
 import Controller.Commands.CommandExecutor;
 import Controller.Commands.CommandRequest;
 import Outer.Database.Database;
+import Outer.Database.DatabaseGetter.CourseDatabaseGetter;
 import Outer.Database.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
@@ -24,10 +25,9 @@ public class ScreenIO {
      */
     public static void main(String[] args) throws Exception {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();
-        loadSampleData();
         Scanner in = new Scanner(System.in);
         String commandLine = "";
-        // TODO consider a better way to implement then this possibly
+        // TODO consider a better way to implement then this possible
         System.out.println("type \"end\" to end program.");
         while(!commandLine.equals("end")) {
             System.out.print("$ ");
@@ -42,6 +42,8 @@ public class ScreenIO {
                 System.out.println(e.getMessage());
             }
         }
+        CourseDatabaseGetter.getInstance().saveAll();
+        UserDatabaseGetter.getInstance().saveAll();
         //in.close();
     }
 
