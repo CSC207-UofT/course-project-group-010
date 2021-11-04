@@ -14,7 +14,8 @@ public class AuthHelper {
         int permissionLevel = user.getPermissionLevel();
         if (!authDict.containsKey(permissionLevel)) {
             throw new CommandNotAuthorizedException("You do not have the permission to take this action.");
-        } else if (authDict.get(permissionLevel).contains(method)) {
+        } else if (authDict.get(permissionLevel).contains(method) ||
+                authDict.get(permissionLevel).contains("all")) {
             return true;
         } else {
             throw new CommandNotAuthorizedException("You do not have the permission to take this action");

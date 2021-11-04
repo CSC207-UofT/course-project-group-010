@@ -16,6 +16,10 @@ public class InstructorUser extends User {
         super(displayName, ID, otherData);
     }
 
+    public InstructorUser(String displayName, String ID) {
+        super(displayName, ID);
+    }
+
 
 
 

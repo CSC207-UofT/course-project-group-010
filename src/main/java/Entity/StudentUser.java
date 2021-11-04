@@ -22,6 +22,11 @@ public class StudentUser extends User {
         this.courses = new HashMap<Integer, List<Course>>();
     }
 
+    public StudentUser(String displayName, String ID) {
+        super(displayName, ID);
+        this.courses = new HashMap<Integer, List<Course>>();
+    }
+
 
 
 

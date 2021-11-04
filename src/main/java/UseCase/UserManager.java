@@ -3,11 +3,11 @@ package UseCase;
 import Constants.PermissionLevelConstants;
 import Constants.UserTypeConstants;
 import Entity.*;
-import Interface.IDBSaveable;
-import Interface.IGettable;
-import Interface.IHasPermission;
+import Exceptions.ArgumentException;
+import Interface.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +22,10 @@ import java.util.Map;
  *     Give up its info to a presenter
  *     Implement interfaces
  */
-public class UserManager implements IGettable, IDBSaveable, IHasPermission, Serializable {
+public class UserManager implements IGettable, IDBSaveable, IHasPermission, IReadModifiable, Serializable {
     private User user;
     private int permissionLevel;
+    private Map<Integer, List<String>> authDict;
 
     /**
      * Initializes a new UserManager.
@@ -43,10 +44,26 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, Seri
         } else {
             throw new Exception("Couldn't initialize user");
         }
+        this.authDict = getDefaultAuthDict();
         // When amount of data increases, would be good if otherData was always just a
         // map with all the other data
         // then no matter what I can ccall create[type]User(displayName, ID, otherData);
         // and it would mean the same thing.
+    }
+
+    public UserManager(String type, String displayName, String ID) throws Exception {
+        UserTypeConstants userTypes = new UserTypeConstants();
+        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
+        if (type.equalsIgnoreCase(userTypes.INSTRUCTOR)) {
+            user = new InstructorUser(displayName, ID);
+            this.permissionLevel = permissionLevels.INSTRUCTOR;
+        } else if (type.equalsIgnoreCase(userTypes.STUDENT)) {
+            user = new StudentUser(displayName, ID);
+            this.permissionLevel = permissionLevels.STUDENT;
+        } else {
+            throw new Exception("Couldn't initialize user of type " + type);
+        }
+        this.authDict = getDefaultAuthDict();
     }
 
 
@@ -216,5 +233,21 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, Seri
     @Override
     public int getPermissionLevel() {
         return this.permissionLevel;
+    }
+
+    private Map<Integer, List<String>> getDefaultAuthDict() {
+        Map<Integer, List<String>> permDict = new HashMap<>();
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        // for now, everyone can make a new user
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "newuser");
+        List<String> instructorPermissions = Arrays.asList("all");
+        permDict.put(permLvl.STUDENT, studentPermissions);
+        permDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        return permDict;
+    }
+
+    @Override
+    public Map<Integer, List<String>> getAuthDict() {
+        return this.authDict;
     }
 }

@@ -3,6 +3,7 @@ package Entity;
 import Interface.IReviewer;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class User implements Serializable, IReviewer {
@@ -18,6 +19,14 @@ public abstract class User implements Serializable, IReviewer {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
+        this.reviewCount = 0;
+    }
+
+    public User(String displayName, String ID) {
+        this.displayName = displayName;
+        this.ID = ID;
+        this.otherData = new HashMap<String, String>();
+        this.otherData.put("programDetail", "n/a");
         this.reviewCount = 0;
     }
 

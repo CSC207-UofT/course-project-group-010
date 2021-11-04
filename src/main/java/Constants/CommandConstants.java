@@ -18,6 +18,7 @@ public class CommandConstants {
         command_dict.put("print", new PrintCommand());
         command_dict.put("checkout", new CheckoutCommand());
         command_dict.put("rate", new RateCommand());
+        command_dict.put("newuser", new NewUserCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

@@ -43,7 +43,7 @@ public class LoginCommand extends Command{
             throw new CommandNotAuthorizedException("Already logged in.");
         }
         // TODO check utorid in database, get data and initialize the usermanager if needed
-        UserDatabaseGetter userDB = new UserDatabaseGetter();
+        UserDatabaseGetter userDB = UserDatabaseGetter.getInstance();
 
         // Loads the user. This code is very dependent on the database, but it'll change in the future.
         // If userMap is not null, then we assume a user was returned with the appropriate fields.
@@ -51,8 +51,9 @@ public class LoginCommand extends Command{
         UserManager mgr = userDB.getEntry(id);
         if (mgr == null) {
             throw new ArgumentException("User not found in Database");
+        } else {
+            ce.addUserManager(mgr);
+            return "Logged in as " + mgr.getUser().getdisplayName();
         }
-        ce.addUserManager(mgr);
-        return "Logged in as " + mgr.getUser().getdisplayName();
     }
 }

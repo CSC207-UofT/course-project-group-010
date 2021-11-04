@@ -4,6 +4,7 @@ import Constants.FileConstants;
 import Controller.Commands.CommandExecutor;
 import Controller.Commands.CommandRequest;
 import Outer.Database.Database;
+import Outer.Database.DatabaseGetter.CourseDatabaseGetter;
 import Outer.Database.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
@@ -41,6 +42,8 @@ public class ScreenIO {
                 System.out.println(e.getMessage());
             }
         }
+        CourseDatabaseGetter.getInstance().saveAll();
+        UserDatabaseGetter.getInstance().saveAll();
         //in.close();
     }
 

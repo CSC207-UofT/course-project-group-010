@@ -3,9 +3,11 @@ package Outer.Database.DatabaseGetter;
 import Constants.FileConstants;
 import Exceptions.NotInDatabaseException;
 import Outer.Database.Database;
+import UseCase.CourseManager.CourseManager;
 import UseCase.UserManager;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,6 +16,20 @@ import java.util.Map;
  */
 public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
+    private static UserDatabaseGetter instance = null;
+    private final Database<UserManager> db;
+    private final Map<String, UserManager> userDict;
+
+    private UserDatabaseGetter() throws IOException, ClassNotFoundException {
+        Map<String, UserManager> userDict1;
+        this.db = new Database<>();
+        userDict1 = this.db.loadDatabase(new FileConstants().USER_FILE);
+        if (userDict1 == null) {
+            userDict1 = new HashMap<>();
+        }
+        this.userDict = userDict1;
+    }
+
     public UserManager getEntry(String id) throws Exception {
         // TODO create student/prof constants
 //        if (id.equals("12345")) {
@@ -21,21 +37,34 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 //                    Map.ofEntries(Map.entry("programDetail", "Data Science Specialist")));
 //        }
 //        throw new NotInDatabaseException("User not found in Database.");
-
-        Database<UserManager> db = new Database<>();
-        Map<String, UserManager> UserDict = db.loadDatabase(new FileConstants().USER_FILE);
+        // If an entry is modified, it will reflect in this database. Therefore, we will just save all objects away
+        // before the program ends or something ??
         try {
-            return UserDict.get(id);
+            return this.userDict.get(id);
         } catch (Exception e) {
             throw new NotInDatabaseException("User not found in Database");
         }
 
     }
 
-    public void setEntry(UserManager entry) throws IOException, ClassNotFoundException {
-        Database<UserManager> db = new Database<>();
-        Map<String, UserManager> UserDict = db.loadDatabase(new FileConstants().USER_FILE);
-        UserDict.put(entry.getID(), entry);
-        db.saveToFile(new FileConstants().USER_FILE, UserDict);
+    @Override
+    public void setEntry(UserManager entry) {
+        this.userDict.put(entry.getID(), entry);
+    }
+
+    @Override
+    public boolean containsKey(String key) {
+        return this.userDict.containsKey(key);
+    }
+
+    public void saveAll () throws IOException {
+        db.saveToFile(new FileConstants().USER_FILE, this.userDict);
+    }
+
+    public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
+        if (instance == null) {
+            instance = new UserDatabaseGetter();
+        }
+        return instance;
     }
 }

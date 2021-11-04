@@ -19,9 +19,11 @@ public class Database<T extends IDBSaveable & Serializable> {
     // TODO make the database load on startup and save before the program closes.
 
     public void saveToFile(String filePath, Map<String, T> objects) throws IOException {
-
+        // Create new file if it doesn't exist
         File dbFile = new File(filePath);
         dbFile.createNewFile();
+
+        // Serialization
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
@@ -31,9 +33,23 @@ public class Database<T extends IDBSaveable & Serializable> {
         output.close();
     }
 
+    /**
+     * Loads a map of DBSaveable object ids to objects.
+     * @param filePath
+     * @return the map, or an empty map otherwise.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public Map<String, T> loadDatabase(String filePath) throws IOException, ClassNotFoundException {
         File dbFile = new File(filePath);
+        // Create new DB file if it doesn't exist.
         dbFile.createNewFile();
+
+        if (dbFile.length() == 0) {
+            return new HashMap<>();
+        }
+
+        // Deserialization
         InputStream file = new FileInputStream(filePath);
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
@@ -41,6 +57,6 @@ public class Database<T extends IDBSaveable & Serializable> {
         // serialize the Map
         Map<String, T> retMap = (Map<String, T>) input.readObject();
         input.close();
-        return retMap == null ? new HashMap<String, T>(): retMap;
+        return retMap == null ? new HashMap<>(): retMap;
     }
 }
