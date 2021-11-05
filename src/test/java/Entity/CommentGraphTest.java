@@ -20,5 +20,52 @@ public class CommentGraphTest {
         {
             System.out.println(i.toString());
         }
+
+        System.out.println(commentGraph.depthPrinter("head"));
+    }
+
+    @Test()
+    public void testPrint()
+    {
+        
+        
+        
+    }
+
+    public static void main(String[] args) {
+        List<String> questions = new ArrayList<>();
+        questions.add("How did you like the course?");
+        questions.add("Did you find anything difficult in the course");
+        questions.add("Anything that the course coordinators can do to improve the course?");
+
+        CommentGraph commentGraph = new CommentGraph(questions, "John Smith");
+
+        for (var i : commentGraph.getVertices().values())
+        {
+            System.out.println(i.toString());
+        }
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter id:");
+        String id1 = input.nextLine();
+        commentGraph.reply(id1, "Sample Text 1", "Jimmy");
+
+        System.out.println("Enter id:");
+        String id2 = input.nextLine();
+        commentGraph.reply(id2, "Sample Text 2", "Timmy");
+
+        System.out.println("Enter id:");
+        String id3 = input.nextLine();
+        commentGraph.reply(id3, "Sample Text 3", "Zimmy");
+
+        // var printerList = commentGraph.depthPrinter("head");
+
+        // for (var i : printerList)
+        // {
+        //     System.out.println(i.toString());
+        // }
+
+        commentGraph.levelPrinter(commentGraph.getVertices().get("head"), 0);
     }
 }

@@ -1,10 +1,7 @@
 package Entity;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CommentGraph {
     private HashMap<String, Comment> vertices;
@@ -26,11 +23,46 @@ public class CommentGraph {
         }
     }
 
-    public String graphToText()
+    public void levelPrinter(Comment start, int level)
     {
-        //use depth-first search to print graph
-        return "temp";
+        System.out.println("\t".repeat(level) + start.toString());
+        for (var child : start.nav.next)
+        {
+            levelPrinter(child, level+1);
+        }
     }
+
+    public List<Comment> depthPrinter(String startId)
+    {
+
+
+        Comment start = this.vertices.get(startId);
+
+        Queue searchQueue = new Queue(start);
+
+        List<Comment> visited = new ArrayList<>(){};
+
+        while (!searchQueue.isEmpty())
+        {
+            Comment vertex = searchQueue.remove_lifo();
+
+            if (!vertex.nav.visited)
+            {
+                vertex.nav.visited = true;
+                visited.add(vertex);
+
+
+                for (var i : vertex.nav.next)
+                {
+                    searchQueue.add(i);
+                }
+            }
+        }
+
+        return visited;
+    }
+
+
 
     public void vote(String id, boolean upvote) {
         if (upvote) {
@@ -112,10 +144,12 @@ public class CommentGraph {
 
         @Override
         public String toString() {
-            String spacing = "  ".repeat(depth);
-            String s = MessageFormat.format("{0}↳ {1} [{3}]\n{0}  {4}\n{0}  ↑ {2} ↓", spacing, this.info.userName,
-                    this.info.upvote, this.info.id, this.info.text);
-            return s;
+//            String spacing = "  ".repeat(depth);
+//            String s = MessageFormat.format("{0}↳ {1} [{3}]\n{0}  {4}\n{0}  ↑ {2} ↓", spacing, this.info.userName,
+//                    this.info.upvote, this.info.id, this.info.text);
+//            return s;
+
+            return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
         }
 
         public int getDepth()
@@ -149,6 +183,55 @@ public class CommentGraph {
             this.text = text;
             this.userName = userName;
             this.upvote = 0;
+        }
+    }
+
+    private class Queue
+    {
+        private List<Comment> items;
+
+        private Queue (Comment first)
+        {
+            if (first == null)
+            {
+                this.items = new ArrayList<>(){};
+            }
+
+            else
+            {
+                this.items = new ArrayList<>(){};
+                this.items.add(first);
+            }
+        }
+
+        private Boolean isEmpty()
+        {
+            return this.items.size() == 0;
+        }
+
+        private void add(Comment item)
+        {
+            this.items.add(item);
+        }
+
+        private Comment remove_lifo()
+        {
+            if (this.isEmpty())
+            {
+                throw new NoSuchElementException();
+            }
+
+            else
+            {
+                Comment itemToReturn = this.items.get(0);
+                this.items.remove(0);
+                return itemToReturn;
+            }
+        }
+
+        private List<Comment> toList()
+        {
+            return this.items;
         }
     }
 }
