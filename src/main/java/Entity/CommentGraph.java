@@ -92,7 +92,7 @@ public class CommentGraph {
         private double nextDistance;
         private Boolean visited;
 
-        private NavigationAttributes(Comment next, Comment prev) {
+        private NavigationAttributes(List<Comment> next, Comment prev) {
             this.next = next;
             this.prev = prev;
             this.nextDistance = Double.POSITIVE_INFINITY;
