@@ -3,6 +3,7 @@ package Entity;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CommentGraphTest {
     @Test(timeout = 100)
@@ -12,6 +13,8 @@ public class CommentGraphTest {
         questions.add("Q2");
         questions.add("Q3");
 
-        CommentGraph commentGraph = new CommentGraph(questions, "generic");
+        CommentGraph commentGraph = new CommentGraph(questions, "Jhon Doe");
+        System.out.println(commentGraph.getVertices().get("head").toString());
+        System.out.println(commentGraph.getVertices().keySet());
     }
 }
