@@ -12,7 +12,48 @@ public class CommentGraph {
     private int size;
     private Comment head;
 
-    private void reply(String text, String prevId, HashMap<String, Comment> vertices)
+    private void add_vertex(String id, Comment comment)
+    {
+        this.vertices.put(id, comment);
+        this.size += 1;
+    }
+
+    private void link(String prevId, Comment comment)
+    {
+        Comment prevComment = this.vertices.get(prevId);
+        prevComment.nav.next = comment;
+        comment.nav.prev = prevComment;
+        comment.depth = prevComment.depth + 1;
+        this.size += 1;
+    }
+
+    public void reply(String text, String prevId)
+    {
+        if (text.equals("") || !this.vertices.containsKey(prevId))
+        {
+            // do nothing
+        }
+
+        else
+        {
+            NavigationAttributes nav = new NavigationAttributes(null, null);
+            // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
+            // due to the number of possibilities, but this is here just in case.
+            String uniqueId = idGenerator();
+            while (vertices.containsKey(uniqueId)){
+                uniqueId = idGenerator();
+            }
+            InformationAttributes info = new InformationAttributes(uniqueId, text);
+
+
+            Comment comment = new Comment(nav, info, 0);
+
+            add_vertex(uniqueId, comment);
+            link(prevId, comment);
+        }
+    }
+
+    public void reply(String text, String prevId, HashMap<String, Comment> vertices)
     {
         if (text.equals("") || !vertices.containsKey(prevId))
         {
@@ -35,6 +76,8 @@ public class CommentGraph {
             Comment previousVertex = vertices.get(prevId);
 
             Comment comment = new Comment(nav, info, previousVertex.depth + 1);
+
+            previousVertex.nav.next = comment;
         }
     }
 
