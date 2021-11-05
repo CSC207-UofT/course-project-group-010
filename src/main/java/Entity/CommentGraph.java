@@ -23,12 +23,17 @@ public class CommentGraph {
         }
     }
 
-    public void levelPrinter(Comment start, int level)
+    public void levelPrinter(Comment start, int depth)
     {
-        System.out.println("\t".repeat(level) + start.toString());
-        for (var child : start.nav.next)
+
+
+        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
+        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
+        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
+
+        for (var subcomment : start.nav.next)
         {
-            levelPrinter(child, level+1);
+            levelPrinter(subcomment, depth+1);
         }
     }
 
@@ -150,6 +155,20 @@ public class CommentGraph {
 //            return s;
 
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
+        }
+
+        public List<String> formattedRepresentation()
+        {
+            String s1 = MessageFormat.format("↳ {0} [{1}]", this.info.userName, this.info.id);
+            String s2 = MessageFormat.format("{0}", this.info.text);
+            String s3 = MessageFormat.format("↑ {0} ↓", this.info.upvote);
+
+            List<String> representation = new ArrayList<>(){};
+            representation.add(s1);
+            representation.add(s2);
+            representation.add(s3);
+
+            return representation;
         }
 
         public int getDepth()
