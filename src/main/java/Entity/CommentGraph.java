@@ -112,8 +112,8 @@ public class CommentGraph {
 
         @Override
         public String toString() {
-            String spacing = " ".repeat(depth);
-            String s = MessageFormat.format("↳ {0}{1} [{3}]\n  {0}{4}\n  {0}↑ {2} ↓", spacing, this.info.userName,
+            String spacing = "  ".repeat(depth);
+            String s = MessageFormat.format("{0}↳ {1} [{3}]\n{0}  {4}\n{0}  ↑ {2} ↓", spacing, this.info.userName,
                     this.info.upvote, this.info.id, this.info.text);
             return s;
         }

@@ -15,6 +15,10 @@ public class CommentGraphTest {
 
         CommentGraph commentGraph = new CommentGraph(questions, "Jhon Doe");
         System.out.println(commentGraph.getVertices().get("head").toString());
-        System.out.println(commentGraph.getVertices().keySet());
+
+        for (var i : commentGraph.getVertices().values())
+        {
+            System.out.println(i.toString());
+        }
     }
 }
