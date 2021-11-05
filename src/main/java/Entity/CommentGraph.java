@@ -43,10 +43,6 @@ public class CommentGraph {
     private class DijkstraAttributes {
         private Boolean visited;
     }
-
-    public static void main(String[] args) {
-
-    }
 }
 
 
