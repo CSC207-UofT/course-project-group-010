@@ -1,5 +1,6 @@
 package Entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +10,25 @@ public class CommentGraph {
     private int size;
     private Comment head;
 
+    public HashMap<String, Comment> getVertices(){
+        return this.vertices;
+    }
+
+    public CommentGraph(List<String> questions, String profName)
+    {
+        this.vertices = new HashMap<String, Comment>();
+        this.size = 0;
+        this.head = createComment("head", "Questions", profName);
+        add_vertex("head", this.head);
+
+        for (String question : questions)
+        {
+            reply("head", question, profName);
+        }
+
+
+    }
+
     private void add_vertex(String id, Comment comment)
     {
         this.vertices.put(id, comment);
@@ -17,21 +37,25 @@ public class CommentGraph {
 
     private void link(String prevId, Comment comment)
     {
-        Comment prevComment = this.vertices.get(prevId);
-        prevComment.nav.next.add(comment);
-        comment.nav.prev = prevComment;
-        comment.depth = prevComment.depth + 1;
+        Comment vertex1 = this.vertices.get(comment.info.id);
+        Comment vertex2 = this.vertices.get(prevId);
+
+        vertex1.nav.prev = vertex2;
+        vertex2.nav.next.add(vertex1);
+        comment.depth = vertex2.depth + 1;
         this.size += 1;
+
     }
 
-    private Comment createComment(String id, String text)
+    private Comment createComment(String id, String text, String userName)
     {
-        NavigationAttributes nav = new NavigationAttributes(null, null);
-        InformationAttributes info = new InformationAttributes(id, text);
+        List<Comment> next = new ArrayList<>();
+        NavigationAttributes nav = new NavigationAttributes(next, null);
+        InformationAttributes info = new InformationAttributes(id, text, userName);
         return new Comment(nav, info, 0);
     }
 
-    public void reply(String text, String prevId)
+    public void reply(String prevId, String text, String userName)
     {
         if (text.equals("") || !this.vertices.containsKey(prevId))
         {
@@ -41,7 +65,7 @@ public class CommentGraph {
         else
         {
             String uniqueId = genUniqueId();
-            Comment comment = createComment(uniqueId, text);
+            Comment comment = createComment(uniqueId, text, userName);
             add_vertex(uniqueId, comment);
             link(prevId, comment);
         }
@@ -103,11 +127,13 @@ public class CommentGraph {
     private class InformationAttributes {
         private String id;
         private String text;
+        private String userName;
         private int upvote;
 
-        private InformationAttributes(String id, String text) {
+        private InformationAttributes(String id, String text, String userName) {
             this.id = id;
             this.text = text;
+            this.userName = userName;
             this.upvote = 0;
         }
     }
