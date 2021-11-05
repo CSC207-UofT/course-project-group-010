@@ -4,12 +4,39 @@ import org.hamcrest.core.AnyOf;
 
 import javax.lang.model.type.NullType;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Random;
 
 public class CommentGraph {
     private HashMap<String, Comment> vertices;
     private int size;
     private Comment head;
+
+    private void reply(String text, String prevId, HashMap<String, Comment> vertices)
+    {
+        if (text.equals("") || !vertices.containsKey(prevId))
+        {
+            // do nothing
+        }
+
+        else
+        {
+            NavigationAttributes nav = new NavigationAttributes(null, vertices.get(prevId));
+
+            // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
+            // due to the number of possibilities, but this is here just in case.
+            String uniqueId = idGenerator();
+            while (vertices.containsKey(uniqueId)){
+                uniqueId = idGenerator();
+            }
+
+            InformationAttributes info = new InformationAttributes(uniqueId, text);
+
+            Comment previousVertex = vertices.get(prevId);
+
+            Comment comment = new Comment(nav, info, previousVertex.depth + 1);
+        }
+    }
 
     private String idGenerator() {
         char[] charArray = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
