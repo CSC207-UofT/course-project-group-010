@@ -1,10 +1,7 @@
 package Entity;
 
-import org.hamcrest.core.AnyOf;
-
-import javax.lang.model.type.NullType;
 import java.util.HashMap;
-import java.util.Optional;
+import java.util.List;
 import java.util.Random;
 
 public class CommentGraph {
@@ -21,10 +18,17 @@ public class CommentGraph {
     private void link(String prevId, Comment comment)
     {
         Comment prevComment = this.vertices.get(prevId);
-        prevComment.nav.next = comment;
+        prevComment.nav.next.add(comment);
         comment.nav.prev = prevComment;
         comment.depth = prevComment.depth + 1;
         this.size += 1;
+    }
+
+    private Comment createComment(String id, String text)
+    {
+        NavigationAttributes nav = new NavigationAttributes(null, null);
+        InformationAttributes info = new InformationAttributes(id, text);
+        return new Comment(nav, info, 0);
     }
 
     public void reply(String text, String prevId)
@@ -36,52 +40,26 @@ public class CommentGraph {
 
         else
         {
-            NavigationAttributes nav = new NavigationAttributes(null, null);
-            // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
-            // due to the number of possibilities, but this is here just in case.
-            String uniqueId = idGenerator();
-            while (vertices.containsKey(uniqueId)){
-                uniqueId = idGenerator();
-            }
-            InformationAttributes info = new InformationAttributes(uniqueId, text);
-
-
-            Comment comment = new Comment(nav, info, 0);
-
+            String uniqueId = genUniqueId();
+            Comment comment = createComment(uniqueId, text);
             add_vertex(uniqueId, comment);
             link(prevId, comment);
         }
     }
 
-    public void reply(String text, String prevId, HashMap<String, Comment> vertices)
+    private String genUniqueId()
     {
-        if (text.equals("") || !vertices.containsKey(prevId))
-        {
-            // do nothing
+        // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
+        // due to the number of possibilities, but this is here just in case.
+        String uniqueId = genId();
+        while (vertices.containsKey(uniqueId)){
+            uniqueId = genId();
         }
-
-        else
-        {
-            NavigationAttributes nav = new NavigationAttributes(null, vertices.get(prevId));
-
-            // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
-            // due to the number of possibilities, but this is here just in case.
-            String uniqueId = idGenerator();
-            while (vertices.containsKey(uniqueId)){
-                uniqueId = idGenerator();
-            }
-
-            InformationAttributes info = new InformationAttributes(uniqueId, text);
-
-            Comment previousVertex = vertices.get(prevId);
-
-            Comment comment = new Comment(nav, info, previousVertex.depth + 1);
-
-            previousVertex.nav.next = comment;
-        }
+        return uniqueId;
     }
 
-    private String idGenerator() {
+    private String genId()
+    {
         char[] charArray = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
                 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -109,7 +87,7 @@ public class CommentGraph {
     }
 
     private class NavigationAttributes {
-        private Comment next;
+        private List<Comment> next;
         private Comment prev;
         private double nextDistance;
         private Boolean visited;
