@@ -3,16 +3,22 @@ package Entity;
 import java.text.MessageFormat;
 import java.util.*;
 
-public class CommentGraph {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Comment Graph
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class CommentGraph
+{
     private HashMap<String, Comment> vertices;
     private int size;
     private Comment head;
 
-    public HashMap<String, Comment> getVertices() {
+    public HashMap<String, Comment> getVertices()
+    {
         return this.vertices;
     }
 
-    public CommentGraph(List<String> questions, String profName) {
+    public CommentGraph(List<String> questions, String profName)
+    {
         this.vertices = new HashMap<String, Comment>();
         this.size = 0;
         this.head = createComment("head", "Questions", profName);
@@ -135,11 +141,6 @@ public class CommentGraph {
 
         @Override
         public String toString() {
-//            String spacing = "  ".repeat(depth);
-//            String s = MessageFormat.format("{0}↳ {1} [{3}]\n{0}  {4}\n{0}  ↑ {2} ↓", spacing, this.info.userName,
-//                    this.info.upvote, this.info.id, this.info.text);
-//            return s;
-
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
         }
 
