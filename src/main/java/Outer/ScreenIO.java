@@ -4,8 +4,8 @@ import Constants.FileConstants;
 import Controller.Commands.CommandExecutor;
 import Controller.Commands.CommandRequest;
 import Outer.Database.Database;
-import Outer.Database.DatabaseGetter.CourseDatabaseGetter;
-import Outer.Database.DatabaseGetter.UserDatabaseGetter;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.HashMap;

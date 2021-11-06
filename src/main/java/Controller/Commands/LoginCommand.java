@@ -2,7 +2,7 @@ package Controller.Commands;
 
 import Exceptions.ArgumentException;
 import Exceptions.CommandNotAuthorizedException;
-import Outer.Database.DatabaseGetter.UserDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.List;
