@@ -37,6 +37,8 @@ public class CommentGraph {
 
     public void levelPrinter(Comment start, int depth)
     {
+        //test
+
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
