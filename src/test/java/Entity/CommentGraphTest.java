@@ -10,20 +10,7 @@ import javax.sound.sampled.SourceDataLine;
 public class CommentGraphTest {
     @Test(timeout = 100)
     public void testGraph() {
-        List<String> questions = new ArrayList<>();
-        questions.add("Q1");
-        questions.add("Q2");
-        questions.add("Q3");
 
-        CommentGraph commentGraph = new CommentGraph(questions, "Jhon Doe");
-        System.out.println(commentGraph.getVertices().get("head").toString());
-
-        for (var i : commentGraph.getVertices().values())
-        {
-            System.out.println(i.toString());
-        }
-
-        System.out.println(commentGraph.depthPrinter("head"));
     }
 
     @Test()
@@ -77,6 +64,14 @@ public class CommentGraphTest {
         //     System.out.println(i.toString());
         // }
 
-        commentGraph.print(commentGraph.getVertices().get("head"), 0);
+        //commentGraph.print(commentGraph.getVertices().get("head"), 0);
+
+        CommentGraphHelper helper = new CommentGraphHelper();
+        List<CommentGraph.Comment> path = helper.depthFirstPath(commentGraph, "head", id1);
+
+        for (var i : path)
+        {
+            System.out.println(i.toString());
+        }
     }
 }

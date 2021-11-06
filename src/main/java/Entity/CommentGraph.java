@@ -34,10 +34,6 @@ public class CommentGraph {
 
     public void levelPrinter(Comment start, int depth)
     {
-//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
-//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
-//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
-
         printHelper = printHelper +  "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
                        "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
                        "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
@@ -49,36 +45,6 @@ public class CommentGraph {
         {
             levelPrinter(subcomment, depth+1);
         }
-    }
-
-
-
-    public List<Comment> depthPrinter(String startId)
-    {
-        Comment start = this.vertices.get(startId);
-
-        Queue searchQueue = new Queue(start);
-
-        List<Comment> visited = new ArrayList<>(){};
-
-        while (!searchQueue.isEmpty())
-        {
-            Comment vertex = searchQueue.remove_lifo();
-
-            if (!vertex.nav.visited)
-            {
-                vertex.nav.visited = true;
-                visited.add(vertex);
-
-
-                for (var i : vertex.nav.next)
-                {
-                    searchQueue.add(i);
-                }
-            }
-        }
-
-        return visited;
     }
 
 
@@ -182,6 +148,16 @@ public class CommentGraph {
             return this.info.upvote;
         }
 
+        public NavigationAttributes getNav()
+        {
+            return this.nav;
+        }
+
+        public InformationAttributes getInfo()
+        {
+            return this.info;
+        }
+
 
 
         public List<String> formattedRepresentation()
@@ -204,7 +180,7 @@ public class CommentGraph {
         }
     }
 
-    private class NavigationAttributes {
+    public class NavigationAttributes {
         private List<Comment> next;
         private Comment prev;
         private double nextDistance;
@@ -216,9 +192,29 @@ public class CommentGraph {
             this.nextDistance = Double.POSITIVE_INFINITY;
             this.visited = false;
         }
+
+        public List<Comment> getNext() {
+            return this.next;
+        }
+
+        public Comment getPrev() {
+            return this.prev;
+        }
+
+        public double getNextDistance() {
+            return this.nextDistance;
+        }
+
+        public Boolean getVisited() {
+            return this.visited;
+        }
+
+        void setVisited(Boolean visited) {
+            this.visited = visited;
+        }
     }
 
-    private class InformationAttributes {
+    public class InformationAttributes {
         private String id;
         private String text;
         private String userName;
@@ -230,54 +226,10 @@ public class CommentGraph {
             this.userName = userName;
             this.upvote = 0;
         }
-    }
 
-    private class Queue
-    {
-        private List<Comment> items;
-
-        private Queue (Comment first)
+        public String getId()
         {
-            if (first == null)
-            {
-                this.items = new ArrayList<>(){};
-            }
-
-            else
-            {
-                this.items = new ArrayList<>(){};
-                this.items.add(first);
-            }
-        }
-
-        private Boolean isEmpty()
-        {
-            return this.items.size() == 0;
-        }
-
-        private void add(Comment item)
-        {
-            this.items.add(item);
-        }
-
-        private Comment remove_lifo()
-        {
-            if (this.isEmpty())
-            {
-                throw new NoSuchElementException();
-            }
-
-            else
-            {
-                Comment itemToReturn = this.items.get(0);
-                this.items.remove(0);
-                return itemToReturn;
-            }
-        }
-
-        private List<Comment> toList()
-        {
-            return this.items;
+            return this.id;
         }
     }
 }
