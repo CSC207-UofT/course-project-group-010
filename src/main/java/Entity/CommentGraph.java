@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.*;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Comment Graph
+// Comment Graph Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public class CommentGraph
 {
@@ -24,14 +24,15 @@ public class CommentGraph
         this.head = createComment("head", "Questions", profName);
         add_vertex("head", this.head);
 
-        for (String question : questions) {
+        for (String question : questions)
+        {
             reply("head", question, profName);
         }
     }
 
-//----------------------------------------------------------------------------------------------------------------------
+//======================================================================================================================
 // Comment Graph String Representation
-//----------------------------------------------------------------------------------------------------------------------
+//======================================================================================================================
 
     public String stringRepresentationHelper = "";
 
@@ -58,6 +59,34 @@ public class CommentGraph
         }
     }
 
+//======================================================================================================================
+// Comment creation and linking
+//======================================================================================================================
+
+    private Comment createComment(String id, String text, String userName)
+    {
+        List<Comment> next = new ArrayList<>();
+        NavigationAttributes nav = new NavigationAttributes(next, null);
+        InformationAttributes info = new InformationAttributes(id, text, userName);
+        return new Comment(nav, info, 0);
+    }
+
+    private void add_vertex(String id, Comment comment)
+    {
+        this.vertices.put(id, comment);
+        this.size += 1;
+    }
+
+    private void link(String prevId, Comment comment)
+    {
+        Comment vertex1 = this.vertices.get(comment.info.id);
+        Comment vertex2 = this.vertices.get(prevId);
+
+        vertex1.nav.prev = vertex2;
+        vertex2.nav.next.add(vertex1);
+        comment.depth = vertex2.depth + 1;
+        this.size += 1;
+    }
 
 
     public void vote(String id, boolean upvote) {
@@ -68,28 +97,9 @@ public class CommentGraph
         }
     }
 
-    private void add_vertex(String id, Comment comment) {
-        this.vertices.put(id, comment);
-        this.size += 1;
-    }
-
-    private void link(String prevId, Comment comment) {
-        Comment vertex1 = this.vertices.get(comment.info.id);
-        Comment vertex2 = this.vertices.get(prevId);
-
-        vertex1.nav.prev = vertex2;
-        vertex2.nav.next.add(vertex1);
-        comment.depth = vertex2.depth + 1;
-        this.size += 1;
-
-    }
-
-    private Comment createComment(String id, String text, String userName) {
-        List<Comment> next = new ArrayList<>();
-        NavigationAttributes nav = new NavigationAttributes(next, null);
-        InformationAttributes info = new InformationAttributes(id, text, userName);
-        return new Comment(nav, info, 0);
-    }
+//======================================================================================================================
+// Reply Functionality
+//======================================================================================================================
 
     public void reply(String prevId, String text, String userName) {
         if (text.equals("") || !this.vertices.containsKey(prevId)) {
@@ -127,6 +137,10 @@ public class CommentGraph
         return new String(encodedChars);
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Comment Class
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public class Comment implements Comparable<Comment>{
         private NavigationAttributes nav;
         private InformationAttributes info;
@@ -145,8 +159,10 @@ public class CommentGraph
         }
 
         @Override
-        public String toString() {
-            return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
+        public String toString()
+        {
+            return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id,
+                    this.info.upvote, this.info.text);
         }
 
         public int getUpvote()
