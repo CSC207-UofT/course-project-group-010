@@ -64,10 +64,14 @@ public class CommentGraphTest {
         //     System.out.println(i.toString());
         // }
 
-        //commentGraph.print(commentGraph.getVertices().get("head"), 0);
+        commentGraph.print(commentGraph.getVertices().get("head"), 0);
+
+        System.out.println("Enter id:");
+        String id4 = input.nextLine();
+
 
         CommentGraphHelper helper = new CommentGraphHelper();
-        List<CommentGraph.Comment> path = helper.depthFirstPath(commentGraph, "head", id1);
+        List<CommentGraph.Comment> path = helper.depthFirstPath(commentGraph, "head", id4);
 
         for (var i : path)
         {

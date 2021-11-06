@@ -23,7 +23,6 @@ public class CommentGraphHelper {
         while (!curr.getInfo().getId().equals(startId))
         {
             curr = curr.getNav().getPrev();
-            System.out.println(curr.toString());
             path.add(curr);
         }
 
