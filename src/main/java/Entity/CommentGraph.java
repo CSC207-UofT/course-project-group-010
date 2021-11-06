@@ -23,10 +23,20 @@ public class CommentGraph {
         }
     }
 
+    public void print(Comment start, int depth)
+    {
+        for (var i : this.vertices.keySet())
+        {
+            List<Comment> original = this.vertices.get(i).nav.next;
+            Collections.reverse(original);
+            this.vertices.get(i).nav.next = original;
+        }
+
+        levelPrinter(start, depth);
+    }
+
     public void levelPrinter(Comment start, int depth)
     {
-
-
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
         System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
@@ -136,7 +146,7 @@ public class CommentGraph {
         return new String(encodedChars);
     }
 
-    public class Comment {
+    public class Comment implements Comparable<Comment>{
         private NavigationAttributes nav;
         private InformationAttributes info;
         private int depth;
@@ -148,6 +158,12 @@ public class CommentGraph {
         }
 
         @Override
+        public int compareTo(Comment comment)
+        {
+            return Integer.compare(this.info.upvote, comment.info.upvote);
+        }
+
+        @Override
         public String toString() {
 //            String spacing = "  ".repeat(depth);
 //            String s = MessageFormat.format("{0}↳ {1} [{3}]\n{0}  {4}\n{0}  ↑ {2} ↓", spacing, this.info.userName,
@@ -156,6 +172,8 @@ public class CommentGraph {
 
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
         }
+
+
 
         public List<String> formattedRepresentation()
         {

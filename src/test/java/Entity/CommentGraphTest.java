@@ -50,14 +50,23 @@ public class CommentGraphTest {
         System.out.println("Enter id:");
         String id1 = input.nextLine();
         commentGraph.reply(id1, "Sample Text 1", "Jimmy");
+        commentGraph.vote(id1, true);
+        commentGraph.vote(id1, true);
+        commentGraph.vote(id1, true);
+        commentGraph.vote(id1, true);
+        commentGraph.vote(id1, true);
 
         System.out.println("Enter id:");
         String id2 = input.nextLine();
         commentGraph.reply(id2, "Sample Text 2", "Timmy");
+        commentGraph.vote(id2, true);
 
         System.out.println("Enter id:");
         String id3 = input.nextLine();
         commentGraph.reply(id3, "Sample Text 3", "Zimmy");
+        commentGraph.vote(id3, true);
+        commentGraph.vote(id3, true);
+        commentGraph.vote(id3, true);
 
         // var printerList = commentGraph.depthPrinter("head");
 
@@ -66,6 +75,6 @@ public class CommentGraphTest {
         //     System.out.println(i.toString());
         // }
 
-        commentGraph.levelPrinter(commentGraph.getVertices().get("head"), 0);
+        commentGraph.print(commentGraph.getVertices().get("head"), 0);
     }
 }
