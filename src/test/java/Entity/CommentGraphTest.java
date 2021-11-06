@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class CommentGraphTest {
     @Test(timeout = 100)
     public void testGraph() {

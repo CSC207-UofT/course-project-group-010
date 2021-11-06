@@ -50,34 +50,37 @@ public class CommentGraph {
         }
 
         System.out.println(String.join(", ", upvotes1));
+//
+//        int n = start.nav.next.size();
+//
+//        // One by one move boundary of unsorted subarray
+//        for (int i = 0; i < n-1; i++)
+//        {
+//            // Find the minimum element in unsorted array
+//            int min_idx = i;
+//            for (int j = i+1; j < n; j++)
+//                if (start.nav.next.get(j).info.upvote > start.nav.next.get(min_idx).info.upvote)
+//                    min_idx = j;
+//
+//            // Swap the found minimum element with the first
+//            // element
+//            Comment temp = start.nav.next.get(min_idx);
+//            start.nav.next.set(min_idx, start.nav.next.get(i));
+//            start.nav.next.set(i, temp);
+//        }
 
-        int n = start.nav.next.size();
-
-        // One by one move boundary of unsorted subarray
-        for (int i = 0; i < n-1; i++)
-        {
-            // Find the minimum element in unsorted array
-            int min_idx = i;
-            for (int j = i+1; j < n; j++)
-                if (start.nav.next.get(j).info.upvote > start.nav.next.get(min_idx).info.upvote)
-                    min_idx = j;
-
-            // Swap the found minimum element with the first
-            // element
-            Comment temp = start.nav.next.get(min_idx);
-            start.nav.next.set(min_idx, start.nav.next.get(i));
-            start.nav.next.set(i, temp);
-        }
+        CommentGraphHelper sortHelper = new CommentGraphHelper();
+        List<Comment> sortedComments = sortHelper.commentSort(start.nav.next, false);
 
         List<String> upvotes2 = new ArrayList<>(){};
-        for (var i : start.nav.next)
+        for (var i : sortedComments)
         {
             upvotes2.add(Integer.toString(i.info.upvote));
         }
 
         System.out.println(String.join(", ", upvotes2));
 
-        for (var subcomment : start.nav.next)
+        for (var subcomment : sortedComments)
         {
 //            List<String> upvotes = new ArrayList<>(){};
 //            for (var i : start.nav.next)
@@ -90,6 +93,8 @@ public class CommentGraph {
             levelPrinter(subcomment, depth+1);
         }
     }
+
+
 
     public List<Comment> depthPrinter(String startId)
     {
@@ -202,20 +207,7 @@ public class CommentGraph {
         @Override
         public int compareTo(Comment comment)
         {
-            if (this.info.upvote < comment.info.upvote)
-            {
-                return -1;
-            }
-
-            else if (this.info.upvote > comment.info.upvote)
-            {
-                return 1;
-            }
-
-            else
-            {
-                return 0;
-            }
+            return Integer.compare(this.info.upvote, comment.info.upvote);
         }
 
         @Override
@@ -226,6 +218,11 @@ public class CommentGraph {
 //            return s;
 
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id, this.info.upvote, this.info.text);
+        }
+
+        public int getUpvote()
+        {
+            return this.info.upvote;
         }
 
 
