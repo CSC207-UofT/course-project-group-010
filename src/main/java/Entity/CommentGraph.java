@@ -29,18 +29,23 @@ public class CommentGraph
         }
     }
 
-    public void print(Comment start, int depth)
+//----------------------------------------------------------------------------------------------------------------------
+// Comment Graph String Representation
+//----------------------------------------------------------------------------------------------------------------------
+
+    public String stringRepresentationHelper = "";
+
+    public void stringRepresentation(Comment start, int depth)
     {
-        printHelper = "";
-        levelPrinter(start, depth);
-        System.out.println(printHelper);
+        stringRepresentationHelper = "";
+        stringRepresentationRecursive(start, depth);
+        System.out.println(stringRepresentationHelper);
     }
 
-    public String printHelper = "";
-
-    public void levelPrinter(Comment start, int depth)
+    public void stringRepresentationRecursive(Comment start, int depth)
     {
-        printHelper = printHelper +  "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
+        stringRepresentationHelper = stringRepresentationHelper +
+                       "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
                        "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
                        "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
 
@@ -49,7 +54,7 @@ public class CommentGraph
 
         for (var subcomment : sortedComments)
         {
-            levelPrinter(subcomment, depth+1);
+            stringRepresentationRecursive(subcomment, depth+1);
         }
     }
 

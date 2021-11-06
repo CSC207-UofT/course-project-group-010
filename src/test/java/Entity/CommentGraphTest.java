@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.sampled.SourceDataLine;
-
 public class CommentGraphTest {
     @Test(timeout = 100)
     public void testGraph() {
@@ -64,7 +62,7 @@ public class CommentGraphTest {
         //     System.out.println(i.toString());
         // }
 
-        commentGraph.print(commentGraph.getVertices().get("head"), 0);
+        commentGraph.stringRepresentation(commentGraph.getVertices().get("head"), 0);
 
         System.out.println("Enter id:");
         String id4 = input.nextLine();
