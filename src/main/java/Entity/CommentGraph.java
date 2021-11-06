@@ -25,71 +25,28 @@ public class CommentGraph {
 
     public void print(Comment start, int depth)
     {
-//        for (var i : this.vertices.keySet())
-//        {
-//            List<Comment> original = this.vertices.get(i).nav.next;
-//            Collections.reverse(original);
-//            this.vertices.get(i).nav.next = original;
-//        }
-
+        printHelper = "";
         levelPrinter(start, depth);
+        System.out.println(printHelper);
     }
+
+    public String printHelper = "";
 
     public void levelPrinter(Comment start, int depth)
     {
-        //test
+//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
+//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
+//        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
 
-        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(0));
-        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(1));
-        System.out.println("    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n");
-
-        List<String> upvotes1 = new ArrayList<>(){};
-        for (var i : start.nav.next)
-        {
-            upvotes1.add(Integer.toString(i.info.upvote));
-        }
-
-        System.out.println(String.join(", ", upvotes1));
-//
-//        int n = start.nav.next.size();
-//
-//        // One by one move boundary of unsorted subarray
-//        for (int i = 0; i < n-1; i++)
-//        {
-//            // Find the minimum element in unsorted array
-//            int min_idx = i;
-//            for (int j = i+1; j < n; j++)
-//                if (start.nav.next.get(j).info.upvote > start.nav.next.get(min_idx).info.upvote)
-//                    min_idx = j;
-//
-//            // Swap the found minimum element with the first
-//            // element
-//            Comment temp = start.nav.next.get(min_idx);
-//            start.nav.next.set(min_idx, start.nav.next.get(i));
-//            start.nav.next.set(i, temp);
-//        }
+        printHelper = printHelper +  "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
+                       "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
+                       "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
 
         CommentGraphHelper sortHelper = new CommentGraphHelper();
-        List<Comment> sortedComments = sortHelper.commentSort(start.nav.next, false);
-
-        List<String> upvotes2 = new ArrayList<>(){};
-        for (var i : sortedComments)
-        {
-            upvotes2.add(Integer.toString(i.info.upvote));
-        }
-
-        System.out.println(String.join(", ", upvotes2));
+        List<Comment> sortedComments = sortHelper.commentSort(start.nav.next, true);
 
         for (var subcomment : sortedComments)
         {
-//            List<String> upvotes = new ArrayList<>(){};
-//            for (var i : start.nav.next)
-//            {
-//                upvotes.add(Integer.toString(i.info.upvote));
-//            }
-//
-//            System.out.println(String.join(", ", upvotes));
-
             levelPrinter(subcomment, depth+1);
         }
     }
