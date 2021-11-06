@@ -24,6 +24,11 @@ public class CommentGraphHelper {
         {
             curr = curr.getNav().getPrev();
             path.add(curr);
+
+            if (curr.getInfo().getId().equals("head") && !startId.equals("head"))
+            {
+                return new ArrayList<>(){};
+            }
         }
 
         return path;
