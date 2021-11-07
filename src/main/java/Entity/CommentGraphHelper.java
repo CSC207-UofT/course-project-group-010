@@ -82,20 +82,34 @@ public class CommentGraphHelper
         return path;
     }
 
+//======================================================================================================================
+// Id Generation
+//======================================================================================================================
+
+    /**
+     * Generates a unique String id with base 62 encoding for human-readable ids.
+     * @return unique String id.
+     */
     public String genId()
     {
+        // array of allowed characters
         char[] alphabet = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
                 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
+        // new random variable
         Random rand = new Random();
+        // empty array of size 5
         char[] encodedChars = new char[5];
+        // pick random character from alphabet with base 62 encoding
         for (int i = 0; i < 5; i++)
         {
+            // add character to encodedChars
             encodedChars[i] = alphabet[rand.nextInt(62)];
         }
 
+        // return unique String id
         return new String(encodedChars);
     }
 }
