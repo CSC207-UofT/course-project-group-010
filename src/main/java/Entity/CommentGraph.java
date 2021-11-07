@@ -36,14 +36,20 @@ public class CommentGraph
      */
     public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName)
     {
+        // initializes the dictionary of vertices to an empty HashMap.
         this.vertices = new HashMap<>();
+        // initializes the size of the CommentGraph to be as there are no Comments within it.
         this.size = 0;
+        // creates the root comment
         this.root = createComment("root", mainCommentType, mainCommenterName);
+        // adds the root comment to the CommentGraph.
         add_vertex("root", this.root);
 
-        for (String question : mainComments)
+        // each comment in mainComments is added to the CommentGraph and linked to the root node.
+        for (String mainComment : mainComments)
         {
-            reply("root", question, mainCommenterName);
+            // adds comment to the CommentGraph and links to root comment.
+            reply("root", mainComment, mainCommenterName);
         }
     }
 
