@@ -77,5 +77,7 @@ public class CommentGraphTest {
         {
             System.out.println(i.toString());
         }
+
+        System.out.println(commentGraph.getSize());
     }
 }

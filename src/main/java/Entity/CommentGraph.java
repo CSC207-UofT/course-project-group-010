@@ -100,12 +100,22 @@ public class CommentGraph
 
     /**
      * Method that gets the maximum depth of the CommentGraph.
-     * @return
+     * @return an integer that represents the maximum depth of the CommentGraph.
      */
     public int getMaxDepth()
     {
         // return the maxDepth instance variable.
         return this.maxDepth;
+    }
+
+    /**
+     * Method that gets the size of the CommentGraph.
+     * @return an integer that represents the size of the CommentGraph.
+     */
+    public int getSize()
+    {
+        // return the size instance variable.
+        return this.size;
     }
 
 //======================================================================================================================
@@ -186,39 +196,59 @@ public class CommentGraph
      * @param id unique id of the comment.
      * @param text text of the comment.
      * @param userName name of the user who made the comment.
-     * @return
+     * @return the newly created Comment
      */
     private Comment createComment(String id, String text, String userName)
     {
+        // set the next comments to an empty List, meaning there are no edges coming out of the comment.
         List<Comment> next = new ArrayList<>();
+        // set the navigation attributes to have no previous or next nodes.
         NavigationAttributes nav = new NavigationAttributes(next, null);
+        // set the information attributes to contain id, text, and userNamae
         InformationAttributes info = new InformationAttributes(id, text, userName);
+        // return the Comment
         return new Comment(nav, info, 0);
     }
 
+    /**
+     * Add a comment to the CommentGraph.
+     * @param id unique id of the comment.
+     * @param comment the Comment to the CommentGraph.
+     */
     private void add_vertex(String id, Comment comment)
     {
+        // add to the dictionary of vertices in CommentGraph.
         this.vertices.put(id, comment);
+        // increase the size of the CommentGraph by 1.
         this.size += 1;
     }
 
+    /**
+     * Method that links two comments together with an edge.
+     * @param prevId the id of the parent Comment.
+     * @param comment the Comment to link to the parent.
+     */
     private void link(String prevId, Comment comment)
     {
+        // Get current comment.
         Comment vertex1 = this.vertices.get(comment.info.id);
+        // Get parent comment.
         Comment vertex2 = this.vertices.get(prevId);
 
+        // set the previous Comment of the current comment to the parent comment.
         vertex1.nav.prev = vertex2;
+        // append the current Comment to the list of next comments of the parent Comment.
         vertex2.nav.next.add(vertex1);
 
+        // set the depth of the linked Comment based on the depth of the parent Comment.
         int newDepth = vertex2.depth + 1;
         comment.depth = newDepth;
 
+        // set the maxDepth of the CommentGraph if the newDepth is greater than the current maxDeph.
         if (newDepth > this.maxDepth)
         {
             this.maxDepth = newDepth;
         }
-
-        this.size += 1;
     }
 
 //======================================================================================================================
