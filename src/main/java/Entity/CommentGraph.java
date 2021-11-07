@@ -88,15 +88,6 @@ public class CommentGraph
         this.size += 1;
     }
 
-
-    public void vote(String id, boolean upvote) {
-        if (upvote) {
-            this.vertices.get(id).info.upvote += 1;
-        } else {
-            this.vertices.get(id).info.upvote -= 1;
-        }
-    }
-
 //======================================================================================================================
 // Reply Functionality
 //======================================================================================================================
@@ -123,11 +114,25 @@ public class CommentGraph
         return uniqueId;
     }
 
+//======================================================================================================================
+// Vote Functionality
+//======================================================================================================================
+
+    public void upvote(String id)
+    {
+        this.vertices.get(id).info.vote += 1;
+    }
+
+    public void downvote(String id)
+    {
+        this.vertices.get(id).info.vote -= 1;
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Comment Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public class Comment implements Comparable<Comment>{
+    public class Comment{
         private NavigationAttributes nav;
         private InformationAttributes info;
         private int depth;
@@ -138,41 +143,22 @@ public class CommentGraph
             this.depth = depth;
         }
 
-        @Override
-        public int compareTo(Comment comment)
-        {
-            return Integer.compare(this.info.upvote, comment.info.upvote);
-        }
+//======================================================================================================================
+// Comment String Representations
+//======================================================================================================================
 
         @Override
         public String toString()
         {
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id,
-                    this.info.upvote, this.info.text);
+                    this.info.vote, this.info.text);
         }
-
-        public int getUpvote()
-        {
-            return this.info.upvote;
-        }
-
-        public NavigationAttributes getNav()
-        {
-            return this.nav;
-        }
-
-        public InformationAttributes getInfo()
-        {
-            return this.info;
-        }
-
-
 
         public List<String> formattedRepresentation()
         {
             String s1 = MessageFormat.format("↳ {0} [{1}]", this.info.userName, this.info.id);
             String s2 = MessageFormat.format("{0}", this.info.text);
-            String s3 = MessageFormat.format("↑ {0} ↓", this.info.upvote);
+            String s3 = MessageFormat.format("↑ {0} ↓", this.info.vote);
 
             List<String> representation = new ArrayList<>(){};
             representation.add(s1);
@@ -182,13 +168,57 @@ public class CommentGraph
             return representation;
         }
 
+//======================================================================================================================
+// Comment Getters
+//======================================================================================================================
+
+        public List<Comment> getNext()
+        {
+            return this.nav.next;
+        }
+
+        public Comment getPrev()
+        {
+            return this.nav.prev;
+        }
+
+        public Boolean getVisited()
+        {
+            return this.nav.visited;
+        }
+
+        public String getId()
+        {
+            return this.info.id;
+        }
+
+        public String getText()
+        {
+            return this.info.text;
+        }
+
+        public String getUserName()
+        {
+            return this.info.userName;
+        }
+
+        public int getVote()
+        {
+            return this.info.vote;
+        }
+
         public int getDepth()
         {
             return this.depth;
         }
     }
 
-    public class NavigationAttributes {
+//======================================================================================================================
+// Comment Attributes
+//======================================================================================================================
+
+    public class NavigationAttributes
+    {
         private List<Comment> next;
         private Comment prev;
         private double nextDistance;
@@ -200,44 +230,21 @@ public class CommentGraph
             this.nextDistance = Double.POSITIVE_INFINITY;
             this.visited = false;
         }
-
-        public List<Comment> getNext() {
-            return this.next;
-        }
-
-        public Comment getPrev() {
-            return this.prev;
-        }
-
-        public double getNextDistance() {
-            return this.nextDistance;
-        }
-
-        public Boolean getVisited() {
-            return this.visited;
-        }
-
-        void setVisited(Boolean visited) {
-            this.visited = visited;
-        }
     }
 
-    public class InformationAttributes {
+    public class InformationAttributes
+    {
         private String id;
         private String text;
         private String userName;
-        private int upvote;
+        private int vote;
 
-        private InformationAttributes(String id, String text, String userName) {
+        private InformationAttributes(String id, String text, String userName)
+        {
             this.id = id;
             this.text = text;
             this.userName = userName;
-            this.upvote = 0;
-        }
-
-        public String getId()
-        {
-            return this.id;
+            this.vote = 0;
         }
     }
 }
