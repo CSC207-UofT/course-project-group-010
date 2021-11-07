@@ -53,8 +53,8 @@ public class CommentGraph
      * under the root (depth 1 comments). An example usage of this constructor is for a professor to create a graph with
      * the topmost comment under the root being a single question about their course which students can then reply to.
      *
-     * @param mainComment a String that contains the text for the topmost comments under the root (depth 1 comment)
-     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     * @param mainComment       a String that contains the text for the topmost comments under the root (depth 1 comment)
+     * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
@@ -68,7 +68,8 @@ public class CommentGraph
 
     /**
      * Method that initializes an empty CommentGraph
-     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     *
+     * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
@@ -98,6 +99,15 @@ public class CommentGraph
         return this.vertices;
     }
 
+    /**
+     * Method that gets the maximum depth of
+     * @return
+     */
+    public int getMaxDepth()
+    {
+        return this.maxDepth;
+    }
+
 //======================================================================================================================
 // Comment Graph String Representation
 //======================================================================================================================
@@ -109,16 +119,16 @@ public class CommentGraph
     public String stringRepresentationHelper = "";
 
 
-    public String stringRepresentation(Comment start, int depth)
+    public String stringRepresentation(Comment start, int depth, int endDepth)
     {
         stringRepresentationHelper = "";
-        stringRepresentationRecursive(start, depth);
+        stringRepresentationRecursive(start, depth, endDepth);
         String strRep = stringRepresentationHelper;
         stringRepresentationHelper = "";
         return strRep;
     }
 
-    public void stringRepresentationRecursive(Comment start, int depth)
+    public void stringRepresentationRecursive(Comment start, int depth, int endDepth)
     {
         stringRepresentationHelper = stringRepresentationHelper +
                 "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
@@ -128,9 +138,14 @@ public class CommentGraph
         CommentGraphHelper sortHelper = new CommentGraphHelper();
         List<Comment> sortedComments = sortHelper.commentSort(start.nav.next, true);
 
+        if (depth == endDepth)
+        {
+            return;
+        }
+
         for (var subcomment : sortedComments)
         {
-            stringRepresentationRecursive(subcomment, depth + 1);
+            stringRepresentationRecursive(subcomment, depth + 1, endDepth);
         }
     }
 
