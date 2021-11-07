@@ -101,6 +101,18 @@ public class CommentGraph
     }
 
     /**
+     * Method that returns Comment based on id.
+     *
+     * @param id of Comment.
+     * @return Comment based on id.
+     */
+    public Comment getComment(String id)
+    {
+        // return the associated Comment.
+        return this.vertices.get(id);
+    }
+
+    /**
      * Method that gets the maximum depth of the CommentGraph.
      *
      * @return an integer that represents the maximum depth of the CommentGraph.
@@ -190,6 +202,23 @@ public class CommentGraph
             // recursively call the method on the subcomment and increase the depth by 1.
             stringRepresentationRecursive(subComment, depth + 1, endDepth, reverseSorted);
         }
+    }
+
+    public String stringPath(Comment startComment, Comment endComment)
+    {
+        CommentGraphHelper stringPathHelper = new CommentGraphHelper();
+        List<Comment> path = stringPathHelper.depthFirstPath(this, startComment.getId(), endComment.getId());
+
+        String strPath = "";
+        for (Comment comment : path)
+        {
+            strPath = strPath +
+            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
+            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
+            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n";
+        }
+
+        return strPath;
     }
 
 //======================================================================================================================
