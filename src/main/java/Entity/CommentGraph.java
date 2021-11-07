@@ -29,12 +29,33 @@ public class CommentGraph
      * topmost comments under the root (depth 1 comments). An example usage of this constructor is for professors to
      * create a graph with the topmost comments under the root being questions about their course which students ccan
      * then reply to.
-     * @param mainComments a list of Strings that contains the text for the topmost comments under the root (depth 1)
-     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     *
+     * @param mainComments      a list of Strings that contains the text for the topmost comments under the root (depth 1)
+     * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
     public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName)
+    {
+        // initializes empty CommentGraph
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        // each comment in mainComments is added to the CommentGraph and linked to the root node.
+        for (String mainComment : mainComments)
+        {
+            // adds comment to the CommentGraph and links to root comment.
+            reply("root", mainComment, mainCommenterName);
+        }
+    }
+
+    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName)
+    {
+        // initializes empty CommentGraph
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        // adds comment to the CommentGraph and links to root comment.
+        reply("root", mainComment, mainCommenterName);
+    }
+
+    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName)
     {
         // initializes the dictionary of vertices to an empty HashMap.
         this.vertices = new HashMap<>();
@@ -44,13 +65,6 @@ public class CommentGraph
         this.root = createComment("root", mainCommentType, mainCommenterName);
         // adds the root comment to the CommentGraph.
         add_vertex("root", this.root);
-
-        // each comment in mainComments is added to the CommentGraph and linked to the root node.
-        for (String mainComment : mainComments)
-        {
-            // adds comment to the CommentGraph and links to root comment.
-            reply("root", mainComment, mainCommenterName);
-        }
     }
 
 //======================================================================================================================
