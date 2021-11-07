@@ -4,37 +4,86 @@ import org.hamcrest.core.IsInstanceOf;
 
 import java.util.*;
 
-public class CommentGraphHelper {
-    public List<CommentGraph.Comment> commentSort(List<CommentGraph.Comment> comments, boolean reverse) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Comment Graph Helper Class
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Class that contains a variety of helper subclasses and methods for CommentGraph.java
+ */
+public class CommentGraphHelper
+{
+
+//======================================================================================================================
+// Sorting Methods
+//======================================================================================================================
+
+    /**
+     * Method that sorts a List of comments by their upvote value.
+     * @param comments List of Comments.
+     * @param reverse Boolean that decides if sorted by ascending (reverse=false) or descending (reverse=true)
+     * @return List of sorted Comments.
+     */
+    public List<CommentGraph.Comment> commentSort(List<CommentGraph.Comment> comments, boolean reverse)
+    {
+        // sort by vote using built in Java Timsort
         comments.sort(Comparator.comparing(CommentGraph.Comment::getVote));
 
-        if (reverse) {
+        // reverse List if reverse==true
+        if (reverse)
+        {
             Collections.reverse(comments);
         }
 
+        // return sorted List of Comments
         return comments;
     }
 
+//======================================================================================================================
+// Path Finding Methods
+//======================================================================================================================
+
+    /**
+     * Method that generates the path from one Comment to another given that there is a valid path.
+     * @param commentGraph graph of Comments.
+     * @param startId id of start Comment.
+     * @param endId id of end Comment.
+     * @return a List containing the path
+     */
     public List<CommentGraph.Comment> depthFirstPath(CommentGraph commentGraph, String startId, String endId)
     {
+        // get end Comment
         CommentGraph.Comment curr = commentGraph.getVertices().get(endId);
-        List<CommentGraph.Comment> path = new ArrayList<>(){};
+        // Initialize empty path
+        List<CommentGraph.Comment> path = new ArrayList<>()
+        {
+        };
+        // add end Comment to path
         path.add(curr);
+        // until start Comment is reached
         while (!curr.getId().equals(startId))
         {
+            // set curr to Parent Comment.
             curr = curr.getPrev();
+            // add curr to path.
             path.add(curr);
 
+            // if root is reached but root was not the start id, then there is no valid path
             if (curr.getId().equals("root") && !startId.equals("root"))
             {
-                return new ArrayList<>(){};
+                // return empty list because no valid path
+                return new ArrayList<>()
+                {
+                };
             }
         }
 
+        // return path from start to end Comment.
         return path;
     }
 
-    public String genId() {
+    public String genId()
+    {
         char[] alphabet = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
                 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -42,48 +91,12 @@ public class CommentGraphHelper {
 
         Random rand = new Random();
         char[] encodedChars = new char[5];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
+        {
             encodedChars[i] = alphabet[rand.nextInt(62)];
         }
 
         return new String(encodedChars);
-    }
-
-    private class Queue {
-        private List<Object> items;
-
-        private Queue(Object first) {
-            if (first == null) {
-                this.items = new ArrayList<>() {
-                };
-            } else {
-                this.items = new ArrayList<>() {
-                };
-                this.items.add(first);
-            }
-        }
-
-        private Boolean isEmpty() {
-            return this.items.size() == 0;
-        }
-
-        private void add(Object item) {
-            this.items.add(item);
-        }
-
-        private Object remove_lifo() {
-            if (this.isEmpty()) {
-                throw new NoSuchElementException();
-            } else {
-                Object itemToReturn = this.items.get(0);
-                this.items.remove(0);
-                return itemToReturn;
-            }
-        }
-
-        private List<Object> toList() {
-            return this.items;
-        }
     }
 }
 
