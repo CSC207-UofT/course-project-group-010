@@ -244,7 +244,7 @@ public class CommentGraph
         int newDepth = vertex2.depth + 1;
         comment.depth = newDepth;
 
-        // set the maxDepth of the CommentGraph if the newDepth is greater than the current maxDeph.
+        // set the maxDepth of the CommentGraph if the newDepth is greater than the current maxDepth.
         if (newDepth > this.maxDepth)
         {
             this.maxDepth = newDepth;
@@ -255,31 +255,52 @@ public class CommentGraph
 // Reply Functionality
 //======================================================================================================================
 
+    /**
+     * Method that allows a comment to be the reply of another.
+     * @param prevId the id of the parent comment.
+     * @param text the text of the reply.
+     * @param userName the name of the user that made the reply.
+     */
     public void reply(String prevId, String text, String userName)
     {
+        // if the reply has no text or the parent id is not in the dictionary of vertices
         if (text.equals("") || !this.vertices.containsKey(prevId))
         {
             // do nothing
         }
+        //otherwise
         else
         {
+            // generate unique id for comment
             String uniqueId = genUniqueId();
+            // create comment with unique id, text, and name of the user
             Comment comment = createComment(uniqueId, text, userName);
+            // add the comment to the CommentGraph
             add_vertex(uniqueId, comment);
+            // link the comment to its parent
             link(prevId, comment);
         }
     }
 
+    /**
+     * Method that makes sure that the id is in fact unique, there is a very small chance that this code will actually
+     * run due to the number of possibilities (62P5 with repetition = 916,132,832 possibilities), but this is here just
+     * in case.
+     * @return a String that represents a uniqueId.
+     */
     private String genUniqueId()
     {
-        // makes sure that the id is in fact unique, there is a very small chance that this code will actually run
-        // due to the number of possibilities, but this is here just in case.
+        // generate using genId() function in helper class.
         CommentGraphHelper genIdHelper = new CommentGraphHelper();
         String uniqueId = genIdHelper.genId();
+        // until a unique id is generated, which is most likely already the case before the while loop occurs.
         while (vertices.containsKey(uniqueId))
         {
+            // set id to a new id.
             uniqueId = genIdHelper.genId();
         }
+
+        // return the unique id.
         return uniqueId;
     }
 
