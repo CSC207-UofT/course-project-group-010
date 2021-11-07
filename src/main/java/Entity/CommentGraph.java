@@ -308,13 +308,23 @@ public class CommentGraph
 // Vote Functionality
 //======================================================================================================================
 
+    /**
+     * Upvote a comment
+     * @param id of the Comment to upvote
+     */
     public void upvote(String id)
     {
+        // increase vote by 1
         this.vertices.get(id).info.vote += 1;
     }
 
+    /**
+     * Downvote a comment
+     * @param id of the Comment to downvote
+     */
     public void downvote(String id)
     {
+        // decrease vote by 1
         this.vertices.get(id).info.vote -= 1;
     }
 
