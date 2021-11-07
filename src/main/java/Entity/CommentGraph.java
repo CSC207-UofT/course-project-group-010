@@ -7,11 +7,11 @@ import java.util.*;
 // Comment Graph Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
+/**
  * The CommentsGraph Class allows the creation of comments that are linked together in a directed graph data structure,
  * where each node can only have one parent but multiple children, making it very similar to a tree data structure.
  * This graph is akin to threads found on the website Reddit.
-*/
+ */
 
 public class CommentGraph
 {
@@ -19,25 +19,41 @@ public class CommentGraph
     private HashMap<String, Comment> vertices;
     // Stores the size of the graph. Size is defined by the number of comments within it.
     private int size;
+    // The depth of the lowest comment in the graph
+    private int maxdepth;
     // Root comment of the entire graph.
     private Comment root;
+
+    /**
+     * CommentGraph Multiple mainComments Constructor, takes a list of Strings that represents the text found in the
+     * topmost comments under the root (depth 1 comments). An example usage of this constructor is for professors to
+     * create a graph with the topmost comments under the root being questions about their course which students ccan
+     * then reply to.
+     * @param mainComments a list of Strings that contains the text for the topmost comments under the root (depth 1)
+     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
+     *                          in a course.
+     */
+    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName)
+    {
+        this.vertices = new HashMap<>();
+        this.size = 0;
+        this.root = createComment("root", mainCommentType, mainCommenterName);
+        add_vertex("root", this.root);
+
+        for (String question : mainComments)
+        {
+            reply("root", question, mainCommenterName);
+        }
+    }
+
+//======================================================================================================================
+// Comment Graph Getters
+//======================================================================================================================
 
     public HashMap<String, Comment> getVertices()
     {
         return this.vertices;
-    }
-
-    public CommentGraph(List<String> questions, String profName)
-    {
-        this.vertices = new HashMap<String, Comment>();
-        this.size = 0;
-        this.root = createComment("root", "Questions", profName);
-        add_vertex("root", this.root);
-
-        for (String question : questions)
-        {
-            reply("root", question, profName);
-        }
     }
 
 //======================================================================================================================
@@ -94,7 +110,15 @@ public class CommentGraph
 
         vertex1.nav.prev = vertex2;
         vertex2.nav.next.add(vertex1);
-        comment.depth = vertex2.depth + 1;
+
+        int newDepth = vertex2.depth + 1;
+        comment.depth = newDepth;
+
+        if (newDepth > this.maxdepth)
+        {
+            this.maxdepth = newDepth;
+        }
+
         this.size += 1;
     }
 

@@ -25,7 +25,7 @@ public class CommentGraphTest {
         questions.add("Did you find anything difficult in the course");
         questions.add("Anything that the course coordinators can do to improve the course?");
 
-        CommentGraph commentGraph = new CommentGraph(questions, "John Smith");
+        CommentGraph commentGraph = new CommentGraph(questions, "Questions", "John Smith");
 
         for (var i : commentGraph.getVertices().values())
         {
