@@ -68,6 +68,7 @@ public class CommentGraph
 
     /**
      * Method that initializes an empty CommentGraph
+     *
      * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
@@ -90,6 +91,7 @@ public class CommentGraph
 
     /**
      * Method that gets the dictionary of ids and related comments in a CommentGraph.
+     *
      * @return a HashMap consisting of a String key (id) and a Comment value.
      */
     public HashMap<String, Comment> getVertices()
@@ -100,6 +102,7 @@ public class CommentGraph
 
     /**
      * Method that gets the maximum depth of the CommentGraph.
+     *
      * @return an integer that represents the maximum depth of the CommentGraph.
      */
     public int getMaxDepth()
@@ -110,6 +113,7 @@ public class CommentGraph
 
     /**
      * Method that gets the size of the CommentGraph.
+     *
      * @return an integer that represents the size of the CommentGraph.
      */
     public int getSize()
@@ -130,12 +134,13 @@ public class CommentGraph
 
     /**
      * Method that gets the String representation of a CommentGraph up to a certain depth.
-     * @param start the Comment at which to begin the string representation
-     * @param depth the depth of the comment, this controls the indentation in the String
-     * @param endDepth the depth at which to stop the String representation, for example if you only wanted the String
-     *                 representation of the root comment, its subcomments, and its subcomments, you would use depth 2,
-     *                 whereas if you wanted the string representation of the CommentGraph in its entirety, you would
-     *                 use the maximum depth of the CommentGraph.
+     *
+     * @param start         the Comment at which to begin the string representation
+     * @param depth         the depth of the comment, this controls the indentation in the String
+     * @param endDepth      the depth at which to stop the String representation, for example if you only wanted the String
+     *                      representation of the root comment, its subcomments, and its subcomments, you would use depth 2,
+     *                      whereas if you wanted the string representation of the CommentGraph in its entirety, you would
+     *                      use the maximum depth of the CommentGraph.
      * @param reverseSorted determines whether to sort by increasing or decreasing votes.
      * @return the String representation of the CommentGraph.
      */
@@ -155,9 +160,10 @@ public class CommentGraph
 
     /**
      * Method that recursively generates the String representation of CommentGraph up to a certain depth.
-     * @param start the Comment at which to begin the string representation.
-     * @param depth the depth of the comment, this controls the indentation in the String.
-     * @param endDepth the depth at which to stop the String representation.
+     *
+     * @param start         the Comment at which to begin the string representation.
+     * @param depth         the depth of the comment, this controls the indentation in the String.
+     * @param endDepth      the depth at which to stop the String representation.
      * @param reverseSorted determines whether to sort by increasing or decreasing votes.
      */
     public void stringRepresentationRecursive(Comment start, int depth, int endDepth, boolean reverseSorted)
@@ -168,7 +174,7 @@ public class CommentGraph
                 "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
                 "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
 
-        // Sort the list of next comments by vote, reversed or not based on reserseSorted boolean.
+        // Sort the list of next comments by vote, reversed or not based on reverseSorted boolean.
         CommentGraphHelper sortHelper = new CommentGraphHelper();
         List<Comment> sortedComments = sortHelper.commentSort(start.getNext(), reverseSorted);
 
@@ -193,8 +199,9 @@ public class CommentGraph
     /**
      * Method that creates a comment with no edges to other comments, contains an id, text, and name of the user that
      * created it.
-     * @param id unique id of the comment.
-     * @param text text of the comment.
+     *
+     * @param id       unique id of the comment.
+     * @param text     text of the comment.
      * @param userName name of the user who made the comment.
      * @return the newly created Comment
      */
@@ -212,7 +219,8 @@ public class CommentGraph
 
     /**
      * Add a comment to the CommentGraph.
-     * @param id unique id of the comment.
+     *
+     * @param id      unique id of the comment.
      * @param comment the Comment to the CommentGraph.
      */
     private void add_vertex(String id, Comment comment)
@@ -225,7 +233,8 @@ public class CommentGraph
 
     /**
      * Method that links two comments together with an edge.
-     * @param prevId the id of the parent Comment.
+     *
+     * @param prevId  the id of the parent Comment.
      * @param comment the Comment to link to the parent.
      */
     private void link(String prevId, Comment comment)
@@ -257,8 +266,9 @@ public class CommentGraph
 
     /**
      * Method that allows a comment to be the reply of another.
-     * @param prevId the id of the parent comment.
-     * @param text the text of the reply.
+     *
+     * @param prevId   the id of the parent comment.
+     * @param text     the text of the reply.
      * @param userName the name of the user that made the reply.
      */
     public void reply(String prevId, String text, String userName)
@@ -286,6 +296,7 @@ public class CommentGraph
      * Method that makes sure that the id is in fact unique, there is a very small chance that this code will actually
      * run due to the number of possibilities (62P5 with repetition = 916,132,832 possibilities), but this is here just
      * in case.
+     *
      * @return a String that represents a uniqueId.
      */
     private String genUniqueId()
@@ -310,6 +321,7 @@ public class CommentGraph
 
     /**
      * Upvote a comment
+     *
      * @param id of the Comment to upvote
      */
     public void upvote(String id)
@@ -320,6 +332,7 @@ public class CommentGraph
 
     /**
      * Downvote a comment
+     *
      * @param id of the Comment to downvote
      */
     public void downvote(String id)
@@ -348,8 +361,9 @@ public class CommentGraph
         /**
          * Comment class constructor that initializes with navigation attributes, info attributes, and depth of the
          * Comment.
-         * @param nav NavigationAttributes of the Comment.
-         * @param info InformationAttributes of the Comment.
+         *
+         * @param nav   NavigationAttributes of the Comment.
+         * @param info  InformationAttributes of the Comment.
          * @param depth of the Comment.
          */
         private Comment(NavigationAttributes nav, InformationAttributes info, int depth)
@@ -368,6 +382,7 @@ public class CommentGraph
 
         /**
          * Overrides the String representation of the Comment
+         *
          * @return String representation of the Comment.
          */
         @Override
@@ -380,6 +395,7 @@ public class CommentGraph
 
         /**
          * Method that returns a formatted String representation of a Comment.
+         *
          * @return a formatted String that represents a Comment.
          */
         public List<String> formattedRepresentation()
@@ -409,6 +425,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the next linked Comments.
+         *
          * @return List of next Comments.
          */
         public List<Comment> getNext()
@@ -418,6 +435,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the parent Comment.
+         *
          * @return parent Comment.
          */
         public Comment getPrev()
@@ -427,6 +445,7 @@ public class CommentGraph
 
         /**
          * Getter that returns whether the Comment has been visited or not.
+         *
          * @return true or false.
          */
         public Boolean getVisited()
@@ -436,6 +455,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the id of the Comment.
+         *
          * @return String id.
          */
         public String getId()
@@ -445,6 +465,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the text of the Component.
+         *
          * @return String text.
          */
         public String getText()
@@ -454,6 +475,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the userName of the Comment.
+         *
          * @return String userName.
          */
         public String getUserName()
@@ -463,6 +485,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the vote value of the Comment.
+         *
          * @return Integer vote.
          */
         public int getVote()
@@ -472,6 +495,7 @@ public class CommentGraph
 
         /**
          * Getter that returns the depth of the Comment.
+         *
          * @return Integer depth.
          */
         public int getDepth()
@@ -500,6 +524,7 @@ public class CommentGraph
 
         /**
          * Constructor for NavigationAttributes.
+         *
          * @param next children nodes.
          * @param prev parent node.
          */
@@ -532,8 +557,9 @@ public class CommentGraph
 
         /**
          * Constructor for InformationAttributes.
-         * @param id String id.
-         * @param text String text.
+         *
+         * @param id       String id.
+         * @param text     String text.
          * @param userName String userName.
          */
         private InformationAttributes(String id, String text, String userName)
