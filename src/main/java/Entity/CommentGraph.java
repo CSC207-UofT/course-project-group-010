@@ -68,7 +68,6 @@ public class CommentGraph
 
     /**
      * Method that initializes an empty CommentGraph
-     *
      * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
@@ -100,11 +99,12 @@ public class CommentGraph
     }
 
     /**
-     * Method that gets the maximum depth of
+     * Method that gets the maximum depth of the CommentGraph.
      * @return
      */
     public int getMaxDepth()
     {
+        // return the maxDepth instance variable.
         return this.maxDepth;
     }
 
@@ -118,13 +118,27 @@ public class CommentGraph
      */
     public String stringRepresentationHelper = "";
 
-
+    /**
+     * Method that gets the String representation of a CommentGraph up to a certain depth.
+     * @param start the Comment at which to begin the string representation
+     * @param depth the depth of the comment, this controls the indentation in the String
+     * @param endDepth the depth at which to stop the String representation, for example if you only wanted the String
+     *                 representation of the root comment, its subcomments, and its subcomments, you would use depth 2,
+     *                 whereas if you wanted the string representation of the CommentGraph in its entirety, you would
+     *                 use the maximum depth of the CommentGraph.
+     * @return the String representation of the CommentGraph.
+     */
     public String stringRepresentation(Comment start, int depth, int endDepth)
     {
+        // reset the stringRepresentationHelper variable.
         stringRepresentationHelper = "";
+        // assign the stringRepresentationHelper with the new representation.
         stringRepresentationRecursive(start, depth, endDepth);
+        // create temporary variable that stores the representation
         String strRep = stringRepresentationHelper;
+        // reset the stringRepresentationHelper variable.
         stringRepresentationHelper = "";
+        // return the String representation.
         return strRep;
     }
 
@@ -143,9 +157,9 @@ public class CommentGraph
             return;
         }
 
-        for (var subcomment : sortedComments)
+        for (var subComment : sortedComments)
         {
-            stringRepresentationRecursive(subcomment, depth + 1, endDepth);
+            stringRepresentationRecursive(subComment, depth + 1, endDepth);
         }
     }
 
