@@ -20,17 +20,18 @@ public class CommentGraph
     // Stores the size of the graph. Size is defined by the number of comments within it.
     private int size;
     // The depth of the lowest comment in the graph
-    private int maxdepth;
+    private int maxDepth;
     // Root comment of the entire graph.
     private Comment root;
 
     /**
      * CommentGraph Multiple mainComments Constructor, takes a list of Strings that represents the text found in the
      * topmost comments under the root (depth 1 comments). An example usage of this constructor is for professors to
-     * create a graph with the topmost comments under the root being questions about their course which students ccan
+     * create a graph with the topmost comments under the root being questions about their course which students can
      * then reply to.
      *
-     * @param mainComments      a list of Strings that contains the text for the topmost comments under the root (depth 1)
+     * @param mainComments      a list of Strings that contains the text for the topmost comments under the root
+     *                          (depth 1 comments)
      * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
@@ -47,6 +48,16 @@ public class CommentGraph
         }
     }
 
+    /**
+     * CommentGraph Single mainComment Constructor, takes a String that represents the text found in the topmost comment
+     * under the root (depth 1 comments). An example usage of this constructor is for a professor to create a graph with
+     * the topmost comment under the root being a single question about their course which students can then reply to.
+     *
+     * @param mainComment a String that contains the text for the topmost comments under the root (depth 1 comment)
+     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
+     *                          in a course.
+     */
     public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName)
     {
         // initializes empty CommentGraph
@@ -55,6 +66,12 @@ public class CommentGraph
         reply("root", mainComment, mainCommenterName);
     }
 
+    /**
+     * Method that initializes an empty CommentGraph
+     * @param mainCommentType the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
+     *                          in a course.
+     */
     private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName)
     {
         // initializes the dictionary of vertices to an empty HashMap.
@@ -71,8 +88,13 @@ public class CommentGraph
 // Comment Graph Getters
 //======================================================================================================================
 
+    /**
+     * Method that gets the dictionary of ids and related comments in a CommentGraph.
+     * @return a HashMap consisting of a String key (id) and a Comment value.
+     */
     public HashMap<String, Comment> getVertices()
     {
+        // return the vertices instance variable of CommentGraph.
         return this.vertices;
     }
 
@@ -80,13 +102,20 @@ public class CommentGraph
 // Comment Graph String Representation
 //======================================================================================================================
 
+    /**
+     * Helper variable that stores data for the stringRepresentationRecursive method. This allows for a much more
+     * modifiable and maintainable recursive function in case something needs to be changed.
+     */
     public String stringRepresentationHelper = "";
 
-    public void stringRepresentation(Comment start, int depth)
+
+    public String stringRepresentation(Comment start, int depth)
     {
         stringRepresentationHelper = "";
         stringRepresentationRecursive(start, depth);
-        System.out.println(stringRepresentationHelper);
+        String strRep = stringRepresentationHelper;
+        stringRepresentationHelper = "";
+        return strRep;
     }
 
     public void stringRepresentationRecursive(Comment start, int depth)
@@ -134,9 +163,9 @@ public class CommentGraph
         int newDepth = vertex2.depth + 1;
         comment.depth = newDepth;
 
-        if (newDepth > this.maxdepth)
+        if (newDepth > this.maxDepth)
         {
-            this.maxdepth = newDepth;
+            this.maxDepth = newDepth;
         }
 
         this.size += 1;
