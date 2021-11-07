@@ -484,34 +484,67 @@ public class CommentGraph
 // Comment Attributes
 //======================================================================================================================
 
+    /**
+     * NavigationAttributes stores values used for navigation for the Comment class.
+     */
     public class NavigationAttributes
     {
+        // List of children Comments
         private List<Comment> next;
+        // Parent Comment
         private Comment prev;
+        // Distance to nextDistance used for Dijkstra's algorithm, may be used in the future
         private double nextDistance;
+        // Determines if Comment has been visited while path finding, may be used in the future
         private Boolean visited;
 
+        /**
+         * Constructor for NavigationAttributes.
+         * @param next children nodes.
+         * @param prev parent node.
+         */
         private NavigationAttributes(List<Comment> next, Comment prev)
         {
+            // Initialize children nodes.
             this.next = next;
+            // Initialize parent node.
             this.prev = prev;
+            // Initialize next distance as infinity as per Dijkstra's algorithm.
             this.nextDistance = Double.POSITIVE_INFINITY;
+            // Initialize visited as false.
             this.visited = false;
         }
     }
 
+    /**
+     * InformationAttributes stores values used for textual information for the Comment class.
+     */
     public class InformationAttributes
     {
+        // id of Comment.
         private String id;
+        // text in Comment.
         private String text;
+        // name of user that created Comment.
         private String userName;
+        // vote value of the Comment.
         private int vote;
 
+        /**
+         * Constructor for InformationAttributes.
+         * @param id String id.
+         * @param text String text.
+         * @param userName String userName.
+         */
         private InformationAttributes(String id, String text, String userName)
         {
+            // Initialize id of Comment.
             this.id = id;
+            // Initialize text of Comment.
             this.text = text;
+            // Initialize name of user of Comment.
             this.userName = userName;
+            // Initialize vote value to 0.
             this.vote = 0;
         }
     }
