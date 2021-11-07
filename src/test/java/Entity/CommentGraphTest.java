@@ -62,7 +62,7 @@ public class CommentGraphTest {
         //     System.out.println(i.toString());
         // }
 
-        System.out.println(commentGraph.stringRepresentation(commentGraph.getVertices().get("root"), 0, commentGraph.getMaxDepth()));
+        System.out.println(commentGraph.stringRepresentation(commentGraph.getVertices().get("root"), 0, commentGraph.getMaxDepth(), true));
 
         System.out.println("Enter id:");
         String id4 = input.nextLine();

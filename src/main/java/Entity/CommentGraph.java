@@ -126,14 +126,15 @@ public class CommentGraph
      *                 representation of the root comment, its subcomments, and its subcomments, you would use depth 2,
      *                 whereas if you wanted the string representation of the CommentGraph in its entirety, you would
      *                 use the maximum depth of the CommentGraph.
+     * @param reverseSorted determines whether to sort by increasing or decreasing votes.
      * @return the String representation of the CommentGraph.
      */
-    public String stringRepresentation(Comment start, int depth, int endDepth)
+    public String stringRepresentation(Comment start, int depth, int endDepth, boolean reverseSorted)
     {
         // reset the stringRepresentationHelper variable.
         stringRepresentationHelper = "";
         // assign the stringRepresentationHelper with the new representation.
-        stringRepresentationRecursive(start, depth, endDepth);
+        stringRepresentationRecursive(start, depth, endDepth, reverseSorted);
         // create temporary variable that stores the representation
         String strRep = stringRepresentationHelper;
         // reset the stringRepresentationHelper variable.
@@ -142,24 +143,36 @@ public class CommentGraph
         return strRep;
     }
 
-    public void stringRepresentationRecursive(Comment start, int depth, int endDepth)
+    /**
+     * Method that recursively generates the String representation of CommentGraph up to a certain depth.
+     * @param start the Comment at which to begin the string representation.
+     * @param depth the depth of the comment, this controls the indentation in the String.
+     * @param endDepth the depth at which to stop the String representation.
+     * @param reverseSorted determines whether to sort by increasing or decreasing votes.
+     */
+    public void stringRepresentationRecursive(Comment start, int depth, int endDepth, boolean reverseSorted)
     {
+        // String representation of current comment.
         stringRepresentationHelper = stringRepresentationHelper +
                 "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
                 "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
                 "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
 
+        // Sort the list of next comments by vote, reversed or not based on reserseSorted boolean.
         CommentGraphHelper sortHelper = new CommentGraphHelper();
-        List<Comment> sortedComments = sortHelper.commentSort(start.nav.next, true);
+        List<Comment> sortedComments = sortHelper.commentSort(start.getNext(), reverseSorted);
 
+        // Stop appending to the string representation if a certain depth is reached.
         if (depth == endDepth)
         {
             return;
         }
 
+        // for each comment in the list of next comments
         for (var subComment : sortedComments)
         {
-            stringRepresentationRecursive(subComment, depth + 1, endDepth);
+            // recursively call the method on the subcomment and increase the depth by 1.
+            stringRepresentationRecursive(subComment, depth + 1, endDepth, reverseSorted);
         }
     }
 
@@ -167,6 +180,14 @@ public class CommentGraph
 // Comment creation and linking
 //======================================================================================================================
 
+    /**
+     * Method that creates a comment with no edges to other comments, contains an id, text, and name of the user that
+     * created it.
+     * @param id unique id of the comment.
+     * @param text text of the comment.
+     * @param userName name of the user who made the comment.
+     * @return
+     */
     private Comment createComment(String id, String text, String userName)
     {
         List<Comment> next = new ArrayList<>();
