@@ -66,6 +66,11 @@ public class CommentGraph
         reply("root", mainComment, mainCommenterName);
     }
 
+    public CommentGraph(String mainCommentType, String mainCommenterName)
+    {
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+    }
+
     /**
      * Method that initializes an empty CommentGraph
      *
@@ -82,7 +87,7 @@ public class CommentGraph
         // creates the root comment
         this.root = createComment("root", mainCommentType, mainCommenterName);
         // adds the root comment to the CommentGraph.
-        add_vertex("root", this.root);
+        addVertex("root", this.root);
     }
 
 //======================================================================================================================
@@ -252,7 +257,7 @@ public class CommentGraph
      * @param id      unique id of the comment.
      * @param comment the Comment to the CommentGraph.
      */
-    private void add_vertex(String id, Comment comment)
+    private void addVertex(String id, Comment comment)
     {
         // add to the dictionary of vertices in CommentGraph.
         this.vertices.put(id, comment);
@@ -315,7 +320,7 @@ public class CommentGraph
             // create comment with unique id, text, and name of the user
             Comment comment = createComment(uniqueId, text, userName);
             // add the comment to the CommentGraph
-            add_vertex(uniqueId, comment);
+            addVertex(uniqueId, comment);
             // link the comment to its parent
             link(prevId, comment);
         }
