@@ -332,16 +332,33 @@ public class CommentGraph
 // Comment Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * The Comment class are the nodes for the CommentGraph. It stores all attributes related to comments, including
+     * navigation attributes, and information attributes.
+     */
     public class Comment
     {
+        // navigation attributes for the Comment.
         private NavigationAttributes nav;
+        // information attributes for the Comment.
         private InformationAttributes info;
+        // depth of the Comment.
         private int depth;
 
+        /**
+         * Comment class constructor that initializes with navigation attributes, info attributes, and depth of the
+         * Comment.
+         * @param nav NavigationAttributes of the Comment.
+         * @param info InformationAttributes of the Comment.
+         * @param depth of the Comment.
+         */
         private Comment(NavigationAttributes nav, InformationAttributes info, int depth)
         {
+            // Initializes NavivationAttributes.
             this.nav = nav;
+            // Initializes InformationAttributes.
             this.info = info;
+            // Initializes depth of the Comment.
             this.depth = depth;
         }
 
@@ -349,19 +366,32 @@ public class CommentGraph
 // Comment String Representations
 //======================================================================================================================
 
+        /**
+         * Overrides the String representation of the Comment
+         * @return String representation of the Comment.
+         */
         @Override
         public String toString()
         {
+            // returns a String int the form "userName id vote text"
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id,
                     this.info.vote, this.info.text);
         }
 
+        /**
+         * Method that returns a formatted String representation of a Comment.
+         * @return a formatted String that represents a Comment.
+         */
         public List<String> formattedRepresentation()
         {
+            // first part of String containing userName and id
             String s1 = MessageFormat.format("↳ {0} [{1}]", this.info.userName, this.info.id);
+            // second part of String containing text
             String s2 = MessageFormat.format("{0}", this.info.text);
+            // third part of string containing vote
             String s3 = MessageFormat.format("↑ {0} ↓", this.info.vote);
 
+            // ArrayList containing all three parts of the String
             List<String> representation = new ArrayList<>()
             {
             };
@@ -369,6 +399,7 @@ public class CommentGraph
             representation.add(s2);
             representation.add(s3);
 
+            // return String representation
             return representation;
         }
 
