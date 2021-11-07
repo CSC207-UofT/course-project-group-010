@@ -37,32 +37,32 @@ public class CommentGraphTest {
         System.out.println("Enter id:");
         String id1 = input.nextLine();
         commentGraph.reply(id1, "Sample Text 1", "Jimmy");
-        commentGraph.vote(id1, true);
-        commentGraph.vote(id1, true);
-        commentGraph.vote(id1, true);
-        commentGraph.vote(id1, true);
-        commentGraph.vote(id1, true);
+        commentGraph.upvote(id1);
+        commentGraph.upvote(id1);
+        commentGraph.upvote(id1);
+        commentGraph.upvote(id1);
+        commentGraph.upvote(id1);
 
         System.out.println("Enter id:");
         String id2 = input.nextLine();
         commentGraph.reply(id2, "Sample Text 2", "Timmy");
-        commentGraph.vote(id2, true);
+        commentGraph.upvote(id2);
 
         System.out.println("Enter id:");
         String id3 = input.nextLine();
         commentGraph.reply(id3, "Sample Text 3", "Zimmy");
-        commentGraph.vote(id3, true);
-        commentGraph.vote(id3, true);
-        commentGraph.vote(id3, true);
+        commentGraph.upvote(id3);
+        commentGraph.upvote(id3);
+        commentGraph.upvote(id3);
 
-        // var printerList = commentGraph.depthPrinter("head");
+        // var printerList = commentGraph.depthPrinter("root");
 
         // for (var i : printerList)
         // {
         //     System.out.println(i.toString());
         // }
 
-        commentGraph.stringRepresentation(commentGraph.getVertices().get("head"), 0);
+        commentGraph.stringRepresentation(commentGraph.getVertices().get("root"), 0);
 
         System.out.println("Enter id:");
         String id4 = input.nextLine();

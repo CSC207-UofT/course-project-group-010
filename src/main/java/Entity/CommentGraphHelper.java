@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CommentGraphHelper {
     public List<CommentGraph.Comment> commentSort(List<CommentGraph.Comment> comments, boolean reverse) {
-        comments.sort(Comparator.comparing(CommentGraph.Comment::getUpvote));
+        comments.sort(Comparator.comparing(CommentGraph.Comment::getVote));
 
         if (reverse) {
             Collections.reverse(comments);
@@ -20,12 +20,12 @@ public class CommentGraphHelper {
         CommentGraph.Comment curr = commentGraph.getVertices().get(endId);
         List<CommentGraph.Comment> path = new ArrayList<>(){};
         path.add(curr);
-        while (!curr.getInfo().getId().equals(startId))
+        while (!curr.getId().equals(startId))
         {
-            curr = curr.getNav().getPrev();
+            curr = curr.getPrev();
             path.add(curr);
 
-            if (curr.getInfo().getId().equals("head") && !startId.equals("head"))
+            if (curr.getId().equals("root") && !startId.equals("root"))
             {
                 return new ArrayList<>(){};
             }
