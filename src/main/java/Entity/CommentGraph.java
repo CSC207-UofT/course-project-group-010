@@ -407,41 +407,73 @@ public class CommentGraph
 // Comment Getters
 //======================================================================================================================
 
+        /**
+         * Getter that returns the next linked Comments.
+         * @return List of next Comments.
+         */
         public List<Comment> getNext()
         {
             return this.nav.next;
         }
 
+        /**
+         * Getter that returns the parent Comment.
+         * @return parent Comment.
+         */
         public Comment getPrev()
         {
             return this.nav.prev;
         }
 
+        /**
+         * Getter that returns whether the Comment has been visited or not.
+         * @return true or false.
+         */
         public Boolean getVisited()
         {
             return this.nav.visited;
         }
 
+        /**
+         * Getter that returns the id of the Comment.
+         * @return String id.
+         */
         public String getId()
         {
             return this.info.id;
         }
 
+        /**
+         * Getter that returns the text of the Component.
+         * @return String text.
+         */
         public String getText()
         {
             return this.info.text;
         }
 
+        /**
+         * Getter that returns the userName of the Comment.
+         * @return String userName.
+         */
         public String getUserName()
         {
             return this.info.userName;
         }
 
+        /**
+         * Getter that returns the vote value of the Comment.
+         * @return Integer vote.
+         */
         public int getVote()
         {
             return this.info.vote;
         }
 
+        /**
+         * Getter that returns the depth of the Comment.
+         * @return Integer depth.
+         */
         public int getDepth()
         {
             return this.depth;
