@@ -1,7 +1,6 @@
-package Outer.Database.DatabaseGetter;
+package Controller.DatabaseGetter;
 
 import Interface.IDBSaveable;
-import Outer.Database.Database;
 
 import java.io.IOException;
 import java.io.Serializable;

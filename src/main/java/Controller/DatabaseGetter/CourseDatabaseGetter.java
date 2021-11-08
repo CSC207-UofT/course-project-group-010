@@ -1,9 +1,7 @@
-package Outer.Database.DatabaseGetter;
+package Controller.DatabaseGetter;
 
 import Constants.FileConstants;
-import Entity.Course;
 import Exceptions.NotInDatabaseException;
-import Interface.IDBSaveable;
 import Outer.Database.Database;
 import UseCase.CourseManager.CourseManager;
 

@@ -2,9 +2,7 @@ package Controller.Commands;
 
 import Controller.AuthHelper;
 import Exceptions.ArgumentException;
-import Exceptions.NotInDatabaseException;
-import Interface.IHasPermission;
-import Outer.Database.DatabaseGetter.UserDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.List;

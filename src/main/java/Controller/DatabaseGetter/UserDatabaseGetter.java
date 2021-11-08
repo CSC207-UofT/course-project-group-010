@@ -1,9 +1,8 @@
-package Outer.Database.DatabaseGetter;
+package Controller.DatabaseGetter;
 
 import Constants.FileConstants;
 import Exceptions.NotInDatabaseException;
 import Outer.Database.Database;
-import UseCase.CourseManager.CourseManager;
 import UseCase.UserManager;
 
 import java.io.IOException;

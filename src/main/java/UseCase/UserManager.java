@@ -33,19 +33,19 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
      * so it will initialize with a student object
      */
     public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
-        UserTypeConstants userTypes = new UserTypeConstants();
-        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
-        if (type == userTypes.INSTRUCTOR) {
-            user = createInstructorUser(displayName, ID, otherData);
-            this.permissionLevel = permissionLevels.INSTRUCTOR;
-        } else if (type == userTypes.STUDENT) {
-            user = createStudentUser(displayName, ID, otherData);
-            this.permissionLevel = permissionLevels.STUDENT;
-        } else {
-            throw new Exception("Couldn't initialize user");
-        }
-        this.authDict = getDefaultAuthDict();
-        // When amount of data increases, would be good if otherData was always just a
+                UserTypeConstants userTypes = new UserTypeConstants();
+                PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
+                if (type == userTypes.INSTRUCTOR) {
+                    user = createInstructorUser(displayName, ID, otherData);
+                    this.permissionLevel = permissionLevels.INSTRUCTOR;
+                } else if (type == userTypes.STUDENT) {
+                    user = createStudentUser(displayName, ID, otherData);
+                    this.permissionLevel = permissionLevels.STUDENT;
+                } else {
+                    throw new Exception("Couldn't initialize user");
+                }
+                this.authDict = getDefaultAuthDict();
+        //        // When amount of data increases, would be good if otherData was always just a
         // map with all the other data
         // then no matter what I can ccall create[type]User(displayName, ID, otherData);
         // and it would mean the same thing.
