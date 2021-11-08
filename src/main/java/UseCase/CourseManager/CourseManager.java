@@ -1,26 +1,29 @@
 package UseCase.CourseManager;
 
+import Constants.PermissionLevelConstants;
 import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
 import Interface.IDBSaveable;
-import Interface.IGettable;
+import Interface.IReadModifiable;
 import UseCase.CoursePage.CoursePage;
 import UseCase.UserManager;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-public class CourseManager implements IGettable, IDBSaveable, Serializable {
+public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
+    private Map<Integer, List<String>> authDict;
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
     public CourseManager(CoursePage coursePage){
         this.coursePage = coursePage;
+        this.authDict = getDefaultAuthDict();
+
     }
 
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
@@ -31,6 +34,7 @@ public class CourseManager implements IGettable, IDBSaveable, Serializable {
         this.coursePage.setRating(ratingToProcess);
     }
 
+    // When will we use this?
     public void filterInstructor(InstructorUser instructor){
         List<InstructorUser> instructors = this.coursePage.getInstructors();
 
@@ -80,5 +84,20 @@ public class CourseManager implements IGettable, IDBSaveable, Serializable {
     @Override
     public String getID() {
         return coursePage.getCourse().getCode();
+    }
+
+    @Override
+    public Map<Integer, List<String>> getAuthDict() {
+        return this.authDict;
+    }
+
+    public Map<Integer, List<String>> getDefaultAuthDict() {
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        Map<Integer, List<String>> retDict = new HashMap<>();
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
+        List<String> instructorPermissions = Arrays.asList("all");
+        retDict.put(permLvl.STUDENT, studentPermissions);
+        retDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        return retDict;
     }
 }

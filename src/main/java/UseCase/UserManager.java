@@ -1,11 +1,13 @@
 package UseCase;
 
+import Constants.PermissionLevelConstants;
 import Constants.UserTypeConstants;
 import Entity.*;
-import Interface.IDBSaveable;
-import Interface.IGettable;
+import Exceptions.ArgumentException;
+import Interface.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,33 +22,52 @@ import java.util.Map;
  *     Give up its info to a presenter
  *     Implement interfaces
  */
-public class UserManager implements IGettable, IDBSaveable, Serializable {
+public class UserManager implements IGettable, IDBSaveable, IHasPermission, IReadModifiable, Serializable {
     private User user;
+    private int permissionLevel;
+    private Map<Integer, List<String>> authDict;
 
     /**
      * Initializes a new UserManager.
      * UserManager works on use cases for a user object,
      * so it will initialize with a student object
      */
-    // TODO add a constants class for types of users, throw error if thing not in that package
     public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
         UserTypeConstants userTypes = new UserTypeConstants();
+        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
         if (type == userTypes.INSTRUCTOR) {
             user = createInstructorUser(displayName, ID, otherData);
+            this.permissionLevel = permissionLevels.INSTRUCTOR;
         } else if (type == userTypes.STUDENT) {
             user = createStudentUser(displayName, ID, otherData);
+            this.permissionLevel = permissionLevels.STUDENT;
         } else {
             throw new Exception("Couldn't initialize user");
         }
+        this.authDict = getDefaultAuthDict();
         // When amount of data increases, would be good if otherData was always just a
         // map with all the other data
         // then no matter what I can ccall create[type]User(displayName, ID, otherData);
         // and it would mean the same thing.
     }
 
+    public UserManager(String type, String displayName, String ID) throws Exception {
+        UserTypeConstants userTypes = new UserTypeConstants();
+        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
+        if (type.equalsIgnoreCase(userTypes.INSTRUCTOR)) {
+            user = new InstructorUser(displayName, ID);
+            this.permissionLevel = permissionLevels.INSTRUCTOR;
+        } else if (type.equalsIgnoreCase(userTypes.STUDENT)) {
+            user = new StudentUser(displayName, ID);
+            this.permissionLevel = permissionLevels.STUDENT;
+        } else {
+            throw new Exception("Couldn't initialize user of type " + type);
+        }
+        this.authDict = getDefaultAuthDict();
+    }
+
 
     // Constructs users.
-    // TODO consider changing User so that the map otherData is just an attribute of the user.
     /** Create an instance of StudentUser.
      *
      * @param displayName display name of StudentUser.
@@ -80,13 +101,12 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
 //        user.setpermissionLevel(level);
 //    }
 
-    /** Set review count of a given user.
+    /** Increment review count of a given user.
      *
      * @param user instance of a user.
-     * @para count review count.
      */
-    public void userSetReviewCount(User user,int count){
-        user.setreviewCount(count);
+    public void userIncrementReviewCount(User user,int count){
+        user.incrementReviewCount();
     }
 
     /** Set display name of a given user.
@@ -208,5 +228,26 @@ public class UserManager implements IGettable, IDBSaveable, Serializable {
      */
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public int getPermissionLevel() {
+        return this.permissionLevel;
+    }
+
+    private Map<Integer, List<String>> getDefaultAuthDict() {
+        Map<Integer, List<String>> permDict = new HashMap<>();
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        // for now, everyone can make a new user
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "newuser");
+        List<String> instructorPermissions = Arrays.asList("all");
+        permDict.put(permLvl.STUDENT, studentPermissions);
+        permDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        return permDict;
+    }
+
+    @Override
+    public Map<Integer, List<String>> getAuthDict() {
+        return this.authDict;
     }
 }

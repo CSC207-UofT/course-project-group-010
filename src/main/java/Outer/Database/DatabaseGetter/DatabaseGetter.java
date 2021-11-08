@@ -18,7 +18,6 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
     /**
      * Looks for an entry in the database the has the id [id]
      * Returns a map of the data it found, returns null if no data was found.
-     * @param id
      * @return
      */
     abstract public T getEntry(String id) throws Exception;
@@ -27,10 +26,13 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
      * sets an entry in the database, returning True if something was updated.
      * Checks getID() method of entry and updates existing entry if one with that id exists
      * in the database already.
-     * @param entry
      * @return
      */
-    abstract public void setEntry(T entry) throws IOException, ClassNotFoundException;
+    abstract public void setEntry(T entry) throws IOException;
+
+    abstract public boolean containsKey(String key);
+
+    abstract public void saveAll() throws IOException;
 
     /*
     Quick explanation of databases:

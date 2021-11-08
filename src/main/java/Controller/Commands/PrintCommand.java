@@ -1,7 +1,12 @@
 package Controller.Commands;
 
+import Controller.AuthHelper;
 import Exceptions.ArgumentException;
+import Exceptions.CommandNotAuthorizedException;
 import Interface.IGettable;
+import Interface.IHasPermission;
+import Interface.IReadModifiable;
+import UseCase.UserManager;
 
 import java.util.List;
 import java.util.Map;
@@ -15,18 +20,20 @@ public class PrintCommand extends Command{
     }
 
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) throws ArgumentException {
+    public String run(CommandExecutor ce, List<String> arguments) throws ArgumentException, CommandNotAuthorizedException {
         this.checkArgumentsNum(arguments);
-        IGettable currentlyViewingPage = ce.getPageManager();
-        if (currentlyViewingPage != null) {
-            Map<String, Object> dataMap = currentlyViewingPage.getData();
-            String returnString = "";
-            for (String o : dataMap.keySet()) {
-                returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
-            }
-            return returnString;
+        super.checkUserExists(ce);
+        super.checkViewingPageExists(ce);
+        IReadModifiable currentlyViewingPage = ce.getPageManager();
+        IHasPermission user = ce.getUserManager();
+        new AuthHelper().checkAuth(currentlyViewingPage, user, "print");
+
+        Map<String, Object> dataMap = currentlyViewingPage.getData();
+        String returnString = "";
+        for (String o : dataMap.keySet()) {
+            returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
         }
-        return "print command failed :(";
+        return returnString;
     }
 
     @Override

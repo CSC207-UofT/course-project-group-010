@@ -1,7 +1,9 @@
 package Controller.Commands;
 
 import Constants.CommandConstants;
+import Interface.IAuthorizable;
 import Interface.IGettable;
+import Interface.IReadModifiable;
 import UseCase.UserManager;
 
 /**
@@ -15,7 +17,7 @@ import UseCase.UserManager;
 public class CommandExecutor {
     private static CommandExecutor instance = null;
     private UserManager userManager = null;
-    private IGettable pageManager = null;
+    private IReadModifiable pageManager = null;
 
 
     /**
@@ -51,11 +53,12 @@ public class CommandExecutor {
         }
     }
 
-    public IGettable getPageManager() {
+    public IReadModifiable getPageManager() {
         return pageManager;
     }
 
-    public void setPageManager(IGettable pageManager) {
+    public void setPageManager(IReadModifiable pageManager)
+    {
         this.pageManager = pageManager;
     }
 

@@ -58,4 +58,10 @@ public abstract class Command {
             throw new CommandNotAuthorizedException("Not logged in.");
         }
     }
+
+    protected void checkViewingPageExists(CommandExecutor ce) throws ArgumentException {
+        if (ce.getPageManager() == null) {
+            throw new ArgumentException("Not viewing any pages.");
+        }
+    }
 }
