@@ -537,6 +537,17 @@ public class CommentGraph
         {
             return this.depth;
         }
+
+        /**
+         * Gets the formatted representation of a Comment.
+         * @return formatted String representation.
+         */
+        public String getFormattedRepresentation()
+        {
+            return this.formattedRepresentation().get(0) + "\n" +
+                    this.formattedRepresentation().get(1) + "\n" +
+                    this.formattedRepresentation().get(2) + "\n\n";
+        }
     }
 
 //======================================================================================================================

@@ -23,9 +23,9 @@ public class CommentManager
         this.commentGraph = commentGraph;
     }
 
-    public int getVote(String id)
+    public String getCommentbyId(String id)
     {
-        return this.commentGraph.getComment(id).getVote();
+        return this.commentGraph.getComment(id).getFormattedRepresentation();
     }
 
     public CommentGraph.Comment getParentComment(String id)
@@ -36,6 +36,11 @@ public class CommentManager
     public List<CommentGraph.Comment> getChildrenComments(String id)
     {
         return this.commentGraph.getComment(id).getNext();
+    }
+
+    public int getVote(String id)
+    {
+        return this.commentGraph.getComment(id).getVote();
     }
 
     /**
