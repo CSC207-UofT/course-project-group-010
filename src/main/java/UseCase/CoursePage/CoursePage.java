@@ -3,6 +3,8 @@ package UseCase.CoursePage;
 import Entity.Course;
 import Entity.InstructorUser;
 import Entity.Rating;
+import Entity.CommentGraph;
+import Entity.CommentGraphHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,14 +19,17 @@ public class CoursePage {
     private Optional<Integer> year; // optional default year
     private List<InstructorUser> instructors; //list of instructors teaching the course
     private List<Integer> years; // list of years the course was taught
+    private CommentGraph commentGraph;
 
-    public CoursePage (Course course, Rating rating, List<InstructorUser> instructors, List<Integer> years){
+    public CoursePage (Course course, Rating rating, List<InstructorUser> instructors,
+                       List<Integer> years, CommentGraph commentGraph){
         // reverse sort the list of years so that current year is in front
         Collections.reverse(years);
         this.course = course;
         this.rating = rating;
         this.instructors = instructors;
         this.years = years;
+        this.commentGraph = commentGraph;
 
         // for now the default instructor will be the first one found in the list, later we will sort the list of
         // instructors by overriding the CompareTo method and comparing their names.
@@ -87,5 +92,14 @@ public class CoursePage {
 
     public void setRating(Rating rating){
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        String result = this.course.toString() + "\n";
+        result += this.rating.toString() + "\n";
+        result += this.commentGraph.stringRepresentation(
+                commentGraph.getVertices().get("root"), 0, commentGraph.getMaxDepth(), true);
+        return result;
     }
 }
