@@ -189,7 +189,7 @@ public class CommentGraph
         stringRepresentationHelper = stringRepresentationHelper +
                 "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
                 "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
-                "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
+                "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n\n";
 
         // Sort the list of next comments by vote, reversed or not based on reverseSorted boolean.
         CommentGraphHelper sortHelper = new CommentGraphHelper();
@@ -218,9 +218,9 @@ public class CommentGraph
         for (Comment comment : path)
         {
             strPath = strPath +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n";
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n";
         }
 
         return strPath;
@@ -245,7 +245,7 @@ public class CommentGraph
         List<Comment> next = new ArrayList<>();
         // set the navigation attributes to have no previous or next nodes.
         NavigationAttributes nav = new NavigationAttributes(next, null);
-        // set the information attributes to contain id, text, and userNamae
+        // set the information attributes to contain id, text, and userName
         InformationAttributes info = new InformationAttributes(id, text, userName);
         // return the Comment
         return new Comment(nav, info, 0);
