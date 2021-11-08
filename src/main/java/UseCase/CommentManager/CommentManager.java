@@ -103,6 +103,7 @@ public class CommentManager
 
     /**
      * Get the depth of the specified Comment.
+     *
      * @param id of Comment.
      * @return depth value.
      */
@@ -222,10 +223,20 @@ public class CommentManager
     }
 
     //IMPORTANT: the getData method doesn't really suit this type of data, as graphs are very complex and dynamic objects.
-    public HashMap<String, Object> getData(){
-        HashMap<String,Object> map = new HashMap<>();
+    public HashMap<String, Object> getData()
+    {
+        HashMap<String, Object> map = new HashMap<>();
         map.put("FullThread", displayEntireThread(true, -1));
         return map;
+
+        /*
+        Commands that a user would have access to would be:
+        > displayFullThread(uses displayEntireThread function)
+        > displaySubsetThread(uses displaySubsetThread function)
+        > displayPath(uses getPath function)
+        > reply(uses replyToComment function)
+        > vote(uses vote function)
+         */
     }
 
 }
