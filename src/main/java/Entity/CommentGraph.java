@@ -209,12 +209,23 @@ public class CommentGraph
         }
     }
 
+    /**
+     * Generates the path from one comment to another given there is a valid path.
+     *
+     * @param startComment
+     * @param endComment
+     * @return
+     */
     public String stringPath(Comment startComment, Comment endComment)
     {
+        // initialize new helper
         CommentGraphHelper stringPathHelper = new CommentGraphHelper();
+        // get path from helper
         List<Comment> path = stringPathHelper.depthFirstPath(this, startComment.getId(), endComment.getId());
+        // reverse the path
         Collections.reverse(path);
 
+        //convert path to formatted String representation
         String strPath = "";
         for (Comment comment : path)
         {
@@ -224,6 +235,7 @@ public class CommentGraph
                     "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n\n";
         }
 
+        // return String representation.
         return strPath;
     }
 
@@ -540,6 +552,7 @@ public class CommentGraph
 
         /**
          * Gets the formatted representation of a Comment.
+         *
          * @return formatted String representation.
          */
         public String getFormattedRepresentation()
