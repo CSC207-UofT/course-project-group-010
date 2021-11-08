@@ -189,7 +189,7 @@ public class CommentGraph
         stringRepresentationHelper = stringRepresentationHelper +
                 "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
                 "    ".repeat(depth) + start.formattedRepresentation().get(1) + "\n" +
-                "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n";
+                "    ".repeat(depth) + start.formattedRepresentation().get(2) + "\n\n";
 
         // Sort the list of next comments by vote, reversed or not based on reverseSorted boolean.
         CommentGraphHelper sortHelper = new CommentGraphHelper();
@@ -209,20 +209,33 @@ public class CommentGraph
         }
     }
 
+    /**
+     * Generates the path from one comment to another given there is a valid path.
+     *
+     * @param startComment
+     * @param endComment
+     * @return
+     */
     public String stringPath(Comment startComment, Comment endComment)
     {
+        // initialize new helper
         CommentGraphHelper stringPathHelper = new CommentGraphHelper();
+        // get path from helper
         List<Comment> path = stringPathHelper.depthFirstPath(this, startComment.getId(), endComment.getId());
+        // reverse the path
+        Collections.reverse(path);
 
+        //convert path to formatted String representation
         String strPath = "";
         for (Comment comment : path)
         {
             strPath = strPath +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
-            "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n";
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n\n";
         }
 
+        // return String representation.
         return strPath;
     }
 
@@ -245,7 +258,7 @@ public class CommentGraph
         List<Comment> next = new ArrayList<>();
         // set the navigation attributes to have no previous or next nodes.
         NavigationAttributes nav = new NavigationAttributes(next, null);
-        // set the information attributes to contain id, text, and userNamae
+        // set the information attributes to contain id, text, and userName
         InformationAttributes info = new InformationAttributes(id, text, userName);
         // return the Comment
         return new Comment(nav, info, 0);
@@ -535,6 +548,18 @@ public class CommentGraph
         public int getDepth()
         {
             return this.depth;
+        }
+
+        /**
+         * Gets the formatted representation of a Comment.
+         *
+         * @return formatted String representation.
+         */
+        public String getFormattedRepresentation()
+        {
+            return this.formattedRepresentation().get(0) + "\n" +
+                    this.formattedRepresentation().get(1) + "\n" +
+                    this.formattedRepresentation().get(2) + "\n\n";
         }
     }
 

@@ -2,6 +2,10 @@ package UseCase.CommentManager;
 
 import Entity.CommentGraph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Class that handles comments in a CommentGraph
  */
@@ -12,6 +16,7 @@ public class CommentManager
 
     /**
      * CommentManager constructor
+     *
      * @param commentGraph
      */
     public CommentManager(CommentGraph commentGraph)
@@ -21,9 +26,96 @@ public class CommentManager
     }
 
     /**
+     * Gets the formatted String representation of a comment by its id.
+     *
+     * @param id
+     * @return
+     */
+    public String getCommentById(String id)
+    {
+        return this.commentGraph.getComment(id).getFormattedRepresentation();
+    }
+
+    /**
+     * Gets a list of formatted String representations of Comments that contain the provided String in their text
+     * attribute.
+     *
+     * @param text String to search for.
+     * @return List of formatted Strings.
+     */
+    public List<String> getCommentsByText(String text)
+    {
+        // new empty list
+        List<String> comments = new ArrayList<>()
+        {
+        };
+
+        // dictionary of vertices from CommentGraph
+        HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
+
+        // search for text
+        for (String key : vertices.keySet())
+        {
+            // if text found
+            if (vertices.get(key).getText().contains(text))
+            {
+                // add to list
+                comments.add(vertices.get(key).getFormattedRepresentation());
+            }
+        }
+
+        // return list
+        return comments;
+    }
+
+    /**
+     * Gets the parent of a Comment given an id.
+     *
+     * @param id of Comment.
+     * @return Comment Object.
+     */
+    public CommentGraph.Comment getParentComment(String id)
+    {
+        return this.commentGraph.getComment(id).getPrev();
+    }
+
+    /**
+     * Gets the list of children of a Comment given an id.
+     *
+     * @param id of Comment.
+     * @return list of Comment Objects.
+     */
+    public List<CommentGraph.Comment> getChildrenComments(String id)
+    {
+        return this.commentGraph.getComment(id).getNext();
+    }
+
+    /**
+     * Get the vote of a Comment given the id.
+     *
+     * @param id of Comment.
+     * @return vote value.
+     */
+    public int getVote(String id)
+    {
+        return this.commentGraph.getComment(id).getVote();
+    }
+
+    /**
+     * Get the depth of the specified Comment.
+     * @param id of Comment.
+     * @return depth value.
+     */
+    public int getDepth(String id)
+    {
+        return this.commentGraph.getComment(id).getDepth();
+    }
+
+    /**
      * Get complete String representation of CommentGraph
+     *
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
+     * @param upToDepth      get up to a certain depth
      * @return String representation
      */
     public String displayEntireThread(Boolean descendingSort, int upToDepth)
@@ -36,9 +128,10 @@ public class CommentManager
 
     /**
      * Get subset of String representation of Comment Graph
-     * @param startId Comment to start from
+     *
+     * @param startId        Comment to start from
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
+     * @param upToDepth      get up to a certain depth
      * @return String representation
      */
     public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth)
@@ -51,9 +144,10 @@ public class CommentManager
 
     /**
      * Helper function for getting string representation
+     *
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
-     * @param startComment comment to start from
+     * @param upToDepth      get up to a certain depth
+     * @param startComment   comment to start from
      * @return String representation.
      */
     private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment)
@@ -78,8 +172,9 @@ public class CommentManager
 
     /**
      * Generate a path in String form from one Comment to another.
+     *
      * @param startId id of Comment to start at
-     * @param endId if of Comment to end at
+     * @param endId   if of Comment to end at
      * @return the path from one Comment to another
      */
     public String getPath(String startId, String endId)
@@ -94,9 +189,10 @@ public class CommentManager
 
     /**
      * Reply to a comment.
+     *
      * @param commentId id of Comment to reply to.
-     * @param text Text of reply.
-     * @param userName name of user that created reply
+     * @param text      Text of reply.
+     * @param userName  name of user that created reply
      */
     public void replyToComment(String commentId, String text, String userName)
     {
@@ -106,8 +202,9 @@ public class CommentManager
 
     /**
      * upvote or downvote comment
+     *
      * @param commentId id of comment to upvote or downvote
-     * @param up upvote or downvote
+     * @param up        upvote or downvote
      */
     public void vote(String commentId, boolean up)
     {
@@ -123,4 +220,12 @@ public class CommentManager
             this.commentGraph.downvote(commentId);
         }
     }
+
+    //IMPORTANT: the getData method doesn't really suit this type of data, as graphs are very complex and dynamic objects.
+    public HashMap<String, Object> getData(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("FullThread", displayEntireThread(true, -1));
+        return map;
+    }
+
 }
