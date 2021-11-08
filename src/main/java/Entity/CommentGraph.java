@@ -448,11 +448,11 @@ public class CommentGraph
         public List<String> formattedRepresentation()
         {
             // first part of String containing userName and id
-            String s1 = MessageFormat.format("↳ {0} [{1}]", this.info.userName, this.info.id);
+            String s1 = MessageFormat.format("> {0} [{1}]", this.info.userName, this.info.id);
             // second part of String containing text
             String s2 = MessageFormat.format("{0}", this.info.text);
             // third part of string containing vote
-            String s3 = MessageFormat.format("↑ {0} ↓", this.info.vote);
+            String s3 = MessageFormat.format("[+] {0} [-]", this.info.vote);
 
             // ArrayList containing all three parts of the String
             List<String> representation = new ArrayList<>()
