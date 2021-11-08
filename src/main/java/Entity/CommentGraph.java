@@ -213,6 +213,7 @@ public class CommentGraph
     {
         CommentGraphHelper stringPathHelper = new CommentGraphHelper();
         List<Comment> path = stringPathHelper.depthFirstPath(this, startComment.getId(), endComment.getId());
+        Collections.reverse(path);
 
         String strPath = "";
         for (Comment comment : path)
@@ -220,7 +221,7 @@ public class CommentGraph
             strPath = strPath +
                     "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
                     "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
-                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n";
+                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n\n";
         }
 
         return strPath;
