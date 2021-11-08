@@ -2,6 +2,8 @@ package UseCase.CommentManager;
 
 import Entity.CommentGraph;
 
+import java.util.List;
+
 /**
  * Class that handles comments in a CommentGraph
  */
@@ -12,6 +14,7 @@ public class CommentManager
 
     /**
      * CommentManager constructor
+     *
      * @param commentGraph
      */
     public CommentManager(CommentGraph commentGraph)
@@ -20,10 +23,26 @@ public class CommentManager
         this.commentGraph = commentGraph;
     }
 
+    public int getVote(String id)
+    {
+        return this.commentGraph.getComment(id).getVote();
+    }
+
+    public CommentGraph.Comment getParentComment(String id)
+    {
+        return this.commentGraph.getComment(id).getPrev();
+    }
+
+    public List<CommentGraph.Comment> getChildrenComments(String id)
+    {
+        return this.commentGraph.getComment(id).getNext();
+    }
+
     /**
      * Get complete String representation of CommentGraph
+     *
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
+     * @param upToDepth      get up to a certain depth
      * @return String representation
      */
     public String displayEntireThread(Boolean descendingSort, int upToDepth)
@@ -36,9 +55,10 @@ public class CommentManager
 
     /**
      * Get subset of String representation of Comment Graph
-     * @param startId Comment to start from
+     *
+     * @param startId        Comment to start from
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
+     * @param upToDepth      get up to a certain depth
      * @return String representation
      */
     public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth)
@@ -51,9 +71,10 @@ public class CommentManager
 
     /**
      * Helper function for getting string representation
+     *
      * @param descendingSort sort by descending votes or not
-     * @param upToDepth get up to a certain depth
-     * @param startComment comment to start from
+     * @param upToDepth      get up to a certain depth
+     * @param startComment   comment to start from
      * @return String representation.
      */
     private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment)
@@ -78,8 +99,9 @@ public class CommentManager
 
     /**
      * Generate a path in String form from one Comment to another.
+     *
      * @param startId id of Comment to start at
-     * @param endId if of Comment to end at
+     * @param endId   if of Comment to end at
      * @return the path from one Comment to another
      */
     public String getPath(String startId, String endId)
@@ -94,9 +116,10 @@ public class CommentManager
 
     /**
      * Reply to a comment.
+     *
      * @param commentId id of Comment to reply to.
-     * @param text Text of reply.
-     * @param userName name of user that created reply
+     * @param text      Text of reply.
+     * @param userName  name of user that created reply
      */
     public void replyToComment(String commentId, String text, String userName)
     {
@@ -106,8 +129,9 @@ public class CommentManager
 
     /**
      * upvote or downvote comment
+     *
      * @param commentId id of comment to upvote or downvote
-     * @param up upvote or downvote
+     * @param up        upvote or downvote
      */
     public void vote(String commentId, boolean up)
     {
