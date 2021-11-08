@@ -1,4 +1,4 @@
-#Specification
+# Specification
 
 Users (Students or Instructors) can sign into the app " review system" using their school ID. 
 
@@ -16,15 +16,17 @@ This application will have a command line interface, where users can enter text 
 
 # Additional functionality Added 
 
--New functionality to course page 
-    - a list of questions 
-    - relative rating for course based on the program of study
+-New functionality to course page (
+    1. a list of questions 
+    2. relative rating for course based on the program of study
+)
 
--New functionality to users
-    - add their program of study to their profile 
-    - answer these specific questions shown on the course page 
-    - add reviews to each existing answer from a list of questions shown on the course page
-    - upvote the existing answers shown on the course page
+-New functionality to users (
+    1. add their program of study to their profile 
+    2. answer these specific questions shown on the course page 
+    3. add reviews to each existing answer from a list of questions shown on the course page
+    4. upvote the existing answers shown on the course page
+)
 
 
 
