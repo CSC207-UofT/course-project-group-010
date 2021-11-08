@@ -116,7 +116,8 @@ public class CommentManagerTest
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.displayEntireThread(true, -1);
         String actual = "↳ Instructor [root]\nQuestions\n↑ 0 ↓\n\n    ↳ Instructor [id2]\n    What did you find difficult in the course?\n    ↑ 4 ↓\n\n        ↳ Student 4 [id7]\n        Everything\n        ↑ -4 ↓\n\n    ↳ Instructor [id3]\n    Anything that the course coordinators can do to improve the course?\n    ↑ 2 ↓\n\n        ↳ Student 4 [id8]\n        No, the course was perfect.\n        ↑ 1 ↓\n\n    ↳ Instructor [id1]\n    How did you like the course?\n    ↑ 1 ↓\n\n        ↳ Student 1 [id4]\n        I really liked the course!\n        ↑ 5 ↓\n\n            ↳ Student 3 [id6]\n            Me too!\n            ↑ 7 ↓\n\n        ↳ Student 2 [id5]\n        I didn't like the course.\n        ↑ -3 ↓\n\n";
-        
+        System.out.println(actual);
+
         /*
         ↳ Instructor [root]
         Questions
@@ -137,6 +138,22 @@ public class CommentManagerTest
                 ↳ Student 4 [id8]
                 No, the course was perfect.
                 ↑ 1 ↓
+
+            ↳ Instructor [id1]
+            How did you like the course?
+            ↑ 1 ↓
+
+                ↳ Student 1 [id4]
+                I really liked the course!
+                ↑ 5 ↓
+
+                    ↳ Student 3 [id6]
+                    Me too!
+                    ↑ 7 ↓
+
+                ↳ Student 2 [id5]
+                I didn't like the course.
+                ↑ -3 ↓
         */
 
         assert (expected.equals(actual));
