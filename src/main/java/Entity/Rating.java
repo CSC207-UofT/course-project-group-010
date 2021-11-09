@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Rating {
 
-    private Course course; //Course object which this rating is for.
     private HashMap<String, List<Integer>> scores; //Mapping Program names to list of ratings.
     private List<StudentUser> users; //Contains list of StudentUser objects who have already provided a rating for this
     //Course.
