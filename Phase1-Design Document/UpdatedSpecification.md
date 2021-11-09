@@ -1,6 +1,6 @@
 # Specification
 
-Users (Students or Instructors) can sign into the app " review system" using their school ID. 
+Users (Students or Instructors) can sign into the app " University Course Review System" using their school ID. 
 
 There will be courses. Each course will have a page with basic info (course name & code & description & instructors) and course ratings (overall rating & relative rating based on their program of study).
 
