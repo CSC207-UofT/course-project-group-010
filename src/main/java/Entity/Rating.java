@@ -32,7 +32,9 @@ public class Rating {
          * Precondition: Rating object has already set a scores
          */
         public boolean processRating(Integer rating, StudentUser student) throws CommandNotAuthorizedException {
-
+            if (!(0 <= rating && rating <= 10)) {
+                throw new CommandNotAuthorizedException("Pleease provide a rating 1-10");
+            }
             if (!users.contains(student)) { //Student hasn't already left a review for this course
                 if (!this.scores.containsKey(student.getProgramDetail())) { //program_name not already in scores hashmap
 
@@ -55,22 +57,27 @@ public class Rating {
             throw new CommandNotAuthorizedException(student.getID() + " has already placed a rating for this course.");
         }
 
-        public Integer getRating(){
+        public Double getRating(){
             List<List<Integer>> values = new ArrayList<>(this.scores.values());
-            int to_return;
-            to_return = 0;
+            int num_of_raters = 0;
+            int sum_of_ratings = 0;
 
             for (List<Integer> l : values) {
-                int sum;
-                sum = 0;
+                int sum = 0;
+                int num_r = 0;
                 for (int i : l){
+                    num_r ++;
                     sum = sum + i;
                 }
-                to_return += sum;
-
-
+                num_of_raters += num_r;
+                sum_of_ratings += sum;
             }
-            return to_return;
+            // so sum is the sum of all ratings right??
+            double a = sum_of_ratings;
+            double b = num_of_raters;
+            System.out.println("sum of ratings is" + a);
+            System.out.println("number of raters is" + b);
+            return a/b;
         }
 
 
