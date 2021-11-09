@@ -1,7 +1,12 @@
 package Controller.Commands;
 
+import Controller.AuthHelper;
 import Exceptions.ArgumentException;
+import Exceptions.CommandHelpException;
 import Exceptions.CommandNotAuthorizedException;
+import Interface.IHasPermission;
+import Interface.IReadModifiable;
+import UseCase.UserManager;
 
 import java.util.List;
 
@@ -43,6 +48,12 @@ public abstract class Command {
         return "Help for this command is not available at this time";
     }
 
+    public void checkHelp(List<String> arguments) throws CommandHelpException {
+        if (arguments.size() > 0 && arguments.get(0).equalsIgnoreCase("-h")) {
+            throw new CommandHelpException(this.help());
+        }
+    }
+
     /**
      * Checks that the number of arguments is correct for this command, and throws and
      * exception otherwise.
@@ -63,5 +74,15 @@ public abstract class Command {
         if (ce.getPageManager() == null) {
             throw new ArgumentException("Not viewing any pages.");
         }
+    }
+
+    protected void checkUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+        checkHelp(arguments);
+        checkArgumentsNum(arguments);
+        checkUserExists(ce);
+        checkViewingPageExists(ce);
+        IReadModifiable currentlyViewingPage = ce.getPageManager();
+        UserManager user = ce.getUserManager();
+        new AuthHelper().checkAuth(currentlyViewingPage, user, method);
     }
 }

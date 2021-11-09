@@ -21,6 +21,7 @@ public class SaveAllCommand extends Command{
 
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         UserDatabaseGetter.getInstance().saveAll();
         CourseDatabaseGetter.getInstance().saveAll();
         return "saved all";

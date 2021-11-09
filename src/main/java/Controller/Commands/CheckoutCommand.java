@@ -32,6 +32,7 @@ public class CheckoutCommand extends Command{
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
         // TODO implement this
@@ -41,7 +42,7 @@ public class CheckoutCommand extends Command{
         if (arguments.get(0).equals("r")) {
             return "Review pages don't exist yet";
         } else {
-            // TODO change this hardcode
+            // TODO change this hardcode. Rating will not work on this because you initialize a new page everytime
             if (arguments.get(0).equals("MAT137")) {
                 // this is not cash money, why am I initializing entities
                 // this constructor is the most complex thing I've ever seen. Bad.

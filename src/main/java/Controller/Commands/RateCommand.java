@@ -18,6 +18,7 @@ public class RateCommand extends Command{
     // TODO implement this method
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
         if (arguments.get(0) == "rm") {
