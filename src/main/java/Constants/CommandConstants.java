@@ -20,6 +20,7 @@ public class CommandConstants {
         command_dict.put("rate", new RateCommand());
         command_dict.put("newuser", new NewUserCommand());
         command_dict.put("saveall", new SaveAllCommand());
+        command_dict.put("logout", new LogoutCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

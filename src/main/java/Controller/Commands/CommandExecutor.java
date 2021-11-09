@@ -47,6 +47,10 @@ public class CommandExecutor {
         return userManager;
     }
 
+    public void resetUserManager() {
+        this.userManager = null;
+    }
+
     public void addUserManager(UserManager u) {
         if (this.userManager == null) {
             this.userManager = u;
