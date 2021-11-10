@@ -1,6 +1,7 @@
 package Constants;
 
 import Controller.Commands.*;
+import Controller.Commands.CommentCommands.*;
 import Exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
@@ -21,6 +22,11 @@ public class CommandConstants {
         command_dict.put("newuser", new NewUserCommand());
         command_dict.put("saveall", new SaveAllCommand());
         command_dict.put("logout", new LogoutCommand());
+        command_dict.put("displayfullthread", new DisplayFullThreadCommand());
+        command_dict.put("displaysubsetthread", new DisplaySubsetThreadCommand());
+        command_dict.put("getpath", new GetPathCommand());
+        command_dict.put("reply", new ReplyCommand());
+        command_dict.put("vote", new VoteCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

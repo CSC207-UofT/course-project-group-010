@@ -36,6 +36,7 @@ public class LoginCommand extends Command{
     // Currently only possible id is 12345
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         checkArgumentsNum(arguments);
         String id = arguments.get(0);
         // TODO check if ce already has a user, throw otherwise

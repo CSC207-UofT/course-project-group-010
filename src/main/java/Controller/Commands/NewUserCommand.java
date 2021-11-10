@@ -26,6 +26,7 @@ public class NewUserCommand extends Command{
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         super.checkArgumentsNum(arguments);
         // super.checkUserExists(ce);
         UserManager um = new UserManager(arguments.get(0), arguments.get(1), arguments.get(2));

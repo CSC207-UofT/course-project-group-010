@@ -1,18 +1,21 @@
 package UseCase.CommentManager;
 
+import Constants.PermissionLevelConstants;
 import Entity.CommentGraph;
+import Interface.IReadModifiable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Class that handles comments in a CommentGraph
  */
-public class CommentManager
+public class CommentManager implements IReadModifiable, Serializable
 {
     // initial CommentGraph
     CommentGraph commentGraph;
+    Map<Integer, List<String>> authDict;
 
     /**
      * CommentManager constructor
@@ -23,6 +26,8 @@ public class CommentManager
     {
         // Initialize CommentGraph
         this.commentGraph = commentGraph;
+        // get Default authdict
+        this.authDict = getDefaultAuthDict();
     }
 
     /**
@@ -239,4 +244,20 @@ public class CommentManager
          */
     }
 
+    private Map<Integer, List<String>> getDefaultAuthDict() {
+        Map<Integer, List<String>> permDict = new HashMap<>();
+        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+        // for now, everyone can make a new user
+        List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote");
+        List<String> studentPermissions = l;
+        List<String> instructorPermissions = l;
+        permDict.put(permLvl.STUDENT, studentPermissions);
+        permDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        return permDict;
+    }
+
+    @Override
+    public Map<Integer, List<String>> getAuthDict() {
+        return this.authDict;
+    }
 }

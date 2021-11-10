@@ -2,6 +2,7 @@ package Controller.Commands;
 
 import Controller.AuthHelper;
 import Exceptions.ArgumentException;
+import Exceptions.CommandHelpException;
 import Exceptions.CommandNotAuthorizedException;
 import Interface.IGettable;
 import Interface.IHasPermission;
@@ -20,13 +21,10 @@ public class PrintCommand extends Command{
     }
 
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) throws ArgumentException, CommandNotAuthorizedException {
-        this.checkArgumentsNum(arguments);
-        super.checkUserExists(ce);
-        super.checkViewingPageExists(ce);
+    public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkUserPageAuth(ce, arguments, "print");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         IHasPermission user = ce.getUserManager();
-        new AuthHelper().checkAuth(currentlyViewingPage, user, "print");
 
         Map<String, Object> dataMap = currentlyViewingPage.getData();
         String returnString = "";

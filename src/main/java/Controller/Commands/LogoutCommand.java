@@ -17,6 +17,7 @@ public class LogoutCommand extends Command{
 
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
         checkUserExists(ce);
         UserManager um = ce.getUserManager();
         ce.resetUserManager();
