@@ -14,22 +14,21 @@ import java.util.Optional;
 // also the constructor forces any class that constructs this to access entity classes, which is bad.
 public class CoursePage {
     private int year;
-    private List<Integer> years; // list of years the course was taught
+    private List<Integer> years;
     private Course course; // course object
-    private Rating rating; // rating object
-    private Optional<InstructorUser> instructor; // optional default instructor
+    private List<Rating> ratings; // List of ratings under this course; rating object
+    private String instructor; // optional default instructor, WAS // Optional<InstructorUser>
     private List<InstructorUser> instructors; //list of instructors teaching the course
     private CommentGraph commentGraph;
 
-    public CoursePage(List<Integer> years, Course course, Rating rating, List<InstructorUser> instructors,
-                      CommentGraph commentGraph){
+    public CoursePage(Course course, List<Rating> ratings, String instructor){
         // reverse sort the list of years so that current year is in front
-        Collections.reverse(years);
+        //Collections.reverse(years);
         this.course = course;
-        this.rating = rating;
-        this.instructors = instructors;
-        this.years = years;
-        this.commentGraph = commentGraph;
+        this.ratings = ratings;
+        this.instructor = instructor;
+        //this.years = years;
+        //this.commentGraph = commentGraph;
 
         // for now the default instructor will be the first one found in the list, later we will sort the list of
         // instructors by overriding the CompareTo method and comparing their names.

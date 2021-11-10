@@ -11,17 +11,10 @@ import java.util.Optional;
 
 public class CoursePageBuilder implements Builder {
 
-    private List<Integer> years; // list of years the course was taught
     private Course course; // course object
-    private Rating rating; // rating object
-    private List<InstructorUser> instructors; //list of instructors teaching the course
-    private CommentGraph commentGraph;
+    private List<Rating> ratings; // rating object
+    private String instructor; //The instructor teaching the course
 
-
-    @Override
-    public void setYears(List<Integer> years) {
-        this.years = years;
-    }
 
     @Override
     public void setCourse(Course course){
@@ -29,23 +22,18 @@ public class CoursePageBuilder implements Builder {
     }
 
     @Override
-    public void setRating(Rating rating) {
-        this.rating = rating;
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     @Override
-    public void setInstructors(List<InstructorUser> instructors){
-        this.instructors = instructors;
-    }
-
-    @Override
-    public void setCommentGraph(CommentGraph commentGraph) {
-        this.commentGraph = commentGraph;
+    public void setInstructor(String instructor){
+        this.instructor = instructor;
     }
 
 
     public CoursePage getResult(){
-        return new CoursePage(years, course, rating, instructors, commentGraph);
+        return new CoursePage(course, ratings, instructor);
 
     }
 

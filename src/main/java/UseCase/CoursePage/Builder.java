@@ -10,15 +10,10 @@ import java.util.Optional;
 
 public interface Builder {
 
-    void setYear(int year);
-
-    void setYears(List<Integer> years);
-
     void setCourse(Course course);
 
-    void setRating(Rating rating);
+    void setRatings(List<Rating> ratings);
 
-    void setInstructors(List<InstructorUser> instructors);
+    void setInstructor(String instructor);
 
-    void setCommentGraph(CommentGraph commentGraph);
 }
