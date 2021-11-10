@@ -1,6 +1,7 @@
 package UseCase.CourseManager;
 
 import Constants.PermissionLevelConstants;
+import Entity.Course;
 import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
@@ -8,6 +9,7 @@ import Entity.StudentUser;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
 import UseCase.CoursePage.CoursePage;
+import UseCase.CoursePage.CoursePageBuilder;
 import UseCase.UserManager;
 
 import java.io.Serializable;
@@ -26,6 +28,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     }
 
+
+
+
+    //Overloading the constructor for constructCoursePage as per Clean Architecture for optional parameters,
+    //I think this is best approach because kevin can just input whatever info is given
+
+
+
+
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
         // TODO check if rating is in the allowed range?
         Rating ratingToProcess = this.coursePage.getRating();
@@ -33,6 +44,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
         this.coursePage.setRating(ratingToProcess);
     }
+
+
+
 
     // When will we use this?
     public void filterInstructor(InstructorUser instructor){
@@ -76,13 +90,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     // IDBSAVEABLE methods
+    @Override
+    public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
+        return getData();
+    }
 
     @Override
     public String getID() {
         return coursePage.getCourse().getCode();
     }
-
-    // Authorizable Methods
 
     @Override
     public Map<Integer, List<String>> getAuthDict() {

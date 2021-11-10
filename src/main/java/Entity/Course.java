@@ -1,9 +1,12 @@
 package Entity;
 
+import java.util.List;
+
 public class Course {
     String name; // Course name; i.e Introduction to Computer Science
     String code; // Course code; i.e CSC110
     String description; // Default description of the course that may be altered.
+    List<String> instructors; //List of instructors who have taught this course.
 
 
     //Constructor
@@ -47,10 +50,15 @@ public class Course {
         return this.description;
     }
 
+    public List<String> getInstructors(){ return this.instructors;}
+
     //Setters
     public void setDescription(String s) {
         this.description = s;
     }
+    public void setName(String s) {this.name = name;}
+    public void setCode(String c) {this.code = c;}
+    public void setInstructors(List<String> instructors) {this.instructors = instructors;}
 
 
 }
