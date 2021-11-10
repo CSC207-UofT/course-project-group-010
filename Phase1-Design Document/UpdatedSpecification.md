@@ -17,16 +17,19 @@ This application will have a command line interface, where users can enter text 
 # Additional functionality Added 
 
 -New functionality to course page (
-    1. a list of questions 
-    2. relative rating for course based on the program of study
+    1. a list of questions
 )
 
 -New functionality to users (
     1. add their program of study to their profile 
     2. answer these specific questions shown on the course page 
     3. add reviews to each existing answer from a list of questions shown on the course page
-    4. upvote the existing answers shown on the course page
+    4. upvote/downvote the existing answers shown on the course page
 )
+
+# Features we considered(and may implement later)
+
+The relative rating for course based on the program of study
 
 
 
