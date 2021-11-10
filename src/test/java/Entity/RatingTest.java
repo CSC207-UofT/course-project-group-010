@@ -1,18 +1,17 @@
 package Entity;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 
-public class RatingTest{
+public class RatingTest {
     @Test(timeout=100)
-    public void testgetRating() {
-        Rating r = new Rating();
-        Integer a = 5;
-        assertEquals(r.getRating(),a);
- }
+    public void testGetRating() {
+        Rating r = new Rating((float) 8.0/10, "CSC207", "Paul Gries", 2021);
+        float expectedScore = 0.8F;
+        assertEquals(r.getScore(), expectedScore, 0.01);
+    }
 }
 
 
