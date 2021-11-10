@@ -47,8 +47,9 @@ public class CommandExecutor {
         return userManager;
     }
 
-    public void resetUserManager() {
+    public void resetAll() {
         this.userManager = null;
+        this.pageManager = null;
     }
 
     public void addUserManager(UserManager u) {

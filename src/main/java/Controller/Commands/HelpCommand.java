@@ -14,6 +14,14 @@ public class HelpCommand extends Command{
         super(0, 0);
     }
 
+    /**
+     * Returns a list of command method names, and their entire help string.
+     * For individual command help text, you can type [method] -h
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkArgumentsNum(arguments);

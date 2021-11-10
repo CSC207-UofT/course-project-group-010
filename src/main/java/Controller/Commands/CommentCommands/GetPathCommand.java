@@ -1,10 +1,8 @@
 package Controller.Commands.CommentCommands;
 
-import Controller.AuthHelper;
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
 import Exceptions.ArgumentException;
-import Interface.IHasPermission;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
 
@@ -23,9 +21,17 @@ public class GetPathCommand extends Command {
         return "getpath [startid] [endid]: displays path of comments from startid to endid";
     }
 
+    /**
+     * Gets and prints the path from one comment to another. Only prints comments that must be traversed
+     * to reach the other comment.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkUserPageAuth(ce, arguments, "getpath");
+        checkHelpArgsUserPageAuth(ce, arguments, "getpath");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         try {
             return ((CommentManager) currentlyViewingPage).getPath(arguments.get(0), arguments.get(1));

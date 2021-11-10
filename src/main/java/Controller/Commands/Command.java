@@ -76,7 +76,7 @@ public abstract class Command {
         }
     }
 
-    protected void checkUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+    protected void checkHelpArgsUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);

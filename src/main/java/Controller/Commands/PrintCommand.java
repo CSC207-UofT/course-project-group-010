@@ -1,13 +1,7 @@
 package Controller.Commands;
 
-import Controller.AuthHelper;
-import Exceptions.ArgumentException;
-import Exceptions.CommandHelpException;
-import Exceptions.CommandNotAuthorizedException;
-import Interface.IGettable;
 import Interface.IHasPermission;
 import Interface.IReadModifiable;
-import UseCase.UserManager;
 
 import java.util.List;
 import java.util.Map;
@@ -20,9 +14,16 @@ public class PrintCommand extends Command{
         super(0, 0);
     }
 
+    /**
+     * Prints the currently viewing page. Format is "print"
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkUserPageAuth(ce, arguments, "print");
+        checkHelpArgsUserPageAuth(ce, arguments, "print");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         IHasPermission user = ce.getUserManager();
 

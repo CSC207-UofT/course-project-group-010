@@ -1,11 +1,9 @@
 package Controller.Commands.CommentCommands;
 
-import Controller.AuthHelper;
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
-import UseCase.UserManager;
 
 import java.util.List;
 
@@ -24,9 +22,16 @@ public class VoteCommand extends Command {
         return "vote [commendID] [up/down] : up/downvotes comment with id";
     }
 
+    /**
+     * Upvotes/downvotes a comment.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkUserPageAuth(ce, arguments,"vote");
+        checkHelpArgsUserPageAuth(ce, arguments,"vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         boolean up = arguments.get(1).equalsIgnoreCase("up");
         ((CommentManager) currentlyViewingPage).vote(arguments.get(0), up);

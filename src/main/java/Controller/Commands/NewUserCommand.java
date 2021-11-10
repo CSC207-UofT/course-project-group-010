@@ -19,6 +19,7 @@ public class NewUserCommand extends Command{
 
     /**
      * Format of this command is newuser [usertype] [displayname] [id]
+     * Creates a new user. Currently, anyone can create new users for convenience.
      * @param ce
      * @param arguments
      * @return
