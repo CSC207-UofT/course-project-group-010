@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class RatingTest{
     @Test(timeout=100)
     public void testgetRating() {
-        Rating r = new Rating(new Course("bad course", "MAT237"));
+        Rating r = new Rating();
         Integer a = 5;
         assertEquals(r.getRating(),a);
  }

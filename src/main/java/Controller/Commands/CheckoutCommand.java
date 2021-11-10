@@ -35,7 +35,7 @@ public class CheckoutCommand extends Command{
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
-        // TODO implement this
+        // TODO add auth and stuff.
         // get comment section if r is the argument
         // otherwise if it's a course:
         // look in database if page exists

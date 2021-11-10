@@ -19,6 +19,14 @@ public class SaveAllCommand extends Command{
         return "saves all users/course editing progress.";
     }
 
+    /**
+     * Saves all courses and users created so far in the session.
+     * Format: saveall
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelp(arguments);

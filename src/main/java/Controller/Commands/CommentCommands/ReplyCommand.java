@@ -1,9 +1,8 @@
 package Controller.Commands.CommentCommands;
 
-import Controller.AuthHelper;
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
-import Interface.IHasPermission;
+import Exceptions.ArgumentException;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
 import UseCase.UserManager;
@@ -25,18 +24,33 @@ public class ReplyCommand extends Command {
         return "reply [commendID] [text] : replies to comment with text.";
     }
 
+    /**
+     * Replies to a comment with text.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkUserPageAuth(ce, arguments, "reply");
+        checkHelpArgsUserPageAuth(ce, arguments, "reply");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
         String id = arguments.get(0);
         String userName = user.getUser().getdisplayName();
-        StringBuilder text = new StringBuilder();
-        for (int i = 1; i < arguments.size(); i++) {
-            text.append(arguments.get(i) + " ");
-        }
+        String text = this.buildComment(arguments);
         ((CommentManager) currentlyViewingPage).replyToComment(id, text.toString(), userName);
         return userName + " replied to comment " + id + "with text [" + text.toString() + "]";
+    }
+
+    private String buildComment(List<String> arguments) throws ArgumentException {
+        checkArgumentsNum(arguments);
+        arguments = arguments.subList(1, arguments.size());
+        StringBuilder text = new StringBuilder();
+        for (String s : arguments) {
+            text.append(s);
+            text.append(" ");
+        }
+        return text.toString().trim();
     }
 }

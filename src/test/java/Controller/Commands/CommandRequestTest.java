@@ -24,4 +24,11 @@ public class CommandRequestTest {
         assertEquals(req.getMethod(), "login");
         assertEquals(req.getArguments().size(), 0);
     }
+
+    @Test(timeout = 100)
+    public void testBlank() {
+        CommandRequest req = new CommandRequest("");
+        assertEquals(req.getMethod(), "");
+        assertEquals(req.getArguments().size(), 0);
+    }
 }

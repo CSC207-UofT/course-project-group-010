@@ -33,22 +33,15 @@ public class LoginCommand extends Command{
      * @return
      * @throws Exception
      */
-    // Currently only possible id is 12345
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         String id = arguments.get(0);
-        // TODO check if ce already has a user, throw otherwise
         if (ce.getUserManager() != null) {
             throw new CommandNotAuthorizedException("Already logged in.");
         }
-        // TODO check utorid in database, get data and initialize the usermanager if needed
         UserDatabaseGetter userDB = UserDatabaseGetter.getInstance();
-
-        // Loads the user. This code is very dependent on the database, but it'll change in the future.
-        // If userMap is not null, then we assume a user was returned with the appropriate fields.
-        // TODO we're assuming usermap will contain these, ensure it contains these later.
         UserManager mgr = userDB.getEntry(id);
         if (mgr == null) {
             throw new ArgumentException("User not found in Database");
