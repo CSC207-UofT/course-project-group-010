@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class CoursePage {
     private Course course; // course object
+<<<<<<< Updated upstream
     private Rating rating; // rating object
     private Optional<Instructor> instructor; // optional default instructor
     private Optional<Integer> year; // optional default year
@@ -16,12 +17,28 @@ public class CoursePage {
     private List<Integer> years; // list of years the course was taught
 
     public CoursePage (Course course, Rating rating, List<Instructor> instructors, List<Integer> years){
+=======
+    private List<Rating> ratings; // List of ratings under this course; rating object
+    private String instructor; // optional default instructor, WAS // Optional<InstructorUser>
+    private List<String> instructors; //list of instructors teaching the course
+    private CommentGraph commentGraph;
+
+    public CoursePage(List<Integer> years, Course course, List<Rating> ratings,
+                      List<String> instructors, CommentGraph commentGraph){
+>>>>>>> Stashed changes
         // reverse sort the list of years so that current year is in front
         Collections.reverse(years);
         this.course = course;
+<<<<<<< Updated upstream
         this.rating = rating;
         this.instructors = instructors;
         this.years = years;
+=======
+        this.ratings = ratings;
+        this.instructors = instructors;
+        //this.years = years;
+        //this.commentGraph = commentGraph;
+>>>>>>> Stashed changes
 
         // for now the default instructor will be the first one found in the list, later we will sort the list of
         // instructors by overriding the CompareTo method and comparing their names.
@@ -29,13 +46,13 @@ public class CoursePage {
         // if there is at least one instructor
         if (instructors.size() > 0)
         {
-            this.instructor = Optional.ofNullable(instructors.get(0));
+            this.instructor = instructors.get(0);
         }
 
         // if there are no instructors
         else
         {
-            this.instructor = Optional.empty();
+            this.instructor = "No Instructors";
         }
 
         if (years.size() > 0)
@@ -54,11 +71,15 @@ public class CoursePage {
         return this.course;
     }
 
-    public Rating getRating(){
-        return this.rating;
+    public List<Rating> getRatings(){
+        return this.ratings;
     }
 
+<<<<<<< Updated upstream
     public List<Instructor> getInstructors(){
+=======
+    public List<String> getInstructors(){
+>>>>>>> Stashed changes
         return this.instructors;
     }
 
@@ -66,21 +87,36 @@ public class CoursePage {
         return this.years;
     }
 
+<<<<<<< Updated upstream
     public Optional<Instructor> getInstructor(){
+=======
+    public String getInstructor(){
+>>>>>>> Stashed changes
         return this.instructor;
     }
 
-    public Optional<Integer> getYear(){
+    public int getYear(){
         return this.year;
     }
 
+<<<<<<< Updated upstream
     public void setInstructor(Instructor instructor){
         this.instructor = Optional.ofNullable(instructor);
+=======
+    public void setInstructor(String instructor){
+        this.instructor = instructor;
+>>>>>>> Stashed changes
     }
 
     public void setYear(int year){
-        this.year = Optional.ofNullable(year);
+        this.year = year;
     }
 
+<<<<<<< Updated upstream
+=======
+    public void setRatings(List<Rating> ratings){
+        this.ratings = ratings;
+    }
+>>>>>>> Stashed changes
 
 }
