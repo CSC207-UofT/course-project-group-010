@@ -48,7 +48,7 @@ Entities (Such as StudentUser and Rating) represent the business objects of the 
 
 
 ## Use Cases - Application Business Rules 
-UseCase (such as CoursePage and CourseManager) are application-specific business rules and any change made inside this folder will not impact the entities level.
+UseCases (such as CoursePage and CourseManager) are application-specific business rules and any change made inside this folder will not impact the entities level.
 
 
 
