@@ -11,14 +11,17 @@ import java.util.Optional;
 
 public class CoursePageBuilder implements Builder {
 
-    private int year; // Information on CoursePage should correspond to this year's data, maybe arrange database in a way that we can easily access data by year?
+    private List<Integer> years; // list of years the course was taught
     private Course course; // course object
     private Rating rating; // rating object
-    private Optional<InstructorUser> instructor; // optional default instructor
-
     private List<InstructorUser> instructors; //list of instructors teaching the course
-    private List<Integer> years; // list of years the course was taught
     private CommentGraph commentGraph;
+
+
+    @Override
+    public void setYears(List<Integer> years) {
+        this.years = years;
+    }
 
     @Override
     public void setCourse(Course course){
@@ -31,18 +34,19 @@ public class CoursePageBuilder implements Builder {
     }
 
     @Override
-    public void addInstructors(InstructorUser instructor) {
-        this.instructors.add(instructor);
-    }
-
-    @Override
-    public void setYear(int year) {
-        this.year = year;
+    public void setInstructors(List<InstructorUser> instructors){
+        this.instructors = instructors;
     }
 
     @Override
     public void setCommentGraph(CommentGraph commentGraph) {
         this.commentGraph = commentGraph;
+    }
+
+
+    public CoursePage getResult(){
+        return new CoursePage(years, course, rating, instructors, commentGraph);
+
     }
 
 }

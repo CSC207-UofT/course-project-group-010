@@ -5,16 +5,20 @@ import Entity.Course;
 import Entity.InstructorUser;
 import Entity.Rating;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface Builder {
+
+    void setYear(int year);
+
+    void setYears(List<Integer> years);
 
     void setCourse(Course course);
 
     void setRating(Rating rating);
 
-
-    void addInstructors(InstructorUser instructor);
-
-    void setYear(int year);
+    void setInstructors(List<InstructorUser> instructors);
 
     void setCommentGraph(CommentGraph commentGraph);
 }

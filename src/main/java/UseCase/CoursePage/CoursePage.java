@@ -13,16 +13,16 @@ import java.util.Optional;
 // TODO look at Commands.CheckoutCommand. The constructor for this is way to complex. Not going to work.
 // also the constructor forces any class that constructs this to access entity classes, which is bad.
 public class CoursePage {
+    private int year;
+    private List<Integer> years; // list of years the course was taught
     private Course course; // course object
     private Rating rating; // rating object
     private Optional<InstructorUser> instructor; // optional default instructor
-    private Optional<Integer> year; // optional default year
     private List<InstructorUser> instructors; //list of instructors teaching the course
-    private List<Integer> years; // list of years the course was taught
     private CommentGraph commentGraph;
 
-    public CoursePage (Course course, Rating rating, List<InstructorUser> instructors,
-                       List<Integer> years, CommentGraph commentGraph){
+    public CoursePage(List<Integer> years, Course course, Rating rating, List<InstructorUser> instructors,
+                      CommentGraph commentGraph){
         // reverse sort the list of years so that current year is in front
         Collections.reverse(years);
         this.course = course;
@@ -48,14 +48,16 @@ public class CoursePage {
 
         if (years.size() > 0)
         {
-            this.year = Optional.ofNullable(years.get(0));
+            this.year = years.get(0);
         }
 
         else
         {
-            this.year = Optional.empty();
+            this.year = -1;
         }
     }
+
+
 
     // get information from course Page
     public Course getCourse(){
