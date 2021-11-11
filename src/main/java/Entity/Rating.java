@@ -5,12 +5,14 @@ import Exceptions.CommandNotAuthorizedException;
 
 public class Rating {
 
+    private final StudentUser rater;
     private float score;
     private String courseCode;  // Course object which this rating is for.
     private String instructor;
     private int year;
 
-    public Rating(float score, String courseCode, String instructor, int year) {
+    public Rating(StudentUser rater, float score, String courseCode, String instructor, int year) {
+        this.rater = rater;
         this.score = score;
         this.courseCode = courseCode;
         this.instructor = instructor;
@@ -47,6 +49,11 @@ public class Rating {
         // return student.getID() + "\n" + "has already placed a rating for this course.";
         throw new CommandNotAuthorizedException(student.getID() + " has already placed a rating for this course.");
     }*/
+
+    public String getRaterProgramOfStudy() {
+        return rater.getProgramDetail();
+    }
+
     public float getScore() {
         return score;
     }
