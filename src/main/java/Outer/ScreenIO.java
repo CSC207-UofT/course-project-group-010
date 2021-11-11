@@ -1,5 +1,8 @@
 package Outer;
 
+
+import Constants.FileConstants;
+import Constants.UserType;
 import Controller.Commands.CommandExecutor;
 import Controller.Commands.CommandRequest;
 import Controller.DatabaseGetter.CourseDatabaseGetter;
