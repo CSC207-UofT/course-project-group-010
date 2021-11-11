@@ -1,11 +1,14 @@
 package Controller.Commands;
 
+import Constants.UserType;
 import Controller.AuthHelper;
+import Entity.User;
 import Exceptions.ArgumentException;
 import Controller.DatabaseGetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.List;
+import java.util.Locale;
 
 public class NewUserCommand extends Command{
     /**
@@ -30,7 +33,18 @@ public class NewUserCommand extends Command{
         checkHelp(arguments);
         super.checkArgumentsNum(arguments);
         // super.checkUserExists(ce);
-        UserManager um = new UserManager(arguments.get(0), arguments.get(1), arguments.get(2));
+
+        String argUserType = arguments.get(0).toLowerCase();
+        String argDisplayName = arguments.get(1);
+        String argId = arguments.get(2);
+
+        UserType desiredUserType = switch (argUserType) {
+            case "student" -> UserType.STUDENT;
+            case "instructor" -> UserType.INSTRUCTOR;
+            default -> throw new ArgumentException("Invalid user type");
+        };
+
+        UserManager um = new UserManager(desiredUserType, arguments.get(1), arguments.get(2));
         AuthHelper ah = new AuthHelper();
         // ah.checkAuth(um, ce.getUserManager(), "newuser");
         // No auth checks for now, because we have 0 users in the db right now which is unfortunate
