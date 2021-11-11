@@ -8,9 +8,8 @@ import UseCase.CourseManager.CourseManager;
 import java.util.List;
 import java.util.Optional;
 
-public class Director {
-    private int year;
-    private InstructorUser instructor;
+public class CoursePageDirector {
+    private Course course;
 
 
 

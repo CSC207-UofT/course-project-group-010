@@ -12,48 +12,36 @@ import java.util.Optional;
 
 // TODO look at Commands.CheckoutCommand. The constructor for this is way to complex. Not going to work.
 // also the constructor forces any class that constructs this to access entity classes, which is bad.
+
+
+/** CoursePage class. The page where it shows the ratings and other information about the course.
+ *  It can show default page(all years, all instructors), year filtered page(ex. 2021),
+ *  instructor filtered page(ex. ABCD EFGH), or both.
+ */
+
 public class CoursePage {
-    private int year;
-    private List<Integer> years;
+    private List<Integer> years; // The years the course was thought.
     private Course course; // course object
     private List<Rating> ratings; // List of ratings under this course; rating object
-    private String instructor; // optional default instructor, WAS // Optional<InstructorUser>
-    private List<InstructorUser> instructors; //list of instructors teaching the course
-    private CommentGraph commentGraph;
+    private List<InstructorUser> instructors; // optional default instructor, WAS // Optional<InstructorUser>
+    private CommentGraph commentGraph; // CommentGraph for this coursepage.
 
-    public CoursePage(Course course, List<Rating> ratings, String instructor){
+    public CoursePage(Course course, List<Rating> ratings, List<InstructorUser> instructors,
+                      List<Integer> years, CommentGraph commentGraph ){
         // reverse sort the list of years so that current year is in front
         //Collections.reverse(years);
         this.course = course;
         this.ratings = ratings;
-        this.instructor = instructor;
-        //this.years = years;
-        //this.commentGraph = commentGraph;
+        this.instructors = instructors;
+        // If it is instructor filtered course page, it has one instructor.
+        this.years = years; // If it is year filtered course page, it has one year.
+        this.commentGraph = commentGraph;
 
         // for now the default instructor will be the first one found in the list, later we will sort the list of
         // instructors by overriding the CompareTo method and comparing their names.
 
         // if there is at least one instructor
-        if (instructors.size() > 0)
-        {
-            this.instructor = Optional.ofNullable(instructors.get(0));
-        }
 
-        // if there are no instructors
-        else
-        {
-            this.instructor = Optional.empty();
-        }
-
-        if (years.size() > 0)
-        {
-            this.year = years.get(0);
-        }
-
-        else
-        {
-            this.year = -1;
-        }
     }
 
 
@@ -63,11 +51,11 @@ public class CoursePage {
         return this.course;
     }
 
-    public Rating getRating(){
-        return this.rating;
+    public List<Rating> getRating(){
+        return this.ratings;
     }
 
-    public List<InstructorUser> getInstructors(){
+    public List<InstructorUser> getInstructors() {
         return this.instructors;
     }
 
@@ -75,24 +63,14 @@ public class CoursePage {
         return this.years;
     }
 
-    public Optional<InstructorUser> getInstructor(){
-        return this.instructor;
-    }
 
-    public Optional<Integer> getYear(){
-        return this.year;
-    }
 
-    public void setInstructor(InstructorUser instructor){
-        this.instructor = Optional.ofNullable(instructor);
-    }
 
-    public void setYear(int year){
-        this.year = Optional.ofNullable(year);
-    }
 
-    public void setRating(Rating rating){
-        this.rating = rating;
+    public void editRating(Rating rating){
+        for(Rating i : this.ratings) {
+            if(Rating)
+        }
     }
 
     @Override

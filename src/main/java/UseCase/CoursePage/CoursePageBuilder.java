@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class CoursePageBuilder implements Builder {
+abstract class CoursePageBuilder {
 
     private int year;
     private List<Integer> years;
@@ -202,10 +202,6 @@ public class CoursePageBuilder implements Builder {
     }
 
 
-    public CoursePage getResult(){
-        return new CoursePage(course, ratings, instructor);
-
-    }
 
 
 
