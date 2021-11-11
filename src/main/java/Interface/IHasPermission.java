@@ -1,5 +1,7 @@
 package Interface;
 
+import Constants.PermissionLevel;
+
 public interface IHasPermission {
-    public int getPermissionLevel();
+    public PermissionLevel getPermissionLevel();
 }

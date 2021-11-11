@@ -1,9 +1,8 @@
 package UseCase;
 
-import Constants.PermissionLevelConstants;
+import Constants.PermissionLevel;
 import Constants.UserTypeConstants;
 import Entity.*;
-import Exceptions.ArgumentException;
 import Interface.*;
 
 import java.io.Serializable;
@@ -24,8 +23,8 @@ import java.util.Map;
  */
 public class UserManager implements IGettable, IDBSaveable, IHasPermission, IReadModifiable, Serializable {
     private User user;
-    private int permissionLevel;
-    private Map<Integer, List<String>> authDict;
+    private PermissionLevel permissionLevel;
+    private Map<PermissionLevel, List<String>> authDict;
 
     /**
      * Initializes a new UserManager.
@@ -34,13 +33,12 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
      */
     public UserManager(String type, String displayName, String ID, Map<String, String> otherData) throws Exception {
                 UserTypeConstants userTypes = new UserTypeConstants();
-                PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
                 if (type == userTypes.INSTRUCTOR) {
                     user = createInstructorUser(displayName, ID, otherData);
-                    this.permissionLevel = permissionLevels.INSTRUCTOR;
+                    this.permissionLevel = PermissionLevel.INSTRUCTOR;
                 } else if (type == userTypes.STUDENT) {
                     user = createStudentUser(displayName, ID, otherData);
-                    this.permissionLevel = permissionLevels.STUDENT;
+                    this.permissionLevel = PermissionLevel.STUDENT;
                 } else {
                     throw new Exception("Couldn't initialize user");
                 }
@@ -53,13 +51,12 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
 
     public UserManager(String type, String displayName, String ID) throws Exception {
         UserTypeConstants userTypes = new UserTypeConstants();
-        PermissionLevelConstants permissionLevels = new PermissionLevelConstants();
         if (type.equalsIgnoreCase(userTypes.INSTRUCTOR)) {
             user = new InstructorUser(displayName, ID);
-            this.permissionLevel = permissionLevels.INSTRUCTOR;
+            this.permissionLevel = PermissionLevel.INSTRUCTOR;
         } else if (type.equalsIgnoreCase(userTypes.STUDENT)) {
             user = new StudentUser(displayName, ID);
-            this.permissionLevel = permissionLevels.STUDENT;
+            this.permissionLevel = PermissionLevel.STUDENT;
         } else {
             throw new Exception("Couldn't initialize user of type " + type);
         }
@@ -222,23 +219,22 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
     }
 
     @Override
-    public int getPermissionLevel() {
+    public PermissionLevel getPermissionLevel() {
         return this.permissionLevel;
     }
 
-    private Map<Integer, List<String>> getDefaultAuthDict() {
-        Map<Integer, List<String>> permDict = new HashMap<>();
-        PermissionLevelConstants permLvl = new PermissionLevelConstants();
+    private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
+        Map<PermissionLevel, List<String>> permDict = new HashMap<>();
         // for now, everyone can make a new user
         List<String> studentPermissions = Arrays.asList("print", "checkout", "newuser");
         List<String> instructorPermissions = Arrays.asList("all");
-        permDict.put(permLvl.STUDENT, studentPermissions);
-        permDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        permDict.put(PermissionLevel.STUDENT, studentPermissions);
+        permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
         return permDict;
     }
 
     @Override
-    public Map<Integer, List<String>> getAuthDict() {
+    public Map<PermissionLevel, List<String>> getAuthDict() {
         return this.authDict;
     }
 }

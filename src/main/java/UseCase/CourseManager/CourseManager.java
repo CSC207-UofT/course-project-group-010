@@ -1,6 +1,6 @@
 package UseCase.CourseManager;
 
-import Constants.PermissionLevelConstants;
+import Constants.PermissionLevel;
 import Exceptions.CommandNotAuthorizedException;
 import Entity.InstructorUser;
 import Entity.Rating;
@@ -16,7 +16,7 @@ import java.util.*;
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     private CoursePage coursePage;
-    private Map<Integer, List<String>> authDict;
+    private Map<PermissionLevel, List<String>> authDict;
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
@@ -85,17 +85,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     // Authorizable Methods
 
     @Override
-    public Map<Integer, List<String>> getAuthDict() {
+    public Map<PermissionLevel, List<String>> getAuthDict() {
         return this.authDict;
     }
 
-    public Map<Integer, List<String>> getDefaultAuthDict() {
-        PermissionLevelConstants permLvl = new PermissionLevelConstants();
-        Map<Integer, List<String>> retDict = new HashMap<>();
+    public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
+        Map<PermissionLevel, List<String>> retDict = new HashMap<>();
         List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
         List<String> instructorPermissions = Arrays.asList("all");
-        retDict.put(permLvl.STUDENT, studentPermissions);
-        retDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        retDict.put(PermissionLevel.STUDENT, studentPermissions);
+        retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
         return retDict;
     }
 }
