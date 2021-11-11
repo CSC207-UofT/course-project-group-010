@@ -38,10 +38,16 @@ public class NewUserCommand extends Command{
         String argDisplayName = arguments.get(1);
         String argId = arguments.get(2);
 
-        UserType desiredUserType = switch (argUserType) {
-            case "student" -> UserType.STUDENT;
-            case "instructor" -> UserType.INSTRUCTOR;
-            default -> throw new ArgumentException("Invalid user type");
+        UserType desiredUserType;
+        switch (argUserType) {
+            case "student":
+                desiredUserType = UserType.STUDENT;
+                break;
+            case "instructor":
+                desiredUserType = UserType.INSTRUCTOR;
+                break;
+            default:
+                throw new ArgumentException("Invalid user type");
         };
 
         UserManager um = new UserManager(desiredUserType, arguments.get(1), arguments.get(2));
