@@ -39,7 +39,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         List<InstructorUser> instructors = this.coursePage.getInstructors();
 
         if (instructors.contains(instructor)){
-            this.coursePage.setInstructor(instructor);
+            this.coursePage.setDefaultInstructor(instructor);
         }
 
         else
@@ -52,7 +52,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         List<Integer> years = this.coursePage.getYears();
 
         if (years.contains(year)){
-            this.coursePage.setYear(year);
+            this.coursePage.setDefaultYear(year);
         }
 
         else
@@ -68,8 +68,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
         infoMap.put("instructors", this.coursePage.getInstructors());
         infoMap.put("years", this.coursePage.getYears());
-        infoMap.put("currentInstructors", this.coursePage.getInstructor());
-        infoMap.put("currentYear", this.coursePage.getYear());
+        infoMap.put("currentInstructors", this.coursePage.getDefaultInstructor());
+        infoMap.put("currentYear", this.coursePage.getDefaultYear());
         infoMap.put("rating", this.coursePage.getRating());
 
         return infoMap;
