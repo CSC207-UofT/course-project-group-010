@@ -76,15 +76,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     // IDBSAVEABLE methods
-    @Override
-    public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
-        return getData();
-    }
 
     @Override
     public String getID() {
         return coursePage.getCourse().getCode();
     }
+
+    // Authorizable Methods
 
     @Override
     public Map<Integer, List<String>> getAuthDict() {
