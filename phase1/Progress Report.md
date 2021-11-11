@@ -20,3 +20,4 @@ Dependency injection is a simple fix to enforce clean architecture.
 
 - Kevin: Implemented Authorization system, Database system, added comment related commands, helped with writeup.
 Will wait to implement features that team members create, by adding relevant commands and such.
+- fiona: Wrote the Design Document.
