@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class CoursePageBuilder implements Builder {
 
+    private CoursePage coursePage;
     private int year;
     private List<Integer> years;
     private Course course; // course object.
@@ -21,11 +22,28 @@ public class CoursePageBuilder implements Builder {
     private List<String> instructors; //list of instructors teaching the course
     private HashMap<Integer, List<String>> instructorMap; //Hashmap of {year -> instructors} who taught this course at that year.
 
+    // We can have basic configuration hashmap under builder, basic configuration that directly
+    // takes the information of all ratings, instructors and store them inside and used
+    // to default page and
+    // filter configuration hashmap that can filter year and instructors.
+
+    private HashMap<String, Object> basicConfiguration;
+    private HashMap<String, Object> filterConfiguration;
 
     @Override
     public void setYear(int year) {
         this.year = year;
 
+    }
+
+    @Override
+    public void setBasicConfiguration(HashMap<String, Object> basicConfiguration) {
+        this.basicConfiguration = basicConfiguration;
+    }
+
+    @Override
+    public void setFilterConfiguration(HashMap<String, Object> filterConfiguration) {
+        this.filterConfiguration = filterConfiguration;
     }
 
     @Override
@@ -68,7 +86,7 @@ public class CoursePageBuilder implements Builder {
         //Check If this instructor_filter has taught this course at any year
         List<Rating> newRating = new ArrayList<>();
         for(Rating r: this.ratings){
-            if (r.instructor == instructor){
+            if (r.getInstructor() == instructor){
                 newRating.add(r);
             }
         }
@@ -91,7 +109,7 @@ public class CoursePageBuilder implements Builder {
             //Collect all ratings left on this course at filter_year.
 
             for(Rating r: this.ratings){
-                if (r.year == filter_year){
+                if (r.getYear() == filter_year){
                     newRating.add(r);
                 }
             }
@@ -113,10 +131,15 @@ public class CoursePageBuilder implements Builder {
         }
     }
 
+    public void build() {
+        // FIXME We need to bring InstructorUser object to construct CoursePage or change how coursepage is constructed.
+        this.coursePage = new CoursePage(this.course, this.ratings, this.instructors, this.years);
+    }
 
+    @Override
     public CoursePage getResult(){
-        return new CoursePage(course, ratings, instructor);
-
+        return this.coursePage;
+//        return new CoursePage(course, ratings, instructor);
     }
 
 

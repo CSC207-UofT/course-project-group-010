@@ -5,6 +5,7 @@ import Entity.InstructorUser;
 import Entity.Rating;
 import UseCase.CourseManager.CourseManager;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 //within the builder.
 
 public class Director {
+    private Builder builder; // builder for builder.
     private int year;
     private InstructorUser instructor;
 
@@ -40,9 +42,33 @@ public class Director {
     // ALSO find optimal minimum requirement for initializing a page. How many parameters should the CoursePage constructor
     // need in order to be constructed? Definitely a Course, maybe ratings? idk up to you.
 
-
-    public void constructCoursePage(CoursePageBuilder cpb, Course course, List<Rating> ratings) {
+    // Director constructor version 1
+    // I think this version is better.
+    Director(Builder builder) {
+        this.builder = builder;
     }
+    //
+    // Director constructor version 2
+    // Director() {}
+
+    // constructCoursePage version 1
+    // Just build default page
+    public void constructCoursePage(HashMap<String, Object> basicConfiguration) {
+
+        this.builder.setBasicConfiguration(basicConfiguration);
+        this.builder.build();
+    }
+
+    // constructCoursePage version 2
+    // Let builder allow to filter its filterConfiguration
+//    public void constructCoursePage(HashMap<String, Object> basicConfiguration, HashMap<String, Object> filterConfiguration) {
+//        //
+//        this.builder.setBasicConfiguration(basicConfiguration);
+//        this.builder.setFilterConfiguration(filterConfiguration);
+//        this.builder.build();
+//    }
+
+
 
 
     //Construct CoursePage filtered by BOTH year and instructor
