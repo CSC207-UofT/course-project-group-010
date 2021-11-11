@@ -206,15 +206,6 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
     }
 
     /**
-     * gives data to the Database input
-     * @return a map of its data
-     */
-    @Override
-    public Map<String, Object> giveDataToDatabase() {
-        return getData();
-    }
-
-    /**
      * gets id
      * @return the id
      */

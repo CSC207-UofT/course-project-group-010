@@ -48,7 +48,7 @@ public abstract class Command {
         return "Help for this command is not available at this time";
     }
 
-    public void checkHelp(List<String> arguments) throws CommandHelpException {
+    protected void checkHelp(List<String> arguments) throws CommandHelpException {
         if (arguments.size() > 0 && arguments.get(0).equalsIgnoreCase("-h")) {
             throw new CommandHelpException(this.help());
         }
