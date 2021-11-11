@@ -71,6 +71,14 @@ public class Rating {
         return score >= 0 && score <= 1;
     }
 
+    public String getInstructor() {
+        return this.instructor;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
     @Override
     public String toString() {
         return Float.toString(getScore());
