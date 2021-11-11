@@ -12,17 +12,19 @@ import java.util.Optional;
 // also the constructor forces any class that constructs this to access entity classes, which is bad.
 public class CoursePage {
     private Course course; // course object
-    private Rating rating; // rating object
+    private List<Rating> ratings; // rating object
+    private float averageScore;
+    private float programRelativeScore;  // TODO: find better name?
     private Optional<InstructorUser> instructor; // optional default instructor
     private Optional<Integer> year; // optional default year
     private List<InstructorUser> instructors; //list of instructors teaching the course
     private List<Integer> years; // list of years the course was taught
 
-    public CoursePage (Course course, Rating rating, List<InstructorUser> instructors, List<Integer> years){
+    public CoursePage(Course course, List<Rating> ratings, List<InstructorUser> instructors, List<Integer> years) {
         // reverse sort the list of years so that current year is in front
         Collections.reverse(years);
         this.course = course;
-        this.rating = rating;
+        this.ratings = ratings;
         this.instructors = instructors;
         this.years = years;
 
@@ -30,62 +32,60 @@ public class CoursePage {
         // instructors by overriding the CompareTo method and comparing their names.
 
         // if there is at least one instructor
-        if (instructors.size() > 0)
-        {
+        if (instructors.size() > 0) {
             this.instructor = Optional.ofNullable(instructors.get(0));
         }
 
         // if there are no instructors
-        else
-        {
+        else {
             this.instructor = Optional.empty();
         }
 
-        if (years.size() > 0)
-        {
+        if (years.size() > 0) {
             this.year = Optional.ofNullable(years.get(0));
-        }
-
-        else
-        {
+        } else {
             this.year = Optional.empty();
         }
     }
 
     // get information from course Page
-    public Course getCourse(){
+    public Course getCourse() {
         return this.course;
     }
 
-    public Rating getRating(){
-        return this.rating;
+    public float getAverageScore() {
+        return this.averageScore;
     }
 
-    public List<InstructorUser> getInstructors(){
+    public float getRelativeScore() {
+        return this.programRelativeScore;
+    }
+
+    public int getNumberOfRatings() {
+        return this.ratings.size();
+    }
+
+    public List<InstructorUser> getInstructors() {
         return this.instructors;
     }
 
-    public List<Integer> getYears(){
+    public List<Integer> getYears() {
         return this.years;
     }
 
-    public Optional<InstructorUser> getInstructor(){
+    public Optional<InstructorUser> getInstructor() {
         return this.instructor;
     }
 
-    public Optional<Integer> getYear(){
+    public Optional<Integer> getYear() {
         return this.year;
     }
 
-    public void setInstructor(InstructorUser instructor){
+    public void setInstructor(InstructorUser instructor) {
         this.instructor = Optional.ofNullable(instructor);
     }
 
-    public void setYear(int year){
+    public void setYear(int year) {
         this.year = Optional.ofNullable(year);
-    }
-
-    public void setRating(Rating rating){
-        this.rating = rating;
     }
 }
