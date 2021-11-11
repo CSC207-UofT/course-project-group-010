@@ -44,7 +44,13 @@ This application will have a command line interface, where users can enter text 
 
 # Features we considered(and may implement later)
 
-The relative rating for course based on the program of study
+1. The relative rating for course based on the program of study.
+
+2. The new fill function (e.g. year) for the course.
+
+3. Users have the option to edit the rating they provided previously.
+
+
 
 # Helpful Diagram
 
