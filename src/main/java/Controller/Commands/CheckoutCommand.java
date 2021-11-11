@@ -3,6 +3,7 @@ package Controller.Commands;
 import Entity.Course;
 import Entity.InstructorUser;
 import Entity.Rating;
+import Entity.CommentGraph;
 import UseCase.CourseManager.CourseManager;
 import UseCase.CoursePage.CoursePage;
 
@@ -50,7 +51,10 @@ public class CheckoutCommand extends Command{
                 Rating r1 = new Rating();
                 List<InstructorUser> l1 = new ArrayList<InstructorUser>();
                 List<Integer> years = new ArrayList<Integer>();
-                CoursePage matPage = new CoursePage(c1, r1, l1, years);
+                CommentGraph commentGraph = new CommentGraph(
+                        List.of(new String[]{"Comment1", "Comment2", "Comment3"}),
+                        "Questions", "Example user");
+                CoursePage matPage = new CoursePage(c1, r1, l1, years, commentGraph);
                 CourseManager matManager = new CourseManager(matPage);
                 ce.setPageManager(matManager);
                 return "now viewing " + matManager.getID();
