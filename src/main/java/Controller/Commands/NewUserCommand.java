@@ -50,7 +50,7 @@ public class NewUserCommand extends Command{
                 throw new ArgumentException("Invalid user type");
         };
 
-        UserManager um = new UserManager(desiredUserType, arguments.get(1), arguments.get(2));
+        UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
         AuthHelper ah = new AuthHelper();
         // ah.checkAuth(um, ce.getUserManager(), "newuser");
         // No auth checks for now, because we have 0 users in the db right now which is unfortunate
