@@ -58,8 +58,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
 
     // When will we use this?
-    public void filterInstructor(InstructorUser instructor){
-        List<InstructorUser> instructors = this.coursePage.getInstructors();
+    public void filterInstructor(String instructor){
+        List<String> instructors = this.coursePage.getInstructors();
 
         if (instructors.contains(instructor)){
             this.coursePage.setInstructor(instructor);

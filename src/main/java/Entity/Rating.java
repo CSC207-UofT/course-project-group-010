@@ -1,5 +1,14 @@
 package Entity;
-
+/**
+ * A Director Object and CoursePageBuilder object should be created without any input.
+ * Only constructCoursePage should receive inputs/data, when called on the Director.
+ *
+ * Example Usage;
+ *
+ * Director d = new Director();
+ * CoursePageBuilder cpb_1 = new CoursePageBuilder();
+ * d.construct(
+ */
 
 import Exceptions.CommandNotAuthorizedException;
 

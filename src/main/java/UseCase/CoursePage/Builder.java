@@ -18,16 +18,9 @@ public interface Builder {
 
     public void setRatings(List<Rating> ratings);
 
-    public void setAverageScore(float AverageScore);
+    public void setCommentGraphs(List<CommentGraph> cg);
 
-
-
-    public void setInstructor(String instructor);
-
-
-
-
-    public CoursePage getResult();
+    public void reset();
 
 
 

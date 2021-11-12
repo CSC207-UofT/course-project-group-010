@@ -13,13 +13,10 @@ import java.util.Optional;
 
 public class CoursePageBuilder implements Builder {
 
-    private Course course; // course object
-    private List<String> instructors;
+    private Course course; // course object. Empty string if not assigned.
+    private List<String> instructors; // List containing empty string if not assigned.
     private List<Rating> ratings = null; // List of all ratings left for this course across all instructors.
-    private float averageScore;
-    private List<CommentGraph> commentGraphs; //List of all commentGraphs for this course across all instructors.
-    private CommentGraph commentGraph; // Current CommentGraph to be presented filtered by instructor.
-    private String instructor; // Current instructor CoursePage is filtered by.
+    private List<CommentGraph> commentGraphs = null; //List of all commentGraphs for this course across all instructors.
 
 
 
@@ -38,27 +35,29 @@ public class CoursePageBuilder implements Builder {
         this.ratings = ratings;
     }
 
-    public void setAverageScore(float AverageScore) {
-        this.averageScore = AverageScore;
-    }
-
 
     @Override
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
+    public void setCommentGraphs(List<CommentGraph> cg){
+        this.commentGraphs = cg;
     }
 
-
     @Override
-    public CoursePage getResult(){
+    public void reset(){
+        this.ratings= null;
+        this.commentGraphs = null;
+    }
+
+    public CoursePage getResult() {
         CoursePage cp = new CoursePage(this.course, this.instructors);
-        //If Director takes info regarding ratings in the consturctPage constructor, assign Ratings in CoursePage.
-        if(this.ratings != null){
+        //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
+        if (this.ratings != null) {
             cp.setRatings(this.ratings);
         }
-
-
-
+        if (this.commentGraphs != null) {
+            cp.setCommentGraphs(this.commentGraphs);
+        }
+        this.reset();
+        return cp;
     }
 
 
@@ -71,7 +70,7 @@ public class CoursePageBuilder implements Builder {
 //        this.programRelativeScore = programRelativeScore;
 //    }
 
-//  private float programRelativeScore;  // TODO: Phase 2
+//  private float programRelativeScore;  // Phase 2
 
 
 
@@ -158,7 +157,7 @@ public class CoursePageBuilder implements Builder {
 //    }
 
 //    public void build() {
-//        // FIXME We need to bring InstructorUser object to construct CoursePage or change how coursepage is constructed.
+//        // We need to bring InstructorUser object to construct CoursePage or change how coursepage is constructed.
 //        this.coursePage = new CoursePage(this.course, this.ratings, this.instructors, this.years);
 //    }
 

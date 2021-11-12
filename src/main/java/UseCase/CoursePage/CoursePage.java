@@ -12,7 +12,7 @@ import java.util.*;
 public class CoursePage {
     private Course course; // course object
     private List<String> instructors; //List of all instructors who have taught this course.
-    private List<Rating> ratings; // List of all ratings left for this course across all instructors.
+    private List<Rating> ratings; // List of all ratings left for this course across all instructors. Null if not given.
     private float averageScore; // The rating being presented currently. Will change if filtered by instructor
     private List<CommentGraph> commentGraphs; // List of all commentGraphs for this course across all instructors. Null
                                               // if not assigned.
@@ -73,11 +73,15 @@ public class CoursePage {
         return this.ratings.size();
     }
 
-    private List<CommentGraph> getCommentGraphs(){
+    public CommentGraph getCommentGraph(){
+        return this.commentGraph;
+    }
+
+    public List<CommentGraph> getCommentGraphs(){
         return this.commentGraphs;
     }
 
-    private CommentGraph commentGraph(){
+    public CommentGraph commentGraph(){
         return this.commentGraph;
     }
 
