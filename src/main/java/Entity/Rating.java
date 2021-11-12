@@ -11,11 +11,12 @@ public class Rating {
     private String instructor;
     private int year;
 
-    public Rating(StudentUser rater, float score, String courseCode, String instructor) {
+    public Rating(StudentUser rater, float score, String courseCode, String instructor, int year) {
         this.rater = rater;
         this.score = score;
         this.courseCode = courseCode;
         this.instructor = instructor;
+        this.year = year;
     }
 
     /**
@@ -74,6 +75,9 @@ public class Rating {
         return this.instructor;
     }
 
+    public int getYear() {
+        return this.year;
+    }
 
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ public class Course {
     String name; // Course name; i.e Introduction to Computer Science
     String code; // Course code; i.e CSC110
     String description; // Default description of the course that may be altered.
+    List<String> instructors; //List of instructors who have taught this course.
 
 
     //Constructor
