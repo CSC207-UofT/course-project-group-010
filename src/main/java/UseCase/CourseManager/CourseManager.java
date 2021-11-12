@@ -5,24 +5,43 @@ import Entity.*;
 import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
+import UseCase.CoursePage.Builder;
 import UseCase.CoursePage.CoursePage;
 import UseCase.CoursePage.CoursePageBuilder;
+import UseCase.CoursePage.Director;
 import UseCase.UserManager;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
+    private Course course;
+    private List<Rating> ratings;
+    private CommentGraph commentGraph;
     private CoursePage coursePage;
     private Map<Integer, List<String>> authDict;
+    private Director director;
+    private List<InstructorUser> instructorUsers;
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
-    public CourseManager(CoursePage coursePage){
-        this.coursePage = coursePage;
-        this.authDict = getDefaultAuthDict();
 
+    // CourseManager is going to tell the director to build coursepage or give
+    // builder filtered ratings.
+    // I did not touch other classes
+    // TODO but please make other constructors public so that it can be used in other packages.
+    public CourseManager(Course course, List<InstructorUser> instructorUsers, List<Rating> ratings, CommentGraph commentGraph){
+        this.authDict = getDefaultAuthDict();
+        this.course = course;
+        this.ratings = ratings;
+        this.commentGraph = commentGraph;
+        this.instructorUsers = instructorUsers;
+        this.director = new Director(new CoursePageBuilder());
+        this.director.constructCoursePage(this.director.getBuilder(), this.course, this.ratings,
+                this.instructorUsers, this.commentGraph);
     }
 
 
@@ -58,17 +77,21 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
 
     // When will we use this?
-    public void filterInstructor(InstructorUser instructor){
-        List<InstructorUser> instructors = this.coursePage.getInstructors();
+    public void filterInstructor(String queryInstructorName){
+        List<Rating> filteredRatings = ratings.stream().filter(
+                r -> r.getInstructor()==queryInstructorName).collect(Collectors.toList());
 
-        if (instructors.contains(instructor)){
-            this.coursePage.setInstructor(instructor);
-        }
+        this.coursePage = this.director.constructCoursePage(this.director.getBuilder(), this.course, filteredRatings,
+                this.instructorUsers, this.commentGraph);
 
-        else
-        {
-            //do not change the instructor
-        }
+//        if (instructors.contains(instructor)){
+//            this.coursePage.setInstructor(instructor);
+//        }
+//
+//        else
+//        {
+//            //do not change the instructor
+//        }
     }
 
     public void filterYear(int year){
@@ -82,6 +105,10 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         {
             // do not change the year
         }
+    }
+
+    public CoursePage getCoursePage() {
+        return this.coursePage;
     }
 
     @Override
