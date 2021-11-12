@@ -24,6 +24,7 @@ public class GetPathCommand extends Command {
     /**
      * Gets and prints the path from one comment to another. Only prints comments that must be traversed
      * to reach the other comment.
+     *
      * @param ce
      * @param arguments
      * @return

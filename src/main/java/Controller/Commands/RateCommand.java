@@ -9,7 +9,7 @@ import java.util.List;
  * format is rate [x] where x is between 1 and 10
  * User can also "rate rm" to remove their rating
  */
-public class RateCommand extends Command{
+public class RateCommand extends Command {
 
     public RateCommand() {
         super(1, 1);
@@ -18,6 +18,7 @@ public class RateCommand extends Command{
     /**
      * Rates the currently viewing page if it is a course.
      * Format is rate [1-10]
+     *
      * @param ce
      * @param arguments
      * @return

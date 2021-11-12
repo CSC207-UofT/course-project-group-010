@@ -26,6 +26,7 @@ public class Course {
 
 
     //Getters
+
     /**
      * @return course's name.
      */

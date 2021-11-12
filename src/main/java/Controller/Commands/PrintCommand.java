@@ -6,7 +6,7 @@ import Interface.IReadModifiable;
 import java.util.List;
 import java.util.Map;
 
-public class PrintCommand extends Command{
+public class PrintCommand extends Command {
     /**
      * Initializes object, takes no arguments
      */
@@ -16,6 +16,7 @@ public class PrintCommand extends Command{
 
     /**
      * Prints the currently viewing page. Format is "print"
+     *
      * @param ce
      * @param arguments
      * @return

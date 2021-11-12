@@ -53,7 +53,9 @@ public abstract class User implements Serializable, IReviewer {
         return otherData;
     }
 
-    public int getReviewCount() {return reviewCount; }
+    public void setOtherData(Map<String, String> otherData) {
+        this.otherData = otherData;
+    }
 
     //Setters
 
@@ -63,17 +65,18 @@ public abstract class User implements Serializable, IReviewer {
 //        }
 //    }
 
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
     public void incrementReviewCount() {
         this.reviewCount++;
     }
 
-    public void setDisplayName(String s){
-        if (s.length() < 25){
+    public void setDisplayName(String s) {
+        if (s.length() < 25) {
             this.displayName = s;
         }
-    }
-    public void setOtherData(Map<String, String> otherData) {
-        this.otherData = otherData;
     }
 
 }

@@ -19,6 +19,7 @@ public class ScreenIO {
      * Idea is basically stolen from Java-Shell, but this is academically integrit
      * I swear
      * because it literally just takes input in a loop.
+     *
      * @param args
      */
     public static void main(String[] args) throws Exception {
@@ -27,7 +28,7 @@ public class ScreenIO {
         String commandLine = "";
         // TODO consider a better way to implement then this possible
         System.out.println("type \"end\" to end program.");
-        while(!commandLine.equals("end")) {
+        while (!commandLine.equals("end")) {
             System.out.print("$ ");
             commandLine = in.nextLine();
             try {

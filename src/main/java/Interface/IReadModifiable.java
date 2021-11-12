@@ -1,4 +1,4 @@
 package Interface;
 
-public interface IReadModifiable extends IAuthorizable, IGettable{
+public interface IReadModifiable extends IAuthorizable, IGettable {
 }

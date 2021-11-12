@@ -11,7 +11,7 @@ import java.util.List;
  * Login command.
  * Current format is login[utorID]
  */
-public class LoginCommand extends Command{
+public class LoginCommand extends Command {
     /**
      * The format for a login command is login [utorID] for now
      * so it will only take 1 argument
@@ -28,6 +28,7 @@ public class LoginCommand extends Command{
 
     /**
      * Attempts to login.
+     *
      * @param ce
      * @param arguments
      * @return

@@ -11,6 +11,7 @@ import java.util.Map;
  * A very inefficient database.
  * Has the ability to load all the data(as a map of [id, object])
  * And save data of the same format
+ *
  * @param <T>
  */
 public class Database<T extends IDBSaveable & Serializable> {
@@ -35,6 +36,7 @@ public class Database<T extends IDBSaveable & Serializable> {
 
     /**
      * Loads a map of DBSaveable object ids to objects.
+     *
      * @param filePath
      * @return the map, or an empty map otherwise.
      * @throws IOException
@@ -57,6 +59,6 @@ public class Database<T extends IDBSaveable & Serializable> {
         // serialize the Map
         Map<String, T> retMap = (Map<String, T>) input.readObject();
         input.close();
-        return retMap == null ? new HashMap<>(): retMap;
+        return retMap == null ? new HashMap<>() : retMap;
     }
 }

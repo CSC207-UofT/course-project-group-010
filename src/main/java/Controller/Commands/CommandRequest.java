@@ -14,6 +14,7 @@ public class CommandRequest {
 
     /**
      * Initializes the commandRequest, splitting into method and arguments
+     *
      * @param command
      */
     public CommandRequest(String command) {
@@ -21,7 +22,7 @@ public class CommandRequest {
         this.method = splitCommand[0];
         String[] args = new String[splitCommand.length - 1];
         for (int i = 1; i < splitCommand.length; i++) {
-            args[i-1] = splitCommand[i];
+            args[i - 1] = splitCommand[i];
         }
         this.arguments = List.of(args);
     }

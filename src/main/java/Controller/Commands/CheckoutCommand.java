@@ -13,7 +13,7 @@ import java.util.List;
  * Checks out a page or review section of a page(to be implemented later)
  * Format for now is checkout [pagename] or checkout r for reviews i guess??
  */
-public class CheckoutCommand extends Command{
+public class CheckoutCommand extends Command {
     private final String reviewArgument = "r";
 
     public CheckoutCommand() {
@@ -25,6 +25,7 @@ public class CheckoutCommand extends Command{
      * or a page indicated by course code.
      * Currently can only view "MAT137," and doesn't implement Authorization system.
      * Currently also goes against clean architecture A LOT. sorry :(
+     *
      * @param ce
      * @param arguments
      * @return

@@ -4,11 +4,10 @@ import Constants.CommandConstants;
 
 import java.util.List;
 
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public HelpCommand() {
         super(0, 0);
@@ -17,6 +16,7 @@ public class HelpCommand extends Command{
     /**
      * Returns a list of command method names, and their entire help string.
      * For individual command help text, you can type [method] -h
+     *
      * @param ce
      * @param arguments
      * @return
