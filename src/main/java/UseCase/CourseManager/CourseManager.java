@@ -1,11 +1,8 @@
 package UseCase.CourseManager;
 
 import Constants.PermissionLevelConstants;
-import Entity.Course;
+import Entity.*;
 import Exceptions.CommandNotAuthorizedException;
-import Entity.InstructorUser;
-import Entity.Rating;
-import Entity.StudentUser;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
 import UseCase.CoursePage.CoursePage;
@@ -29,8 +26,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-
-
     //Overloading the constructor for constructCoursePage as per Clean Architecture for optional parameters,
     //I think this is best approach because kevin can just input whatever info is given
 
@@ -38,14 +33,28 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
 
     public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
-        // TODO check if rating is in the allowed range?
-        Rating ratingToProcess = this.coursePage.getRating();
-        // TODO change the code such that the casting below is not required, user.getUser() will not always be a student
-        ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
-        this.coursePage.setRating(ratingToProcess);
+        if(ratingNum < 0 || ratingNum > 10) {
+            throw new CommandNotAuthorizedException();
+        }
+        for(Rating r : coursePage.getRatings()) {
+            if(r.getRater().equals(user.getUser())) {
+                r.setScore(ratingNum);
+                break;
+            }
+        }
+//        // TODO check if rating is in the allowed range?
+//        Rating ratingToProcess = this.coursePage.getRating();
+//        // TODO change the code such that the casting below is not required, user.getUser() will not always be a student
+//        ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
+//        this.coursePage.setRating(ratingToProcess);
     }
 
+    public void addComment(String prevId, String text, User user) {
+        // coursePage getCommentGraph is not implemented;
 
+        CommentGraph commentGraph = this.coursePage.getCommentGraph();
+        commentGraph.reply(prevId, text, user.getID());
+    }
 
 
     // When will we use this?
@@ -75,6 +84,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
     }
 
+    @Override
     public HashMap<String, Object> getData(){
         HashMap<String, Object> infoMap = new HashMap<>();
         infoMap.put("courseName", this.coursePage.getCourse().getName());
@@ -84,13 +94,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         infoMap.put("years", this.coursePage.getYears());
         infoMap.put("currentInstructors", this.coursePage.getInstructor());
         infoMap.put("currentYear", this.coursePage.getYear());
-        infoMap.put("rating", this.coursePage.getRating());
+        infoMap.put("rating", this.coursePage.getRatings());
 
         return infoMap;
     }
 
     // IDBSAVEABLE methods
-    @Override
+
     public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
         return getData();
     }
