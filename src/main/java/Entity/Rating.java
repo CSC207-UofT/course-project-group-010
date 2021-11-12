@@ -83,4 +83,8 @@ public class Rating {
     public String toString() {
         return Float.toString(getScore());
     }
+
+    public StudentUser getRater() {
+        return this.rater;
+    }
 }
