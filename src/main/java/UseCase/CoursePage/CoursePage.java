@@ -88,4 +88,8 @@ public class CoursePage {
     public void setYear(int year) {
         this.year = Optional.ofNullable(year);
     }
+
+    public List<Rating> getRatings() {
+        return this.ratings;
+    }
 }
