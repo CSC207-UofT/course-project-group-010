@@ -31,8 +31,7 @@ public class StudentUser extends User {
     //Getters
     public String getProgramDetail() {
 
-        return this.getOtherData().containsKey("programDetail") ? this.getOtherData().get("programDetail") :
-                "";
+        return this.getOtherData().get("programDetail");
     }
 
     public void setProgramDetail(String s) {
