@@ -11,9 +11,9 @@ public class StudentUser extends User {
     // Permission level : 0
 
     /**
-     * @param displayName   student user's display name.
-     * @param ID            student user's ID.
-     * @param otherData other Data. (Can make into a list later for more info if we want)
+     * @param displayName student user's display name.
+     * @param ID          student user's ID.
+     * @param otherData   other Data. (Can make into a list later for more info if we want)
      */
 
     //Constructors
@@ -28,8 +28,6 @@ public class StudentUser extends User {
     }
 
 
-
-
     //Getters
     public String getProgramDetail() {
 
@@ -37,21 +35,19 @@ public class StudentUser extends User {
                 "";
     }
 
-    public HashMap<Integer, List<Course>> getCourses(){
-        return this.courses;
+    public void setProgramDetail(String s) {
+        this.getOtherData().put("programDetail", s);
     }
-
-
 
 
     //Setters
 
-    public void setCourses(HashMap<Integer, List<Course>> c) {
-        this.courses = c;
+    public HashMap<Integer, List<Course>> getCourses() {
+        return this.courses;
     }
 
-    public void setProgramDetail(String s) {
-        this.getOtherData().put("programDetail", s);
+    public void setCourses(HashMap<Integer, List<Course>> c) {
+        this.courses = c;
     }
 }
 

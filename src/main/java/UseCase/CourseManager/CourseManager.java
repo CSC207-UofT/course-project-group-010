@@ -20,7 +20,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
     // CoursePage only contains getters anyways...
-    public CourseManager(CoursePage coursePage){
+    public CourseManager(CoursePage coursePage) {
         this.coursePage = coursePage;
         this.authDict = getDefaultAuthDict();
 
@@ -30,38 +30,32 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         // TODO check if rating is in the allowed range?
         Rating ratingToProcess = this.coursePage.getRating();
         // TODO change the code such that the casting below is not required, user.getUser() will not always be a student
-        ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
+        ratingToProcess.processRating(ratingNum, (StudentUser) user.getUser());
         this.coursePage.setRating(ratingToProcess);
     }
 
     // When will we use this?
-    public void filterInstructor(InstructorUser instructor){
+    public void filterInstructor(InstructorUser instructor) {
         List<InstructorUser> instructors = this.coursePage.getInstructors();
 
-        if (instructors.contains(instructor)){
+        if (instructors.contains(instructor)) {
             this.coursePage.setDefaultInstructor(instructor);
-        }
-
-        else
-        {
+        } else {
             //do not change the instructor
         }
     }
 
-    public void filterYear(int year){
+    public void filterYear(int year) {
         List<Integer> years = this.coursePage.getYears();
 
-        if (years.contains(year)){
+        if (years.contains(year)) {
             this.coursePage.setDefaultYear(year);
-        }
-
-        else
-        {
+        } else {
             // do not change the year
         }
     }
 
-    public HashMap<String, Object> getData(){
+    public HashMap<String, Object> getData() {
         HashMap<String, Object> infoMap = new HashMap<>();
         infoMap.put("courseName", this.coursePage.getCourse().getName());
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());

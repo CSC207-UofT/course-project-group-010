@@ -10,10 +10,9 @@ import UseCase.UserManager;
 import java.util.List;
 import java.util.Locale;
 
-public class NewUserCommand extends Command{
+public class NewUserCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public NewUserCommand() {
         // type name id
@@ -23,6 +22,7 @@ public class NewUserCommand extends Command{
     /**
      * Format of this command is newuser [usertype] [displayname] [id]
      * Creates a new user. Currently, anyone can create new users for convenience.
+     *
      * @param ce
      * @param arguments
      * @return
@@ -48,7 +48,8 @@ public class NewUserCommand extends Command{
                 break;
             default:
                 throw new ArgumentException("Invalid user type");
-        };
+        }
+        ;
 
         UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
         AuthHelper ah = new AuthHelper();

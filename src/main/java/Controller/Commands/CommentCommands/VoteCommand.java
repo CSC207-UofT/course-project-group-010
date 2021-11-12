@@ -11,7 +11,6 @@ public class VoteCommand extends Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public VoteCommand() {
         super(2, 2);
@@ -24,6 +23,7 @@ public class VoteCommand extends Command {
 
     /**
      * Upvotes/downvotes a comment.
+     *
      * @param ce
      * @param arguments
      * @return
@@ -31,7 +31,7 @@ public class VoteCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments,"vote");
+        checkHelpArgsUserPageAuth(ce, arguments, "vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         boolean up = arguments.get(1).equalsIgnoreCase("up");
         ((CommentManager) currentlyViewingPage).vote(arguments.get(0), up);

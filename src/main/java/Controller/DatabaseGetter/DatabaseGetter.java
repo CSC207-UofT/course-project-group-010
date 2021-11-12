@@ -10,6 +10,7 @@ import java.io.Serializable;
  * Will be responsible for returning an object of type T from the database,
  * and saving an object of type T to the database.
  * Currently, most things will just be hard-coded as we don't actually have a database.
+ *
  * @param <T>
  */
 public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
@@ -17,6 +18,7 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
     /**
      * Looks for an entry in the database the has the id [id]
      * Returns a map of the data it found, returns null if no data was found.
+     *
      * @return
      */
     abstract public T getEntry(String id) throws Exception;
@@ -25,6 +27,7 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
      * sets an entry in the database, returning True if something was updated.
      * Checks getID() method of entry and updates existing entry if one with that id exists
      * in the database already.
+     *
      * @return
      */
     abstract public void setEntry(T entry) throws IOException;

@@ -13,7 +13,6 @@ public class ReplyCommand extends Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public ReplyCommand() {
         super(100, 2);
@@ -26,6 +25,7 @@ public class ReplyCommand extends Command {
 
     /**
      * Replies to a comment with text.
+     *
      * @param ce
      * @param arguments
      * @return

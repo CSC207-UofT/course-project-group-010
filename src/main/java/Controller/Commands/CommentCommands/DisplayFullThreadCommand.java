@@ -11,7 +11,6 @@ public class DisplayFullThreadCommand extends Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public DisplayFullThreadCommand() {
         super(0, 0);
@@ -24,6 +23,7 @@ public class DisplayFullThreadCommand extends Command {
 
     /**
      * Displays full comment thread, assuming that the user is viewing a comment.
+     *
      * @param ce
      * @param arguments
      * @return
