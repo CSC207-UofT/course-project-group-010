@@ -8,7 +8,7 @@ import java.util.Map;
 
 public abstract class User implements Serializable, IReviewer {
     private String displayName; //Username
-    private String ID; //ID
+    private final String ID; //ID
     private Map<String, String> otherData;
     private int reviewCount; //Number of reviews left by this user
 
@@ -25,7 +25,7 @@ public abstract class User implements Serializable, IReviewer {
     public User(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
-        this.otherData = new HashMap<String, String>();
+        this.otherData = new HashMap<>();
         this.otherData.put("programDetail", "n/a");
         this.reviewCount = 0;
     }
