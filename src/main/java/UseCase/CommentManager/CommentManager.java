@@ -106,6 +106,15 @@ public class CommentManager implements IReadModifiable, Serializable
     }
 
     /**
+     * Get the instructor
+     * @return String instructor
+     */
+    public String getInstructor()
+    {
+        return this.commentGraph.getInstructor();
+    }
+
+    /**
      * Get the depth of the specified Comment.
      *
      * @param id of Comment.
@@ -243,7 +252,8 @@ public class CommentManager implements IReadModifiable, Serializable
          */
     }
 
-    private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
+    private Map<PermissionLevel, List<String>> getDefaultAuthDict()
+    {
         Map<PermissionLevel, List<String>> permDict = new HashMap<>();
         // for now, everyone can make a new user
         List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote");
@@ -255,7 +265,8 @@ public class CommentManager implements IReadModifiable, Serializable
     }
 
     @Override
-    public Map<PermissionLevel, List<String>> getAuthDict() {
+    public Map<PermissionLevel, List<String>> getAuthDict()
+    {
         return this.authDict;
     }
 }

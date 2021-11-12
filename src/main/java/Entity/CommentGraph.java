@@ -23,6 +23,8 @@ public class CommentGraph
     private int maxDepth;
     // Root comment of the entire graph.
     private Comment root;
+    // Instructor of the graph
+    private String instructor;
 
     /**
      * CommentGraph Multiple mainComments Constructor, takes a list of Strings that represents the text found in the
@@ -36,10 +38,10 @@ public class CommentGraph
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName)
+    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName, String instructor)
     {
         // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
         // each comment in mainComments is added to the CommentGraph and linked to the root node.
         for (String mainComment : mainComments)
         {
@@ -58,17 +60,20 @@ public class CommentGraph
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName)
+    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName, String instructor)
     {
         // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
         // adds comment to the CommentGraph and links to root comment.
         reply("root", mainComment, mainCommenterName);
     }
 
-    public CommentGraph(String mainCommentType, String mainCommenterName)
+    public CommentGraph(String mainCommentType, String mainCommenterName, String instructor)
     {
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        // initializes empty CommentGraph
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
+        //set instructor
+        this.instructor = instructor;
     }
 
     /**
@@ -78,7 +83,7 @@ public class CommentGraph
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName)
+    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName, String instructor)
     {
         // initializes the dictionary of vertices to an empty HashMap.
         this.vertices = new HashMap<>();
@@ -86,9 +91,12 @@ public class CommentGraph
         this.size = 0;
         // creates the root comment
         this.root = createComment("root", mainCommentType, mainCommenterName);
+        //set instructor
+        this.instructor = instructor;
         // adds the root comment to the CommentGraph.
         addVertex("root", this.root);
     }
+
 
 //======================================================================================================================
 // Comment Graph Getters
@@ -137,6 +145,12 @@ public class CommentGraph
     {
         // return the size instance variable.
         return this.size;
+    }
+
+    public String getInstructor()
+    {
+        // get the instructor
+        return this.instructor;
     }
 
 //======================================================================================================================
