@@ -19,4 +19,11 @@ public class UserTest {
 
         assertEquals(a.getdisplayName(), "Kevin Hart");
     }
+
+    @Test(timeout = 100)
+    public void testgetReviewCount() {
+        User a = new StudentUser("Kevin Hart", "12345", null);
+
+        assertEquals(a.getReviewCount(), 0);
+    }
 }
