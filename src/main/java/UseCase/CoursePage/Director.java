@@ -1,13 +1,9 @@
 package UseCase.CoursePage;
 
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.Rating;
+import Entity.*;
 import UseCase.CourseManager.CourseManager;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 //Kevin Should not require to instantiate any objects to construct, just accept required parameters to make the object
@@ -44,20 +40,17 @@ public class Director {
 
     // Director constructor version 1
     // I think this version is better.
+
+
+
     Director(Builder builder) {
         this.builder = builder;
     }
-    //
-    // Director constructor version 2
-    // Director() {}
-
-    // constructCoursePage version 1
-    // Just build default page
-    public void constructCoursePage(HashMap<String, Object> basicConfiguration) {
-
-        this.builder.setBasicConfiguration(basicConfiguration);
-        this.builder.build();
-    }
+//    public void constructCoursePage(HashMap<String, Object> basicConfiguration) {
+//
+//        this.builder.setBasicConfiguration(basicConfiguration);
+//        this.builder.build();
+//    }
 
     // constructCoursePage version 2
     // Let builder allow to filter its filterConfiguration
@@ -69,20 +62,148 @@ public class Director {
 //    }
 
 
+    // Todo: Assumptions: CourseData exists so Course object can always be created.
+    //                    Always know which instructors taught what Course from database.
+    //
+    //  Todo: Combinations of construction:
+    //        Make course page given CourseData and instructors.
+    //        Make course page given CourseData and instructors AND Ratings.
+    //        Make course page given CourseData and instructors AND Ratings AND CommentGraphs.
 
 
-    //Construct CoursePage filtered by BOTH year and instructor
+    // ToDo : director.constructCoursePage MUST receive the following at minimum:
+    //        1) A list of strings containing Course info in this format: [CourseName, CourseCode, Optional(CourseDescription)]
+    //           You can omit CourseDescription if you don't have it.
+    //        2) A list of instructors who have taught this course.
 
-//    public void constructCoursePage(CoursePageBuilder cpb, Course course, List<Rating> ratings,
-//                                    Integer filter_year, String instructor_filter) {
-//        cpb.setCourse(course);
-//        cpb.setRatings(ratings);
-//        cpb.filterInstructor(instructor_filter);
-//        cpb.filterYear(filter_year);
-//        cpb.getResult();
-//
-//
-//    }
+
+    //Make CoursePage with only Course info and list of instructors.
+    public void constructCoursePage(CoursePageBuilder cpb, List<String> course, List<String> instructors) {
+
+        Course c = new Course(course.get(0), course.get(1));
+        if(instructors.size() == 3){
+            c.setDescription(course.get(2));
+        }
+        cpb.setCourse(c);
+        cpb.setInstructors(instructors);
+    }
+
+
+    // ToDo : This constructor MUST receive the following at minimum:
+    //        1) A list of strings containing Course info in this format: [CourseName, CourseCode, Optional(CourseDescription)]
+    //           You can omit CourseDescription if you don't have it.
+    //        2) A list of instructors who have taught this course.
+    //        3) A list of strings containing Rating info in this format: List<List<String>>
+    //           [ [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>], <-- rating1
+    //             [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>],  <-- rating2
+    //             ....
+    //             [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>]] <-- ratingN
+    //        Director will convert from string to required object type to initialize required object.
+    //Make CoursePage with Course info , list of instructors, and ratings.
+    public void constructCoursePage(CoursePageBuilder cpb, List<String> course, List<String> instructors,
+                                    List<List<String>> ratings) {
+
+        Course c = new Course(course.get(0), course.get(1));
+        if(instructors.size() == 3){
+            c.setDescription(course.get(2));
+        }
+        cpb.setCourse(c);
+        cpb.setInstructors(instructors);
+
+        //Creating a list of Rating of objects to be assigned to CoursePage.
+
+        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
+
+        for(List<String> l: ratings) {
+
+            //Create StudentUser object
+            StudentUser s = new StudentUser(l.get(0), l.get(1));
+
+            //Convert score from string to float.
+            float f = Float.parseFloat(l.get(2));
+
+            //Create Rating object
+            Rating r = new Rating(s, f, l.get(3), l.get(4));
+
+            //Add Rating object to cp_ratings.
+            cp_ratings.add(r);
+        }
+
+        //Set CoursePageBuilder's ratings to the above.
+        cpb.setRatings(cp_ratings);
+        }
+
+
+
+    // ToDo : This constructor MUST receive the following at minimum:
+    //        1) A list of strings containing Course info in this format: [CourseName, CourseCode, Optional(CourseDescription)]
+    //           You can omit CourseDescription if you don't have it.
+    //        2) A list of instructors who have taught this course.
+    //        3) A list of strings containing Rating info in this format: List<List<String>>
+    //           [ [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>], <-- rating1
+    //             [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>],  <-- rating2
+    //             ....
+    //             [String<StudentUser DisplayName>, String<StudentUser ID>, String<rating score>, String<courseCode>, String<instructor>]] <-- ratingN
+    //        Director will convert from string to required object type to initialize required object.
+    //       4) A list of all main comments
+    //       5) A hashmap of mainComments mapped to a list containing mainCommentType, mainCommenterName, and instructor.
+    //          { [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor1>],
+    //            [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor2> ],
+    //           ..........
+    //           [ List<String> mainComments, String mainCommentType, String mainCommenterName, String<InsturctorN> ] ]
+    //       Have to use Hashmap. If using List to contain all of this, they won't have the same type, have to cast everywhere.
+
+    public void constructCoursePage(CoursePageBuilder cpb, List<String> course, List<String> instructors,
+                                    HashMap<List<String>, List<String>> commentGraphs) {
+
+        Course c = new Course(course.get(0), course.get(1));
+        if(instructors.size() == 3){
+            c.setDescription(course.get(2));
+        }
+        cpb.setCourse(c);
+        cpb.setInstructors(instructors);
+
+        //Creating a list of Rating of objects to be assigned to CoursePage.
+
+        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
+
+        for(List<String> l: ratings) {
+
+            //Create StudentUser object
+            StudentUser s = new StudentUser(l.get(0), l.get(1));
+
+            //Convert score from string to float.
+            float f = Float.parseFloat(l.get(2));
+
+            //Create Rating object
+            Rating r = new Rating(s, f, l.get(3), l.get(4));
+
+            //Add Rating object to cp_ratings.
+            cp_ratings.add(r);
+        }
+
+        //Set CoursePageBuilder's ratings to the above.
+        cpb.setRatings(cp_ratings);
+
+        List<CommentGraph> cp_graph = new ArrayList<>();
+        Set<List<String>> keys = commentGraphs.keySet();
+
+        for(List<String> k: keys){
+
+            List<String> g_rest = commentGraphs.get(k);
+            CommentGraph cg = new CommentGraph(k, g_rest.get(0), g_rest.get(1), g_rest.get(2), g_rest.get(3));
+
+        }
+
+
+
+            //Add Rating object to cp_ratings.
+            cp_ratings.add(r);
+        }
+
+
+
+        }
 //
 //    //Construct CoursePage filtered ONLY by year
 //    public void constructCoursePage(CoursePageBuilder cpb, Course course, List<Rating> ratings,

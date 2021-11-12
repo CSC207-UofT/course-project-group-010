@@ -10,31 +10,31 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Builder {
-    // We can combine basic configuration and filter configuration into two methods
-    void setBasicConfiguration(HashMap<String, Object> basicConfiguration);
-    // If we allow the builder to filter, we can add filter configuration
-    void setFilterConfiguration(HashMap<String, Object> filterConfiguration);
 
-    void setYears(List<Integer> years);
 
-    void setYear(int year);
+    public void setCourse(Course course);
 
-    void setCourse(Course course);
+    public void setInstructors(List<String> instructors);
 
-    void setRatings(List<Rating> ratings);
+    public void setRatings(List<Rating> ratings);
 
-    void setInstructor(String instructor);
+    public void setAverageScore(float AverageScore);
 
-    void setInstructors(List<String> instructors);
 
-    void setInstructorMap(HashMap<Integer, List<String>> instructorMap);
 
-    void filterInstructor(String instructor);
+    public void setInstructor(String instructor);
 
-    void filterYear(int year);
 
-    // Get CoursePage results;
-    void build();
-    CoursePage getResult();
+
+
+    public CoursePage getResult();
+
+
+
+//    public void setRelativeScore(float programRelativeScore);
+//    // We can combine basic configuration and filter configuration into two methods
+//    void setBasicConfiguration(HashMap<String, Object> basicConfiguration);
+//    // If we allow the builder to filter, we can add filter configuration
+//    void setFilterConfiguration(HashMap<String, Object> filterConfiguration);
 
 }
