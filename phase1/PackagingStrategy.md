@@ -7,7 +7,7 @@ As we decide to follow the clean architecture structure to design our system, us
 
 1.	divide our system into logical pieces so it is easier to understand and follow. For example, we grouped all entities into an entity folder.
 
-2.	easier to find the codes/bugs/errors. 
+2.	easier to find the codes/bugs/errors as information travels through the layers. 
 
 3.	easier to check if there are violations of clean architecture. For example, it is easier to make sure that the inner layer does not use the methods from the outer layer because we grouped the same layer into one folder. 
 

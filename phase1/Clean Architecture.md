@@ -1,8 +1,7 @@
 #Clean Architecture
 
 ## Dependency Rule
-We follow the dependency rule consistently when interacting with details in the outer layer as the inner layers will not depend on the outer layers in our system.  
-For example, our entity class will not depend on the outer layer class (ScreenIO). Also, Outer layer is more concrete and specific than the inner layer
+We follow the dependency rule consistently when interacting with details in the outer layer as the inner layers will not depend on the outer layers in our system.
 
 ## Entities - Enterprise Business Rules
 Entities (Such as StudentUser and Rating) represent the business objects of the application. They only store/modify data within themselves, and do not depend on anything.
@@ -12,9 +11,11 @@ UseCases (such as CoursePage and CourseManager) manage use cases for entity clas
 These contain a bit more data that pertains to the program and not to the entities themselves(eg. Authorization level is used in the program,
 but it's not relevant data for the entities to store).
 
+They only create/modify entity classes, and do not depend on anything else.
+
 ## Controllers, Presenters, Gateways
 The command package contains commands. These commands delegate work to other command classes and use case classes, and report on the result.
-They do only depend on other classes in the same layer, and use case classes.
+They only depend on other classes in the same layer, and use case classes.
 When they access entity methods, they do so through interfaces such as the "User" abstract class. This follows the dependency rule.
 
 The database package does the same. It saves use-case classes, accessing them using the IDBSaveable interface.

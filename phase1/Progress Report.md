@@ -4,8 +4,8 @@
 
 - Comment related commands cast the commandExecutor's currentlyViewingPage to a CommentManager object, because it first
   verifies that we are allowed to run comment related commands on currentlyViewingPage(which implies it's a
-  CommentManager). Is this alright to do? Is there a better way to do this? Because the casting isn't...strictly
-  enforced.
+  CommentManager). Is this alright to do? Is there a better way to do this? Because the casting isn't strictly
+  enforced through code, it's enforced by our rules.
 - One difficulty in testing is that it's difficult to test the Commands using code, because we have to create an entire
   CommandExecutor class, load some sample data, etc. I(Kevin) have been testing it manually by running the program.
   Suggestions on how to test better would be appreciated.
@@ -24,3 +24,9 @@
 - Noah: Implemented CommentGraph system. Plan to implement more features to commentGraph(e.g. searching and merging) as well as implementing graphs in other parts of the program.
 - Nima and Junhyuk : Implemented coursepage system.
 - Wilson: Work on rating functions for phrase 2 submission.
+
+## Things we must work on in the future
+
+- Making commands more intuitive. Eg. instead of displayfullthread for displaying a full comment thread and
+print for displaying page-related information, it would be better if print did both things.
+- Adding the rating functionality back with our new relative rating system, or roll back our past "average rating" system.
