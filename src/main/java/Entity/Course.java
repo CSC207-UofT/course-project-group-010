@@ -1,8 +1,9 @@
 package Entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Course {
+public class Course implements Serializable {
     String name; // Course name; i.e Introduction to Computer Science
     String code; // Course code; i.e CSC110
     String description; // Default description of the course that may be altered.

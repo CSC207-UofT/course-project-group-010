@@ -1,6 +1,7 @@
 package Controller.DatabaseGetter;
 
 import Constants.FileConstants;
+import Exceptions.CommandNotAuthorizedException;
 import Exceptions.NotInDatabaseException;
 import Outer.Database.Database;
 import UseCase.UserManager;
@@ -56,6 +57,16 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
     @Override
     public void setEntry(UserManager entry) {
         this.userDict.put(entry.getID(), entry);
+    }
+
+    @Override
+    public void addEntry(UserManager entry) throws CommandNotAuthorizedException {
+        if (!this.userDict.containsKey(entry.getID())) {
+            this.userDict.put(entry.getID(), entry);
+        }
+        else {
+            throw new CommandNotAuthorizedException("user with inputted id is already in the database");
+        }
     }
 
     @Override

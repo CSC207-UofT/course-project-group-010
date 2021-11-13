@@ -6,10 +6,11 @@ import Entity.InstructorUser;
 import Entity.Rating;
 import UseCase.CommentManager.CommentManager;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class CoursePage {
+public class CoursePage implements Serializable {
     private Course course; // course object
     private List<String> instructors; //List of all instructors who have taught this course.
     private List<Rating> ratings; // List of all ratings left for this course across all instructors. Null if not given.

@@ -2,6 +2,10 @@ package Controller.Commands.CourseCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
+import UseCase.CourseManager.CourseManager;
+import UseCase.CoursePage.CoursePage;
 import UseCase.CoursePage.CoursePageBuilder;
 import UseCase.CoursePage.Director;
 
@@ -19,7 +23,14 @@ public class CreateCourseCommand extends Command {
     }
 
     @Override
+    public String help() {
+        return "creates a course. Enter createcourse then follow the prompts given.";
+    }
+
+    @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkHelp(arguments);
+        checkArgumentsNum(arguments);
         Scanner in = new Scanner(System.in);
 
         // Create the shit
@@ -36,14 +47,20 @@ public class CreateCourseCommand extends Command {
         System.out.println("Description: ");
         course.add(in.nextLine());
         String input = "";
-        while (!input.equalsIgnoreCase("n")) {
+        while (!input.equalsIgnoreCase("end")) {
             System.out.println("Add instructor?[type end to end]");
-            String a = in.nextLine();
-            if (!a.equalsIgnoreCase("n")) {
-                instructor.add(a);
+            input = in.nextLine();
+            if (!input.equalsIgnoreCase("end")) {
+                instructor.add(input);
             }
         }
+        // Using the builder to build things
         d.constructCoursePage(cpb, course, instructor);
-        return "course is " + course.toString() + " instructor is " + instructor.toString();
+        CoursePage cp = cpb.getResult();
+        CourseManager cm = new CourseManager(cp);
+
+        // Save to db and return
+        CourseDatabaseGetter.getInstance().addEntry(cm);
+        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.";
     }
 }

@@ -4,6 +4,7 @@ import Entity.Course;
 import Entity.InstructorUser;
 import Entity.Rating;
 import Entity.StudentUser;
+import Exceptions.ArgumentException;
 import UseCase.CourseManager.CourseManager;
 import UseCase.CoursePage.CoursePage;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CourseManagerTest {
     // Redo test to compensate for changes.
     @Test(timeout=100)
-    public void testCourseManager1(){
+    public void testCourseManager1() throws ArgumentException {
         CoursePage coursePage = new CoursePage(
                 new Course("Sample Course1", "CSC108"),
                 List.of("Instructor A", "Instructor B", "Instructor C"));

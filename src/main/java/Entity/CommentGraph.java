@@ -3,6 +3,7 @@ package Entity;
 
 import Entity.CommentGraphHelper;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -16,7 +17,7 @@ import java.util.*;
  * This graph is akin to threads found on the website Reddit.
  */
 
-public class CommentGraph
+public class CommentGraph implements Serializable
 {
     // Dictionary that stores all the vertices (comments) in the graph.
     private HashMap<String, Comment> vertices;
@@ -413,7 +414,7 @@ public class CommentGraph
      * The Comment class are the nodes for the CommentGraph. It stores all attributes related to comments, including
      * navigation attributes, and information attributes.
      */
-    public class Comment
+    public class Comment implements Serializable
     {
         // navigation attributes for the Comment.
         private NavigationAttributes nav;
@@ -465,7 +466,7 @@ public class CommentGraph
         public List<String> formattedRepresentation()
         {
             // first part of String containing userName and id
-            String s1 = MessageFormat.format("> {0} [{1}]", this.info.userName, this.info.id);
+            String s1 = MessageFormat.format("> {0} [id: {1}]", this.info.userName, this.info.id);
             // second part of String containing text
             String s2 = MessageFormat.format("{0}", this.info.text);
             // third part of string containing vote
@@ -587,7 +588,7 @@ public class CommentGraph
     /**
      * NavigationAttributes stores values used for navigation for the Comment class.
      */
-    public class NavigationAttributes
+    public class NavigationAttributes implements Serializable
     {
         // List of children Comments
         private List<Comment> next;
@@ -620,7 +621,7 @@ public class CommentGraph
     /**
      * InformationAttributes stores values used for textual information for the Comment class.
      */
-    public class InformationAttributes
+    public class InformationAttributes implements Serializable
     {
         // id of Comment.
         private String id;

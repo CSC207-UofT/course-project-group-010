@@ -2,6 +2,7 @@ package UseCase.CourseManager;
 
 import Constants.PermissionLevel;
 import Entity.*;
+import Exceptions.ArgumentException;
 import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
@@ -44,6 +45,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     // An instructor that CourseManager is currently filtering.
     private String filterInstructor;
 
+    // LEGACY CODE, WE WILL HAVE A SINGULAR COMMENT AND IMPLEMENT MULTIPLE COMMENTS FOR FILTERED INSTRUCTORS LATER :D:D:D:D:D:D:D::D:D:D:D:D:D:D:D:D::D:Dl
+    private CommentManager onlyComment;
+
 
     /**
      * Constructor of CourseManager.
@@ -58,6 +62,14 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.instructors = coursePage.getInstructors();
         this.coursePage = coursePage;
         this.filterInstructor = null;
+
+        // LEGACY CODE MPODIFY LATER XDXDXDXDXDXDXD
+        this.onlyComment = new CommentManager(new CommentGraph("Questions", "", ""));
+    }
+
+    // LEGACY CODE, WE WILL HAVE A SINGULAR COMMENT AND IMPLEMENT MULTIPLE COMMENTS FOR FILTERED INSTRUCTORS LATER :D:D:D:D:D:D:D::D:D:D:D:D:D:D:D:D::D:Dl
+    public CommentManager getOnlyComment() {
+        return this.onlyComment;
     }
 
 
@@ -85,7 +97,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
         List<Rating> ratingList = this.coursePage.getRatings();
         if(ratingList == null) {
-            ratingList = new ArrayList<Rating>();
+            ratingList = new ArrayList<>();
             this.coursePage.setRatings(ratingList);
         }
 
@@ -167,7 +179,10 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param filterInstructorName An instructor name that user uses to filter coursePage.
      * @return
      */
-    public CoursePage filterInstructor(String filterInstructorName) {
+    public CoursePage filterInstructor(String filterInstructorName) throws ArgumentException {
+        if (!this.instructors.contains(filterInstructorName)) {
+            throw new ArgumentException("You cannot filter by this instructor.");
+        }
         List<Rating> filteredRatings = null;
         List<CommentGraph> filteredCommentGraphs = null;
         if (this.ratings == null) {
@@ -282,6 +297,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return this.coursePage;
     }
 
+    public CommentManager getComment() throws ArgumentException {
+        if (this.getCoursePage().getInstructor() == null) {
+            throw new ArgumentException("No comments found. Remember to filter by an instructor to get their comment section.");
+        } else if (this.coursePage.getCommentGraph() == null) {
+            throw new ArgumentException("No comment section. try starting one[startcomment]!");
+        } else {
+            return new CommentManager(this.coursePage.getCommentGraph());
+        }
+    }
+
 
     /** Get Data about courseManager in HashMap.
      *
@@ -290,12 +315,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     @Override
     public HashMap<String, Object> getData(){
         HashMap<String, Object> infoMap = new HashMap<>();
+        infoMap.put("filtering by", this.coursePage.getInstructor());
         infoMap.put("courseName", this.coursePage.getCourse().getName());
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
-        infoMap.put("instructors", this.coursePage.getInstructors());
+        infoMap.put("all instructors", this.coursePage.getInstructors());
 //        infoMap.put("years", this.coursePage.getYears());
-        infoMap.put("currentInstructors", this.coursePage.getInstructor());
+//        infoMap.put("currentInstructors", this.coursePage.getInstructor());
 //        infoMap.put("currentYear", this.coursePage.getYear());
         infoMap.put("rating", this.coursePage.getRatings());
 
@@ -348,7 +374,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      */
     public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
         Map<PermissionLevel, List<String>> retDict = new HashMap<>();
-        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment");
         List<String> instructorPermissions = Arrays.asList("all");
         retDict.put(PermissionLevel.STUDENT, studentPermissions);
         retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);

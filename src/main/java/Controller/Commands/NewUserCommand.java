@@ -52,14 +52,11 @@ public class NewUserCommand extends Command {
         ;
 
         UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
-        AuthHelper ah = new AuthHelper();
+        // AuthHelper ah = new AuthHelper();
         // ah.checkAuth(um, ce.getUserManager(), "newuser");
         // No auth checks for now, because we have 0 users in the db right now which is unfortunate
-        if (!UserDatabaseGetter.getInstance().containsKey(um.getID())) {
-            UserDatabaseGetter.getInstance().setEntry(um);
-            return "Initialized new user (id=" + um.getID() + ")";
-        }
-        throw new ArgumentException("User already exists");
+        UserDatabaseGetter.getInstance().addEntry(um);
+        return "Added new user with ID " + um.getID() + " and name " + um.getUser().getdisplayName();
     }
 
     @Override

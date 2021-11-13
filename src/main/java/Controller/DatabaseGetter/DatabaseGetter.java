@@ -1,5 +1,6 @@
 package Controller.DatabaseGetter;
 
+import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 
 import java.io.IOException;
@@ -30,7 +31,9 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
      *
      * @return
      */
-    abstract public void setEntry(T entry) throws IOException;
+    abstract public void setEntry(T entry);
+
+    abstract public void addEntry(T entry) throws CommandNotAuthorizedException;
 
     abstract public boolean containsKey(String key);
 
