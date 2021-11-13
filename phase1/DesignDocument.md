@@ -15,21 +15,24 @@ Users can view the content of course pages and comments
 
 Users can answer these specific questions or add reviews/upvote to each existing answers.
 
-Users can leave a rating on a course. The course will take the average rating of all users and display it on the page.
-
 This application will have a command line interface, where users can enter text commands and get back text responses.
+
+# Parts of the specification that is not satisfied yet(that we plan to work on later)
+
+Users can leave a rating on a course. The course will take the average rating of all users and display it on the page.
 
 # Additional functionality Added 
 
 -New functionality to course page (
-    1. a list of questions
+    1. A central comment thread
 )
 
 -New functionality to users (
     1. answer these specific questions shown on the course page 
-    2. add reviews to each existing answer from a list of questions shown on the course page
+    2. reply to comments in a course page's comment section
     3. upvote/downvote the existing answers shown on the course page
-    4. users can create new users, login and logout now.(creating new users is a debugging tool)
+    4. users can create new users, login and logout now.(creating new users is a demonstration tool)
+    5. Users can create new courses(demonstration tool)
 )
 
 -New functionality to authorization (
@@ -49,7 +52,6 @@ This application will have a command line interface, where users can enter text 
 2. The new fill function (e.g. year) for the course.
 
 3. Users have the option to edit the rating they provided previously.
-
 
 
 # Helpful Diagram
