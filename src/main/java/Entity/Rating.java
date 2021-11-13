@@ -18,7 +18,6 @@ public class Rating {
     private float score;
     private String courseCode;  // Course object which this rating is for.
     private String instructor;
-    private int year;
 
     public Rating(StudentUser rater, float score, String courseCode, String instructor) {
         this.rater = rater;
