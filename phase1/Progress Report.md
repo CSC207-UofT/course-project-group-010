@@ -20,7 +20,7 @@
 
 - Kevin: Implemented Authorization system, Database system, added comment related commands, helped with writeup. Will
   wait to implement features that team members create, by adding relevant commands and such.
-- Fiona: Wrote the Design Document, Code Style and Testing.
+- Fiona: Wrote the Design Document, Code Style and Documentation and Testing.
 - Noah: Implemented CommentGraph system. Plan to implement more features to commentGraph(e.g. searching and merging) as well as implementing graphs in other parts of the program.
 - Nima and Junhyuk : Implemented coursepage system.
 - Wilson: Work on rating functions for phrase 2 submission.
