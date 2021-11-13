@@ -20,7 +20,11 @@ import java.util.stream.Collectors;
      * affected ratings and CommentGraph.
      *
      * Example usage:
-     * CourseManager courseManager
+     * CourseManager courseManager = new CourseManager(coursePage);
+     * courseManager.filterInstructor("A");
+     * courseManager.defaultCoursePage();
+     * courseManager.updateCommentVote("ABCD", true);
+     * courseManager.updateRating(5, user);
      */
 
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
@@ -78,16 +82,17 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user A user who wants to change its rating score.
      * @throws Exception
      */
-    public void updateRating(int ratingNum, UserManager user) throws Exception {
+    public void updateRating(int ratingNum, User user) throws Exception {
         if(ratingNum < 0 || ratingNum > 10 || coursePage.getRatings() == null) {
             throw new Exception();
         }
         for(Rating r : coursePage.getRatings()) {
-            if(r.getRater().equals(user.getUser())) {
+            if(r.getRater().getID().equals(user.getID())) {
                 r.setScore(ratingNum);
-                break;
+                return;
             }
         }
+        throw new Exception("Rating is not updated");
     }
 
 
