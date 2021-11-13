@@ -2,6 +2,7 @@ package Constants;
 
 import Controller.Commands.*;
 import Controller.Commands.CommentCommands.*;
+import Controller.Commands.CourseCommands.CreateCourseCommand;
 import Exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
@@ -26,6 +27,7 @@ public class CommandConstants {
         command_dict.put("getpath", new GetPathCommand());
         command_dict.put("reply", new ReplyCommand());
         command_dict.put("vote", new VoteCommand());
+        command_dict.put("createcourse", new CreateCourseCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {
