@@ -1,18 +1,17 @@
 package UseCase;
 
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.Rating;
-import Entity.StudentUser;
+import Entity.*;
 import Exceptions.ArgumentException;
+import UseCase.CommentManager.CommentManager;
 import UseCase.CourseManager.CourseManager;
 import UseCase.CoursePage.CoursePage;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class CourseManagerTest {
     // Redo test to compensate for changes.
@@ -26,11 +25,18 @@ public class CourseManagerTest {
         assertEquals(courseManager.getID(), "CSC108");
         assertEquals(courseManager.getCoursePage(), coursePage);
         assertEquals(courseManager.getCoursePage().getRatings(), null);
-        assertEquals(courseManager.getCoursePage().getCommentGraphs(), null);
-
-        StudentUser studentUser = new StudentUser("Student1", "00001");
         try {
-            courseManager.addRating(5, studentUser);
+            courseManager.getComment();
+            fail("Show throw an exception here");
+        }
+        catch(Exception e){}
+
+        assertEquals(courseManager.getCoursePage().getCommentGraphs(), null);
+        assertEquals(courseManager.getFilterInstructor(), null);
+
+        StudentUser studentUser1 = new StudentUser("Student1", "00001");
+        try {
+            courseManager.addRating((float) 0.5, studentUser1);
             assertEquals("Should throw exception here", "");
         }
         catch(Exception e) {
@@ -38,12 +44,56 @@ public class CourseManagerTest {
         }
         courseManager.filterInstructor("Instructor A");
         try {
-            courseManager.addRating(5, studentUser);
+            courseManager.addRating((float) 0.5, studentUser1);
         }
         catch(Exception e) {
             assertEquals("Should not throw exception here", "");
         }
-        assertEquals(5.0, courseManager.getCoursePage().getAverageScore(), 0.001);
+        assertEquals(courseManager.getFilterInstructor(), "Instructor A");
+        assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
+        try {
+            courseManager.updateRating((float) 0.7, studentUser1);
+        }
+        catch(Exception e) {
+            assertEquals("Should not throw exception here", "");
+        }
+
+        assertEquals(0.7, courseManager.getCoursePage().getAverageScore(), 0.001);
+        try {
+            courseManager.startComment("Comment 1", studentUser1);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            fail("Should not throw exception here");
+        }
+        
+        StudentUser studentUser12 = new StudentUser("Student2", "00002");
+        try {
+            courseManager.addRating((float) 0.3, studentUser12);
+        }
+        catch(Exception e) {
+            fail("Should not throw error here");
+        }
+
+        assertEquals(courseManager.getCoursePage().getAverageScore(), 0.5, 0.001);
+//        System.out.println(courseManager.getCoursePage().getCommentGraph());
+        CommentManager commentManager = courseManager.getComment();
+//        System.out.println(commentManager.displayEntireThread(false, 3));
+        String prevId = commentManager.getChildrenComments("root").get(0).getId();
+        try {
+            courseManager.addComment(prevId, "Comment 2", studentUser1);
+        }
+        catch(Exception e) {
+            fail("Should not throw exception here");
+        }
+        try {
+            courseManager.updateCommentVote(prevId, true);
+        }
+        catch(Exception e) {
+            fail("Should not throw exception here");
+        }
+        assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);
+//        System.out.println(courseManager.getComment().displayEntireThread(true, 3));
 
     }
 }

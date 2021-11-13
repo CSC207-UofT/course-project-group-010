@@ -87,7 +87,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.filterInstructor = null;
     }
 
-    public void addRating(int ratingNum, StudentUser user) throws Exception{
+    public void addRating(float ratingNum, StudentUser user) throws Exception{
         if(this.filterInstructor == null) {
             throw new Exception("Filter instructor is not selected yet");
         }
@@ -100,7 +100,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
         Rating r = new Rating(user, ratingNum, this.filterInstructor);
         ratingList.add(r);
-        this.coursePage.setAverageScore(calculateAvgScore());
+        this.updateAvgScore();
         if(this.ratings == null) {
             this.ratings = new ArrayList<Rating>();
         }
@@ -119,6 +119,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         for(Rating r : coursePage.getRatings()) {
             if(r.getRater().getID().equals(user.getID())) {
                 r.setScore(ratingNum);
+                this.updateAvgScore();
                 return;
             }
         }
@@ -137,17 +138,24 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         if(this.filterInstructor == null) {
             throw new Exception("No filtered instructor");
         }
+        CommentGraph newCommentGraph = new CommentGraph(
+                text,"Question", user.getdisplayName(), this.filterInstructor);
         CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
         if(commentManager == null) {
-            CommentGraph newCommentGraph = new CommentGraph("Question", user.getdisplayName(), this.filterInstructor);
             this.coursePage.setCommentGraph(newCommentGraph);
-            if(this.commentGraphs == null) {
-                this.commentGraphs = new ArrayList<CommentGraph>();
-                this.commentGraphs.add(newCommentGraph);
+            if(this.coursePage.getCommentGraphs() == null) {
+                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
             }
-            commentManager = new CommentManager(this.coursePage.getCommentGraph());
+            this.coursePage.getCommentGraphs().add(newCommentGraph);
         }
-        commentManager.replyToComment("root", text, user.getdisplayName());
+        else {
+            throw new Exception("There is already starting comment");
+        }
+        if(this.commentGraphs == null) {
+            this.commentGraphs = new ArrayList<CommentGraph>();
+        }
+        this.commentGraphs.add(newCommentGraph);
+
 
 
     }
@@ -276,8 +284,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.coursePage.setCommentGraphs(this.commentGraphs);
         this.coursePage.setCommentGraph(null);
         this.coursePage.setRatings(this.ratings);
-        this.coursePage.setAverageScore(this.calculateAvgScore());
         this.coursePage.setInstructor(null);
+        this.updateAvgScore();
         return this.coursePage;
     }
 
@@ -300,6 +308,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         } else {
             return new CommentManager(this.coursePage.getCommentGraph());
         }
+    }
+
+
+    /** Get current filtering instructor
+     *
+     * @return String of current filtering instructor's name.
+     */
+    public String getFilterInstructor() {
+        return this.filterInstructor;
     }
 
 
@@ -327,15 +344,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @return average of current rating scores.
      */
-    public float calculateAvgScore() {
+    public void updateAvgScore() {
         if(this.coursePage.getRatings() == null) {
-            return 0;
+            this.coursePage.setAverageScore(0);
         }
         float total = 0;
         for(Rating r : this.coursePage.getRatings()) {
             total += r.getScore();
         }
-        return total / this.coursePage.getRatings().size();
+        this.coursePage.setAverageScore(total / this.coursePage.getRatings().size());
     }
 
     // IDBSAVEABLE methods

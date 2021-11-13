@@ -40,6 +40,9 @@ public class CoursePage implements Serializable {
 
     // Returns CommentGraph associated with instructor. If not found, returns Null. Can throw exception if we want.
     public CommentManager getThread(String instructor){
+        if(this.getCommentGraphs() == null) {
+            return null;
+        }
         for (CommentGraph c : this.commentGraphs) {
             if (c.getInstructor().equals(instructor)) {
                 return new CommentManager(c);
