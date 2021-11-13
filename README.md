@@ -24,6 +24,16 @@ other documents.
 - There is 1 page that you can view
  - id: MAT137, Calculus with Proofs
 
+# Commands overview
+
+Overview of commands by type. In the future, this will be included in helpcommand() for convenience.
+
+- help: displays all commands and their respective help strings
+- basic commands for logging in, viewing pages: login, checkout, print, logout
+- saving/database related: saveall, newusuer, createcourse
+- Main comment related commands: getcomments, displayfullthread, reply, vote
+- Other comment commands displaysubsetthread, getpath
+
 # Sample commands to demonstrate functionality:
 > login panchenxyz
 > 
