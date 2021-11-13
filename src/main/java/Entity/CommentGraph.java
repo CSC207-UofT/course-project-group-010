@@ -1,5 +1,9 @@
 package Entity;
 
+
+import Entity.CommentGraphHelper;
+
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -13,12 +17,8 @@ import java.util.*;
  * This graph is akin to threads found on the website Reddit.
  */
 
-public class CommentGraph {
-    /**
-     * Helper variable that stores data for the stringRepresentationRecursive method. This allows for a much more
-     * modifiable and maintainable recursive function in case something needs to be changed.
-     */
-    public String stringRepresentationHelper = "";
+public class CommentGraph implements Serializable
+{
     // Dictionary that stores all the vertices (comments) in the graph.
     private HashMap<String, Comment> vertices;
     // Stores the size of the graph. Size is defined by the number of comments within it.
@@ -27,6 +27,8 @@ public class CommentGraph {
     private int maxDepth;
     // Root comment of the entire graph.
     private Comment root;
+    // Instructor of the graph
+    private String instructor;
 
     /**
      * CommentGraph Multiple mainComments Constructor, takes a list of Strings that represents the text found in the
@@ -40,11 +42,13 @@ public class CommentGraph {
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName) {
+    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName, String instructor)
+    {
         // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
         // each comment in mainComments is added to the CommentGraph and linked to the root node.
-        for (String mainComment : mainComments) {
+        for (String mainComment : mainComments)
+        {
             // adds comment to the CommentGraph and links to root comment.
             reply("root", mainComment, mainCommenterName);
         }
@@ -60,20 +64,21 @@ public class CommentGraph {
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName) {
+    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName, String instructor)
+    {
         // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
         // adds comment to the CommentGraph and links to root comment.
         reply("root", mainComment, mainCommenterName);
     }
 
-    public CommentGraph(String mainCommentType, String mainCommenterName) {
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName);
+    public CommentGraph(String mainCommentType, String mainCommenterName, String instructor)
+    {
+        // initializes empty CommentGraph
+        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
+        //set instructor
+        this.instructor = instructor;
     }
-
-//======================================================================================================================
-// Comment Graph Getters
-//======================================================================================================================
 
     /**
      * Method that initializes an empty CommentGraph
@@ -82,23 +87,32 @@ public class CommentGraph {
      * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName) {
+    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName, String instructor)
+    {
         // initializes the dictionary of vertices to an empty HashMap.
         this.vertices = new HashMap<>();
         // initializes the size of the CommentGraph to be as there are no Comments within it.
         this.size = 0;
         // creates the root comment
         this.root = createComment("root", mainCommentType, mainCommenterName);
+        //set instructor
+        this.instructor = instructor;
         // adds the root comment to the CommentGraph.
         addVertex("root", this.root);
     }
+
+
+//======================================================================================================================
+// Comment Graph Getters
+//======================================================================================================================
 
     /**
      * Method that gets the dictionary of ids and related comments in a CommentGraph.
      *
      * @return a HashMap consisting of a String key (id) and a Comment value.
      */
-    public HashMap<String, Comment> getVertices() {
+    public HashMap<String, Comment> getVertices()
+    {
         // return the vertices instance variable of CommentGraph.
         return this.vertices;
     }
@@ -109,7 +123,8 @@ public class CommentGraph {
      * @param id of Comment.
      * @return Comment based on id.
      */
-    public Comment getComment(String id) {
+    public Comment getComment(String id)
+    {
         // return the associated Comment.
         return this.vertices.get(id);
     }
@@ -119,9 +134,27 @@ public class CommentGraph {
      *
      * @return an integer that represents the maximum depth of the CommentGraph.
      */
-    public int getMaxDepth() {
+    public int getMaxDepth()
+    {
         // return the maxDepth instance variable.
         return this.maxDepth;
+    }
+
+    /**
+     * Method that gets the size of the CommentGraph.
+     *
+     * @return an integer that represents the size of the CommentGraph.
+     */
+    public int getSize()
+    {
+        // return the size instance variable.
+        return this.size;
+    }
+
+    public String getInstructor()
+    {
+        // get the instructor
+        return this.instructor;
     }
 
 //======================================================================================================================
@@ -129,14 +162,10 @@ public class CommentGraph {
 //======================================================================================================================
 
     /**
-     * Method that gets the size of the CommentGraph.
-     *
-     * @return an integer that represents the size of the CommentGraph.
+     * Helper variable that stores data for the stringRepresentationRecursive method. This allows for a much more
+     * modifiable and maintainable recursive function in case something needs to be changed.
      */
-    public int getSize() {
-        // return the size instance variable.
-        return this.size;
-    }
+    public String stringRepresentationHelper = "";
 
     /**
      * Method that gets the String representation of a CommentGraph up to a certain depth.
@@ -150,7 +179,8 @@ public class CommentGraph {
      * @param reverseSorted determines whether to sort by increasing or decreasing votes.
      * @return the String representation of the CommentGraph.
      */
-    public String stringRepresentation(Comment start, int depth, int endDepth, boolean reverseSorted) {
+    public String stringRepresentation(Comment start, int depth, int endDepth, boolean reverseSorted)
+    {
         // reset the stringRepresentationHelper variable.
         stringRepresentationHelper = "";
         // assign the stringRepresentationHelper with the new representation.
@@ -171,7 +201,8 @@ public class CommentGraph {
      * @param endDepth      the depth at which to stop the String representation.
      * @param reverseSorted determines whether to sort by increasing or decreasing votes.
      */
-    public void stringRepresentationRecursive(Comment start, int depth, int endDepth, boolean reverseSorted) {
+    public void stringRepresentationRecursive(Comment start, int depth, int endDepth, boolean reverseSorted)
+    {
         // String representation of current comment.
         stringRepresentationHelper = stringRepresentationHelper +
                 "    ".repeat(depth) + start.formattedRepresentation().get(0) + "\n" +
@@ -183,12 +214,14 @@ public class CommentGraph {
         List<Comment> sortedComments = sortHelper.commentSort(start.getNext(), reverseSorted);
 
         // Stop appending to the string representation if a certain depth is reached.
-        if (depth == endDepth) {
+        if (depth == endDepth)
+        {
             return;
         }
 
         // for each comment in the list of next comments
-        for (var subComment : sortedComments) {
+        for (var subComment : sortedComments)
+        {
             // recursively call the method on the subcomment and increase the depth by 1.
             stringRepresentationRecursive(subComment, depth + 1, endDepth, reverseSorted);
         }
@@ -201,7 +234,8 @@ public class CommentGraph {
      * @param endComment
      * @return
      */
-    public String stringPath(Comment startComment, Comment endComment) {
+    public String stringPath(Comment startComment, Comment endComment)
+    {
         // initialize new helper
         CommentGraphHelper stringPathHelper = new CommentGraphHelper();
         // get path from helper
@@ -211,7 +245,8 @@ public class CommentGraph {
 
         //convert path to formatted String representation
         String strPath = "";
-        for (Comment comment : path) {
+        for (Comment comment : path)
+        {
             strPath = strPath +
                     "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
                     "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
@@ -235,7 +270,8 @@ public class CommentGraph {
      * @param userName name of the user who made the comment.
      * @return the newly created Comment
      */
-    private Comment createComment(String id, String text, String userName) {
+    private Comment createComment(String id, String text, String userName)
+    {
         // set the next comments to an empty List, meaning there are no edges coming out of the comment.
         List<Comment> next = new ArrayList<>();
         // set the navigation attributes to have no previous or next nodes.
@@ -252,7 +288,8 @@ public class CommentGraph {
      * @param id      unique id of the comment.
      * @param comment the Comment to the CommentGraph.
      */
-    private void addVertex(String id, Comment comment) {
+    private void addVertex(String id, Comment comment)
+    {
         // add to the dictionary of vertices in CommentGraph.
         this.vertices.put(id, comment);
         // increase the size of the CommentGraph by 1.
@@ -265,7 +302,8 @@ public class CommentGraph {
      * @param prevId  the id of the parent Comment.
      * @param comment the Comment to link to the parent.
      */
-    private void link(String prevId, Comment comment) {
+    private void link(String prevId, Comment comment)
+    {
         // Get current comment.
         Comment vertex1 = this.vertices.get(comment.info.id);
         // Get parent comment.
@@ -281,7 +319,8 @@ public class CommentGraph {
         comment.depth = newDepth;
 
         // set the maxDepth of the CommentGraph if the newDepth is greater than the current maxDepth.
-        if (newDepth > this.maxDepth) {
+        if (newDepth > this.maxDepth)
+        {
             this.maxDepth = newDepth;
         }
     }
@@ -297,13 +336,16 @@ public class CommentGraph {
      * @param text     the text of the reply.
      * @param userName the name of the user that made the reply.
      */
-    public void reply(String prevId, String text, String userName) {
+    public void reply(String prevId, String text, String userName)
+    {
         // if the reply has no text or the parent id is not in the dictionary of vertices
-        if (text.equals("") || !this.vertices.containsKey(prevId)) {
+        if (text.equals("") || !this.vertices.containsKey(prevId))
+        {
             // do nothing
         }
         //otherwise
-        else {
+        else
+        {
             // generate unique id for comment
             String uniqueId = genUniqueId();
             // create comment with unique id, text, and name of the user
@@ -322,12 +364,14 @@ public class CommentGraph {
      *
      * @return a String that represents a uniqueId.
      */
-    private String genUniqueId() {
+    private String genUniqueId()
+    {
         // generate using genId() function in helper class.
         CommentGraphHelper genIdHelper = new CommentGraphHelper();
         String uniqueId = genIdHelper.genId();
         // until a unique id is generated, which is most likely already the case before the while loop occurs.
-        while (vertices.containsKey(uniqueId)) {
+        while (vertices.containsKey(uniqueId))
+        {
             // set id to a new id.
             uniqueId = genIdHelper.genId();
         }
@@ -345,7 +389,8 @@ public class CommentGraph {
      *
      * @param id of the Comment to upvote
      */
-    public void upvote(String id) {
+    public void upvote(String id)
+    {
         // increase vote by 1
         this.vertices.get(id).info.vote += 1;
     }
@@ -355,7 +400,8 @@ public class CommentGraph {
      *
      * @param id of the Comment to downvote
      */
-    public void downvote(String id) {
+    public void downvote(String id)
+    {
         // decrease vote by 1
         this.vertices.get(id).info.vote -= 1;
     }
@@ -368,7 +414,8 @@ public class CommentGraph {
      * The Comment class are the nodes for the CommentGraph. It stores all attributes related to comments, including
      * navigation attributes, and information attributes.
      */
-    public class Comment {
+    public class Comment implements Serializable
+    {
         // navigation attributes for the Comment.
         private NavigationAttributes nav;
         // information attributes for the Comment.
@@ -384,7 +431,8 @@ public class CommentGraph {
          * @param info  InformationAttributes of the Comment.
          * @param depth of the Comment.
          */
-        private Comment(NavigationAttributes nav, InformationAttributes info, int depth) {
+        private Comment(NavigationAttributes nav, InformationAttributes info, int depth)
+        {
             // Initializes NavivationAttributes.
             this.nav = nav;
             // Initializes InformationAttributes.
@@ -403,7 +451,8 @@ public class CommentGraph {
          * @return String representation of the Comment.
          */
         @Override
-        public String toString() {
+        public String toString()
+        {
             // returns a String int the form "userName id vote text"
             return MessageFormat.format("{0} {1} {2} {3}", this.info.userName, this.info.id,
                     this.info.vote, this.info.text);
@@ -414,16 +463,18 @@ public class CommentGraph {
          *
          * @return a formatted String that represents a Comment.
          */
-        public List<String> formattedRepresentation() {
+        public List<String> formattedRepresentation()
+        {
             // first part of String containing userName and id
-            String s1 = MessageFormat.format("> {0} [{1}]", this.info.userName, this.info.id);
+            String s1 = MessageFormat.format("> {0} [id: {1}]", this.info.userName, this.info.id);
             // second part of String containing text
             String s2 = MessageFormat.format("{0}", this.info.text);
             // third part of string containing vote
             String s3 = MessageFormat.format("[+] {0} [-]", this.info.vote);
 
             // ArrayList containing all three parts of the String
-            List<String> representation = new ArrayList<>() {
+            List<String> representation = new ArrayList<>()
+            {
             };
             representation.add(s1);
             representation.add(s2);
@@ -442,7 +493,8 @@ public class CommentGraph {
          *
          * @return List of next Comments.
          */
-        public List<Comment> getNext() {
+        public List<Comment> getNext()
+        {
             return this.nav.next;
         }
 
@@ -451,7 +503,8 @@ public class CommentGraph {
          *
          * @return parent Comment.
          */
-        public Comment getPrev() {
+        public Comment getPrev()
+        {
             return this.nav.prev;
         }
 
@@ -460,7 +513,8 @@ public class CommentGraph {
          *
          * @return true or false.
          */
-        public Boolean getVisited() {
+        public Boolean getVisited()
+        {
             return this.nav.visited;
         }
 
@@ -469,7 +523,8 @@ public class CommentGraph {
          *
          * @return String id.
          */
-        public String getId() {
+        public String getId()
+        {
             return this.info.id;
         }
 
@@ -478,7 +533,8 @@ public class CommentGraph {
          *
          * @return String text.
          */
-        public String getText() {
+        public String getText()
+        {
             return this.info.text;
         }
 
@@ -487,7 +543,8 @@ public class CommentGraph {
          *
          * @return String userName.
          */
-        public String getUserName() {
+        public String getUserName()
+        {
             return this.info.userName;
         }
 
@@ -496,7 +553,8 @@ public class CommentGraph {
          *
          * @return Integer vote.
          */
-        public int getVote() {
+        public int getVote()
+        {
             return this.info.vote;
         }
 
@@ -505,7 +563,8 @@ public class CommentGraph {
          *
          * @return Integer depth.
          */
-        public int getDepth() {
+        public int getDepth()
+        {
             return this.depth;
         }
 
@@ -514,7 +573,8 @@ public class CommentGraph {
          *
          * @return formatted String representation.
          */
-        public String getFormattedRepresentation() {
+        public String getFormattedRepresentation()
+        {
             return this.formattedRepresentation().get(0) + "\n" +
                     this.formattedRepresentation().get(1) + "\n" +
                     this.formattedRepresentation().get(2) + "\n\n";
@@ -528,7 +588,8 @@ public class CommentGraph {
     /**
      * NavigationAttributes stores values used for navigation for the Comment class.
      */
-    public class NavigationAttributes {
+    public class NavigationAttributes implements Serializable
+    {
         // List of children Comments
         private List<Comment> next;
         // Parent Comment
@@ -544,7 +605,8 @@ public class CommentGraph {
          * @param next children nodes.
          * @param prev parent node.
          */
-        private NavigationAttributes(List<Comment> next, Comment prev) {
+        private NavigationAttributes(List<Comment> next, Comment prev)
+        {
             // Initialize children nodes.
             this.next = next;
             // Initialize parent node.
@@ -559,7 +621,8 @@ public class CommentGraph {
     /**
      * InformationAttributes stores values used for textual information for the Comment class.
      */
-    public class InformationAttributes {
+    public class InformationAttributes implements Serializable
+    {
         // id of Comment.
         private String id;
         // text in Comment.
@@ -576,7 +639,8 @@ public class CommentGraph {
          * @param text     String text.
          * @param userName String userName.
          */
-        private InformationAttributes(String id, String text, String userName) {
+        private InformationAttributes(String id, String text, String userName)
+        {
             // Initialize id of Comment.
             this.id = id;
             // Initialize text of Comment.

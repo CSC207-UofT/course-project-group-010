@@ -26,12 +26,15 @@ public class PrintCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelpArgsUserPageAuth(ce, arguments, "print");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
-        IHasPermission user = ce.getUserManager();
 
         Map<String, Object> dataMap = currentlyViewingPage.getData();
         String returnString = "";
         for (String o : dataMap.keySet()) {
-            returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
+            try {
+                returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
+            } catch (Exception e) {
+                returnString = returnString + o + " : " + "n/a" + "\n";
+            }
         }
         return returnString;
     }

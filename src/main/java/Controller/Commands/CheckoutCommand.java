@@ -1,8 +1,11 @@
 package Controller.Commands;
 
+import Controller.AuthHelper;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
 import Entity.Course;
 import Entity.InstructorUser;
 import Entity.Rating;
+import Exceptions.ArgumentException;
 import UseCase.CourseManager.CourseManager;
 import UseCase.CoursePage.CoursePage;
 
@@ -36,33 +39,23 @@ public class CheckoutCommand extends Command {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
-        // TODO add auth and stuff.
-        // get comment section if r is the argument
-        // otherwise if it's a course:
-        // look in database if page exists
+        String id = arguments.get(0);
+        // TODO get comment section if r.
         if (arguments.get(0).equals("r")) {
             return "Review pages don't exist yet";
         } else {
-            // TODO change this hardcode. Rating will not work on this because you initialize a new page everytime
-            if (arguments.get(0).equals("MAT137")) {
-                // this is not cash money, why am I initializing entities
-                // this constructor is the most complex thing I've ever seen. Bad.
-                Course c1 = new Course("Calculus with Proofs", "MAT137");
-                Rating r1 = new Rating();
-                List<InstructorUser> l1 = new ArrayList<InstructorUser>();
-                List<Integer> years = new ArrayList<Integer>();
-                CoursePage matPage = new CoursePage(c1, r1, l1, years);
-                CourseManager matManager = new CourseManager(matPage);
-                ce.setPageManager(matManager);
-                return "now viewing " + matManager.getID();
+
+            CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
+            CourseManager mgr = cdg.getEntry(id);
+            if (mgr == null) {
+                throw new ArgumentException("Course not found in Database");
+            } else {
+                AuthHelper ah = new AuthHelper();
+                ah.checkAuth(mgr, ce.getUserManager(), "checkout");
+                ce.setPageManager(mgr);
+                return "now viewing course: " + id;
             }
         }
-        // TODO check auth
-        // Then, no matter what, execute these:
-        // look at ce studentmanager(may exception) to get student perm level
-        // look at the gotten manager thing to check if action is allowed.
-        // set the pageManager to this manager if the action was allowed.
-        return "couldn't view page";
     }
 
     @Override

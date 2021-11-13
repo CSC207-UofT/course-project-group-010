@@ -36,7 +36,7 @@ public class CommentManagerTest
         linkMethod.setAccessible(true);
 
         // create an empty Comment Graph
-        CommentGraph CSC207Thread = new CommentGraph("Questions", "Instructor");
+        CommentGraph CSC207Thread = new CommentGraph("Questions", "Alfonso", "Instructor");
 
         // Manually create comments and links, this should not be done, only done for the sake of testing.
         CommentGraph.Comment question1 = (CommentGraph.Comment) createCommentMethod.invoke(CSC207Thread, "id1", "How did you like the course?", "Instructor");

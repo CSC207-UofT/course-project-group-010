@@ -61,6 +61,7 @@ public class CommandExecutor {
     }
 
     public void resetAll() {
+        // TODO reset the filters on the pageManager
         this.userManager = null;
         this.pageManager = null;
     }

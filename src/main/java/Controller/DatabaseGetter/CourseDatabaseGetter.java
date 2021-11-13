@@ -1,6 +1,7 @@
 package Controller.DatabaseGetter;
 
 import Constants.FileConstants;
+import Exceptions.CommandNotAuthorizedException;
 import Exceptions.NotInDatabaseException;
 import Outer.Database.Database;
 import UseCase.CourseManager.CourseManager;
@@ -58,8 +59,17 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     }
 
     @Override
-    public void setEntry(CourseManager entry) throws IOException {
+    public void setEntry(CourseManager entry) {
         this.courseDict.put(entry.getID(), entry);
+    }
+
+    @Override
+    public void addEntry(CourseManager entry) throws CommandNotAuthorizedException {
+        if (!this.courseDict.containsKey(entry.getID())) {
+            this.courseDict.put(entry.getID(), entry);
+        } else {
+            throw new CommandNotAuthorizedException("course with inputted code already in database");
+        }
     }
 
     @Override

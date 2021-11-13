@@ -34,7 +34,7 @@ public class RateCommand extends Command {
         } else {
             if (ce.getPageManager() instanceof CourseManager) {
                 ((CourseManager) ce.getPageManager()).updateRating(Integer.parseInt(arguments.get(0)),
-                        ce.getUserManager());
+                        ce.getUserManager().getUser());
                 return "Rated " + ((CourseManager) ce.getPageManager()).getID();
             }
         }

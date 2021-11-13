@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class StudentUser extends User {
     private HashMap<Integer, List<Course>> courses;
+
     // Permission level : 0
 
     /**
