@@ -5,6 +5,7 @@ import Entity.*;
 import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
+import UseCase.CommentManager.CommentManager;
 import UseCase.CoursePage.CoursePage;
 import UseCase.CoursePage.CoursePageBuilder;
 import UseCase.CoursePage.Director;
@@ -14,44 +15,54 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+    /**
+     * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and
+     * affected ratings and CommentGraph.
+     */
+
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
+    // Course that CourseManager handles.
     private Course course;
+    // All ratings about the course of CourseManager.
     private List<Rating> ratings;
-    private CommentGraph commentGraph;
+    // All commentGraphs about the course of CourseManager.
+    private List<CommentGraph> commentGraphs;
+    // A CoursePage that CourseManager handles.
     private CoursePage coursePage;
+    // Map of permission level.
     private Map<PermissionLevel, List<String>> authDict;
-    private Director director;
-    private List<InstructorUser> instructorUsers;
+    // All instructors of the course of CourseManager;
+    private List<String> instructors;
+    // An instructor that CourseManager is currently filtering.
+    private String filterInstructor;
 
-    // if it only initializes with a coursePage, why can't we just delete coursePage and put stuff in here?
-    // CoursePage only contains getters anyways...
 
-    // CourseManager is going to tell the director to build coursepage or give
-    // builder filtered ratings.
-    // I did not touch other classes
-    // TODO but please make other constructors public so that it can be used in other packages.
-    public CourseManager(Course course, List<InstructorUser> instructorUsers, List<Rating> ratings, CommentGraph commentGraph){
+    /**
+     * Constructor of CourseManager.
+     *
+     * @param coursePage CoursePage that CourseManager is going to modify.
+     */
+    public CourseManager(CoursePage coursePage){
         this.authDict = getDefaultAuthDict();
-        this.course = course;
-        this.ratings = ratings;
-        this.commentGraph = commentGraph;
-        this.instructorUsers = instructorUsers;
-        this.director = new Director(new CoursePageBuilder());
-        this.director.constructCoursePage(this.director.getBuilder(), this.course, this.ratings,
-                this.instructorUsers, this.commentGraph);
+        this.course = coursePage.getCourse();
+        this.ratings = coursePage.getRatings();
+        this.commentGraphs = coursePage.getCommentGraphs();
+        this.instructors = coursePage.getInstructors();
+        this.coursePage = coursePage;
+        this.filterInstructor = null;
     }
 
 
-    //Overloading the constructor for constructCoursePage as per Clean Architecture for optional parameters,
-    //I think this is best approach because kevin can just input whatever info is given
-
-
-
-
-    public void updateRating(int ratingNum, UserManager user) throws CommandNotAuthorizedException {
-        if(ratingNum < 0 || ratingNum > 10) {
-            throw new CommandNotAuthorizedException();
+    /** Updates a rating that a current user already left.
+     *
+     * @param ratingNum A rating score that a user wants to change to.
+     * @param user A user who wants to change its rating score.
+     * @throws Exception
+     */
+    public void updateRating(int ratingNum, UserManager user) throws Exception {
+        if(ratingNum < 0 || ratingNum > 10 || coursePage.getRatings() == null) {
+            throw new Exception();
         }
         for(Rating r : coursePage.getRatings()) {
             if(r.getRater().equals(user.getUser())) {
@@ -59,28 +70,58 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
                 break;
             }
         }
-//        // TODO check if rating is in the allowed range?
-//        Rating ratingToProcess = this.coursePage.getRating();
-//        // TODO change the code such that the casting below is not required, user.getUser() will not always be a student
-//        ratingToProcess.processRating(ratingNum, (StudentUser)user.getUser());
-//        this.coursePage.setRating(ratingToProcess);
     }
 
-    public void addComment(String prevId, String text, User user) {
-        // coursePage getCommentGraph is not implemented;
 
-        CommentGraph commentGraph = this.coursePage.getCommentGraph();
-        commentGraph.reply(prevId, text, user.getID());
+    /** Starts a comment on current coursePage. User can only leave a comment when it is seeing
+     * filtered coursePage.
+     *
+     * @param text
+     * @param user
+     * @throws Exception
+     */
+    public void startComment(String text, User user) throws Exception{
+        // coursePage getCommentGraph is not implemented;
+        if(this.filterInstructor == null) {
+            throw new Exception();
+        }
+        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
+        if(commentManager == null) {
+            CommentGraph newCommentGraph = new CommentGraph("Question", user.getdisplayName(), this.filterInstructor);
+            this.coursePage.setCommentGraph(newCommentGraph);
+            if(this.commentGraphs == null) {
+                this.commentGraphs = new ArrayList<CommentGraph>();
+                this.commentGraphs.add(newCommentGraph);
+            }
+            commentManager = new CommentManager(this.coursePage.getCommentGraph());
+        }
+        commentManager.replyToComment("root", text, user.getdisplayName());
+
+
+    }
+
+    public void addComment(String prevId, String text, User user) throws Exception {
+        if(this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
+            throw new Exception();
+        }
+        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
+        commentManager.replyToComment(prevId, text, user.getdisplayName());
     }
 
 
     // When will we use this?
-    public void filterInstructor(String queryInstructorName){
+    public CoursePage filterInstructor(String queryInstructorName){
         List<Rating> filteredRatings = ratings.stream().filter(
                 r -> r.getInstructor()==queryInstructorName).collect(Collectors.toList());
 
-        this.coursePage = this.director.constructCoursePage(this.director.getBuilder(), this.course, filteredRatings,
-                this.instructorUsers, this.commentGraph);
+        this.coursePage.setRatings(filteredRatings);
+        float total = 0;
+        for(Rating r : filteredRatings) {
+            total += r.getScore();
+        }
+        this.coursePage.setAverageScore(total/filteredRatings.size());
+        this.coursePage.setInstructor(queryInstructorName);
+        return this.coursePage;
 
 //        if (instructors.contains(instructor)){
 //            this.coursePage.setInstructor(instructor);
@@ -92,17 +133,27 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 //        }
     }
 
-    public void filterYear(int year){
-        List<Integer> years = this.coursePage.getYears();
+//    public void filterYear(int year){
+//        List<Integer> years = this.coursePage.getYears();
+//
+//        if (years.contains(year)){
+//            this.coursePage.setYear(year);
+//        }
+//
+//        else
+//        {
+//            // do not change the year
+//        }
+//    }
 
-        if (years.contains(year)){
-            this.coursePage.setYear(year);
-        }
-
-        else
-        {
-            // do not change the year
-        }
+    public CoursePage defaultCoursePage() {
+        this.coursePage.setCourse(this.course);
+        this.coursePage.setCommentGraphs(this.commentGraphs);
+        this.coursePage.setCommentGraph(null);
+        this.coursePage.setRatings(this.ratings);
+        this.coursePage.setAverageScore(this.getAvgScore());
+        this.coursePage.setInstructor(null);
+        return this.coursePage;
     }
 
     public CoursePage getCoursePage() {
@@ -116,14 +167,21 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
         infoMap.put("instructors", this.coursePage.getInstructors());
-        infoMap.put("years", this.coursePage.getYears());
+//        infoMap.put("years", this.coursePage.getYears());
         infoMap.put("currentInstructors", this.coursePage.getInstructor());
-        infoMap.put("currentYear", this.coursePage.getYear());
+//        infoMap.put("currentYear", this.coursePage.getYear());
         infoMap.put("rating", this.coursePage.getRatings());
 
         return infoMap;
     }
 
+    private float getAvgScore() {
+        float total = 0;
+        for(Rating r : this.coursePage.getRatings()) {
+            total += r.getScore();
+        }
+        return total / this.coursePage.getRatings().size();
+    }
     // IDBSAVEABLE methods
 
     public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
