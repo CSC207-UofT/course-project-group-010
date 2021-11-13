@@ -5,7 +5,7 @@ import Exceptions.CommandNotAuthorizedException;
 public class Rating {
 
     private final StudentUser rater;
-    private final String courseCode;  // Course object which this rating is for.
+    private final String courseCode;
     private final String instructor;
     private float score;
 
