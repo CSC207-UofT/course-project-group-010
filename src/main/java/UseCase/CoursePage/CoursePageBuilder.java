@@ -2,14 +2,9 @@ package UseCase.CoursePage;
 
 import Entity.CommentGraph;
 import Entity.Course;
-import Entity.InstructorUser;
 import Entity.Rating;
 
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 public class CoursePageBuilder implements Builder {
 
@@ -19,14 +14,13 @@ public class CoursePageBuilder implements Builder {
     private List<CommentGraph> commentGraphs = null; //List of all commentGraphs for this course across all instructors.
 
 
-
     @Override
-    public void setCourse(Course course){
+    public void setCourse(Course course) {
         this.course = course;
     }
 
     @Override
-    public void setInstructors(List<String> instructors){
+    public void setInstructors(List<String> instructors) {
         this.instructors = instructors;
     }
 
@@ -37,13 +31,13 @@ public class CoursePageBuilder implements Builder {
 
 
     @Override
-    public void setCommentGraphs(List<CommentGraph> cg){
+    public void setCommentGraphs(List<CommentGraph> cg) {
         this.commentGraphs = cg;
     }
 
     @Override
-    public void reset(){
-        this.ratings= null;
+    public void reset() {
+        this.ratings = null;
         this.commentGraphs = null;
     }
 
@@ -61,8 +55,6 @@ public class CoursePageBuilder implements Builder {
     }
 
 
-
-
 // PHASE 2 BELOW
 
 
@@ -71,7 +63,6 @@ public class CoursePageBuilder implements Builder {
 //    }
 
 //  private float programRelativeScore;  // Phase 2
-
 
 
 //    @Override
