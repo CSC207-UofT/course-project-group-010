@@ -1,35 +1,33 @@
 package Entity;
 
+import Exceptions.CommandNotAuthorizedException;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 
-public class RatingTest{
-    @Test(timeout=100)
-    public void testgetRating() {
-        Rating r = new Rating();
-        Integer a = 5;
-        assertEquals(r.getRating(),a);
- }
+public class RatingTest {
+
+    StudentUser sampleStudent;
+    Rating rating;
+
+    @Before
+    public void init() {
+        sampleStudent = new StudentUser("Sam", "4000");
+        rating = new Rating(sampleStudent, 1.0F, "CSC207", "Paul Gries");
+    }
+
+    @Test
+    public void setScoreOk() throws CommandNotAuthorizedException {
+        float desiredScore = 0.5F;
+        rating.setScore(desiredScore);
+        assertEquals(desiredScore, rating.getScore(), 0.001);
+    }
+
+    @Test(expected = CommandNotAuthorizedException.class)
+    public void setScoreFail() throws CommandNotAuthorizedException {
+        float desiredScore = 100.0F;
+        rating.setScore(desiredScore);
+    }
 }
-
-
-//package Entity;
-//
-//import org.junit.Before;
-//import org.junit.Test;
-//
-//import static org.junit.Assert.assertEquals;
-//
-//public class RatingTest {
-//
-//    @Test(timeout=100)
-//    public void testInit() {
-//        Rating r = new Rating(new Course("CSC207", "write code"));
-//        r.processRating(50, new StudentUser("thelegend27", "noah@gmail.com", "CS"));
-//        r.processRating(100,new StudentUser("Ben", "benten@gmail.com", "English"));
-//        assertEquals(java.util.Optional.ofNullable(r.getRating()), 75);
-//    }
-//}
