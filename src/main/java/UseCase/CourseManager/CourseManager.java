@@ -1,11 +1,10 @@
 package UseCase.CourseManager;
 
-import Constants.PermissionLevelConstants;
+import Constants.PermissionLevel;
 import Entity.*;
 import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
-import UseCase.CoursePage.Builder;
 import UseCase.CoursePage.CoursePage;
 import UseCase.CoursePage.CoursePageBuilder;
 import UseCase.CoursePage.Director;
@@ -14,7 +13,6 @@ import UseCase.UserManager;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
@@ -22,7 +20,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     private List<Rating> ratings;
     private CommentGraph commentGraph;
     private CoursePage coursePage;
-    private Map<Integer, List<String>> authDict;
+    private Map<PermissionLevel, List<String>> authDict;
     private Director director;
     private List<InstructorUser> instructorUsers;
 
@@ -138,17 +136,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     @Override
-    public Map<Integer, List<String>> getAuthDict() {
+    public Map<PermissionLevel, List<String>> getAuthDict() {
         return this.authDict;
     }
 
-    public Map<Integer, List<String>> getDefaultAuthDict() {
-        PermissionLevelConstants permLvl = new PermissionLevelConstants();
-        Map<Integer, List<String>> retDict = new HashMap<>();
+    public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
+        Map<PermissionLevel, List<String>> retDict = new HashMap<>();
         List<String> studentPermissions = Arrays.asList("print", "checkout", "rate");
         List<String> instructorPermissions = Arrays.asList("all");
-        retDict.put(permLvl.STUDENT, studentPermissions);
-        retDict.put(permLvl.INSTRUCTOR, instructorPermissions);
+        retDict.put(PermissionLevel.STUDENT, studentPermissions);
+        retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
         return retDict;
     }
 }
