@@ -36,8 +36,12 @@ public class CreateCourseCommand extends Command {
         System.out.println("Description: ");
         course.add(in.nextLine());
         String input = "";
-        while (input.equalsIgnoreCase("n")) {
+        while (!input.equalsIgnoreCase("n")) {
             System.out.println("Add instructor?[type end to end]");
+            String a = in.nextLine();
+            if (!a.equalsIgnoreCase("n")) {
+                instructor.add(a);
+            }
         }
         d.constructCoursePage(cpb, course, instructor);
         return "course is " + course.toString() + " instructor is " + instructor.toString();
