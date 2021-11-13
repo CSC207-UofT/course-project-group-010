@@ -1,13 +1,12 @@
 package Interface;
 
-import java.util.Map;
 
 public interface IDBSaveable {
 
     /**
      * gets some sort of id. IDs should be unique
      *
-     * @return
+     * @return the ID of user
      */
     String getID();
 }

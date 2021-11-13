@@ -76,7 +76,7 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
      * @param displayName display name of StudentUser.
      * @param ID          id of user.
      * @param otherData   other data.
-     * @return created user.
+     * @return created Student user.
      */
     public StudentUser createStudentUser(String displayName, String ID, Map<String, String> otherData) {
         return new StudentUser(displayName, ID, otherData);
@@ -88,7 +88,7 @@ public class UserManager implements IGettable, IDBSaveable, IHasPermission, IRea
      * @param displayName display name of InstructorUser.
      * @param ID          id of user.
      * @param otherData   other data.
-     * @return
+     * @return create InstructorUser
      */
     public InstructorUser createInstructorUser(String displayName, String ID, Map<String, String> otherData) {
         return new InstructorUser(displayName, ID, otherData);

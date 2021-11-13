@@ -1,6 +1,5 @@
 package Entity;
 
-import Interface.IReviewer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +19,12 @@ public class StudentUser extends User {
     //Constructors
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
         super(displayName, ID, otherData);
-        this.courses = new HashMap<Integer, List<Course>>();
+        this.courses = new HashMap<>();
     }
 
     public StudentUser(String displayName, String ID) {
         super(displayName, ID);
-        this.courses = new HashMap<Integer, List<Course>>();
+        this.courses = new HashMap<>();
     }
 
 
