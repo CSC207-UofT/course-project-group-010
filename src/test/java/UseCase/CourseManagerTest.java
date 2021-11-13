@@ -1,49 +1,48 @@
-//package UseCase;
-//
-//import Entity.Course;
-//import Entity.InstructorUser;
-//import Entity.Rating;
-//import Entity.StudentUser;
-//import UseCase.CourseManager.CourseManager;
-//import UseCase.CoursePage.CoursePage;
-//import org.junit.Test;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class CourseManagerTest {
-//    // Redo test to compensate for changes.
-//    @Test(timeout=100)
-//    public void testCourseManager(){
-//        Course sampleCourse = new Course("Sample Course", "SC100");
-//        Rating sampleRating = new Rating(sampleCourse);
-//
-//        InstructorUser profOne = new InstructorUser("Professor One", "1234", "Prof");
-//        InstructorUser profTwo = new InstructorUser("Professor Two", "4567", "Prof");
-//
-//        List<InstructorUser> instructors = new ArrayList<>();
-//
-//        instructors.add(profOne);
-//        instructors.add(profTwo);
-//
-//        List<Integer> years = new ArrayList<>();
-//        years.add(2018);
-//        years.add(2019);
-//        years.add(2020);
-//        years.add(2021);
-//
-//        Rating sampleCourseRating = new Rating(sampleCourse);
-//
-//        CoursePage sampleCoursePage = new CoursePage(sampleCourse, sampleRating, instructors, years);
-//
-//        CourseManager manager = new CourseManager(sampleCoursePage);
-//
-//        StudentUser sampleStudent = new StudentUser("sample student", "0000", "Computer Science");
-//
-//        manager.updateRating(5, sampleStudent);
-//        manager.filterInstructor(profOne);
-//        manager.filterYear(2020);
-//
-//
-//    }
-//}
+package UseCase;
+
+import Entity.Course;
+import Entity.InstructorUser;
+import Entity.Rating;
+import Entity.StudentUser;
+import UseCase.CourseManager.CourseManager;
+import UseCase.CoursePage.CoursePage;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CourseManagerTest {
+    // Redo test to compensate for changes.
+    @Test(timeout=100)
+    public void testCourseManager1(){
+        CoursePage coursePage = new CoursePage(
+                new Course("Sample Course1", "CSC108"),
+                List.of("Instructor A", "Instructor B", "Instructor C"));
+        CourseManager courseManager = new CourseManager(coursePage);
+
+        assertEquals(courseManager.getID(), "CSC108");
+        assertEquals(courseManager.getCoursePage(), coursePage);
+        assertEquals(courseManager.getCoursePage().getRatings(), null);
+        assertEquals(courseManager.getCoursePage().getCommentGraphs(), null);
+
+        StudentUser studentUser = new StudentUser("Student1", "00001");
+        try {
+            courseManager.addRating(5, studentUser);
+            assertEquals("Should throw exception here", "");
+        }
+        catch(Exception e) {
+
+        }
+        courseManager.filterInstructor("Instructor A");
+        try {
+            courseManager.addRating(5, studentUser);
+        }
+        catch(Exception e) {
+            assertEquals("Should not throw exception here", "");
+        }
+        assertEquals(5.0, courseManager.getCoursePage().getAverageScore(), 0.001);
+
+    }
+}
