@@ -88,9 +88,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     public void addRating(int ratingNum, StudentUser user) throws Exception{
-        if(ratingNum < 0 || ratingNum > 10) {
-            throw new Exception(String.format("Invalid rating number : {%d}", ratingNum));
-        }
         if(this.filterInstructor == null) {
             throw new Exception("Filter instructor is not selected yet");
         }
@@ -106,21 +103,19 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.coursePage.setAverageScore(calculateAvgScore());
         if(this.ratings == null) {
             this.ratings = new ArrayList<Rating>();
-            this.ratings.add(r);
         }
+        this.ratings.add(r);
+
 
 
     }
     /** Updates a rating that a current user already left.
      *
-     * @param ratingNum A rating score that a user wants to change to.
+     * @param ratingNum A rating score that a user wants to change to. (0 <= ratingNum <= 1)
      * @param user A user who wants to change its rating score.
      * @throws Exception
      */
-    public void updateRating(int ratingNum, User user) throws Exception {
-        if(ratingNum < 0 || ratingNum > 10 || coursePage.getRatings() == null) {
-            throw new Exception();
-        }
+    public void updateRating(float ratingNum, User user) throws Exception {
         for(Rating r : coursePage.getRatings()) {
             if(r.getRater().getID().equals(user.getID())) {
                 r.setScore(ratingNum);
