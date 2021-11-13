@@ -1,6 +1,5 @@
 package Entity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class InstructorUser extends User {
 
     //Getters
     public String getPosition() {
-        return this.getOtherData().containsKey("position") ? this.getOtherData().get("position") : "";
+        return this.getOtherData().get("position");
     }
 
     public void setPosition(String p) {
