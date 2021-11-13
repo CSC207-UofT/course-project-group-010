@@ -50,7 +50,6 @@ public class Course {
         return this.description;
     }
 
-    public List<String> getInstructors(){ return this.instructors;}
 
     //Setters
     public void setDescription(String s) {
@@ -58,7 +57,6 @@ public class Course {
     }
     public void setName(String s) {this.name = name;}
     public void setCode(String c) {this.code = c;}
-    public void setInstructors(List<String> instructors) {this.instructors = instructors;}
 
 
 }
