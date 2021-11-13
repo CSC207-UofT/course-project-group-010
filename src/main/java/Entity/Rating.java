@@ -5,14 +5,12 @@ import Exceptions.CommandNotAuthorizedException;
 public class Rating {
 
     private final StudentUser rater;
-    private final String courseCode;
     private final String instructor;
     private float score;
 
-    public Rating(StudentUser rater, float score, String courseCode, String instructor) {
+    public Rating(StudentUser rater, float score, String instructor) {
         this.rater = rater;
         this.score = score;
-        this.courseCode = courseCode;
         this.instructor = instructor;
     }
 

@@ -15,7 +15,7 @@ public class RatingTest {
     @Before
     public void init() {
         sampleStudent = new StudentUser("Sam", "4000");
-        rating = new Rating(sampleStudent, 1.0F, "CSC207", "Paul Gries");
+        rating = new Rating(sampleStudent, 1.0F, "Paul Gries");
     }
 
     @Test
