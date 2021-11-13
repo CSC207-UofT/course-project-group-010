@@ -17,12 +17,7 @@ follow the SRP.
 Our system entities are open for extension but closed for modification. 
 Specific examples:
 
--The Rating class is stored in the CoursePage class, and is responsible for processing and calculating ratings. 
-Currently, it reports the average rating of the course. However, in the future we want to implement the "relative rating" feature,
-reporting on different ratings for students of every major. We would simply make a new rating class, and use it in CoursePage.
-Thus, the current Rating class is closed for modification, but open for extension.
-
--The Commandexecutors process command and will not be modified. 
+-The Commandexecutors processCommand method will not be modified. 
 The commandExecutor simply takes commands and accesses the run() method. This functionality won't change, as it depends on the
 Command abstract class.
 
