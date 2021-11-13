@@ -29,6 +29,13 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
         this.userDict = userDict1;
     }
 
+    public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
+        if (instance == null) {
+            instance = new UserDatabaseGetter();
+        }
+        return instance;
+    }
+
     public UserManager getEntry(String id) throws Exception {
         // TODO create student/prof constants
 //        if (id.equals("12345")) {
@@ -56,14 +63,7 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
         return this.userDict.containsKey(key);
     }
 
-    public void saveAll () throws IOException {
+    public void saveAll() throws IOException {
         db.saveToFile(new FileConstants().USER_FILE, this.userDict);
-    }
-
-    public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
-        if (instance == null) {
-            instance = new UserDatabaseGetter();
-        }
-        return instance;
     }
 }

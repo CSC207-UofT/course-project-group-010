@@ -10,7 +10,6 @@ import java.util.List;
 public class DisplaySubsetThreadCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public DisplaySubsetThreadCommand() {
         super(3, 2);
@@ -25,6 +24,7 @@ public class DisplaySubsetThreadCommand extends Command {
     /**
      * Displays a subset of a thread, considering a starting id and a depth.
      * Can sort by ascending or descending upvotes.
+     *
      * @param ce
      * @param arguments
      * @return

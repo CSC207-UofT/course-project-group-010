@@ -1,11 +1,12 @@
 package Exceptions;
 
-public class CommandNotAuthorizedException extends Exception{
+public class CommandNotAuthorizedException extends Exception {
 
     public CommandNotAuthorizedException() {
         super("Command not Authorized");
     }
-    public CommandNotAuthorizedException(String message){
+
+    public CommandNotAuthorizedException(String message) {
         super(message);
     }
 }

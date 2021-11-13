@@ -4,12 +4,11 @@ import UseCase.UserManager;
 
 import java.util.List;
 
-public class LogoutCommand extends Command{
+public class LogoutCommand extends Command {
 
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public LogoutCommand() {
         super(0, 0);
@@ -17,6 +16,7 @@ public class LogoutCommand extends Command{
 
     /**
      * Logs out of the current user. Stops viewing the current page that the user was viewing.
+     *
      * @param ce
      * @param arguments
      * @return

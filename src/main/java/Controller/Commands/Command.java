@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A command that is passed from the CLI to the commandExecutor
  * This is the base class for all commands in the program
- *
+ * <p>
  * The idea for this class was adapted from JShell, at
  * https://github.com/CSC207-UofT/Java-Shell/blob/master/src/main/java/commands/Command.java
  */
@@ -23,6 +23,7 @@ public abstract class Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
+     *
      * @param maxArguments
      * @param minArguments
      */
@@ -42,6 +43,7 @@ public abstract class Command {
 
     /**
      * returns the help string for a command. May not be implemented yet.
+     *
      * @return
      */
     public String help() {

@@ -16,7 +16,7 @@ import java.util.Map;
 public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     private static CourseDatabaseGetter instance = null;
-    private final  Database<CourseManager> db;
+    private final Database<CourseManager> db;
     private final Map<String, CourseManager> courseDict;
 
     private CourseDatabaseGetter() throws IOException, ClassNotFoundException {
@@ -27,6 +27,13 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
             courseDict1 = new HashMap<>();
         }
         this.courseDict = courseDict1;
+    }
+
+    public static CourseDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
+        if (instance == null) {
+            instance = new CourseDatabaseGetter();
+        }
+        return instance;
     }
 
     @Override
@@ -63,12 +70,5 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     @Override
     public void saveAll() throws IOException {
         this.db.saveToFile(new FileConstants().COURSE_FILE, this.courseDict);
-    }
-
-    public static CourseDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
-        if (instance == null) {
-            instance = new CourseDatabaseGetter();
-        }
-        return instance;
     }
 }

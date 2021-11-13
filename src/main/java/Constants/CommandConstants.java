@@ -10,10 +10,9 @@ import java.util.Hashtable;
  * Stores strings that will call different command objects.
  */
 public class CommandConstants {
-    public final Hashtable<String, Command> command_dict =
-            new Hashtable<String, Command>();
+    public final Hashtable<String, Command> command_dict = new Hashtable<>();
 
-    public CommandConstants () {
+    public CommandConstants() {
         command_dict.put("help", new HelpCommand());
         command_dict.put("login", new LoginCommand());
         command_dict.put("print", new PrintCommand());
@@ -30,7 +29,7 @@ public class CommandConstants {
     }
 
     public Command get(String key) throws CommandNotFoundException {
-        if(!command_dict.containsKey(key)) {
+        if (!command_dict.containsKey(key)) {
             throw new CommandNotFoundException();
         }
         return command_dict.get(key);

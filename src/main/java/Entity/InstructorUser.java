@@ -21,31 +21,26 @@ public class InstructorUser extends User {
     }
 
 
-
-
     //Getters
     public String getPosition() {
         return this.getOtherData().containsKey("position") ? this.getOtherData().get("position") : "";
+    }
+
+    public void setPosition(String p) {
+        this.getOtherData().put("position", p);
     }
 
     public List<Course> getCurrentlyTeaching() {
         return this.currentlyTeaching;
     }
 
-    public HashMap<Integer, List<Course>> getCourses() {
-        return this.courses;
-    }
-
-
-
-
     //Setters
     public void setCurrentlyTeaching(List<Course> t) {
         this.currentlyTeaching = t;
     }
 
-    public void setPosition(String p) {
-        this.getOtherData().put("position", p);
+    public HashMap<Integer, List<Course>> getCourses() {
+        return this.courses;
     }
 
     public void setCourses(HashMap<Integer, List<Course>> c) {

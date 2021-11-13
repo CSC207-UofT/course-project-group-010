@@ -1,4 +1,5 @@
 package Entity;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,8 +10,6 @@ public class Review {
     private List<String> replies; //list containing replies/comment objects (to be implemented later).
 
 
-
-
     //Constructors
     public Review(User writer, String content, LocalDate date) {
         this.writer = writer;
@@ -19,31 +18,26 @@ public class Review {
     }
 
 
-
-
     //Getters
     public User getWriter() {
         return this.writer;
     }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public int getYear() {
-        return this.date.getYear();
-    }
-
-
-
 
     //Setters
     public void setWriter(User writer) {
         this.writer = writer;
     }
 
+    public String getContent() {
+        return this.content;
+    }
+
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getYear() {
+        return this.date.getYear();
     }
 
     public void setdate(LocalDate date) {
