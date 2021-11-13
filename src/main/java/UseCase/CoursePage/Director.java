@@ -101,7 +101,7 @@ public class Director {
             float score = Float.parseFloat(l.get(2));
 
             //Create Rating object
-            Rating r = new Rating(student, score, l.get(3), l.get(4));
+            Rating r = new Rating(student, score, l.get(4));
 
             //Add Rating object to cp_ratings.
             cp_ratings.add(r);

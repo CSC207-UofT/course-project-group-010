@@ -1,29 +1,16 @@
 package Entity;
-/**
- * A Director Object and CoursePageBuilder object should be created without any input.
- * Only constructCoursePage should receive inputs/data, when called on the Director.
- *
- * Example Usage;
- *
- * Director d = new Director();
- * CoursePageBuilder cpb_1 = new CoursePageBuilder();
- * d.construct(
- */
 
 import Exceptions.CommandNotAuthorizedException;
 
 public class Rating {
 
     private final StudentUser rater;
+    private final String instructor;
     private float score;
-    private String courseCode;  // Course object which this rating is for.
-    private String instructor;
-    private int year;
 
-    public Rating(StudentUser rater, float score, String courseCode, String instructor) {
+    public Rating(StudentUser rater, float score, String instructor) {
         this.rater = rater;
         this.score = score;
-        this.courseCode = courseCode;
         this.instructor = instructor;
     }
 
@@ -58,38 +45,68 @@ public class Rating {
         throw new CommandNotAuthorizedException(student.getID() + " has already placed a rating for this course.");
     }*/
 
+    /**
+     * Getter for the rater's program of study. For use in calculating program-specific relative rating.
+     *
+     * @return string representation of rater's program of study
+     */
     public String getRaterProgramOfStudy() {
         return rater.getProgramDetail();
     }
 
+    /**
+     * Getter for the score of the rating.
+     *
+     * @return Score
+     */
     public float getScore() {
         return score;
     }
 
+    /**
+     * Set the rating score.
+     *
+     * @param score The score to be set
+     * @throws CommandNotAuthorizedException if the score is out of range
+     */
     public void setScore(float score) throws CommandNotAuthorizedException {
         if (isInRange(score))
             this.score = score;
         else
-            // TODO: reject rating change
             throw new CommandNotAuthorizedException("Score " + score + " must be between 0 and 1 inclusive.");
     }
 
-    // FIXME: score bounds should probably be stored as a constant
+    /**
+     * Helper method to check if a given score is within the acceptable range.
+     *
+     * @param score The score trying to be set
+     * @return Whether the score is acceptable
+     */
     private boolean isInRange(float score) {
+        // FIXME: score bounds should probably be stored as a constant
         return score >= 0 && score <= 1;
     }
 
+    /**
+     * Getter for the instructor of the course that this rating is for.
+     *
+     * @return Instructor name
+     */
     public String getInstructor() {
         return this.instructor;
     }
 
+    /**
+     * Getter for the author of this rating, a.k.a. the rater.
+     *
+     * @return rater's StudentUser object
+     */
+    public StudentUser getRater() {
+        return this.rater;
+    }
 
     @Override
     public String toString() {
         return Float.toString(getScore());
-    }
-
-    public StudentUser getRater() {
-        return this.rater;
     }
 }

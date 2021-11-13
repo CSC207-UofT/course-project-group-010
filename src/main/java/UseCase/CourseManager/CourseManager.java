@@ -89,7 +89,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
             this.coursePage.setRatings(ratingList);
         }
 
-        Rating r = new Rating(user, ratingNum, this.getID(), this.filterInstructor);
+        Rating r = new Rating(user, ratingNum, this.filterInstructor);
         ratingList.add(r);
         this.coursePage.setAverageScore(calculateAvgScore());
         if(this.ratings == null) {

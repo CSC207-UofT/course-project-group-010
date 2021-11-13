@@ -21,7 +21,7 @@ public class CoursePageBuilderTest {
         List<String> sampleInstructors = Arrays.asList("Alfonso Gracia-Saz", "Joel Kamnitzer");
 
         StudentUser sampleStudent = new StudentUser("Asuna", "500");
-        Rating sampleRating = new Rating(sampleStudent, 0.9F, calculus1.getCode(), sampleInstructors.get(0));
+        Rating sampleRating = new Rating(sampleStudent, 0.9F, sampleInstructors.get(0));
         List<Rating> ratingsList = List.of(sampleRating);
 
         CommentGraph sampleCommentGraph = new CommentGraph("Questions", "Wilson",
