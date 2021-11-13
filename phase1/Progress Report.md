@@ -21,5 +21,10 @@
 - Kevin: Implemented Authorization system, Database system, added comment related commands, helped with writeup. Will
   wait to implement features that team members create, by adding relevant commands and such.
 - Fiona: Wrote the Design Document, Code Style and Testing.
+- Noah: Implemented CommentGraph system. Will wait to implement more features to commentGraph(e.g searching and merging)
+  and other graphs.
+- Nima and Junhyuk : Implemented coursepage system.
+- Wilson: Work on rating functions for phrase 2 submission.
 - Noah:
   - For Phase 1 I was responsible for implementing comment functionality into the program. In order to do this I created a data structure that is a mix between a directed graph and a tree. The commentGraph is composed of various subclasses which help create comments and store them. There are many functions in the commentGraph, that allow users to reply to comments, display comments, etc... There are also recursive depth based functions which help navigate through the graph. The following files were created by me: CommentGraph.java, CommentGraphManager.java, CommentGraphHelper.java, CommentGraphManagerTest.java. For the future, I plan to add more features to CommentGraph, including searching and merging graph functionalities. I also plan to create graph data structures for other parts of our program. I made commits under three separate usernames (different computers), `noahsub`, `noahsub_laptop`, `Noah Subedar`. 
+>>>>>>> main
