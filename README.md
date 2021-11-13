@@ -26,18 +26,31 @@ other documents.
 
 # Sample commands to demonstrate functionality:
 > login panchenxyz
+> 
 > checkout MAT137
+> 
 > print [prints all relevant info]
+> 
 > getcomments
+> 
 > displayfullthread
+> 
 > reply root [response here]
+> 
 > *you can use any other comment related commands at this point*
+> 
 > checkout MAT137 [goes back to looking at the course page]
+> 
 > end
 
 # Sample commands for creating new users and saving to database(to demonstrate that feature)
+
 > newuser student [name] [id]
+> 
 > newuser instructor [name] [id]
+> 
 > createcourse
+> 
 > *follow the prompts that it gives you*
+> 
 > saveall or end
