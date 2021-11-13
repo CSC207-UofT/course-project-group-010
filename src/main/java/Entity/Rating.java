@@ -16,8 +16,8 @@ public class Rating {
 
     private final StudentUser rater;
     private float score;
-    private String courseCode;  // Course object which this rating is for.
-    private String instructor;
+    private final String courseCode;  // Course object which this rating is for.
+    private final String instructor;
 
     public Rating(StudentUser rater, float score, String courseCode, String instructor) {
         this.rater = rater;
