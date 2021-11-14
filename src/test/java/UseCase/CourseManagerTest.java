@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class CourseManagerTest {
     // Redo test to compensate for changes.
-    @Test(timeout=100)
+    @Test(timeout = 100)
     public void testCourseManager1() throws ArgumentException {
         CoursePage coursePage = new CoursePage(
                 new Course("Sample Course1", "CSC108"),
@@ -28,8 +28,8 @@ public class CourseManagerTest {
         try {
             courseManager.getComment();
             fail("Show throw an exception here");
+        } catch (Exception e) {
         }
-        catch(Exception e){}
 
         assertEquals(courseManager.getCoursePage().getCommentGraphs(), null);
         assertEquals(courseManager.getFilterInstructor(), null);
@@ -38,40 +38,35 @@ public class CourseManagerTest {
         try {
             courseManager.addRating((float) 0.5, studentUser1);
             assertEquals("Should throw exception here", "");
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
 
         }
         courseManager.filterInstructor("Instructor A");
         try {
             courseManager.addRating((float) 0.5, studentUser1);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             assertEquals("Should not throw exception here", "");
         }
         assertEquals(courseManager.getFilterInstructor(), "Instructor A");
         assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
         try {
             courseManager.updateRating((float) 0.7, studentUser1);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             assertEquals("Should not throw exception here", "");
         }
 
         assertEquals(0.7, courseManager.getCoursePage().getAverageScore(), 0.001);
         try {
             courseManager.startComment("Comment 1", studentUser1);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail("Should not throw exception here");
         }
-        
+
         StudentUser studentUser12 = new StudentUser("Student2", "00002");
         try {
             courseManager.addRating((float) 0.3, studentUser12);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             fail("Should not throw error here");
         }
 
@@ -82,14 +77,12 @@ public class CourseManagerTest {
         String prevId = commentManager.getChildrenComments("root").get(0).getId();
         try {
             courseManager.addComment(prevId, "Comment 2", studentUser1);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             fail("Should not throw exception here");
         }
         try {
             courseManager.updateCommentVote(prevId, true);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             fail("Should not throw exception here");
         }
         assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);

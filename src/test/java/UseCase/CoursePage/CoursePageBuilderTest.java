@@ -5,6 +5,7 @@ import Entity.Course;
 import Entity.Rating;
 import Entity.StudentUser;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
