@@ -89,7 +89,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     public void addRating(float ratingNum, StudentUser user) throws Exception {
-        if(this.filterInstructor == null) {
+        if (this.filterInstructor == null) {
             throw new Exception("Must filter by instructor to rate.");
         }
 
