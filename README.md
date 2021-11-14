@@ -38,11 +38,15 @@ Overview of commands by type. In the future, this will be included in helpcomman
 
 # Sample commands to demonstrate functionality:
 > login panchenxyz
-> 
+
+// Seeing Basic information
+
 > checkout MAT137
 > 
 > print [prints all relevant info]
-> 
+
+// Interacting with the comment thread
+
 > getcomments
 > 
 > displayfullthread
@@ -50,10 +54,36 @@ Overview of commands by type. In the future, this will be included in helpcomman
 > reply root [response here]
 > 
 > *you can use any other comment related commands at this point*
-> 
+
+// Rating the course(must filter by instructor to rate the course)
+
 > checkout MAT137 [goes back to looking at the course page]
 > 
-> end
+> saveall
+> 
+> filter [follow instructions given]
+>
+> rate 2
+> 
+> print
+
+// Creating a new user to also rate the course
+
+> logout
+> 
+> newuser student Bob Bob234
+> 
+> checkout MAT137
+> 
+> filter [follow instructions]
+> 
+> rate 5
+
+// Checking that the rating has updated
+
+> print [should show different rating]
+> 
+> saveall
 
 # Sample commands for creating new users and saving to database(to demonstrate that feature)
 
