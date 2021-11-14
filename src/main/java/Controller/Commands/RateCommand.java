@@ -1,5 +1,7 @@
 package Controller.Commands;
 
+import Entity.StudentUser;
+import Exceptions.CommandNotAuthorizedException;
 import UseCase.CourseManager.CourseManager;
 
 import java.util.List;
@@ -28,13 +30,17 @@ public class RateCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelpArgsUserPageAuth(ce, arguments, "rate");
         checkUserExists(ce);
+        // TODO change this last minute code
+        if (!(ce.getUserManager().getUser() instanceof StudentUser)) {
+            throw new CommandNotAuthorizedException("You must be a student to rate courses");
+        }
         if (arguments.get(0) == "rm") {
             // TODO implement this
             return "Removing rating is not implemented yet";
         } else {
             if (ce.getPageManager() instanceof CourseManager) {
-                ((CourseManager) ce.getPageManager()).updateRating(Integer.parseInt(arguments.get(0)),
-                        ce.getUserManager().getUser());
+                ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
+                        (StudentUser) ce.getUserManager().getUser());
                 return "Rated " + ((CourseManager) ce.getPageManager()).getID();
             }
         }

@@ -2,7 +2,9 @@ package Entity;
 
 import Exceptions.CommandNotAuthorizedException;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable {
 
     private final StudentUser rater;
     private final String instructor;
