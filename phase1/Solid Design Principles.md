@@ -44,6 +44,11 @@ Also, implementing help() this way keeps the help string inside its respective c
 If the command ever changes, it's easy to find the help string and change it too. However, I acknowledge that I didn't change this functionality
 and didn't understand the TA's comment, so this may not follow SOLID principles and I will change it when I understand why it is bad.
 
+Another issue that definitely violates the LSP is the casting that is used in some commands. For example, rating only allows a studentuser, but in the
+rate command, all that can be passed into the command is a user. Currently, we check instanceof to assert that the object we pass in is a studentuser
+before downcasting it, but there are definitely alternatives. For example, this logic shouold probably be checked in the use case class itself,
+and it should be validated a bit differently(eg. using the PermissionLevel variable that can identify a user as a student or instructor)
+
 
 ##Interface segregation principle (ISP)
 
