@@ -17,12 +17,13 @@ other documents.
 - Try accessing a page
 
 # Demo users/courses
-- There are 2 demo users:
- - id: 12345, name: kevin
- - id: panchenxyz, name: PanChen
+- There are 3 demo users:
+- id: 12345, name: Kevin
+- id: 123, name: Albert
+- id: panchenxyz, name: PanChen
 
 - There is 1 page that you can view
- - id: MAT137, Calculus with Proofs
+- id: MAT137, Calculus with Proofs
 
 # Commands overview
 
@@ -32,6 +33,7 @@ Overview of commands by type. In the future, this will be included in helpcomman
 - basic commands for logging in, viewing pages: login, checkout, print, logout
 - saving/database related: saveall, newusuer, createcourse
 - Main comment related commands: getcomments, displayfullthread, reply, vote
+- Rating related commands: filter, rate
 - Other comment commands displaysubsetthread, getpath
 
 # Sample commands to demonstrate functionality:
