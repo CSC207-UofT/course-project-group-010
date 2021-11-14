@@ -9,7 +9,6 @@ import java.util.List;
 public class GetCommentsCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public GetCommentsCommand() {
         super(0, 0);

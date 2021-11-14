@@ -36,7 +36,7 @@ public class CommentManagerTest
         linkMethod.setAccessible(true);
 
         // create an empty Comment Graph
-        CommentGraph CSC207Thread = new CommentGraph("Questions", "Alfonso", "Instructor");
+        CommentGraph CSC207Thread = new CommentGraph("Questions", "Instructor", "Prof 1");
 
         // Manually create comments and links, this should not be done, only done for the sake of testing.
         CommentGraph.Comment question1 = (CommentGraph.Comment) createCommentMethod.invoke(CSC207Thread, "id1", "How did you like the course?", "Instructor");
@@ -115,41 +115,33 @@ public class CommentManagerTest
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.displayEntireThread(true, -1);
-        String actual = "> Instructor [root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id2]\n    What did you find difficult in the course?\n    [+] 4 [-]\n\n        > Student 4 [id7]\n        Everything\n        [+] -4 [-]\n\n    > Instructor [id3]\n    Anything that the course coordinators can do to improve the course?\n    [+] 2 [-]\n\n        > Student 4 [id8]\n        No, the course was perfect.\n        [+] 1 [-]\n\n    > Instructor [id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id4]\n        I really liked the course!\n        [+] 5 [-]\n\n            > Student 3 [id6]\n            Me too!\n            [+] 7 [-]\n\n        > Student 2 [id5]\n        I didn't like the course.\n        [+] -3 [-]\n\n";
+        String actual = "> Instructor [id: root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id: id2]\n    What did you find difficult in the course?\n    [+] 4 [-]\n\n        > Student 4 [id: id7]\n        Everything\n        [+] -4 [-]\n\n    > Instructor [id: id3]\n    Anything that the course coordinators can do to improve the course?\n    [+] 2 [-]\n\n        > Student 4 [id: id8]\n        No, the course was perfect.\n        [+] 1 [-]\n\n    > Instructor [id: id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id: id4]\n        I really liked the course!\n        [+] 5 [-]\n\n            > Student 3 [id: id6]\n            Me too!\n            [+] 7 [-]\n\n        > Student 2 [id: id5]\n        I didn't like the course.\n        [+] -3 [-]\n\n";
 
         /*
         > Instructor [root]
         Questions
         [+] 0 [-]
-
             > Instructor [id2]
             What did you find difficult in the course?
             [+] 4 [-]
-
                 > Student 4 [id7]
                 Everything
                 [+] -4 [-]
-
             > Instructor [id3]
             Anything that the course coordinators can do to improve the course?
             [+] 2 [-]
-
                 > Student 4 [id8]
                 No, the course was perfect.
                 [+] 1 [-]
-
             > Instructor [id1]
             How did you like the course?
             [+] 1 [-]
-
                 > Student 1 [id4]
                 I really liked the course!
                 [+] 5 [-]
-
                     > Student 3 [id6]
                     Me too!
                     [+] 7 [-]
-
                 > Student 2 [id5]
                 I didn't like the course.
                 [+] -3 [-]
@@ -172,25 +164,21 @@ public class CommentManagerTest
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.displayEntireThread(true, 2);
-        String actual = "> Instructor [root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id2]\n    What did you find difficult in the course?\n    [+] 4 [-]\n\n        > Student 4 [id7]\n        Everything\n        [+] -4 [-]\n\n    > Instructor [id3]\n    Anything that the course coordinators can do to improve the course?\n    [+] 2 [-]\n\n        > Student 4 [id8]\n        No, the course was perfect.\n        [+] 1 [-]\n\n    > Instructor [id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id4]\n        I really liked the course!\n        [+] 5 [-]\n\n        > Student 2 [id5]\n        I didn't like the course.\n        [+] -3 [-]\n\n";
+        String actual = "> Instructor [id: root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id: id2]\n    What did you find difficult in the course?\n    [+] 4 [-]\n\n        > Student 4 [id: id7]\n        Everything\n        [+] -4 [-]\n\n    > Instructor [id: id3]\n    Anything that the course coordinators can do to improve the course?\n    [+] 2 [-]\n\n        > Student 4 [id: id8]\n        No, the course was perfect.\n        [+] 1 [-]\n\n    > Instructor [id: id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id: id4]\n        I really liked the course!\n        [+] 5 [-]\n\n        > Student 2 [id: id5]\n        I didn't like the course.\n        [+] -3 [-]\n\n";
 
         /*
         > Instructor [root]
         Questions
         [+] 0 [-]
-
             > Instructor [id2]
             What did you find difficult in the course?
             [+] 4 [-]
-
                 > Student 4 [id7]
                 Everything
                 [+] -4 [-]
-
             > Instructor [id3]
             Anything that the course coordinators can do to improve the course?
             [+] 2 [-]
-
                 > Student 4 [id8]
                 No, the course was perfect.
                 [+] 1 [-]
@@ -213,13 +201,12 @@ public class CommentManagerTest
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.displaySubsetThread("id2", true, -1);
-        String actual = "> Instructor [id2]\nWhat did you find difficult in the course?\n[+] 4 [-]\n\n    > Student 4 [id7]\n    Everything\n    [+] -4 [-]\n\n";
+        String actual = "> Instructor [id: id2]\nWhat did you find difficult in the course?\n[+] 4 [-]\n\n    > Student 4 [id: id7]\n    Everything\n    [+] -4 [-]\n\n";
 
         /*
         > Instructor [id2]
         What did you find difficult in the course?
         [+] 4 [-]
-
             > Student 4 [id7]
             Everything
             [+] -4 [-]
@@ -242,7 +229,7 @@ public class CommentManagerTest
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.displaySubsetThread("id2", true, 0);
-        String actual = "> Instructor [id2]\nWhat did you find difficult in the course?\n[+] 4 [-]\n\n";
+        String actual = "> Instructor [id: id2]\nWhat did you find difficult in the course?\n[+] 4 [-]\n\n";
 
         /*
         > Instructor [id2]
@@ -266,21 +253,18 @@ public class CommentManagerTest
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         String expected = commentManager.getPath("root", "id6");
-        String actual = "> Instructor [root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id4]\n        I really liked the course!\n        [+] 5 [-]\n\n            > Student 3 [id6]\n            Me too!\n            [+] 7 [-]\n\n";
+        String actual = "> Instructor [id: root]\nQuestions\n[+] 0 [-]\n\n    > Instructor [id: id1]\n    How did you like the course?\n    [+] 1 [-]\n\n        > Student 1 [id: id4]\n        I really liked the course!\n        [+] 5 [-]\n\n            > Student 3 [id: id6]\n            Me too!\n            [+] 7 [-]\n\n";
 
         /*
         > Instructor [root]
         Questions
         [+] 0 [-]
-
             > Instructor [id1]
             How did you like the course?
             [+] 1 [-]
-
                 > Student 1 [id4]
                 I really liked the course!
                 [+] 5 [-]
-
                     > Student 3 [id6]
                     Me too!
                     [+] 7 [-]
