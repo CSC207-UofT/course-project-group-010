@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class StartCommentCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public StartCommentCommand() {
         super(0, 0);

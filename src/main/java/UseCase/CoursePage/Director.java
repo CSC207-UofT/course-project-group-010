@@ -28,23 +28,22 @@ public class Director {
      After cpb.getResult(), cpb resets. Therefore the same CoursePageBuilder object can be called by the director
      again with different inputs.
      */
-    /**
-    *
-    *          d.constructCoursePage(cpb, List<String> course, List<String> instructors, ratings, commentGraph)
-    *          CoursePage cp_2 = cpb.getResult();
 
-    *
-    * This is the constructor for constructing a CoursePage with only Course info and a list of instructors.
-    * It denotes the minimum amount of data we need to make a CoursePage.
-    *
-    * @param cpb    a CoursePageBuilder object that will build CoursePage as needed.
-    * @param course A list of strings containing Course info in this format:
-    *
-    *               [CourseName, CourseCode, Optional(CourseDescription)]
-    *               CourseDescription may be omitted if not available.
-    *
-    * @param instructors A list of instructors who have taught/are teaching this course.
-    */
+    /**
+     * d.constructCoursePage(cpb, List<String> course, List<String> instructors, ratings, commentGraph)
+     * CoursePage cp_2 = cpb.getResult();
+     * <p>
+     * <p>
+     * This is the constructor for constructing a CoursePage with only Course info and a list of instructors.
+     * It denotes the minimum amount of data we need to make a CoursePage.
+     *
+     * @param cpb         a CoursePageBuilder object that will build CoursePage as needed.
+     * @param course      A list of strings containing Course info in this format:
+     *                    <p>
+     *                    [CourseName, CourseCode, Optional(CourseDescription)]
+     *                    CourseDescription may be omitted if not available.
+     * @param instructors A list of instructors who have taught/are teaching this course.
+     */
 
 
     //Make CoursePage with only Course info and list of instructors.
@@ -53,7 +52,7 @@ public class Director {
                                     List<String> instructors) {
 
         Course c = new Course(course.get(0), course.get(1));
-        if(instructors.size() == 3){
+        if (instructors.size() == 3) {
             c.setDescription(course.get(2));
         }
         cpb.setCourse(c);
@@ -63,21 +62,21 @@ public class Director {
     /**
      * This is the constructor for constructing a CoursePage with Course info , a list of instructors, and ratings.
      *
-     * @param cpb    a CoursePageBuilder object that builds CoursePage as needed.
-     * @param course A list of strings needed to construct a Course object.
+     * @param cpb         a CoursePageBuilder object that builds CoursePage as needed.
+     * @param course      A list of strings needed to construct a Course object.
      * @param instructors A list of instructors who have taught/are teaching this course.
      * @param ratings     A list of of list of strings, containing Rating info in the format of List<List<String>> .
-     *        Example;
-     *
-     *       [ [String<StudentUser1 DisplayName>, String<StudentUser1 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating1
-     *
-     *         [String<StudentUser2 DisplayName>, String<StudentUser2 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating2
-     *
-     *         [String<StudentUser3 DisplayName>, String<StudentUser3 ID>, String<rating score>, String courseCode ,String<instructor>], <-- rating3
-     *
-     *         ......
-     *
-     *         [String<StudentUserN DisplayName>, String<StudentUserN ID>, String<rating score>, String courseCode ,String<instructor>] ]  <-- ratingN
+     *                    Example;
+     *                    <p>
+     *                    [ [String<StudentUser1 DisplayName>, String<StudentUser1 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating1
+     *                    <p>
+     *                    [String<StudentUser2 DisplayName>, String<StudentUser2 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating2
+     *                    <p>
+     *                    [String<StudentUser3 DisplayName>, String<StudentUser3 ID>, String<rating score>, String courseCode ,String<instructor>], <-- rating3
+     *                    <p>
+     *                    ......
+     *                    <p>
+     *                    [String<StudentUserN DisplayName>, String<StudentUserN ID>, String<rating score>, String courseCode ,String<instructor>] ]  <-- ratingN
      */
     //Make CoursePage with Course info , list of instructors, and ratings.
     public void constructCoursePage(CoursePageBuilder cpb,
@@ -86,13 +85,13 @@ public class Director {
                                     List<List<String>> ratings) {
 
         //Use previous constructor to avoid duplicate code; Course and Instructors are set in CoursePage.
-        constructCoursePage(cpb, course,  instructors);
+        constructCoursePage(cpb, course, instructors);
 
         //Creating a list of Rating of objects to be assigned to CoursePage.
         List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
 
         //For every List containing Rating information
-        for(List<String> l: ratings) {
+        for (List<String> l : ratings) {
 
             //Create StudentUser object
             StudentUser student = new StudentUser(l.get(0), l.get(1));
@@ -109,84 +108,82 @@ public class Director {
 
         //Set CoursePageBuilder's ratings to the above.
         cpb.setRatings(cp_ratings);
-        }
+    }
+
     /**
      * This is the constructor for constructing a CoursePage with Course info , list of instructors, and CommentGraphs.
      *
      * @param cpb           A CoursePageBuilder object that builds CoursePage as needed.
      * @param course        A list of strings needed to construct a Course object.
      * @param instructors   A list of instructors who have taught/are teaching this course.
-     * @param commentGraphs  A hashmap of mainComments mapped to a list containing mainCommentType, mainCommenterName,
-     *                       and instructor.
-     *
-     * Example:
-     *
-     *     {  [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor1>],
-     *
-     *        [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor2>],
-     *
-     *        .............
-     *
-     *        [List<String> mainComments, String mainCommentType, String mainCommenterName, String<InsturctorN>] }
-     *
+     * @param commentGraphs A hashmap of mainComments mapped to a list containing mainCommentType, mainCommenterName,
+     *                      and instructor.
+     *                      <p>
+     *                      Example:
+     *                      <p>
+     *                      {  [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor1>],
+     *                      <p>
+     *                      [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor2>],
+     *                      <p>
+     *                      .............
+     *                      <p>
+     *                      [List<String> mainComments, String mainCommentType, String mainCommenterName, String<InsturctorN>] }
      */
     //Have to use Hashmap. If using List to contain all of this, they won't have the same type, have to cast everywhere.
-
     public void constructCoursePage(CoursePageBuilder cpb,
                                     List<String> course,
                                     List<String> instructors,
                                     HashMap<List<String>, List<String>> commentGraphs) {
 
         //Use previous constructor to avoid duplicate code; CoursePage's Course, Instructors, and Ratings are now set.
-        constructCoursePage(cpb, course,  instructors);
+        constructCoursePage(cpb, course, instructors);
 
         //Create List of CommentGraphs using helper.
         List<CommentGraph> cp_commentGraph = cgHelper(commentGraphs);
 
         //Set CommentGraph in CoursePage to above.
         cpb.setCommentGraphs(cp_commentGraph);
-        }
+    }
+
     /**
      * This is the constructor for constructing a CoursePage with Course info , list of instructors, ratings, and
-     *                                                                                              CommentGraphs.
+     * CommentGraphs.
      *
      * @param cpb           A CoursePageBuilder object that builds CoursePage as needed.
      * @param course        A list of strings needed to construct a Course object.
      * @param instructors   A list of instructors who have taught/are teaching this course.
      * @param ratings       A list of of list of strings, containing Rating info in the format of List<List<String>>.
-     *
-     * Example:
-     *
-     *       [ [String<StudentUser1 DisplayName>, String<StudentUser1 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating1
-     *
-     *         [String<StudentUser2 DisplayName>, String<StudentUser2 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating2
-     *
-     *         [String<StudentUser3 DisplayName>, String<StudentUser3 ID>, String<rating score>, String courseCode ,String<instructor>], <-- rating3
-     *
-     *         ......
-     *
-     *         [String<StudentUserN DisplayName>, String<StudentUserN ID>, String<rating score>, String courseCode ,String<instructor>] ]  <-- ratingN
-     *
-     * @param commentGraphs  A hashmap of mainComments mapped to a list containing mainCommentType, mainCommenterName,
-     *                       and instructor.
-     *
-     * Example:
-     *
-     *     {  [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor1>],
-     *
-     *        [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor2>],
-     *
-     *        .............
-     *
-     *        [List<String> mainComments, String mainCommentType, String mainCommenterName, String<InsturctorN>] }
-     *
+     *                      <p>
+     *                      Example:
+     *                      <p>
+     *                      [ [String<StudentUser1 DisplayName>, String<StudentUser1 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating1
+     *                      <p>
+     *                      [String<StudentUser2 DisplayName>, String<StudentUser2 ID>, String<rating score>, String courseCode, String<instructor>], <-- rating2
+     *                      <p>
+     *                      [String<StudentUser3 DisplayName>, String<StudentUser3 ID>, String<rating score>, String courseCode ,String<instructor>], <-- rating3
+     *                      <p>
+     *                      ......
+     *                      <p>
+     *                      [String<StudentUserN DisplayName>, String<StudentUserN ID>, String<rating score>, String courseCode ,String<instructor>] ]  <-- ratingN
+     * @param commentGraphs A hashmap of mainComments mapped to a list containing mainCommentType, mainCommenterName,
+     *                      and instructor.
+     *                      <p>
+     *                      Example:
+     *                      <p>
+     *                      {  [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor1>],
+     *                      <p>
+     *                      [List<String> mainComments: [String mainCommentType, String mainCommenterName, String<Instructor2>],
+     *                      <p>
+     *                      .............
+     *                      <p>
+     *                      [List<String> mainComments, String mainCommentType, String mainCommenterName, String<InsturctorN>] }
      */
 
     public void constructCoursePage(CoursePageBuilder cpb,
                                     List<String> course,
                                     List<String> instructors,
                                     List<List<String>> ratings,
-                                    HashMap<List<String>, List<String>> commentGraphs){
+                                    HashMap<List<String>, List<String>> commentGraphs) {
 
         //Use previous constructor to avoid duplicate code; Course, Instructor and ratings are now set in CoursePage.
         constructCoursePage(cpb, course, instructors, ratings);
@@ -196,7 +193,7 @@ public class Director {
 
         cpb.setCommentGraphs(cp_commentGraph);
 
-        }
+    }
 
     //helper to avoid duplicate code
     private List<CommentGraph> cgHelper(HashMap<List<String>, List<String>> commentGraphs) {
@@ -223,10 +220,6 @@ public class Director {
         }
         return cp_commentGraph;
     }
-
-
-
-
 
 
 // We want kevin to NOT have to make any entities when calling on d.constructCoursePage().
@@ -303,11 +296,6 @@ public class Director {
 //    //Construct CoursePage filtered ONLY by instructor
 //    public void constructCoursePage(CoursePageBuilder cpb, Course course, List<Rating> ratings, String instructor_filter) {
 //    }
-
-
-
-
-
 
 
 }

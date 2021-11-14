@@ -16,9 +16,9 @@ public class CoursePage implements Serializable {
     private List<Rating> ratings; // List of all ratings left for this course across all instructors. Null if not given.
     private float averageScore; // The rating being presented currently. Will change if filtered by instructor
     private List<CommentGraph> commentGraphs; // List of all commentGraphs for this course across all instructors. Null
-                                              // if not assigned.
+    // if not assigned.
     private CommentGraph commentGraph; // Current CommentGraph being presented when filtered by instructor. Null if
-                                       // not filtered.
+    // not filtered.
     private String instructor; // Current instructor CoursePage is filtered by.
 
 
@@ -39,8 +39,8 @@ public class CoursePage implements Serializable {
     // and discussions by users.
 
     // Returns CommentGraph associated with instructor. If not found, returns Null. Can throw exception if we want.
-    public CommentManager getThread(String instructor){
-        if(this.getCommentGraphs() == null) {
+    public CommentManager getThread(String instructor) {
+        if (this.getCommentGraphs() == null) {
             return null;
         }
         for (CommentGraph c : this.commentGraphs) {
@@ -51,7 +51,7 @@ public class CoursePage implements Serializable {
         return null;
     }
 
-    public Course getCourse(){
+    public Course getCourse() {
         return this.course;
     }
 
@@ -59,33 +59,33 @@ public class CoursePage implements Serializable {
         return this.instructors;
     }
 
-    public List<Rating> getRatings(){
+    public List<Rating> getRatings() {
         return this.ratings;
     }
 
 
-    public String getInstructor(){
+    public String getInstructor() {
         return this.instructor;
     }
 
-    public float getAverageScore(){
+    public float getAverageScore() {
         return this.averageScore;
     }
 
 
-    public int getNumberOfRatings(){
+    public int getNumberOfRatings() {
         return this.ratings.size();
     }
 
-    public CommentGraph getCommentGraph(){
+    public CommentGraph getCommentGraph() {
         return this.commentGraph;
     }
 
-    public List<CommentGraph> getCommentGraphs(){
+    public List<CommentGraph> getCommentGraphs() {
         return this.commentGraphs;
     }
 
-    public CommentGraph commentGraph(){
+    public CommentGraph commentGraph() {
         return this.commentGraph;
     }
 
@@ -109,24 +109,16 @@ public class CoursePage implements Serializable {
         this.averageScore = AverageScore;
     }
 
-    public void setCommentGraphs(List<CommentGraph> commentGraphs){
+    public void setCommentGraphs(List<CommentGraph> commentGraphs) {
         this.commentGraphs = commentGraphs;
     }
 
-    public void setCommentGraph(CommentGraph commentGraph){
+    public void setCommentGraph(CommentGraph commentGraph) {
         this.commentGraph = commentGraph;
     }
 
 
-
-
-
-
-
 //FOR PHASE 2 BELOW
-
-
-
 
 
     // private Integer year; // The Course filtered by the year being currently viewed. // TODO: Phase 2 maybe.
@@ -173,7 +165,6 @@ public class CoursePage implements Serializable {
 //    }
 
 
-
 //    public Optional<InstructorUser> getInstructor() {
 //        return this.instructor;
 //    }
@@ -181,7 +172,6 @@ public class CoursePage implements Serializable {
 //    public Optional<Integer> getYear() {
 //        return this.year;
 //    }
-
 
 
 //    public void setYear(int year) {
