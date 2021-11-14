@@ -1,4 +1,4 @@
-package UseCase.CoursePage;
+package Interface;
 
 import Entity.CommentGraph;
 import Entity.Course;
