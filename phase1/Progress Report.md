@@ -34,3 +34,4 @@
 - Making commands more intuitive. Eg. instead of displayfullthread for displaying a full comment thread and
 print for displaying page-related information, it would be better if print did both things.
 - Adding the rating functionality back with our new relative rating system, or roll back our past "average rating" system.
+- Ratings currently DON'T WORK, because we began implementing a system where you can filter by instructor. We will finalize that later.
