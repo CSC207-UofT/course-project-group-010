@@ -21,8 +21,13 @@
 - Kevin: Implemented Authorization system, Database system, added comment related commands, helped with writeup. Will
   wait to implement features that team members create, by adding relevant commands and such.
 - Fiona: Wrote the Design Document, Code Style and Documentation and Testing.
-- Noah: Implemented CommentGraph system. Plan to implement more features to commentGraph(e.g. searching and merging) as well as implementing graphs in other parts of the program.
-- Nima and Junhyuk : Implemented coursepage system.
+- Noah: Implemented CommentGraph system. Plan to implement more features to commentGraph(e.g. searching and merging) as 
+  well as implementing graphs in other parts of the program.
+- Nima: Outlined interaction between command and CoursePage construction for user input. Implemented Builder design for
+  constructing a CoursePage. Updated CoursePage entity. Plan to implement additional features such as profiles, 
+  filtering pages by year (possibly) for phase 2.
+- Junhyuk: Designed updated CourseManager in accordance with Command's interaction with User input. Implemented tests 
+  for CourseManager and Builder classes. 
 - Wilson: Work on rating functions for phrase 2 submission.
 
 ## Things we must work on in the future
