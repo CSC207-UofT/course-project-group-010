@@ -90,7 +90,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     public void addRating(float ratingNum, StudentUser user) throws Exception {
         if (this.filterInstructor == null) {
-            throw new Exception("Filter instructor is not selected yet");
+            throw new Exception("Must filter by instructor to rate.");
         }
 
         List<Rating> ratingList = this.coursePage.getRatings();
