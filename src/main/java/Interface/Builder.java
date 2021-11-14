@@ -23,7 +23,6 @@ public interface Builder {
     public void reset();
 
 
-
 //    public void setRelativeScore(float programRelativeScore);
 //    // We can combine basic configuration and filter configuration into two methods
 //    void setBasicConfiguration(HashMap<String, Object> basicConfiguration);

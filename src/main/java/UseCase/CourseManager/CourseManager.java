@@ -16,17 +16,17 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-    /**
-     * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and
-     * affected ratings and CommentGraph.
-     *
-     * Example usage:
-     * CourseManager courseManager = new CourseManager(coursePage);
-     * courseManager.filterInstructor("A");
-     * courseManager.defaultCoursePage();
-     * courseManager.updateCommentVote("ABCD", true);
-     * courseManager.updateRating(5, user);
-     */
+/**
+ * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and
+ * affected ratings and CommentGraph.
+ * <p>
+ * Example usage:
+ * CourseManager courseManager = new CourseManager(coursePage);
+ * courseManager.filterInstructor("A");
+ * courseManager.defaultCoursePage();
+ * courseManager.updateCommentVote("ABCD", true);
+ * courseManager.updateRating(5, user);
+ */
 
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
@@ -54,7 +54,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param coursePage CoursePage that CourseManager is going to modify.
      */
-    public CourseManager(CoursePage coursePage){
+    public CourseManager(CoursePage coursePage) {
         this.authDict = getDefaultAuthDict();
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
@@ -73,7 +73,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Change current coursePage that CourseManager is handling to another coursePage.
+    /**
+     * Change current coursePage that CourseManager is handling to another coursePage.
      *
      * @param coursePage
      */
@@ -87,13 +88,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.filterInstructor = null;
     }
 
-    public void addRating(float ratingNum, StudentUser user) throws Exception{
-        if(this.filterInstructor == null) {
+    public void addRating(float ratingNum, StudentUser user) throws Exception {
+        if (this.filterInstructor == null) {
             throw new Exception("Filter instructor is not selected yet");
         }
 
         List<Rating> ratingList = this.coursePage.getRatings();
-        if(ratingList == null) {
+        if (ratingList == null) {
             ratingList = new ArrayList<>();
             this.coursePage.setRatings(ratingList);
         }
@@ -101,23 +102,24 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         Rating r = new Rating(user, ratingNum, this.filterInstructor);
         ratingList.add(r);
         this.updateAvgScore();
-        if(this.ratings == null) {
+        if (this.ratings == null) {
             this.ratings = new ArrayList<Rating>();
         }
         this.ratings.add(r);
 
 
-
     }
-    /** Updates a rating that a current user already left.
+
+    /**
+     * Updates a rating that a current user already left.
      *
      * @param ratingNum A rating score that a user wants to change to. (0 <= ratingNum <= 1)
-     * @param user A user who wants to change its rating score.
+     * @param user      A user who wants to change its rating score.
      * @throws Exception
      */
     public void updateRating(float ratingNum, User user) throws Exception {
-        for(Rating r : coursePage.getRatings()) {
-            if(r.getRater().getID().equals(user.getID())) {
+        for (Rating r : coursePage.getRatings()) {
+            if (r.getRater().getID().equals(user.getID())) {
                 r.setScore(ratingNum);
                 this.updateAvgScore();
                 return;
@@ -127,49 +129,49 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Starts a comment on current coursePage. User can only leave a comment when it is seeing
+    /**
+     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
      * filtered coursePage.
      *
      * @param text Context that user wants to leave at the start of comment.
      * @param user Current user.
      * @throws Exception
      */
-    public void startComment(String text, User user) throws Exception{
-        if(this.filterInstructor == null) {
+    public void startComment(String text, User user) throws Exception {
+        if (this.filterInstructor == null) {
             throw new Exception("No filtered instructor");
         }
         CommentGraph newCommentGraph = new CommentGraph(
-                text,"Question", user.getdisplayName(), this.filterInstructor);
+                text, "Question", user.getdisplayName(), this.filterInstructor);
         CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
-        if(commentManager == null) {
+        if (commentManager == null) {
             this.coursePage.setCommentGraph(newCommentGraph);
-            if(this.coursePage.getCommentGraphs() == null) {
+            if (this.coursePage.getCommentGraphs() == null) {
                 this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
             }
             this.coursePage.getCommentGraphs().add(newCommentGraph);
-        }
-        else {
+        } else {
             throw new Exception("There is already starting comment");
         }
-        if(this.commentGraphs == null) {
+        if (this.commentGraphs == null) {
             this.commentGraphs = new ArrayList<CommentGraph>();
         }
         this.commentGraphs.add(newCommentGraph);
 
 
-
     }
 
 
-    /** Add comment to another comment in the commentGraph of current coursePage.
+    /**
+     * Add comment to another comment in the commentGraph of current coursePage.
      *
      * @param prevId CommentId of the comment that user wants to reply to.
-     * @param text Context of comment that user wants to leave.
-     * @param user Current user.
+     * @param text   Context of comment that user wants to leave.
+     * @param user   Current user.
      * @throws Exception
      */
     public void addComment(String prevId, String text, User user) throws Exception {
-        if(this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
+        if (this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
             throw new Exception();
         }
         CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
@@ -177,7 +179,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Filter ratings and commentGraphs in coursePage.
+    /**
+     * Filter ratings and commentGraphs in coursePage.
      *
      * @param filterInstructorName An instructor name that user uses to filter coursePage.
      * @return
@@ -190,8 +193,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         List<CommentGraph> filteredCommentGraphs = null;
         if (this.ratings == null) {
             this.coursePage.setRatings(null);
-        }
-        else {
+        } else {
             filteredRatings = this.ratings.stream().filter(
                     r -> r.getInstructor() == filterInstructorName).collect(Collectors.toList());
             if (filteredRatings.isEmpty()) {
@@ -203,8 +205,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
         if (this.commentGraphs == null) {
             this.coursePage.setCommentGraph(null);
-        }
-        else {
+        } else {
             filteredCommentGraphs = this.commentGraphs.stream().filter(
                     c -> c.getInstructor() == filterInstructorName).collect(Collectors.toList());
             if (filteredCommentGraphs.isEmpty()) {
@@ -215,10 +216,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
 
         float total = 0;
-        if(filteredRatings == null) {
+        if (filteredRatings == null) {
             this.coursePage.setAverageScore(0);
-        }
-        else {
+        } else {
             for (Rating r : filteredRatings) {
                 total += r.getScore();
             }
@@ -239,22 +239,22 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Upvote or downvote a comment in the commentGraph of current coursePage.
+    /**
+     * Upvote or downvote a comment in the commentGraph of current coursePage.
      *
      * @param commentId Id of comment that the user wants to upvote or downvote.
-     * @param upvote If true, upvotes, if false, downvotes a comment.
+     * @param upvote    If true, upvotes, if false, downvotes a comment.
      * @throws Exception
      */
-    public void updateCommentVote(String commentId, boolean upvote) throws Exception{
+    public void updateCommentVote(String commentId, boolean upvote) throws Exception {
         CommentGraph currCommentGraph = this.coursePage.getCommentGraph();
-        if(currCommentGraph == null) {
+        if (currCommentGraph == null) {
             throw new Exception("There is no comment in this coursePage");
         }
 
-        if(upvote) {
+        if (upvote) {
             currCommentGraph.upvote(commentId);
-        }
-        else {
+        } else {
             currCommentGraph.downvote(commentId);
         }
     }
@@ -275,7 +275,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 //    }
 
 
-    /** Change to default coursePage where all ratings and commentGraphs are there.
+    /**
+     * Change to default coursePage where all ratings and commentGraphs are there.
      *
      * @return Default coursePage.
      */
@@ -292,7 +293,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     // Getters
 
-    /** Get current coursePage of courseManager.
+    /**
+     * Get current coursePage of courseManager.
      *
      * @return Current coursePage.
      */
@@ -311,7 +313,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Get current filtering instructor
+    /**
+     * Get current filtering instructor
      *
      * @return String of current filtering instructor's name.
      */
@@ -320,12 +323,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Get Data about courseManager in HashMap.
+    /**
+     * Get Data about courseManager in HashMap.
      *
      * @return HashMap<name, data>.
      */
     @Override
-    public HashMap<String, Object> getData(){
+    public HashMap<String, Object> getData() {
         HashMap<String, Object> infoMap = new HashMap<>();
         infoMap.put("filtering by", this.coursePage.getInstructor());
         infoMap.put("courseName", this.coursePage.getCourse().getName());
@@ -340,16 +344,17 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return infoMap;
     }
 
-    /** Private method that returns average rating score of current coursePage.
+    /**
+     * Private method that returns average rating score of current coursePage.
      *
      * @return average of current rating scores.
      */
     public void updateAvgScore() {
-        if(this.coursePage.getRatings() == null) {
+        if (this.coursePage.getRatings() == null) {
             this.coursePage.setAverageScore(0);
         }
         float total = 0;
-        for(Rating r : this.coursePage.getRatings()) {
+        for (Rating r : this.coursePage.getRatings()) {
             total += r.getScore();
         }
         this.coursePage.setAverageScore(total / this.coursePage.getRatings().size());
@@ -361,7 +366,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 //        return getData();
 //    }
 
-    /** Get course code of course that CourseManager is handling.
+    /**
+     * Get course code of course that CourseManager is handling.
      *
      * @return course code.
      */
@@ -370,7 +376,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return coursePage.getCourse().getCode();
     }
 
-    /** Get permission level hashmap of authorization hashmap.
+    /**
+     * Get permission level hashmap of authorization hashmap.
      *
      * @return Current AuthDict.
      */
@@ -380,7 +387,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /** Get default authorization dictionary.
+    /**
+     * Get default authorization dictionary.
      *
      * @return Map of permission level and list of string.
      */
