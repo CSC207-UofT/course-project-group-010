@@ -27,7 +27,7 @@
   filtering pages by year (possibly) for phase 2.
 - Junhyuk: Designed updated CourseManager in accordance with Command's interaction with User input. Implemented tests 
   for CourseManager and Builder classes. 
-- Wilson: Work on rating functions for phrase 2 submission.
+- Wilson: Helped design and implemented Rating system. Wrote various tests for existing classes and performed refactors to reduce code smells. Continue working on implementing alternative rating algorithms.
 
 ## Things we must work on in the future
 
