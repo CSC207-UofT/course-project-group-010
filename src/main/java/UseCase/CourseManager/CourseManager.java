@@ -339,7 +339,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 //        infoMap.put("years", this.coursePage.getYears());
 //        infoMap.put("currentInstructors", this.coursePage.getInstructor());
 //        infoMap.put("currentYear", this.coursePage.getYear());
-        infoMap.put("rating", this.coursePage.getRatings());
+        infoMap.put("rating", this.coursePage.getAverageScore());
 
         return infoMap;
     }

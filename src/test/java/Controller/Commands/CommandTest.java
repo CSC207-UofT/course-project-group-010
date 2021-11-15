@@ -6,6 +6,7 @@ import Exceptions.ArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertEquals;
  * Most command functionality has been tested by running the actual code.
  * Assuming that the components of the command's run() method have been unit tested,
  * I believe this is sufficient as a test.
+ * I will probably try to make new tests later though.
  */
 public class CommandTest {
     CommandExecutor ce;
@@ -43,12 +45,16 @@ public class CommandTest {
     }
 
     // This test was used to verify that buildComment in ReplyCommand works. However, that method is now private.
-    /*
+
     @Test(timeout = 100)
-    public void testReplyBuilder() throws ArgumentException {
+    public void testReplyBuilder() throws Exception {
+        Class<?> replyCommandClass = Class.forName("Controller.Commands.CommentCommands.ReplyCommand");
+        Method buildCommentMethod = replyCommandClass.getDeclaredMethod("buildComment", List.class);
+        buildCommentMethod.setAccessible(true);
+
         CommandRequest request = new CommandRequest("reply id hello what is your name?");
         ReplyCommand cmd = new ReplyCommand();
         List<String> args = request.getArguments();
-        assertEquals(cmd.buildComment(args), "hello what is your name?");
-    }*/
+        assertEquals(buildCommentMethod.invoke(cmd, args), "hello what is your name?");
+    }
 }

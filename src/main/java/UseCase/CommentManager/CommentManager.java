@@ -96,6 +96,15 @@ public class CommentManager implements IReadModifiable, Serializable {
     }
 
     /**
+     * Get the instructor
+     * @return String instructor
+     */
+    public String getInstructor()
+    {
+        return this.commentGraph.getInstructor();
+    }
+
+    /**
      * Get the depth of the specified Comment.
      *
      * @param id of Comment.
