@@ -1,13 +1,19 @@
 package Controller.Commands;
 
-import Controller.Commands.CommandExceptions.ArgumentException;
+import Controller.AuthHelper;
+import Exceptions.ArgumentException;
+import Exceptions.CommandHelpException;
+import Exceptions.CommandNotAuthorizedException;
+import Interface.IHasPermission;
+import Interface.IReadModifiable;
+import UseCase.UserManager;
 
 import java.util.List;
 
 /**
  * A command that is passed from the CLI to the commandExecutor
  * This is the base class for all commands in the program
- *
+ * <p>
  * The idea for this class was adapted from JShell, at
  * https://github.com/CSC207-UofT/Java-Shell/blob/master/src/main/java/commands/Command.java
  */
@@ -17,6 +23,7 @@ public abstract class Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
+     *
      * @param maxArguments
      * @param minArguments
      */
@@ -36,10 +43,17 @@ public abstract class Command {
 
     /**
      * returns the help string for a command. May not be implemented yet.
+     *
      * @return
      */
     public String help() {
         return "Help for this command is not available at this time";
+    }
+
+    protected void checkHelp(List<String> arguments) throws CommandHelpException {
+        if (arguments.size() > 0 && arguments.get(0).equalsIgnoreCase("-h")) {
+            throw new CommandHelpException(this.help());
+        }
     }
 
     /**
@@ -50,5 +64,27 @@ public abstract class Command {
         if (arguments.size() > maxArguments || arguments.size() < minArguments) {
             throw new ArgumentException();
         }
+    }
+
+    protected void checkUserExists(CommandExecutor ce) throws CommandNotAuthorizedException {
+        if (ce.getUserManager() == null) {
+            throw new CommandNotAuthorizedException("Not logged in.");
+        }
+    }
+
+    protected void checkViewingPageExists(CommandExecutor ce) throws ArgumentException {
+        if (ce.getPageManager() == null) {
+            throw new ArgumentException("Not viewing any pages.");
+        }
+    }
+
+    protected void checkHelpArgsUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+        checkHelp(arguments);
+        checkArgumentsNum(arguments);
+        checkUserExists(ce);
+        checkViewingPageExists(ce);
+        IReadModifiable currentlyViewingPage = ce.getPageManager();
+        UserManager user = ce.getUserManager();
+        new AuthHelper().checkAuth(currentlyViewingPage, user, method);
     }
 }

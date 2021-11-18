@@ -4,3 +4,95 @@ This is a course review system for University Courses, kind of like RateMyProf w
 Students and professors will be able to view courses, leave reviews/ratings, and chat in the comments section.
 
 Go to the phase0 folder for phase0, I would recommend looking at progress_report.md first
+
+Go to the phase1 folder for phase1, I would STRONGLY recommend starting with DesignDocument.md. It references all the
+other documents.
+
+# Running the program:
+- If it can't run after cloning, try "new project from VCS" in the IntelliJ editor.
+    - github desktop cloning seems to encounter issues
+    - main method is in src/main/java/Outer/ScreenIO.
+- the enter "help" to get help, or enter [commandname] -h for specific command help
+- start by making a new user with the newuser command, then login as the new user.
+- Try accessing a page
+
+# Demo users/courses
+- There are 3 demo users:
+- id: 12345, name: Kevin
+- id: 123, name: Albert
+- id: panchenxyz, name: PanChen
+
+- There is 1 page that you can view
+- id: MAT137, Calculus with Proofs
+
+# Commands overview
+
+Overview of commands by type. In the future, this will be included in helpcommand() for convenience.
+
+- help: displays all commands and their respective help strings
+- basic commands for logging in, viewing pages: login, checkout, print, logout
+- saving/database related: saveall, newusuer, createcourse
+- Main comment related commands: getcomments, displayfullthread, reply, vote
+- Rating related commands: filter, rate
+- Other comment commands displaysubsetthread, getpath
+
+# Sample commands to demonstrate functionality:
+> login panchenxyz
+
+// Seeing Basic information
+
+> checkout MAT137
+> 
+> print [prints all relevant info]
+
+// Interacting with the comment thread
+
+> getcomments
+> 
+> displayfullthread
+> 
+> reply root [response here]
+> 
+> *you can use any other comment related commands at this point*
+
+// Rating the course(must filter by instructor to rate the course)
+
+> checkout MAT137 [goes back to looking at the course page]
+> 
+> saveall
+> 
+> filter [follow instructions given]
+>
+> rate 2
+> 
+> print
+
+// Creating a new user to also rate the course
+
+> logout
+> 
+> newuser student Bob Bob234
+> 
+> checkout MAT137
+> 
+> filter [follow instructions]
+> 
+> rate 5
+
+// Checking that the rating has updated
+
+> print [should show different rating]
+> 
+> saveall
+
+# Sample commands for creating new users and saving to database(to demonstrate that feature)
+
+> newuser student [name] [id]
+> 
+> newuser instructor [name] [id]
+> 
+> createcourse
+> 
+> *follow the prompts that it gives you*
+> 
+> saveall or end

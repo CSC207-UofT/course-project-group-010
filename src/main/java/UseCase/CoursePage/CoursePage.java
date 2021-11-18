@@ -1,122 +1,182 @@
 package UseCase.CoursePage;
 
+import Entity.CommentGraph;
 import Entity.Course;
-import Entity.Instructor;
+import Entity.InstructorUser;
+import Entity.Rating;
+import UseCase.CommentManager.CommentManager;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class CoursePage {
+public class CoursePage implements Serializable {
     private Course course; // course object
-<<<<<<< Updated upstream
-    private Rating rating; // rating object
-    private Optional<Instructor> instructor; // optional default instructor
-    private Optional<Integer> year; // optional default year
-    private List<Instructor> instructors; //list of instructors teaching the course
-    private List<Integer> years; // list of years the course was taught
+    private List<String> instructors; //List of all instructors who have taught this course.
+    private List<Rating> ratings; // List of all ratings left for this course across all instructors. Null if not given.
+    private float averageScore; // The rating being presented currently. Will change if filtered by instructor
+    private List<CommentGraph> commentGraphs; // List of all commentGraphs for this course across all instructors. Null
+    // if not assigned.
+    private CommentGraph commentGraph; // Current CommentGraph being presented when filtered by instructor. Null if
+    // not filtered.
+    private String instructor; // Current instructor CoursePage is filtered by.
 
-    public CoursePage (Course course, Rating rating, List<Instructor> instructors, List<Integer> years){
-=======
-    private List<Rating> ratings; // List of ratings under this course; rating object
-    private String instructor; // optional default instructor, WAS // Optional<InstructorUser>
-    private List<String> instructors; //list of instructors teaching the course
-    private CommentGraph commentGraph;
 
-    public CoursePage(List<Integer> years, Course course, List<Rating> ratings,
-                      List<String> instructors, CommentGraph commentGraph){
->>>>>>> Stashed changes
-        // reverse sort the list of years so that current year is in front
-        Collections.reverse(years);
+    public CoursePage(Course course, List<String> instructors) {
+
         this.course = course;
-<<<<<<< Updated upstream
-        this.rating = rating;
         this.instructors = instructors;
-        this.years = years;
-=======
-        this.ratings = ratings;
-        this.instructors = instructors;
-        //this.years = years;
-        //this.commentGraph = commentGraph;
->>>>>>> Stashed changes
-
-        // for now the default instructor will be the first one found in the list, later we will sort the list of
-        // instructors by overriding the CompareTo method and comparing their names.
-
-        // if there is at least one instructor
-        if (instructors.size() > 0)
-        {
-            this.instructor = instructors.get(0);
-        }
-
-        // if there are no instructors
-        else
-        {
-            this.instructor = "No Instructors";
-        }
-
-        if (years.size() > 0)
-        {
-            this.year = Optional.ofNullable(years.get(0));
-        }
-
-        else
-        {
-            this.year = Optional.empty();
-        }
+        this.instructor = "No Filter Selected";
+        this.ratings = null;
+        this.commentGraph = null;
+        this.commentGraphs = null;
     }
 
+
     // get information from course Page
-    public Course getCourse(){
+
+    // For now, assume there's only one thread associated with this instructor. This thread will contain all questions
+    // and discussions by users.
+
+    // Returns CommentGraph associated with instructor. If not found, returns Null. Can throw exception if we want.
+    public CommentManager getThread(String instructor) {
+        if (this.getCommentGraphs() == null) {
+            return null;
+        }
+        for (CommentGraph c : this.commentGraphs) {
+            if (c.getInstructor().equals(instructor)) {
+                return new CommentManager(c);
+            }
+        }
+        return null;
+    }
+
+    public Course getCourse() {
         return this.course;
     }
 
-    public List<Rating> getRatings(){
-        return this.ratings;
-    }
-
-<<<<<<< Updated upstream
-    public List<Instructor> getInstructors(){
-=======
-    public List<String> getInstructors(){
->>>>>>> Stashed changes
+    public List<String> getInstructors() {
         return this.instructors;
     }
 
-    public List<Integer> getYears(){
-        return this.years;
+    public List<Rating> getRatings() {
+        return this.ratings;
     }
 
-<<<<<<< Updated upstream
-    public Optional<Instructor> getInstructor(){
-=======
-    public String getInstructor(){
->>>>>>> Stashed changes
+
+    public String getInstructor() {
         return this.instructor;
     }
 
-    public int getYear(){
-        return this.year;
+    public float getAverageScore() {
+        return this.averageScore;
     }
 
-<<<<<<< Updated upstream
-    public void setInstructor(Instructor instructor){
-        this.instructor = Optional.ofNullable(instructor);
-=======
-    public void setInstructor(String instructor){
-        this.instructor = instructor;
->>>>>>> Stashed changes
+
+    public int getNumberOfRatings() {
+        return this.ratings.size();
     }
 
-    public void setYear(int year){
-        this.year = year;
+    public CommentGraph getCommentGraph() {
+        return this.commentGraph;
     }
 
-<<<<<<< Updated upstream
-=======
-    public void setRatings(List<Rating> ratings){
+    public List<CommentGraph> getCommentGraphs() {
+        return this.commentGraphs;
+    }
+
+    public CommentGraph commentGraph() {
+        return this.commentGraph;
+    }
+
+    //Setters
+
+    // Set information for course Page
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+
+    public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
->>>>>>> Stashed changes
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public void setAverageScore(float AverageScore) {
+        this.averageScore = AverageScore;
+    }
+
+    public void setCommentGraphs(List<CommentGraph> commentGraphs) {
+        this.commentGraphs = commentGraphs;
+    }
+
+    public void setCommentGraph(CommentGraph commentGraph) {
+        this.commentGraph = commentGraph;
+    }
+
+
+//FOR PHASE 2 BELOW
+
+
+    // private Integer year; // The Course filtered by the year being currently viewed. // TODO: Phase 2 maybe.
+    //    private HashMap<Integer, List<String>> instructors_to_years; //Hashmap of years the course was taught mapped to the
+    //list of instructors who taught the course during that year.
+    //  private float programRelativeScore;  // TODO: Phase 2
+
+    //    private HashMap<Integer, List<String>> getInstructors_to_years() {
+    //        return this.instructors_to_years;
+    //    }
+
+
+// {2019: [John, May, Bill], 2020: [Jen, Asif, Pat]}
+// .values = [ [John, May, Bill], [Jen, Asif, Pat] ]
+
+//Return list of all instructors who have taught this course across all years.
+//    public List<String> getInstructors() {
+//        List<String> to_return = new ArrayList<String>();
+//        List<List<String>> valueList = new ArrayList<>(this.instructors_to_years.values());
+//        for(List<String> l: valueList){
+//            for(String s: l){
+//                if (! to_return.contains(s)) {
+//                    to_return.add(s);
+//                }
+//            }
+//        }
+//        return to_return;
+//    }
+
+    //return list of all years taught.
+//    public List<Integer> getYears() {
+//        return new ArrayList<>(this.instructors_to_years.keySet());
+//    }
+//    public float getRelativeScore() {
+//        return this.programRelativeScore;
+//    }
+
+//    public void setInstructors_to_years(HashMap<Integer, List<String>> instructors_to_years) {
+//        this.instructors_to_years = instructors_to_years;
+//    }
+
+//    public void setRelativeScore(float programRelativeScore) {
+//        this.programRelativeScore = programRelativeScore;
+//    }
+
+
+//    public Optional<InstructorUser> getInstructor() {
+//        return this.instructor;
+//    }
+
+//    public Optional<Integer> getYear() {
+//        return this.year;
+//    }
+
+
+//    public void setYear(int year) {
+//        this.year = year;
+//    }
+
 
 }

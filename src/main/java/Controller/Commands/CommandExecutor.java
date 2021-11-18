@@ -1,23 +1,23 @@
 package Controller.Commands;
 
 import Constants.CommandConstants;
-import Controller.Commands.CommandExceptions.ArgumentException;
-import Controller.Commands.CommandExceptions.CommandNotFoundException;
+import Interface.IAuthorizable;
 import Interface.IGettable;
-import UseCase.UserManager.UserManager;
+import Interface.IReadModifiable;
+import UseCase.UserManager;
 
 /**
  * CommandExecutor will hold the necessary information for executing a command, such as
  * The user it's executing commands on behalf of, and the page that the user is currently viewing.
  * It will execute commands.
- *
+ * <p>
  * it is a singleton class, meaning that every instance of the CLI will have one CommandExecutor active
  * at a time(is that even good...)
  */
 public class CommandExecutor {
     private static CommandExecutor instance = null;
     private UserManager userManager = null;
-    private IGettable pageManager = null;
+    private IReadModifiable pageManager = null;
 
 
     /**
@@ -27,7 +27,20 @@ public class CommandExecutor {
     }
 
     /**
+     * gets the single instance of CommandExecutor, makes a new one if none exist
+     *
+     * @return the instance.
+     */
+    public static CommandExecutor getInstance() {
+        if (instance == null) {
+            instance = new CommandExecutor();
+        }
+        return instance;
+    }
+
+    /**
      * Processes a request sent to the command executor
+     *
      * @param request
      * @throws Exception
      */
@@ -47,28 +60,23 @@ public class CommandExecutor {
         return userManager;
     }
 
+    public void resetAll() {
+        // TODO reset the filters on the pageManager
+        this.userManager = null;
+        this.pageManager = null;
+    }
+
     public void addUserManager(UserManager u) {
         if (this.userManager == null) {
             this.userManager = u;
         }
     }
 
-    public IGettable getPageManager() {
+    public IReadModifiable getPageManager() {
         return pageManager;
     }
 
-    public void setPageManager(IGettable pageManager) {
+    public void setPageManager(IReadModifiable pageManager) {
         this.pageManager = pageManager;
-    }
-
-    /**
-     * gets the single instance of CommandExecutor, makes a new one if none exist
-     * @return the instance.
-     */
-    public static CommandExecutor getInstance() {
-        if (instance == null) {
-            instance = new CommandExecutor();
-        }
-        return instance;
     }
 }

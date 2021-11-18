@@ -1,6 +1,6 @@
-package Controller.Commands.CommandExceptions;
+package Exceptions;
 
-public class CommandNotFoundException extends Exception{
+public class CommandNotFoundException extends Exception {
     public CommandNotFoundException(String message) {
         super(message);
     }

@@ -1,20 +1,33 @@
 package Entity;
 
-public abstract class User {
-    private String displayName; //Username
-    private String ID; //UTemail
-    private int reviewCount; //Number of reviews left by this user
+import Interface.IReviewer;
 
-    // Student Permission level : 0
-    // TA Permissionlevel : 1
-    // Instructor Permission level : 2
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class User implements Serializable, IReviewer {
+    private String displayName; //Username
+    private final String ID; //ID
+    private Map<String, String> otherData;
+    private int reviewCount; //Number of reviews left by this user
 
 
     //Constructors
-    public User(String displayName, String ID) {
+    public User(String displayName, String ID, Map<String, String> otherData) {
 
         this.displayName = displayName;
         this.ID = ID;
+        this.otherData = otherData;
+        this.reviewCount = 0;
+    }
+
+    public User(String displayName, String ID) {
+        this.displayName = displayName;
+        this.ID = ID;
+        this.otherData = new HashMap<>();
+        this.otherData.put("programDetail", "n/a");
+        this.reviewCount = 0;
     }
 
 
@@ -36,16 +49,32 @@ public abstract class User {
         return this.displayName;
     }
 
-
-    //Setters
-    public void setreviewCount(int count){
-        if(count >= 0){
-            this.reviewCount = count;
-        }
+    public Map<String, String> getOtherData() {
+        return otherData;
     }
 
-    public void setDisplayName(String s){
-        if (s.length() < 25){
+    public void setOtherData(Map<String, String> otherData) {
+        this.otherData = otherData;
+    }
+
+    //Setters
+
+//    public void setreviewCount(int count){
+//        if(count >= 0){
+//            this.reviewCount = count;
+//        }
+//    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void incrementReviewCount() {
+        this.reviewCount++;
+    }
+
+    public void setDisplayName(String s) {
+        if (s.length() < 25) {
             this.displayName = s;
         }
     }

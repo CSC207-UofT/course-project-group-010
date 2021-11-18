@@ -1,49 +1,52 @@
 package Entity;
 
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentUser extends User {
     private HashMap<Integer, List<Course>> courses;
-    private String programDetail;
+
     // Permission level : 0
 
     /**
-     * @param displayName   student user's display name.
-     * @param ID            student user's ID.
-     * @param programDetail Student's program name. (Can make into a list later for more info if we want)
+     * @param displayName student user's display name.
+     * @param ID          student user's ID.
+     * @param otherData   other Data. (Can make into a list later for more info if we want)
      */
 
     //Constructors
-    public StudentUser(String displayName, String ID, String programDetail) {
-        super(displayName, ID);
-        this.programDetail = programDetail;
-        this.courses = new HashMap<Integer, List<Course>>();
+    public StudentUser(String displayName, String ID, Map<String, String> otherData) {
+        super(displayName, ID, otherData);
+        this.courses = new HashMap<>();
     }
 
-
+    public StudentUser(String displayName, String ID) {
+        super(displayName, ID);
+        this.courses = new HashMap<>();
+    }
 
 
     //Getters
     public String getProgramDetail() {
-        return this.programDetail;
+
+        return this.getOtherData().get("programDetail");
     }
 
-    public HashMap<Integer, List<Course>> getCourses(){
-        return this.courses;
+    public void setProgramDetail(String s) {
+        this.getOtherData().put("programDetail", s);
     }
-
-
 
 
     //Setters
 
-    public void setCourses(HashMap<Integer, List<Course>> c) {
-        this.courses = c;
+    public HashMap<Integer, List<Course>> getCourses() {
+        return this.courses;
     }
 
-    public void setProgramDetail(String s) {
-        this.programDetail = s;
+    public void setCourses(HashMap<Integer, List<Course>> c) {
+        this.courses = c;
     }
 }
 

@@ -1,61 +1,63 @@
 package Entity;
 
-public class Course {
-    private String name; // Course name; i.e Introduction to Computer Science
-    private String code; // Course code; i.e CSC110
-    private String description; // Default description of the course that may be altered.
-    private Rating rating; // Rating of this course. Default value is null.
+import java.io.Serializable;
+import java.util.List;
+
+public class Course implements Serializable {
+    String name; // Course name; i.e Introduction to Computer Science
+    String code; // Course code; i.e CSC110
+    String description; // Default description of the course that may be altered.
 
 
-    //Constructors
+    //Constructor
+
     public Course(String name, String code) {
         this.name = name;
         this.code = code;
         this.description = "There is currently no description available for this course";
-        this.rating = new Rating();
+    }
+
+    //Methods
+
+    /**
+     * @return a string representation of the course.
+     */
+    @Override
+    public String toString() {
+        return this.name + "\n" + this.code + "\n" + this.description;
     }
 
 
-
-
     //Getters
+
+    /**
+     * @return course's name.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * @return course code.
+     */
     public String getCode() {
         return this.code;
     }
 
+    /**
+     * @return course's description.
+     */
     public String getDescription() {
         return this.description;
     }
-
-    public Rating getRating() {
-        return this.rating;
-    }
-
-
-
 
 
     //Setters
     public void setDescription(String s) {
         this.description = s;
     }
+    public void setName(String s) {this.name = name;}
+    public void setCode(String c) {this.code = c;}
 
-    public void setName(String s){
-        this.name = s;
-    }
-
-    public void setCode(String s){
-        this.name = s;
-    }
-
-    //ONLY use this if you're going to set a completely different Rating object for this course.
-    //If you want to add a rating to the course, use the Rating method processRating on Course.rating.
-    public void setRating(Rating r) {
-        this.rating = r;
-    }
 
 }
