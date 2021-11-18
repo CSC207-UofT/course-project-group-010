@@ -18,9 +18,15 @@ public interface Builder {
 
     public void setRatings(List<Rating> ratings);
 
-    public void setCommentGraphs(List<CommentGraph> cg);
+//    public void setCommentGraphs(List<CommentGraph> cg);
 
     public void reset();
+
+    public void buildRatings(List<List<String>> ratings);
+
+    public void buildCourse(List<String> course);
+
+    public void buildCommentGraph(HashMap<List<String>, List<String>> commentGraph);
 
 
 //    public void setRelativeScore(float programRelativeScore);

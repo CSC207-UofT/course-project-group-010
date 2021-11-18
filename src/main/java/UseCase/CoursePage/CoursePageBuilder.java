@@ -3,9 +3,13 @@ package UseCase.CoursePage;
 import Entity.CommentGraph;
 import Entity.Course;
 import Entity.Rating;
+import Entity.StudentUser;
 import Interface.Builder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class CoursePageBuilder implements Builder {
 
@@ -31,15 +35,87 @@ public class CoursePageBuilder implements Builder {
     }
 
 
-    @Override
-    public void setCommentGraphs(List<CommentGraph> cg) {
-        this.commentGraphs = cg;
-    }
+//    @Override
+//    public void setCommentGraphs(List<CommentGraph> cg) {
+//        this.commentGraph = cg;
+//    }
 
     @Override
     public void reset() {
         this.ratings = null;
         this.commentGraphs = null;
+    }
+
+    @Override
+    public void buildRatings(List<List<String>> ratings) {
+
+        //Creating a list of Rating of objects to be assigned to CoursePage.
+        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
+
+        //For every List containing Rating information
+        for (List<String> l : ratings) {
+
+            //Create StudentUser object
+            StudentUser student = new StudentUser(l.get(0), l.get(1));
+
+            //Convert score from string to float.
+            float score = Float.parseFloat(l.get(2));
+
+            //Create Rating object
+            Rating r = new Rating(student, score, l.get(4));
+
+            //Add Rating object to cp_ratings.
+            cp_ratings.add(r);
+        }
+
+        //Set CoursePageBuilder's ratings to the above.
+        this.setRatings(cp_ratings);
+
+    }
+
+    @Override
+    public void buildCourse(List<String> course) {
+        Course c = new Course(course.get(0), course.get(1));
+        if (course.size() == 3) {
+            c.setDescription(course.get(2));
+        }
+        //Set CoursePageBuilder's course to the above.
+        this.setCourse(c);
+
+    }
+
+    @Override
+    public void buildCommentGraph(HashMap<List<String>, List<String>> commentGraph) {
+
+        //Collect all keys(Main Comments Lists) in hashmap.
+        Set<List<String>> keys = commentGraph.keySet();
+
+        List<CommentGraph> cp_commentGraph = new ArrayList<>();
+
+        //Iterate over all Main Comments
+        for (List<String> main_comment : keys) {
+
+            //Get the mainCommentType, mainCommenterName, and instructor associated with this main_comment in Hashmap.
+            List<String> g_rest = commentGraph.get(main_comment);
+
+            //Create CommentGraph with the key (main_comment) and the rest of the required info.
+
+            //                                Main Comment  mainCommentType, mainCommenterName, instructor
+            CommentGraph cg = new CommentGraph(main_comment, g_rest.get(0), g_rest.get(1), g_rest.get(2));
+
+            //add this commentGraph to list of commentGraphs to be assigned to CoursePage.
+
+            //Set CoursePageBuilder's commentGraph to the above. If we decide we need only one CG for page, then will remove the unnecessary for loop.
+
+            cp_commentGraph.add(cg);
+
+        }
+        this.setCommentGraph(cp_commentGraph);
+
+    }
+
+    public void setCommentGraph(List<CommentGraph> cg) {
+        this.commentGraphs = cg;
     }
 
     public CoursePage getResult() {

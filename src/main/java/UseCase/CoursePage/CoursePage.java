@@ -10,8 +10,20 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * The CoursePage object will contain all the necessary information to be displayed to the User.
+ * We require, at minimum, a Course object and a list of instructors who have taught this course to initialize.
+ *
+ * Additionally, it can contain a list of all Rating objects left for this course, and a list of all commentGraphs.
+ *
+ * The parameters averageScore and commentGraph parameter denote the current "rating/score" and "comment section" being
+ * presented to the User. For example; if the user chooses to view the Default Page, averageScore would represent
+ * the total rating-scores across all Students and all programs, and commentGraph would represent the Default
+ * comment section for the page.
+ */
+
 public class CoursePage implements Serializable {
-    private Course course; // course object
+    private Course course; // Course object containing all relevant info about the course.
     private List<String> instructors; //List of all instructors who have taught this course.
     private List<Rating> ratings; // List of all ratings left for this course across all instructors. Null if not given.
     private float averageScore; // The rating being presented currently. Will change if filtered by instructor

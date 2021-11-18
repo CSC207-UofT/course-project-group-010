@@ -38,10 +38,13 @@ public class Director {
      * It denotes the minimum amount of data we need to make a CoursePage.
      *
      * @param cpb         a CoursePageBuilder object that will build CoursePage as needed.
+     *
      * @param course      A list of strings containing Course info in this format:
      *                    <p>
      *                    [CourseName, CourseCode, Optional(CourseDescription)]
+     *
      *                    CourseDescription may be omitted if not available.
+     *
      * @param instructors A list of instructors who have taught/are teaching this course.
      */
 
@@ -51,11 +54,7 @@ public class Director {
                                     List<String> course,
                                     List<String> instructors) {
 
-        Course c = new Course(course.get(0), course.get(1));
-        if (instructors.size() == 3) {
-            c.setDescription(course.get(2));
-        }
-        cpb.setCourse(c);
+        cpb.buildCourse(course);
         cpb.setInstructors(instructors);
     }
 
@@ -63,8 +62,14 @@ public class Director {
      * This is the constructor for constructing a CoursePage with Course info , a list of instructors, and ratings.
      *
      * @param cpb         a CoursePageBuilder object that builds CoursePage as needed.
-     * @param course      A list of strings needed to construct a Course object.
+     * @param course      A list of strings containing Course info in this format:
+     *                    <p>
+     *                    [CourseName, CourseCode, Optional(CourseDescription)]
+     *
+     *                    CourseDescription may be omitted if not available.
+     *
      * @param instructors A list of instructors who have taught/are teaching this course.
+     *
      * @param ratings     A list of of list of strings, containing Rating info in the format of List<List<String>> .
      *                    Example;
      *                    <p>
@@ -87,27 +92,7 @@ public class Director {
         //Use previous constructor to avoid duplicate code; Course and Instructors are set in CoursePage.
         constructCoursePage(cpb, course, instructors);
 
-        //Creating a list of Rating of objects to be assigned to CoursePage.
-        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
-
-        //For every List containing Rating information
-        for (List<String> l : ratings) {
-
-            //Create StudentUser object
-            StudentUser student = new StudentUser(l.get(0), l.get(1));
-
-            //Convert score from string to float.
-            float score = Float.parseFloat(l.get(2));
-
-            //Create Rating object
-            Rating r = new Rating(student, score, l.get(4));
-
-            //Add Rating object to cp_ratings.
-            cp_ratings.add(r);
-        }
-
-        //Set CoursePageBuilder's ratings to the above.
-        cpb.setRatings(cp_ratings);
+        cpb.buildRatings(ratings);
     }
 
     /**
@@ -138,11 +123,7 @@ public class Director {
         //Use previous constructor to avoid duplicate code; CoursePage's Course, Instructors, and Ratings are now set.
         constructCoursePage(cpb, course, instructors);
 
-        //Create List of CommentGraphs using helper.
-        List<CommentGraph> cp_commentGraph = cgHelper(commentGraphs);
-
-        //Set CommentGraph in CoursePage to above.
-        cpb.setCommentGraphs(cp_commentGraph);
+        cpb.buildCommentGraph(commentGraphs);
     }
 
     /**
@@ -188,38 +169,36 @@ public class Director {
         //Use previous constructor to avoid duplicate code; Course, Instructor and ratings are now set in CoursePage.
         constructCoursePage(cpb, course, instructors, ratings);
 
-        //Create List of CommentGraphs using helper.
-        List<CommentGraph> cp_commentGraph = cgHelper(commentGraphs);
-
-        cpb.setCommentGraphs(cp_commentGraph);
+        //cpb's commentGraph is set automatically in the buildCommentGraph method in CPB.
+        cpb.buildCommentGraph(commentGraphs);
 
     }
 
-    //helper to avoid duplicate code
-    private List<CommentGraph> cgHelper(HashMap<List<String>, List<String>> commentGraphs) {
-
-        //Create empty arraylist to contain all commentGraph objects.
-        List<CommentGraph> cp_commentGraph = new ArrayList<>();
-
-        //Collect all keys(Main Comments Lists) in hashmap.
-        Set<List<String>> keys = commentGraphs.keySet();
-
-        //Iterate over all Main Comments
-        for (List<String> main_comment : keys) {
-
-            //Get the mainCommentType, mainCommenterName, and instructor associated with this main_comment in Hashmap.
-            List<String> g_rest = commentGraphs.get(main_comment);
-
-            //Create CommentGraph with the key (main_comment) and the rest of the required info.
-
-            //                                Main Comment  mainCommentType, mainCommenterName, instructor
-            CommentGraph cg = new CommentGraph(main_comment, g_rest.get(0), g_rest.get(1), g_rest.get(2));
-
-            //add this commentGraph to list of commentGraphs to be assigned to CoursePage.
-            cp_commentGraph.add(cg);
-        }
-        return cp_commentGraph;
-    }
+//    //helper to avoid duplicate code
+//    private List<CommentGraph> cgHelper(HashMap<List<String>, List<String>> commentGraphs) {
+//
+//        //Create empty arraylist to contain all commentGraph objects.
+//        List<CommentGraph> cp_commentGraph = new ArrayList<>();
+//
+//        //Collect all keys(Main Comments Lists) in hashmap.
+//        Set<List<String>> keys = commentGraphs.keySet();
+//
+//        //Iterate over all Main Comments
+//        for (List<String> main_comment : keys) {
+//
+//            //Get the mainCommentType, mainCommenterName, and instructor associated with this main_comment in Hashmap.
+//            List<String> g_rest = commentGraphs.get(main_comment);
+//
+//            //Create CommentGraph with the key (main_comment) and the rest of the required info.
+//
+//            //                                Main Comment  mainCommentType, mainCommenterName, instructor
+//            CommentGraph cg = new CommentGraph(main_comment, g_rest.get(0), g_rest.get(1), g_rest.get(2));
+//
+//            //add this commentGraph to list of commentGraphs to be assigned to CoursePage.
+//            cp_commentGraph.add(cg);
+//        }
+//        return cp_commentGraph;
+//    }
 
 
 // We want kevin to NOT have to make any entities when calling on d.constructCoursePage().
