@@ -32,16 +32,16 @@ public class CommentGraph implements Serializable {
      * Method that initializes an empty CommentGraph
      *
      * @param mainCommentType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
-     * @param mainCommenterName the username of whoever controls the main comments in the graph, for example a professor
+     * @param rootName the username of whoever controls the main comments in the graph, for example a professor
      *                          in a course.
      */
-    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName) {
+    private void emptyCommentGraphInitializer(String mainCommentType, String rootName) {
         // initializes the dictionary of vertices to an empty HashMap.
         this.vertices = new HashMap<>();
         // initializes the size of the CommentGraph to be as there are no Comments within it.
         this.size = 0;
         // creates the root comment
-        this.root = createComment("root", mainCommentType, mainCommenterName);
+        this.root = createComment("root", mainCommentType, rootName);
         // adds the root comment to the CommentGraph.
         addVertex("root", this.root);
     }
