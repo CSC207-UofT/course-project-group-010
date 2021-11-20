@@ -4,6 +4,8 @@ import Controller.Commands.*;
 import Controller.Commands.CommentCommands.*;
 import Controller.Commands.CourseCommands.CreateCourseCommand;
 import Controller.Commands.CourseCommands.FilterInstructorCommand;
+import Controller.Commands.DebuggingCommands.ListCoursesCommand;
+import Controller.Commands.DebuggingCommands.ListUsersCommand;
 import Exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
@@ -13,6 +15,8 @@ import java.util.Hashtable;
  */
 public class CommandConstants {
     public final Hashtable<String, Command> command_dict = new Hashtable<>();
+    // allDataString used in the checkoutCommand.
+    public static final String allDataString = "all-data";
 
     public CommandConstants() {
         command_dict.put("help", new HelpCommand());
@@ -29,9 +33,11 @@ public class CommandConstants {
         command_dict.put("reply", new ReplyCommand());
         command_dict.put("vote", new VoteCommand());
         command_dict.put("createcourse", new CreateCourseCommand());
-        command_dict.put("filter", new FilterInstructorCommand());
+        // command_dict.put("filter", new FilterInstructorCommand());
         command_dict.put("getcomments", new GetCommentsCommand());
         //command_dict.put("startcomment", new StartCommentCommand());
+        command_dict.put("listcourses", new ListCoursesCommand());
+        command_dict.put("listusers", new ListUsersCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

@@ -8,6 +8,9 @@ import UseCase.CoursePage.CoursePage;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Not in use, as the filter by instructor option was removed.
+ */
 public class FilterInstructorCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
