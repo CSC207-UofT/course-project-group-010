@@ -27,6 +27,27 @@ public class CommentManager implements IReadModifiable, Serializable {
         this.authDict = getDefaultAuthDict();
     }
 
+    public List<String> getCommentByUserName(String userName) {
+        // new empty list
+        List<String> comments = new ArrayList<>() {
+        };
+
+        // dictionary of vertices from CommentGraph
+        HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
+
+        // search for text
+        for (String key : vertices.keySet()) {
+            // if text found
+            if (vertices.get(key).getUserName().contains(userName)) {
+                // add to list
+                comments.add(vertices.get(key).getFormattedRepresentation());
+            }
+        }
+
+        // return list
+        return comments;
+    }
+
     /**
      * Gets the formatted String representation of a comment by its id.
      *
@@ -97,10 +118,10 @@ public class CommentManager implements IReadModifiable, Serializable {
 
     /**
      * Get the instructor
+     *
      * @return String instructor
      */
-    public String getInstructor()
-    {
+    public String getInstructor() {
         return this.commentGraph.getInstructor();
     }
 
