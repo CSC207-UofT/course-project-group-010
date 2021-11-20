@@ -28,12 +28,23 @@ public class CommentGraph implements Serializable {
     private Comment root;
 
 
+    public CommentGraph(HashMap<String, List<String>> initialComments)
+    {
+        for (String user : initialComments.keySet())
+        {
+            for (String comment : initialComments.get(user))
+            {
+                reply("root", comment, user);
+            }
+        }
+    }
+
     /**
      * Method that initializes an empty CommentGraph
      *
-     * @param rootType   the type of comment that will be posted, ex. "Questions", "Announcements", ...
+     * @param rootType the type of comment that will be posted, ex. "Questions", "Announcements", ...
      * @param rootName the username of whoever controls the main comments in the graph, for example a professor
-     *                          in a course.
+     *                 in a course.
      */
     private void emptyCommentGraphInitializer(String rootType, String rootName) {
         // initializes the dictionary of vertices to an empty HashMap.
