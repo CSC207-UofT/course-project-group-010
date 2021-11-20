@@ -28,8 +28,10 @@ public class CommentGraph implements Serializable {
     private Comment root;
 
 
-    public CommentGraph(HashMap<String, List<String>> initialComments)
+    public CommentGraph(String rootType, String rootName, HashMap<String, List<String>> initialComments)
     {
+        emptyCommentGraphInitializer(rootType, rootName);
+
         for (String user : initialComments.keySet())
         {
             for (String comment : initialComments.get(user))
