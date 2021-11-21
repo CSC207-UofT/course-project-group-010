@@ -8,6 +8,7 @@ import UseCase.CommentManager.CommentManager;
 import UseCase.UserManager;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ReplyCommand extends Command {
 
@@ -15,12 +16,12 @@ public class ReplyCommand extends Command {
      * Initializes the command with minimum/maximum arguments
      */
     public ReplyCommand() {
-        super(100, 2);
+        super(1, 1);
     }
 
     @Override
     public String help() {
-        return "reply [commendID] [text] : replies to comment with text.";
+        return "Replies to a comment. Format: reply [commendID]. \nYou will be prompted for text.";
     }
 
     /**
@@ -34,15 +35,26 @@ public class ReplyCommand extends Command {
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelpArgsUserPageAuth(ce, arguments, "reply");
+        Scanner in = new Scanner(System.in);
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
         String id = arguments.get(0);
         String userName = user.getUser().getdisplayName();
-        String text = this.buildComment(arguments);
+        System.out.println("Type your comment:");
+        String text = in.nextLine();
+        if (text.equalsIgnoreCase("")) {
+            throw new ArgumentException("Please write some text. Try again.");
+        }
         ((CommentManager) currentlyViewingPage).replyToComment(id, text.toString(), userName);
         return userName + " replied to comment " + id + "with text [" + text.toString() + "]";
     }
 
+    /**
+     * Old buildComment method, deprecated.
+     * @param arguments
+     * @return
+     * @throws ArgumentException
+     */
     private String buildComment(List<String> arguments) throws ArgumentException {
         checkArgumentsNum(arguments);
         arguments = arguments.subList(1, arguments.size());

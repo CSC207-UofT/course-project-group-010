@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A course database. Will be more like a gateway class between an actual database(eg. SQL)
+ * A course database. Will be like a gateway class between an actual database(eg. SQL)
  * and this program.
  */
 public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
@@ -80,5 +80,26 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     @Override
     public void saveAll() throws IOException {
         this.db.saveToFile(new FileConstants().COURSE_FILE, this.courseDict);
+    }
+
+    /**
+     * String representation of this cdg will list all courses and their codes.
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuilder retStr = new StringBuilder();
+        for (String key : this.courseDict.keySet()) {
+            // TODO make it easier to access course's basic info from courseManager
+            // TODO this relies on the implementation of getData(), so technically it relies on courseManager and that's bad.
+            retStr.append(key + ": ");
+            Map<String, Object> dataMap = courseDict.get(key).getData();
+            if (dataMap.containsKey("courseName")) {
+                retStr.append(dataMap.get("courseName") + "\n");
+            } else {
+                retStr.append("[name missing]\n");
+            }
+        }
+        return retStr.toString().strip();
     }
 }

@@ -18,7 +18,7 @@ public class VoteCommand extends Command {
 
     @Override
     public String help() {
-        return "vote [commendID] [up/down] : up/downvotes comment with id";
+        return "vote [commentID] [up/down] : up/downvotes comment with id";
     }
 
     /**
