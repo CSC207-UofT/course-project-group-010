@@ -27,6 +27,13 @@ public class CreateCourseCommand extends Command {
         return "creates a course. Enter createcourse then follow the prompts given.";
     }
 
+    /**
+     * Prompts the user to create a new course.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelp(arguments);
@@ -61,6 +68,7 @@ public class CreateCourseCommand extends Command {
 
         // Save to db and return
         CourseDatabaseGetter.getInstance().addEntry(cm);
-        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.";
+        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.\n" +
+                "Make sure to run saveall to save your progress!";
     }
 }

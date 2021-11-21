@@ -18,7 +18,7 @@ public class GetPathCommand extends Command {
 
     @Override
     public String help() {
-        return "getpath [startid] [endid]: displays path of comments from startid to endid";
+        return "getpath [startid] [endid]: displays path of comments from startid to endid\n It's basically a filtering command.";
     }
 
     /**

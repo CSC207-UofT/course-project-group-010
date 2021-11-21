@@ -7,6 +7,9 @@ import UseCase.CommentManager.CommentManager;
 
 import java.util.List;
 
+/**
+ * Displays the full comment thread. This is deprecated, you can use checkout -c instead.
+ */
 public class DisplayFullThreadCommand extends Command {
 
     /**
@@ -18,11 +21,11 @@ public class DisplayFullThreadCommand extends Command {
 
     @Override
     public String help() {
-        return "displayfullthread: display full comment thread";
+        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c instead.";
     }
 
     /**
-     * Displays full comment thread, assuming that the user is viewing a comment.
+     * Displays full comment thread if the user is viewing a comment.
      *
      * @param ce
      * @param arguments

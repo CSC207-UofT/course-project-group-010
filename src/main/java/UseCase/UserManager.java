@@ -27,7 +27,7 @@ import java.util.Map;
  * Give up its info to a presenter
  * Implement interfaces
  */
-public class UserManager implements IGettable, IDBSaveable, IHasPermission, IReadModifiable, Serializable {
+public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable, Serializable {
     private User user;
     private PermissionLevel permissionLevel;
     private Map<PermissionLevel, List<String>> authDict;
