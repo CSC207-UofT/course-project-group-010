@@ -246,6 +246,13 @@ public class CommentManager implements IReadModifiable, Serializable {
         > displayPath(uses getPath function)
         > reply(uses replyToComment function)
         > vote(uses vote function)
+
+        > parentComment (uses getParentComment function)
+        > childrenComments (uses getChildrenComments function)
+        > depthOfComment (uses getDepth function)
+        > searchByUser(uses getCommentsByUserName function)
+        > searchById(uses getCommentById)
+        > searchByText(uses getCommentsByText)
          */
     }
 

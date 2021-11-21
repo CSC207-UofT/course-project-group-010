@@ -26,49 +26,6 @@ public class CommentGraph implements Serializable {
     private int maxDepth;
     // Root comment of the entire graph.
     private Comment root;
-    // TODO: REMOVE
-    private String instructor;
-
-    // TODO: REMOVE
-    public CommentGraph(List<String> mainComments, String mainCommentType, String mainCommenterName, String instructor) {
-        // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
-        // each comment in mainComments is added to the CommentGraph and linked to the root node.
-        for (String mainComment : mainComments) {
-            // adds comment to the CommentGraph and links to root comment.
-            reply("root", mainComment, mainCommenterName);
-        }
-    }
-
-    // TODO: REMOVE
-    public CommentGraph(String mainComment, String mainCommentType, String mainCommenterName, String instructor) {
-        // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
-        // adds comment to the CommentGraph and links to root comment.
-        reply("root", mainComment, mainCommenterName);
-    }
-
-    // TODO: REMOVE
-    public CommentGraph(String mainCommentType, String mainCommenterName, String instructor) {
-        // initializes empty CommentGraph
-        emptyCommentGraphInitializer(mainCommentType, mainCommenterName, instructor);
-        //set instructor
-        this.instructor = instructor;
-    }
-
-    // TODO: REMOVE
-    private void emptyCommentGraphInitializer(String mainCommentType, String mainCommenterName, String instructor) {
-        // initializes the dictionary of vertices to an empty HashMap.
-        this.vertices = new HashMap<>();
-        // initializes the size of the CommentGraph to be as there are no Comments within it.
-        this.size = 0;
-        // creates the root comment
-        this.root = createComment("root", mainCommentType, mainCommenterName);
-        //set instructor
-        this.instructor = instructor;
-        // adds the root comment to the CommentGraph.
-        addVertex("root", this.root);
-    }
 
 
     public CommentGraph(String rootType, String rootName, HashMap<String, List<String>> initialComments)
