@@ -105,12 +105,6 @@ public class CommentGraph implements Serializable {
         return this.size;
     }
 
-    // TODO: REMOVE
-    public String getInstructor()
-    {
-        return this.instructor;
-    }
-
 //======================================================================================================================
 // Comment Graph String Representation
 //======================================================================================================================
