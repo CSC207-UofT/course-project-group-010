@@ -27,7 +27,7 @@ public class CommentManager implements IReadModifiable, Serializable {
         this.authDict = getDefaultAuthDict();
     }
 
-    public List<String> getCommentByUserName(String userName) {
+    public List<String> getCommentsByUserName(String userName) {
         // new empty list
         List<String> comments = new ArrayList<>() {
         };
