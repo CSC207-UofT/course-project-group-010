@@ -38,6 +38,7 @@ public class CommandConstants {
         //command_dict.put("startcomment", new StartCommentCommand());
         command_dict.put("listcourses", new ListCoursesCommand());
         command_dict.put("listusers", new ListUsersCommand());
+        command_dict.put("cd", new CommentCDCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

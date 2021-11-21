@@ -42,6 +42,15 @@ public class CommentGraph implements Serializable {
     }
 
     /**
+     * Initializes an empty CommentGraph with only a root comment.
+     * @param rootType
+     * @param rootName
+     */
+    public CommentGraph(String rootType, String rootName) {
+        emptyCommentGraphInitializer(rootType, rootName);
+    }
+
+    /**
      * Method that initializes an empty CommentGraph
      *
      * @param rootType the type of comment that will be posted, ex. "Questions", "Announcements", ...
