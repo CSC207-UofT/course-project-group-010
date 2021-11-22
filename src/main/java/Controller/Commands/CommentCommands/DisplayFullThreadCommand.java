@@ -2,6 +2,7 @@ package Controller.Commands.CommentCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.CommentPresenter;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
 
@@ -25,7 +26,7 @@ public class DisplayFullThreadCommand extends Command {
     }
 
     /**
-     * Displays full comment thread if the user is viewing a comment.
+     * Displays full comment thread if the user is viewing a comment. THIS IS VERY VERY VERY DEPRECATED
      *
      * @param ce
      * @param arguments
@@ -37,6 +38,6 @@ public class DisplayFullThreadCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "displayfullthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         // If we're authorized to displayfullthread, the thing should be of type CommentManager.
-        return ((CommentManager) currentlyViewingPage).displayEntireThread(true, -1);
+        return ((CommentPresenter) currentlyViewingPage).getCommentManager().displayEntireThread(true, -1);
     }
 }

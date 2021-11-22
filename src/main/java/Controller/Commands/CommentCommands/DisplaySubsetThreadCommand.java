@@ -2,6 +2,7 @@ package Controller.Commands.CommentCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.CommentPresenter;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
 
@@ -24,6 +25,7 @@ public class DisplaySubsetThreadCommand extends Command {
     /**
      * Displays a subset of a thread, considering a starting id and a depth.
      * Can sort by ascending or descending upvotes.
+     * THIS IS QUITE DEPRECATED
      *
      * @param ce
      * @param arguments
@@ -37,6 +39,6 @@ public class DisplaySubsetThreadCommand extends Command {
         String startid = arguments.get(0);
         int upToDepth = Integer.parseInt(arguments.get(1));
         boolean desc = arguments.size() <= 2 || !arguments.get(2).equalsIgnoreCase("asc");
-        return ((CommentManager) currentlyViewingPage).displaySubsetThread(startid, desc, upToDepth);
+        return ((CommentPresenter) currentlyViewingPage).getCommentManager().displaySubsetThread(startid, desc, upToDepth);
     }
 }

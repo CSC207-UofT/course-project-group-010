@@ -28,6 +28,27 @@ public class CommentManager implements IReadModifiable, Serializable {
         this.authDict = getDefaultAuthDict();
     }
 
+    public List<String> getCommentsByUserName(String userName) {
+        // new empty list
+        List<String> comments = new ArrayList<>() {
+        };
+
+        // dictionary of vertices from CommentGraph
+        HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
+
+        // search for text
+        for (String key : vertices.keySet()) {
+            // if text found
+            if (vertices.get(key).getUserName().contains(userName)) {
+                // add to list
+                comments.add(vertices.get(key).getFormattedRepresentation());
+            }
+        }
+
+        // return list
+        return comments;
+    }
+
     /**
      * Gets the formatted String representation of a comment by its id.
      *
@@ -87,6 +108,22 @@ public class CommentManager implements IReadModifiable, Serializable {
     }
 
     /**
+     * Checks if findID is the id of one of the children of a Comment given an ID
+     * @param startID
+     * @param findID
+     * @return
+     */
+    public boolean hasChildID(String startID, String findID) {
+        List<CommentGraph.Comment> lst = this.commentGraph.getComment(startID).getNext();
+        for (CommentGraph.Comment cm : lst) {
+            if (cm.getId().equals(findID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get the vote of a Comment given the id.
      *
      * @param id of Comment.
@@ -94,15 +131,6 @@ public class CommentManager implements IReadModifiable, Serializable {
      */
     public int getVote(String id) {
         return this.commentGraph.getComment(id).getVote();
-    }
-
-    /**
-     * Get the instructor
-     * @return String instructor
-     */
-    public String getInstructor()
-    {
-        return this.commentGraph.getInstructor();
     }
 
     /**
@@ -229,12 +257,19 @@ public class CommentManager implements IReadModifiable, Serializable {
         > displayPath(uses getPath function)
         > reply(uses replyToComment function)
         > vote(uses vote function)
+
+        > parentComment (uses getParentComment function)
+        > childrenComments (uses getChildrenComments function)
+        > depthOfComment (uses getDepth function)
+        > searchByUser(uses getCommentsByUserName function)
+        > searchById(uses getCommentById)
+        > searchByText(uses getCommentsByText)
          */
     }
 
     private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
         Map<PermissionLevel, List<String>> permDict = new HashMap<>();
-        List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote", "print");
+        List<String> l = Arrays.asList("none");
         List<String> studentPermissions = l;
         List<String> instructorPermissions = l;
         permDict.put(PermissionLevel.STUDENT, studentPermissions);

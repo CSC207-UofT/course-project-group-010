@@ -36,7 +36,7 @@ public class FilterInstructorCommand extends Command {
         System.out.println("Available instructors: " + cm.getCoursePage().getInstructors().toString());
         String instructor = in.nextLine();
 
-        CoursePage a = cm.filterInstructor(instructor);
-        return "filtered by " +  a.getInstructor();
+        // CoursePage a = cm.filterInstructor(instructor);
+        return "FILTERING IS DEPRECATED JUST DELETE THIS CLASS";
     }
 }

@@ -2,6 +2,7 @@ package Controller.Commands.CommentCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.CommentPresenter;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
 
@@ -34,7 +35,7 @@ public class VoteCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         boolean up = arguments.get(1).equalsIgnoreCase("up");
-        ((CommentManager) currentlyViewingPage).vote(arguments.get(0), up);
+        ((CommentPresenter) currentlyViewingPage).vote(arguments.get(0), up);
         return "voted on comment " + arguments.get(0) + "with up=" + up;
     }
 }

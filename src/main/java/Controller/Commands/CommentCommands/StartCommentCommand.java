@@ -33,7 +33,7 @@ public class StartCommentCommand extends Command {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter your comment text: ");
         String text = in.nextLine();
-        cm.startComment(text, ce.getUserManager().getUser());
+        // cm.startComment(text, ce.getUserManager().getUser());
         return "started a comment thread";
     }
 }

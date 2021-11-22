@@ -2,6 +2,7 @@ package Controller.Commands.CommentCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.CommentPresenter;
 import Exceptions.ArgumentException;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
@@ -35,7 +36,7 @@ public class GetPathCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "getpath");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         try {
-            return ((CommentManager) currentlyViewingPage).getPath(arguments.get(0), arguments.get(1));
+            return ((CommentPresenter) currentlyViewingPage).getCommentManager().getPath(arguments.get(0), arguments.get(1));
         } catch (Exception e) {
             throw new ArgumentException("Please input valid ids");
         }

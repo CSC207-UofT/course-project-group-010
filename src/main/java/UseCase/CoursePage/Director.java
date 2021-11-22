@@ -213,7 +213,8 @@ public class Director {
             //Create CommentGraph with the key (main_comment) and the rest of the required info.
 
             //                                Main Comment  mainCommentType, mainCommenterName, instructor
-            CommentGraph cg = new CommentGraph(main_comment, g_rest.get(0), g_rest.get(1), g_rest.get(2));
+            CommentGraph cg = new CommentGraph(g_rest.get(0), g_rest.get(1));
+            // there was a third argument mainComment, asddlkfjasldfk, g_rest.get(2)
 
             //add this commentGraph to list of commentGraphs to be assigned to CoursePage.
             cp_commentGraph.add(cg);
