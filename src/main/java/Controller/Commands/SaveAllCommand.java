@@ -15,7 +15,7 @@ public class SaveAllCommand extends Command {
 
     @Override
     public String help() {
-        return "saves all users/course editing progress.";
+        return "saves all users/course editing progress. Format: saveall";
     }
 
     /**

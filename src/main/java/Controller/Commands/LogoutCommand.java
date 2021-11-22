@@ -30,4 +30,9 @@ public class LogoutCommand extends Command {
         ce.resetAll();
         return "Logged out of " + um.getUser().getdisplayName();
     }
+
+    @Override
+    public String help() {
+        return "logs out. format: logout";
+    }
 }

@@ -7,6 +7,10 @@ import UseCase.CourseManager.CourseManager;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Starts a comment. This command is not currently in use, and will probably never be used.
+ */
+// TODO delete this sometime.
 public class StartCommentCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments

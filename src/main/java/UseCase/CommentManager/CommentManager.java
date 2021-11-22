@@ -1,5 +1,6 @@
 package UseCase.CommentManager;
 
+import Constants.CommandConstants;
 import Constants.PermissionLevel;
 import Entity.CommentGraph;
 import Interface.IReadModifiable;
@@ -212,10 +213,13 @@ public class CommentManager implements IReadModifiable, Serializable {
         }
     }
 
-    //IMPORTANT: the getData method doesn't really suit this type of data, as graphs are very complex and dynamic objects.
+    /**
+     * Implementing the IGettable interface, gives the entire thread by default.
+     * @return
+     */
     public HashMap<String, Object> getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("FullThread", displayEntireThread(true, -1));
+        map.put(CommandConstants.allDataString, displayEntireThread(true, -1));
         return map;
 
         /*
@@ -230,8 +234,7 @@ public class CommentManager implements IReadModifiable, Serializable {
 
     private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
         Map<PermissionLevel, List<String>> permDict = new HashMap<>();
-        // for now, everyone can make a new user
-        List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote");
+        List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote", "print");
         List<String> studentPermissions = l;
         List<String> instructorPermissions = l;
         permDict.put(PermissionLevel.STUDENT, studentPermissions);
