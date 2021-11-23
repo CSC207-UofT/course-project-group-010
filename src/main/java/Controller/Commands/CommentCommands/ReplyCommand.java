@@ -2,6 +2,7 @@ package Controller.Commands.CommentCommands;
 
 import Controller.Commands.Command;
 import Controller.Commands.CommandExecutor;
+import Controller.CommentPresenter;
 import Exceptions.ArgumentException;
 import Interface.IReadModifiable;
 import UseCase.CommentManager.CommentManager;
@@ -45,7 +46,7 @@ public class ReplyCommand extends Command {
         if (text.equalsIgnoreCase("")) {
             throw new ArgumentException("Please write some text. Try again.");
         }
-        ((CommentManager) currentlyViewingPage).replyToComment(id, text.toString(), userName);
+        ((CommentPresenter) currentlyViewingPage).replyToComment(id, text, userName);
         return userName + " replied to comment " + id + "with text [" + text.toString() + "]";
     }
 

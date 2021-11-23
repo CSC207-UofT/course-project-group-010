@@ -64,7 +64,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.filterInstructor = null;
 
         // LEGACY CODE MPODIFY LATER XDXDXDXDXDXDXD
-        this.onlyComment = new CommentManager(new CommentGraph("Questions", "", ""));
+        this.onlyComment = new CommentManager(new CommentGraph("Questions", ""));
     }
 
     // LEGACY CODE, WE WILL HAVE A SINGULAR COMMENT AND IMPLEMENT MULTIPLE COMMENTS FOR FILTERED INSTRUCTORS LATER :D:D:D:D:D:D:D::D:D:D:D:D:D:D:D:D::D:Dl
@@ -129,37 +129,37 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-    /**
-     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
-     * filtered coursePage.
-     *
-     * @param text Context that user wants to leave at the start of comment.
-     * @param user Current user.
-     * @throws Exception
-     */
-    public void startComment(String text, User user) throws Exception {
-        if (this.filterInstructor == null) {
-            throw new Exception("No filtered instructor");
-        }
-        CommentGraph newCommentGraph = new CommentGraph(
-                text, "Question", user.getdisplayName(), this.filterInstructor);
-        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
-        if (commentManager == null) {
-            this.coursePage.setCommentGraph(newCommentGraph);
-            if (this.coursePage.getCommentGraphs() == null) {
-                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
-            }
-            this.coursePage.getCommentGraphs().add(newCommentGraph);
-        } else {
-            throw new Exception("There is already starting comment");
-        }
-        if (this.commentGraphs == null) {
-            this.commentGraphs = new ArrayList<CommentGraph>();
-        }
-        this.commentGraphs.add(newCommentGraph);
-
-
-    }
+//    /**
+//     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
+//     * filtered coursePage.
+//     *
+//     * @param text Context that user wants to leave at the start of comment.
+//     * @param user Current user.
+//     * @throws Exception
+//     */
+//    public void startComment(String text, User user) throws Exception {
+//        if (this.filterInstructor == null) {
+//            throw new Exception("No filtered instructor");
+//        }
+//        CommentGraph newCommentGraph = new CommentGraph(
+//                text, "Question", user.getdisplayName(), this.filterInstructor);
+//        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
+//        if (commentManager == null) {
+//            this.coursePage.setCommentGraph(newCommentGraph);
+//            if (this.coursePage.getCommentGraphs() == null) {
+//                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
+//            }
+//            this.coursePage.getCommentGraphs().add(newCommentGraph);
+//        } else {
+//            throw new Exception("There is already starting comment");
+//        }
+//        if (this.commentGraphs == null) {
+//            this.commentGraphs = new ArrayList<CommentGraph>();
+//        }
+//        this.commentGraphs.add(newCommentGraph);
+//
+//
+//    }
 
 
     /**
@@ -170,73 +170,73 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user   Current user.
      * @throws Exception
      */
-    public void addComment(String prevId, String text, User user) throws Exception {
-        if (this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
-            throw new Exception();
-        }
-        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
-        commentManager.replyToComment(prevId, text, user.getdisplayName());
-    }
+//    public void addComment(String prevId, String text, User user) throws Exception {
+//        if (this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
+//            throw new Exception();
+//        }
+//        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
+//        commentManager.replyToComment(prevId, text, user.getdisplayName());
+//    }
 
 
-    /**
-     * Filter ratings and commentGraphs in coursePage.
-     *
-     * @param filterInstructorName An instructor name that user uses to filter coursePage.
-     * @return
-     */
-    public CoursePage filterInstructor(String filterInstructorName) throws ArgumentException {
-        if (!this.instructors.contains(filterInstructorName)) {
-            throw new ArgumentException("You cannot filter by this instructor.");
-        }
-        List<Rating> filteredRatings = null;
-        List<CommentGraph> filteredCommentGraphs = null;
-        if (this.ratings == null) {
-            this.coursePage.setRatings(null);
-        } else {
-            filteredRatings = this.ratings.stream().filter(
-                    r -> r.getInstructor() == filterInstructorName).collect(Collectors.toList());
-            if (filteredRatings.isEmpty()) {
-                this.coursePage.setRatings(null);
-            } else {
-                this.coursePage.setRatings(filteredRatings);
-            }
-        }
-
-        if (this.commentGraphs == null) {
-            this.coursePage.setCommentGraph(null);
-        } else {
-            filteredCommentGraphs = this.commentGraphs.stream().filter(
-                    c -> c.getInstructor() == filterInstructorName).collect(Collectors.toList());
-            if (filteredCommentGraphs.isEmpty()) {
-                this.coursePage.setCommentGraphs(null);
-            } else {
-                this.coursePage.setCommentGraphs(filteredCommentGraphs);
-            }
-        }
-
-        float total = 0;
-        if (filteredRatings == null) {
-            this.coursePage.setAverageScore(0);
-        } else {
-            for (Rating r : filteredRatings) {
-                total += r.getScore();
-            }
-            this.coursePage.setAverageScore(total / filteredRatings.size());
-        }
-        this.filterInstructor = filterInstructorName;
-        this.coursePage.setInstructor(filterInstructorName);
-        return this.coursePage;
-
-//        if (instructors.contains(instructor)){
-//            this.coursePage.setInstructor(instructor);
+//    /**
+//     * Filter ratings and commentGraphs in coursePage.
+//     *
+//     * @param filterInstructorName An instructor name that user uses to filter coursePage.
+//     * @return
+//     */
+//    public CoursePage filterInstructor(String filterInstructorName) throws ArgumentException {
+//        if (!this.instructors.contains(filterInstructorName)) {
+//            throw new ArgumentException("You cannot filter by this instructor.");
+//        }
+//        List<Rating> filteredRatings = null;
+//        List<CommentGraph> filteredCommentGraphs = null;
+//        if (this.ratings == null) {
+//            this.coursePage.setRatings(null);
+//        } else {
+//            filteredRatings = this.ratings.stream().filter(
+//                    r -> r.getInstructor() == filterInstructorName).collect(Collectors.toList());
+//            if (filteredRatings.isEmpty()) {
+//                this.coursePage.setRatings(null);
+//            } else {
+//                this.coursePage.setRatings(filteredRatings);
+//            }
 //        }
 //
-//        else
-//        {
-//            //do not change the instructor
+//        if (this.commentGraphs == null) {
+//            this.coursePage.setCommentGraph(null);
+//        } else {
+//            filteredCommentGraphs = this.commentGraphs.stream().filter(
+//                    c -> c.getInstructor() == filterInstructorName).collect(Collectors.toList());
+//            if (filteredCommentGraphs.isEmpty()) {
+//                this.coursePage.setCommentGraphs(null);
+//            } else {
+//                this.coursePage.setCommentGraphs(filteredCommentGraphs);
+//            }
 //        }
-    }
+//
+//        float total = 0;
+//        if (filteredRatings == null) {
+//            this.coursePage.setAverageScore(0);
+//        } else {
+//            for (Rating r : filteredRatings) {
+//                total += r.getScore();
+//            }
+//            this.coursePage.setAverageScore(total / filteredRatings.size());
+//        }
+//        this.filterInstructor = filterInstructorName;
+//        this.coursePage.setInstructor(filterInstructorName);
+//        return this.coursePage;
+//
+////        if (instructors.contains(instructor)){
+////            this.coursePage.setInstructor(instructor);
+////        }
+////
+////        else
+////        {
+////            //do not change the instructor
+////        }
+//    }
 
 
     /**
