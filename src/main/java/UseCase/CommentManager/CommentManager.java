@@ -210,7 +210,8 @@ public class CommentManager implements IReadModifiable, Serializable
         if (upToDepth < 0)
         {
             endDepth = this.commentGraph.getMaxDepth();
-        } else
+        }
+        else
         {
             endDepth = upToDepth;
         }
