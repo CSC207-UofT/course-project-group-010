@@ -11,7 +11,8 @@ import java.util.*;
 /**
  * Class that handles comments in a CommentGraph
  */
-public class CommentManager implements IReadModifiable, Serializable {
+public class CommentManager implements IReadModifiable, Serializable
+{
     // initial CommentGraph
     CommentGraph commentGraph;
     Map<PermissionLevel, List<String>> authDict;
@@ -21,25 +22,30 @@ public class CommentManager implements IReadModifiable, Serializable {
      *
      * @param commentGraph
      */
-    public CommentManager(CommentGraph commentGraph) {
+    public CommentManager(CommentGraph commentGraph)
+    {
         // Initialize CommentGraph
         this.commentGraph = commentGraph;
         // get Default authdict
         this.authDict = getDefaultAuthDict();
     }
 
-    public List<String> getCommentsByUserName(String userName) {
+    public List<String> getCommentsByUserName(String userName)
+    {
         // new empty list
-        List<String> comments = new ArrayList<>() {
+        List<String> comments = new ArrayList<>()
+        {
         };
 
         // dictionary of vertices from CommentGraph
         HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
 
         // search for text
-        for (String key : vertices.keySet()) {
+        for (String key : vertices.keySet())
+        {
             // if text found
-            if (vertices.get(key).getUserName().contains(userName)) {
+            if (vertices.get(key).getUserName().contains(userName))
+            {
                 // add to list
                 comments.add(vertices.get(key).getFormattedRepresentation());
             }
@@ -55,7 +61,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param id
      * @return
      */
-    public String getCommentById(String id) {
+    public String getCommentById(String id)
+    {
         return this.commentGraph.getComment(id).getFormattedRepresentation();
     }
 
@@ -66,18 +73,22 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param text String to search for.
      * @return List of formatted Strings.
      */
-    public List<String> getCommentsByText(String text) {
+    public List<String> getCommentsByText(String text)
+    {
         // new empty list
-        List<String> comments = new ArrayList<>() {
+        List<String> comments = new ArrayList<>()
+        {
         };
 
         // dictionary of vertices from CommentGraph
         HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
 
         // search for text
-        for (String key : vertices.keySet()) {
+        for (String key : vertices.keySet())
+        {
             // if text found
-            if (vertices.get(key).getText().contains(text)) {
+            if (vertices.get(key).getText().contains(text))
+            {
                 // add to list
                 comments.add(vertices.get(key).getFormattedRepresentation());
             }
@@ -93,7 +104,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param id of Comment.
      * @return Comment Object.
      */
-    public CommentGraph.Comment getParentComment(String id) {
+    public CommentGraph.Comment getParentComment(String id)
+    {
         return this.commentGraph.getComment(id).getPrev();
     }
 
@@ -103,20 +115,25 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param id of Comment.
      * @return list of Comment Objects.
      */
-    public List<CommentGraph.Comment> getChildrenComments(String id) {
+    public List<CommentGraph.Comment> getChildrenComments(String id)
+    {
         return this.commentGraph.getComment(id).getNext();
     }
 
     /**
      * Checks if findID is the id of one of the children of a Comment given an ID
+     *
      * @param startID
      * @param findID
      * @return
      */
-    public boolean hasChildID(String startID, String findID) {
+    public boolean hasChildID(String startID, String findID)
+    {
         List<CommentGraph.Comment> lst = this.commentGraph.getComment(startID).getNext();
-        for (CommentGraph.Comment cm : lst) {
-            if (cm.getId().equals(findID)) {
+        for (CommentGraph.Comment cm : lst)
+        {
+            if (cm.getId().equals(findID))
+            {
                 return true;
             }
         }
@@ -129,7 +146,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param id of Comment.
      * @return vote value.
      */
-    public int getVote(String id) {
+    public int getVote(String id)
+    {
         return this.commentGraph.getComment(id).getVote();
     }
 
@@ -139,7 +157,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param id of Comment.
      * @return depth value.
      */
-    public int getDepth(String id) {
+    public int getDepth(String id)
+    {
         return this.commentGraph.getComment(id).getDepth();
     }
 
@@ -150,7 +169,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param upToDepth      get up to a certain depth
      * @return String representation
      */
-    public String displayEntireThread(Boolean descendingSort, int upToDepth) {
+    public String displayEntireThread(Boolean descendingSort, int upToDepth)
+    {
         // Comment to start from
         CommentGraph.Comment startComment = this.commentGraph.getComment("root");
         // return String representation
@@ -165,7 +185,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param upToDepth      get up to a certain depth
      * @return String representation
      */
-    public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth) {
+    public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth)
+    {
         // Comment to start from
         CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
         // return String representation
@@ -180,14 +201,17 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param startComment   comment to start from
      * @return String representation.
      */
-    private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment) {
+    private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment)
+    {
         // get depth to get String representation up to.
         int endDepth;
 
         // if upToDepth is less than 0 simply get the representation up to the MaxDepth.
-        if (upToDepth < 0) {
+        if (upToDepth < 0)
+        {
             endDepth = this.commentGraph.getMaxDepth();
-        } else {
+        } else
+        {
             endDepth = upToDepth;
         }
 
@@ -202,7 +226,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param endId   if of Comment to end at
      * @return the path from one Comment to another
      */
-    public String getPath(String startId, String endId) {
+    public String getPath(String startId, String endId)
+    {
         // Comment to start at
         CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
         // Comment to end at
@@ -218,7 +243,8 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param text      Text of reply.
      * @param userName  name of user that created reply
      */
-    public void replyToComment(String commentId, String text, String userName) {
+    public void replyToComment(String commentId, String text, String userName)
+    {
         // reply to comment.
         this.commentGraph.reply(commentId, text, userName);
     }
@@ -229,23 +255,28 @@ public class CommentManager implements IReadModifiable, Serializable {
      * @param commentId id of comment to upvote or downvote
      * @param up        upvote or downvote
      */
-    public void vote(String commentId, boolean up) {
+    public void vote(String commentId, boolean up)
+    {
         // upvote comment
-        if (up) {
+        if (up)
+        {
             this.commentGraph.upvote(commentId);
         }
 
         //downvote comment
-        else {
+        else
+        {
             this.commentGraph.downvote(commentId);
         }
     }
 
     /**
      * Implementing the IGettable interface, gives the entire thread by default.
+     *
      * @return
      */
-    public HashMap<String, Object> getData() {
+    public HashMap<String, Object> getData()
+    {
         HashMap<String, Object> map = new HashMap<>();
         map.put(CommandConstants.allDataString, displayEntireThread(true, -1));
         return map;
@@ -267,7 +298,8 @@ public class CommentManager implements IReadModifiable, Serializable {
          */
     }
 
-    private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
+    private Map<PermissionLevel, List<String>> getDefaultAuthDict()
+    {
         Map<PermissionLevel, List<String>> permDict = new HashMap<>();
         List<String> l = Arrays.asList("none");
         List<String> studentPermissions = l;
@@ -278,7 +310,8 @@ public class CommentManager implements IReadModifiable, Serializable {
     }
 
     @Override
-    public Map<PermissionLevel, List<String>> getAuthDict() {
+    public Map<PermissionLevel, List<String>> getAuthDict()
+    {
         return this.authDict;
     }
 }
