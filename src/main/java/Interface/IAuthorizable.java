@@ -1,6 +1,6 @@
 package Interface;
 
-import Constants.PermissionLevel;
+import constants.PermissionLevel;
 
 import java.util.List;
 import java.util.Map;

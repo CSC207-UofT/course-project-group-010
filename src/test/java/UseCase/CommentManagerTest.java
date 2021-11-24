@@ -1,8 +1,8 @@
 package UseCase;
 
 import Entity.CommentGraph;
-import UseCase.CommentManager.CommentDisplayCleanupManager;
-import UseCase.CommentManager.CommentManager;
+import UseCase.commentManager.CommentDisplayCleanupManager;
+import UseCase.commentManager.CommentManager;
 import org.junit.Test;
 
 import java.io.IOException;

@@ -1,12 +1,10 @@
 package Outer;
 
 
-import Constants.FileConstants;
-import Constants.UserType;
-import Controller.Commands.CommandExecutor;
-import Controller.Commands.CommandRequest;
-import Controller.DatabaseGetter.CourseDatabaseGetter;
-import Controller.DatabaseGetter.UserDatabaseGetter;
+import Controller.commands.CommandExecutor;
+import Controller.commands.CommandRequest;
+import Controller.databasegetter.CourseDatabaseGetter;
+import Controller.databasegetter.UserDatabaseGetter;
 
 import java.util.Scanner;
 

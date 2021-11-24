@@ -1,7 +1,7 @@
 package Controller;
 
-import Constants.PermissionLevel;
-import Exceptions.CommandNotAuthorizedException;
+import constants.PermissionLevel;
+import exceptions.CommandNotAuthorizedException;
 import Interface.IAuthorizable;
 import Interface.IHasPermission;
 

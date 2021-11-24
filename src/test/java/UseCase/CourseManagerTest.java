@@ -1,18 +1,5 @@
 package UseCase;
 
-import Entity.*;
-import Exceptions.ArgumentException;
-import UseCase.CommentManager.CommentManager;
-import UseCase.CourseManager.CourseManager;
-import UseCase.CoursePage.CoursePage;
-import org.junit.Test;
-
-import java.security.spec.ECField;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 public class CourseManagerTest {
     // Redo test to compensate for changes.
 //    @Test(timeout = 100)
