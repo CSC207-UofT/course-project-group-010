@@ -13,13 +13,15 @@ import UseCase.CoursePage.Director;
 import UseCase.UserManager;
 
 import java.io.Serializable;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and
- * affected ratings and CommentGraph.
- * <p>
+ * The CourseManager modifies the information in CoursePage. Reflecting relative scores depending
+ * on student's program.
+ *
  * Example usage:
  * CourseManager courseManager = new CourseManager(coursePage);
  * courseManager.filterInstructor("A");
@@ -40,14 +42,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     private CoursePage coursePage;
     // Map of permission level.
     private Map<PermissionLevel, List<String>> authDict;
-    // All instructors of the course of CourseManager;
-    private List<String> instructors;
-    // An instructor that CourseManager is currently filtering.
-    private String filterInstructor;
-
-    // LEGACY CODE, WE WILL HAVE A SINGULAR COMMENT AND IMPLEMENT MULTIPLE COMMENTS FOR FILTERED INSTRUCTORS LATER :D:D:D:D:D:D:D::D:D:D:D:D:D:D:D:D::D:Dl
-    private CommentManager onlyComment;
-
 
     /**
      * Constructor of CourseManager.
@@ -59,18 +53,10 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
         this.commentGraphs = coursePage.getCommentGraphs();
-        this.instructors = coursePage.getInstructors();
         this.coursePage = coursePage;
-        this.filterInstructor = null;
-
-        // LEGACY CODE MPODIFY LATER XDXDXDXDXDXDXD
-        this.onlyComment = new CommentManager(new CommentGraph("Questions", ""));
     }
 
-    // LEGACY CODE, WE WILL HAVE A SINGULAR COMMENT AND IMPLEMENT MULTIPLE COMMENTS FOR FILTERED INSTRUCTORS LATER :D:D:D:D:D:D:D::D:D:D:D:D:D:D:D:D::D:Dl
-    public CommentManager getOnlyComment() {
-        return this.onlyComment;
-    }
+
 
 
     /**
@@ -83,23 +69,24 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
         this.commentGraphs = coursePage.getCommentGraphs();
-        this.instructors = coursePage.getInstructors();
         this.coursePage = coursePage;
-        this.filterInstructor = null;
     }
 
+    /**
+     * Add rating to the CoursePage.
+     * @param ratingNum score that a user wants to leave.
+     * @param user user who leaves a rating.
+     * @throws Exception if it is not valid, throw exception.
+     */
     public void addRating(float ratingNum, StudentUser user) throws Exception {
-        if(this.filterInstructor == null) {
-            throw new Exception("Must filter by instructor to rate.");
-        }
-
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
             this.coursePage.setRatings(ratingList);
         }
 
-        Rating r = new Rating(user, ratingNum, this.filterInstructor);
+        // TODO : assuming instructor is deleted in rating class.
+        Rating r = new Rating(user, ratingNum);
         ratingList.add(r);
         this.updateAvgScore();
         if (this.ratings == null) {
@@ -129,37 +116,49 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
 
-//    /**
-//     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
-//     * filtered coursePage.
-//     *
-//     * @param text Context that user wants to leave at the start of comment.
-//     * @param user Current user.
-//     * @throws Exception
-//     */
-//    public void startComment(String text, User user) throws Exception {
-//        if (this.filterInstructor == null) {
-//            throw new Exception("No filtered instructor");
-//        }
-//        CommentGraph newCommentGraph = new CommentGraph(
-//                text, "Question", user.getdisplayName(), this.filterInstructor);
-//        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
-//        if (commentManager == null) {
-//            this.coursePage.setCommentGraph(newCommentGraph);
-//            if (this.coursePage.getCommentGraphs() == null) {
-//                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
-//            }
-//            this.coursePage.getCommentGraphs().add(newCommentGraph);
-//        } else {
-//            throw new Exception("There is already starting comment");
-//        }
-//        if (this.commentGraphs == null) {
-//            this.commentGraphs = new ArrayList<CommentGraph>();
-//        }
-//        this.commentGraphs.add(newCommentGraph);
-//
-//
-//    }
+    /**
+     * Change current relative score of CoursePage.
+     *
+     * @param program string of program name of raters' that will be filtered.
+     */
+    public void relativeRating(String program) {
+        List<Rating> filterdRatings = this.ratings.stream().filter(
+                r -> r.getRater().getProgramDetail().equals(program)).collect(Collectors.toList());
+        float total = 0;
+        for(Rating r : filterdRatings) {
+            total += r.getScore();
+        }
+        coursePage.setRelativRating(total / filterdRatings.size());
+    }
+
+    /**
+     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
+     * filtered coursePage.
+     *
+     * @param text Context that user wants to leave at the start of comment.
+     * @param user Current user.
+     * @throws Exception
+     */
+    public void startComment(String text, User user) throws Exception {
+        CommentManager commentManager = this.coursePage.getThread();
+        CommentGraph newCommentGraph = new CommentGraph(
+                text, "Question", user.getdisplayName());
+        if (commentManager == null) {
+            this.coursePage.setCommentGraph(newCommentGraph);
+            if (this.coursePage.getCommentGraphs() == null) {
+                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
+            }
+            this.coursePage.getCommentGraphs().add(newCommentGraph);
+        } else {
+            throw new Exception("There is already starting comment");
+        }
+        if (this.commentGraphs == null) {
+            this.commentGraphs = new ArrayList<CommentGraph>();
+        }
+        this.commentGraphs.add(newCommentGraph);
+
+
+    }
 
 
     /**
@@ -170,73 +169,14 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user   Current user.
      * @throws Exception
      */
-//    public void addComment(String prevId, String text, User user) throws Exception {
-//        if (this.filterInstructor == null || this.coursePage.getThread(this.filterInstructor) == null) {
-//            throw new Exception();
-//        }
-//        CommentManager commentManager = this.coursePage.getThread(this.filterInstructor);
-//        commentManager.replyToComment(prevId, text, user.getdisplayName());
-//    }
+    public void addComment(String prevId, String text, User user) throws Exception {
+
+        CommentManager commentManager = this.coursePage.getThread());
+        commentManager.replyToComment(prevId, text, user.getdisplayName());
+    }
 
 
-//    /**
-//     * Filter ratings and commentGraphs in coursePage.
-//     *
-//     * @param filterInstructorName An instructor name that user uses to filter coursePage.
-//     * @return
-//     */
-//    public CoursePage filterInstructor(String filterInstructorName) throws ArgumentException {
-//        if (!this.instructors.contains(filterInstructorName)) {
-//            throw new ArgumentException("You cannot filter by this instructor.");
-//        }
-//        List<Rating> filteredRatings = null;
-//        List<CommentGraph> filteredCommentGraphs = null;
-//        if (this.ratings == null) {
-//            this.coursePage.setRatings(null);
-//        } else {
-//            filteredRatings = this.ratings.stream().filter(
-//                    r -> r.getInstructor() == filterInstructorName).collect(Collectors.toList());
-//            if (filteredRatings.isEmpty()) {
-//                this.coursePage.setRatings(null);
-//            } else {
-//                this.coursePage.setRatings(filteredRatings);
-//            }
-//        }
-//
-//        if (this.commentGraphs == null) {
-//            this.coursePage.setCommentGraph(null);
-//        } else {
-//            filteredCommentGraphs = this.commentGraphs.stream().filter(
-//                    c -> c.getInstructor() == filterInstructorName).collect(Collectors.toList());
-//            if (filteredCommentGraphs.isEmpty()) {
-//                this.coursePage.setCommentGraphs(null);
-//            } else {
-//                this.coursePage.setCommentGraphs(filteredCommentGraphs);
-//            }
-//        }
-//
-//        float total = 0;
-//        if (filteredRatings == null) {
-//            this.coursePage.setAverageScore(0);
-//        } else {
-//            for (Rating r : filteredRatings) {
-//                total += r.getScore();
-//            }
-//            this.coursePage.setAverageScore(total / filteredRatings.size());
-//        }
-//        this.filterInstructor = filterInstructorName;
-//        this.coursePage.setInstructor(filterInstructorName);
-//        return this.coursePage;
-//
-////        if (instructors.contains(instructor)){
-////            this.coursePage.setInstructor(instructor);
-////        }
-////
-////        else
-////        {
-////            //do not change the instructor
-////        }
-//    }
+
 
 
     /**
@@ -258,21 +198,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
             currCommentGraph.downvote(commentId);
         }
     }
-
-
-// Phase 2
-//    public void filterYear(int year){
-//        List<Integer> years = this.coursePage.getYears();
-//
-//        if (years.contains(year)){
-//            this.coursePage.setYear(year);
-//        }
-//
-//        else
-//        {
-//            // do not change the year
-//        }
-//    }
 
 
     /**
@@ -310,16 +235,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         } else {
             return new CommentManager(this.coursePage.getCommentGraph());
         }
-    }
-
-
-    /**
-     * Get current filtering instructor
-     *
-     * @return String of current filtering instructor's name.
-     */
-    public String getFilterInstructor() {
-        return this.filterInstructor;
     }
 
 
@@ -362,9 +277,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     // IDBSAVEABLE methods
 
-//    public HashMap<String, Object> giveDataToDatabase() throws IllegalArgumentException {
-//        return getData();
-//    }
 
     /**
      * Get course code of course that CourseManager is handling.
