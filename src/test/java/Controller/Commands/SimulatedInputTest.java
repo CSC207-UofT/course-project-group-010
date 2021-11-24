@@ -1,12 +1,10 @@
-package Controller.Commands;
+package Controller.commands;
 
-import Constants.CommandConstants;
-import Exceptions.CommandNotFoundException;
-import Outer.ScreenIO;
+import constants.CommandConstants;
+import exceptions.CommandNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
 import static org.junit.Assert.*;
 
 public class SimulatedInputTest {

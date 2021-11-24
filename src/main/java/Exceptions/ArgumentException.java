@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * ArgumentException: Occurs when an invalid number of arguments were given for a command.

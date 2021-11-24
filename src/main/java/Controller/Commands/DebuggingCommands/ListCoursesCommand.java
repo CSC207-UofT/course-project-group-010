@@ -1,8 +1,8 @@
-package Controller.Commands.DebuggingCommands;
+package Controller.commands.debuggingcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Controller.commands.Command;
+import Controller.commands.CommandExecutor;
+import Controller.databasegetter.CourseDatabaseGetter;
 
 import java.util.List;
 

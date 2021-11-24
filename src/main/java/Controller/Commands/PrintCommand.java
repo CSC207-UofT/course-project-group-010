@@ -1,7 +1,6 @@
-package Controller.Commands;
+package Controller.commands;
 
-import Controller.Commands.CommandHelpers.DataPrinter;
-import Interface.IHasPermission;
+import Controller.commands.commandHelpers.DataPrinter;
 import Interface.IReadModifiable;
 
 import java.util.List;

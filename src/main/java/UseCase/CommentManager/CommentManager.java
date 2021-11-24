@@ -1,7 +1,7 @@
-package UseCase.CommentManager;
+package UseCase.commentManager;
 
-import Constants.CommandConstants;
-import Constants.PermissionLevel;
+import constants.CommandConstants;
+import constants.PermissionLevel;
 import Entity.CommentGraph;
 import Interface.IReadModifiable;
 

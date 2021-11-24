@@ -1,4 +1,4 @@
-package Controller.Commands;
+package Controller.commands;
 
 import UseCase.UserManager;
 

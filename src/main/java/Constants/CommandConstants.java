@@ -1,12 +1,11 @@
-package Constants;
+package constants;
 
-import Controller.Commands.*;
-import Controller.Commands.CommentCommands.*;
-import Controller.Commands.CourseCommands.CreateCourseCommand;
-import Controller.Commands.CourseCommands.FilterInstructorCommand;
-import Controller.Commands.DebuggingCommands.ListCoursesCommand;
-import Controller.Commands.DebuggingCommands.ListUsersCommand;
-import Exceptions.CommandNotFoundException;
+import Controller.commands.*;
+import Controller.commands.commentcommands.*;
+import Controller.commands.coursecommands.CreateCourseCommand;
+import Controller.commands.debuggingcommands.ListCoursesCommand;
+import Controller.commands.debuggingcommands.ListUsersCommand;
+import exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
 

@@ -1,6 +1,6 @@
-package Controller.Commands.CommandHelpers;
+package Controller.commands.commandHelpers;
 
-import Controller.Commands.CommandExecutor;
+import Controller.commands.CommandExecutor;
 import UseCase.UserManager;
 
 public class UserGetter {

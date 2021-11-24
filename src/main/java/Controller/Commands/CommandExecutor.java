@@ -1,8 +1,6 @@
-package Controller.Commands;
+package Controller.commands;
 
-import Constants.CommandConstants;
-import Interface.IAuthorizable;
-import Interface.IGettable;
+import constants.CommandConstants;
 import Interface.IReadModifiable;
 import UseCase.UserManager;
 

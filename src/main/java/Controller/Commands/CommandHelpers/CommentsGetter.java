@@ -1,12 +1,10 @@
-package Controller.Commands.CommandHelpers;
+package Controller.commands.commandHelpers;
 
-import Controller.Commands.CommandExecutor;
+import Controller.commands.CommandExecutor;
 import Controller.CommentPresenter;
-import Exceptions.CommandNotAuthorizedException;
-import UseCase.CommentManager.CommentManager;
-import UseCase.CourseManager.CourseManager;
-
-import java.io.InvalidClassException;
+import exceptions.CommandNotAuthorizedException;
+import UseCase.commentManager.CommentManager;
+import UseCase.courseManager.CourseManager;
 
 public class CommentsGetter {
 

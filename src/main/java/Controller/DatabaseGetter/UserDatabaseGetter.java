@@ -1,9 +1,9 @@
-package Controller.DatabaseGetter;
+package Controller.databasegetter;
 
-import Constants.FileConstants;
-import Exceptions.CommandNotAuthorizedException;
-import Exceptions.NotInDatabaseException;
-import Outer.Database.Database;
+import constants.FileConstants;
+import exceptions.CommandNotAuthorizedException;
+import exceptions.NotInDatabaseException;
+import Outer.database.Database;
 import UseCase.UserManager;
 
 import java.io.IOException;

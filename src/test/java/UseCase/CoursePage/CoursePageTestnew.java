@@ -1,4 +1,4 @@
-package UseCase.CoursePage;
+package UseCase.coursePage;
 
 import org.junit.Test;
 

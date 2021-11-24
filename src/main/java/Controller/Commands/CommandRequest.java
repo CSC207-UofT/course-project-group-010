@@ -1,6 +1,5 @@
-package Controller.Commands;
+package Controller.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

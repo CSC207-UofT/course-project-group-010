@@ -1,7 +1,7 @@
-package Controller.Commands.CommentCommands;
+package Controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
+import Controller.commands.Command;
+import Controller.commands.CommandExecutor;
 import Controller.CommentPresenter;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package Controller.Commands;
+package Controller.commands;
 
 import Entity.StudentUser;
-import Exceptions.CommandNotAuthorizedException;
-import UseCase.CourseManager.CourseManager;
+import exceptions.CommandNotAuthorizedException;
+import UseCase.courseManager.CourseManager;
 
 import java.util.List;
 

@@ -1,20 +1,15 @@
-package UseCase.CourseManager;
+package UseCase.courseManager;
 
-import Constants.PermissionLevel;
+import constants.PermissionLevel;
 import Entity.*;
-import Exceptions.ArgumentException;
-import Exceptions.CommandNotAuthorizedException;
+import exceptions.ArgumentException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
-import UseCase.CoursePage.CoursePage;
-import UseCase.CoursePage.CoursePageBuilder;
-import UseCase.CoursePage.Director;
-import UseCase.UserManager;
+import UseCase.commentManager.CommentManager;
+import UseCase.coursePage.CoursePage;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and

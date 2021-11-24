@@ -1,9 +1,8 @@
-package Controller.Commands.CommentCommands;
+package Controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import Controller.Commands.CommandHelpers.CommentsGetter;
-import UseCase.CourseManager.CourseManager;
+import Controller.commands.Command;
+import Controller.commands.CommandExecutor;
+import Controller.commands.commandHelpers.CommentsGetter;
 
 import java.util.List;
 

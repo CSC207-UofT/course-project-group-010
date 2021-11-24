@@ -1,8 +1,7 @@
-package Controller.Commands;
+package Controller.commands;
 
-import Controller.Commands.CommentCommands.DisplayFullThreadCommand;
-import Controller.Commands.CommentCommands.ReplyCommand;
-import Exceptions.ArgumentException;
+import Controller.commands.commentcommands.DisplayFullThreadCommand;
+import Controller.commands.commentcommands.ReplyCommand;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +47,7 @@ public class CommandTest {
 
     @Test(timeout = 100)
     public void testReplyBuilder() throws Exception {
-        Class<?> replyCommandClass = Class.forName("Controller.Commands.CommentCommands.ReplyCommand");
+        Class<?> replyCommandClass = Class.forName("Controller.commands.commentcommands.ReplyCommand");
         Method buildCommentMethod = replyCommandClass.getDeclaredMethod("buildComment", List.class);
         buildCommentMethod.setAccessible(true);
 

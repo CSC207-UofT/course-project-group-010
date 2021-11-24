@@ -1,10 +1,9 @@
-package Outer.Database;
+package Outer.database;
 
 import Interface.IDBSaveable;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

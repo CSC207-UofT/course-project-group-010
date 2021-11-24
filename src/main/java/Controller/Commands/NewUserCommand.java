@@ -1,14 +1,11 @@
-package Controller.Commands;
+package Controller.commands;
 
-import Constants.UserType;
-import Controller.AuthHelper;
-import Entity.User;
-import Exceptions.ArgumentException;
-import Controller.DatabaseGetter.UserDatabaseGetter;
+import constants.UserType;
+import exceptions.ArgumentException;
+import Controller.databasegetter.UserDatabaseGetter;
 import UseCase.UserManager;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class NewUserCommand extends Command {
@@ -45,7 +42,6 @@ public class NewUserCommand extends Command {
         System.out.println("ID(no spaces)");
         String argId = in.nextLine().replace(" ", "");
         System.out.println("any spaces were removed. ID is " + argId);
-
 
         UserType desiredUserType = getUserType(argUserType);
 

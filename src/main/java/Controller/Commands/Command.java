@@ -1,10 +1,9 @@
-package Controller.Commands;
+package Controller.commands;
 
 import Controller.AuthHelper;
-import Exceptions.ArgumentException;
-import Exceptions.CommandHelpException;
-import Exceptions.CommandNotAuthorizedException;
-import Interface.IHasPermission;
+import exceptions.ArgumentException;
+import exceptions.CommandHelpException;
+import exceptions.CommandNotAuthorizedException;
 import Interface.IReadModifiable;
 import UseCase.UserManager;
 
