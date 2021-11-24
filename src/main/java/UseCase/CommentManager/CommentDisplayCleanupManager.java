@@ -4,6 +4,11 @@ public class CommentDisplayCleanupManager
 {
     public static int commentNewLineCount;
 
+    public CommentDisplayCleanupManager()
+    {
+
+    }
+
     public static void setCommentNewLineCount(String display)
     {
         int count = 0;

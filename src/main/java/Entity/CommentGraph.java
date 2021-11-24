@@ -27,7 +27,6 @@ public class CommentGraph implements Serializable {
     // Root comment of the entire graph.
     private Comment root;
 
-
     public CommentGraph(String rootType, String rootName, HashMap<String, List<String>> initialComments)
     {
         emptyCommentGraphInitializer(rootType, rootName);

@@ -332,6 +332,7 @@ public class CommentManagerTest
 
         
         Thread.sleep(5000);
+
         CommentDisplayCleanupManager.setCommentNewLineCount(display);
         CommentDisplayCleanupManager.eraseCurrentThread();
         
