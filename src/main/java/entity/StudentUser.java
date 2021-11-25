@@ -42,7 +42,7 @@ public class StudentUser implements Serializable, IReviewer, IUser {
 
     @Override
     public String toString() {
-        return this.getdisplayName() + "\n" + this.getID();
+        return this.getDisplayName() + "\n" + this.getID();
     }
 
     //Getters
@@ -52,7 +52,7 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
-    public String getdisplayName() {
+    public String getDisplayName() {
         return this.displayName;
     }
 
@@ -86,7 +86,7 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     public HashMap<String, Object> getData() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("ID", user.getID());
-        result.put("displayName", user.getdisplayName());
+        result.put("displayName", user.getDisplayName());
         result.put("programDetail", ((StudentUser) user).getProgramDetail());
         result.put("courses", user.getCourses());
         return result;

@@ -48,7 +48,7 @@ public class LoginCommand extends Command {
             throw new ArgumentException("User not found in Database");
         } else {
             ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getdisplayName();
+            return "Logged in as " + mgr.getUser().getDisplayName();
         }
     }
 }

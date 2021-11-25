@@ -16,7 +16,7 @@ public interface IUser {
 
     String getID();
 
-    String getdisplayName();
+    String getDisplayName();
 
     Map<String, String> getOtherData();
 

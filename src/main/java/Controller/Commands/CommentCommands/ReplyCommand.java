@@ -39,7 +39,7 @@ public class ReplyCommand extends Command {
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
         String id = arguments.get(0);
-        String userName = user.getUser().getdisplayName();
+        String userName = user.getUser().getDisplayName();
         System.out.println("Type your comment:");
         String text = in.nextLine();
         if (text.equalsIgnoreCase("")) {

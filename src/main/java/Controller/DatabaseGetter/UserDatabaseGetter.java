@@ -90,7 +90,7 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
             // this is dependent on the abstract user class, I guess, so that's alright?
             retStr.append(key + ": ");
             UserManager um = userDict.get(key);
-            retStr.append(um.getUser().getdisplayName() + "\n");
+            retStr.append(um.getUser().getDisplayName() + "\n");
         }
         return retStr.toString().strip();
     }

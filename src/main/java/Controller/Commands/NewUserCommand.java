@@ -55,12 +55,12 @@ public class NewUserCommand extends Command {
             adddetail.put("programDetail", argProgramDetail);
             UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
             UserDatabaseGetter.getInstance().addEntry(um);
-            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getdisplayName() + "\n" +
+            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
                     "Run saveall to save this progress.";
         } else {
             UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
             UserDatabaseGetter.getInstance().addEntry(um);
-            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getdisplayName() + "\n" +
+            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
                     "Run saveall to save this progress.";
         }
 

@@ -40,7 +40,7 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
 
     @Override
     public String toString() {
-        return this.getdisplayName() + "\n" + this.getID();
+        return this.getDisplayName() + "\n" + this.getID();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
-    public String getdisplayName() {
+    public String getDisplayName() {
         return this.displayName;
     }
 
@@ -101,7 +101,7 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         HashMap<String, Object> result = new HashMap<>();
         // Input all general information of user
         result.put("ID", user.getID());
-        result.put("displayName", user.getdisplayName());
+        result.put("displayName", user.getDisplayName());
         result.put("position", ((InstructorUser) user).getPosition());
         result.put("currentlyTeaching", ((InstructorUser) user).getCurrentlyTeaching());
         result.put("courses", user.getCourses());
