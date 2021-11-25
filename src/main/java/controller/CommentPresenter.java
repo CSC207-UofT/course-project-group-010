@@ -1,11 +1,11 @@
-package Controller;
+package controller;
 
-import Constants.CommandConstants;
-import Constants.PermissionLevel;
-import Entity.CommentGraph;
-import Exceptions.ArgumentException;
+import constants.CommandConstants;
+import constants.PermissionLevel;
+import entity.CommentGraph;
+import exceptions.ArgumentException;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
+import usecase.commentManager.CommentManager;
 
 import java.util.Arrays;
 import java.util.HashMap;
