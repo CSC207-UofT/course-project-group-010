@@ -1,6 +1,6 @@
 package Interface;
 
-import Entity.Course;
+import entity.Course;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,12 +1,12 @@
-package UseCase.courseManager;
+package usecase.courseManager;
 
 import constants.PermissionLevel;
-import Entity.*;
+import entity.*;
 import exceptions.ArgumentException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
-import UseCase.commentManager.CommentManager;
-import UseCase.coursePage.CoursePage;
+import usecase.commentManager.CommentManager;
+import usecase.coursePage.CoursePage;
 
 import java.io.Serializable;
 import java.util.*;

@@ -1,8 +1,6 @@
-package Entity;
+package entity;
 
 import constants.UserType;
-import Entity.InstructorUser;
-import Entity.StudentUser;
 import Interface.IUser;
 
 import java.util.Map;

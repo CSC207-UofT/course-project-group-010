@@ -1,4 +1,4 @@
-package UseCase.coursePage;
+package usecase.coursePage;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import Entity.*;
+import entity.*;
 
 import static org.junit.Assert.*;
 

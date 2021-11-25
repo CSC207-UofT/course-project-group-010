@@ -1,15 +1,15 @@
-package UseCase;
+package usecase;
 
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.StudentUser;
-import Entity.UserFactory;
 import Interface.IDBSaveable;
 import Interface.IHasPermission;
 import Interface.IReadModifiable;
 import Interface.IUser;
 import constants.PermissionLevel;
 import constants.UserType;
+import entity.Course;
+import entity.InstructorUser;
+import entity.StudentUser;
+import entity.UserFactory;
 
 import java.io.Serializable;
 import java.util.Arrays;

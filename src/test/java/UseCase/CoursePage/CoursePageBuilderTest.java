@@ -1,4 +1,4 @@
-package UseCase.coursePage;
+package usecase.coursePage;
 
 import static org.junit.Assert.assertEquals;
 

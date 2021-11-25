@@ -1,6 +1,6 @@
-package Controller.commands;
+package controller.commands;
 
-import Controller.commands.commandHelpers.DataPrinter;
+import controller.commands.commandHelpers.DataPrinter;
 import Interface.IReadModifiable;
 
 import java.util.List;

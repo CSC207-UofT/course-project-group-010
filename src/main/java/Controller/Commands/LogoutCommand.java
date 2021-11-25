@@ -1,6 +1,6 @@
-package Controller.commands;
+package controller.commands;
 
-import UseCase.UserManager;
+import usecase.UserManager;
 
 import java.util.List;
 

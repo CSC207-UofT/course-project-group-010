@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import exceptions.CommandNotAuthorizedException;
 import org.junit.Before;

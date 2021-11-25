@@ -1,9 +1,9 @@
-package Controller.commands;
+package controller.commands;
 
 import exceptions.ArgumentException;
 import exceptions.CommandNotAuthorizedException;
-import Controller.databasegetter.UserDatabaseGetter;
-import UseCase.UserManager;
+import controller.databasegetter.UserDatabaseGetter;
+import usecase.UserManager;
 
 import java.util.List;
 

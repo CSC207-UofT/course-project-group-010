@@ -1,8 +1,8 @@
-package UseCase.commentManager;
+package usecase.commentManager;
 
 import constants.CommandConstants;
 import constants.PermissionLevel;
-import Entity.CommentGraph;
+import entity.CommentGraph;
 import Interface.IReadModifiable;
 
 import java.io.Serializable;

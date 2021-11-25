@@ -1,8 +1,8 @@
 package Interface;
 
-import Entity.CommentGraph;
-import Entity.Course;
-import Entity.Rating;
+import entity.CommentGraph;
+import entity.Course;
+import entity.Rating;
 
 import java.util.List;
 

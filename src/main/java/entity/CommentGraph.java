@@ -1,7 +1,5 @@
-package Entity;
+package entity;
 
-
-import Entity.CommentGraphHelper;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
