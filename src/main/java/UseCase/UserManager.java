@@ -101,7 +101,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
      * @param c List of courses.
      */
 
-    public void SetCourses(IUser user, HashMap<Integer, List<Course>> c) {
+    public void setCourses(IUser user, HashMap<Integer, List<Course>> c) {
         user.setCourses(c);
     }
 
