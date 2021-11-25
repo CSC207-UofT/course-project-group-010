@@ -114,4 +114,3 @@ public class CommentPresenter implements IReadModifiable {
         return permDict;
     }
 }
-
