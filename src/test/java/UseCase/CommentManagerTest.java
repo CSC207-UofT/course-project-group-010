@@ -1,6 +1,7 @@
 package UseCase;
 
 import Entity.CommentGraph;
+import Exceptions.InvalidIDException;
 import UseCase.CommentManager.CommentManager;
 import org.junit.Test;
 
@@ -284,7 +285,7 @@ public class CommentManagerTest
      * @throws IllegalAccessException
      */
     @Test
-    public void testReply() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
+    public void testReply() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InvalidIDException
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         commentManager.replyToComment("id6", "Sample Reply", "Student 8");
