@@ -29,7 +29,6 @@ import java.util.Map;
  */
 public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable, Serializable {
     private IUser user;
-    private UserType type;
     private PermissionLevel permissionLevel;
     private Map<PermissionLevel, List<String>> authDict;
 
@@ -71,7 +70,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
      *
      * @param user instance of a user.
      */
-    public void userIncrementReviewCount(IUser user, int count) {
+    public void userIncrementReviewCount(IUser user) {
         user.incrementReviewCount();
     }
 
