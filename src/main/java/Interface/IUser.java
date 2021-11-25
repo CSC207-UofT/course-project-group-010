@@ -20,11 +20,13 @@ public interface IUser {
 
     Map<String, String> getOtherData();
 
+    void setOtherData(Map<String, String> otherData);
+
     HashMap<String, Object> getData();
 
     HashMap<Integer, List<Course>> getCourses();
 
-    void setOtherData(Map<String, String> otherData);
+    void setCourses(HashMap<Integer, List<Course>> c);
 
     int getReviewCount();
 
@@ -33,8 +35,6 @@ public interface IUser {
     void setDisplayName(String s);
 
     void setreviewCount(int count);
-
-    void setCourses(HashMap<Integer, List<Course>> c);
 
 
 }

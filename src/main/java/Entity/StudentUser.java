@@ -11,16 +11,16 @@ import java.util.Map;
 
 public class StudentUser implements Serializable, IReviewer, IUser {
 
+    public static int MAXIMUM_DISPLAY_LENGTH = 25;
+    private final String ID; //ID
     private IUser user;
     private UserType type; //The type of User
     private String displayName; //Username
-    private final String ID; //ID
     private Map<String, String> otherData;
     private int reviewCount; //Number of reviews left by this user
-    private HashMap<Integer, List<Course>> courses;
 
     // Permission level : 0
-
+    private HashMap<Integer, List<Course>> courses;
 
     //Constructors
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
@@ -62,6 +62,11 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
+    public void setOtherData(Map<String, String> otherData) {
+        this.otherData = otherData;
+    }
+
+    @Override
     public int getReviewCount() {
         return reviewCount;
     }
@@ -69,6 +74,12 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     public String getProgramDetail() {
 
         return this.getOtherData().get("programDetail");
+    }
+
+    //Setters
+
+    public void setProgramDetail(String s) {
+        this.getOtherData().put("programDetail", s);
     }
 
     @Override
@@ -84,18 +95,6 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     @Override
     public void incrementReviewCount() {
         this.reviewCount++;
-    }
-
-    //Setters
-
-    public void setProgramDetail(String s) {
-        this.getOtherData().put("programDetail", s);
-    }
-
-
-    @Override
-    public void setOtherData(Map<String, String> otherData) {
-        this.otherData = otherData;
     }
 
     @Override
@@ -114,8 +113,6 @@ public class StudentUser implements Serializable, IReviewer, IUser {
             this.reviewCount = count;
         }
     }
-
-    public static int MAXIMUM_DISPLAY_LENGTH = 25;
 
     @Override
     public void setDisplayName(String s) {

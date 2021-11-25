@@ -1,8 +1,5 @@
 package UseCase;
 
-import Interface.IUser;
-import constants.PermissionLevel;
-import constants.UserType;
 import Entity.Course;
 import Entity.InstructorUser;
 import Entity.StudentUser;
@@ -10,6 +7,9 @@ import Entity.UserFactory;
 import Interface.IDBSaveable;
 import Interface.IHasPermission;
 import Interface.IReadModifiable;
+import Interface.IUser;
+import constants.PermissionLevel;
+import constants.UserType;
 
 import java.io.Serializable;
 import java.util.Arrays;

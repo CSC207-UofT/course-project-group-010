@@ -1,9 +1,9 @@
 package Controller.commands;
 
-import constants.UserType;
-import exceptions.ArgumentException;
 import Controller.databasegetter.UserDatabaseGetter;
 import UseCase.UserManager;
+import constants.UserType;
+import exceptions.ArgumentException;
 
 import java.util.HashMap;
 import java.util.List;
