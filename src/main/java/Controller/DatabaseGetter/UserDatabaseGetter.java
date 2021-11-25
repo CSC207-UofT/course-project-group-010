@@ -1,10 +1,10 @@
-package Controller.DatabaseGetter;
+package controller.databasegetter;
 
-import Constants.FileConstants;
-import Exceptions.CommandNotAuthorizedException;
-import Exceptions.NotInDatabaseException;
-import Outer.Database.Database;
-import UseCase.UserManager;
+import constants.FileConstants;
+import exceptions.CommandNotAuthorizedException;
+import exceptions.NotInDatabaseException;
+import outer.database.Database;
+import usecase.UserManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -90,7 +90,7 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
             // this is dependent on the abstract user class, I guess, so that's alright?
             retStr.append(key + ": ");
             UserManager um = userDict.get(key);
-            retStr.append(um.getUser().getdisplayName() + "\n");
+            retStr.append(um.getUser().getDisplayName() + "\n");
         }
         return retStr.toString().strip();
     }

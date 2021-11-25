@@ -1,6 +1,6 @@
-package Entity;
+package entity;
 
-import Exceptions.CommandNotAuthorizedException;
+import exceptions.CommandNotAuthorizedException;
 
 import java.io.Serializable;
 

@@ -1,13 +1,10 @@
-package UseCase.CoursePage;
+package usecase.coursePage;
 
-import Entity.CommentGraph;
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.Rating;
-import UseCase.CommentManager.CommentManager;
+import entity.CommentGraph;
+import entity.Course;
+import entity.Rating;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class CoursePage implements Serializable {

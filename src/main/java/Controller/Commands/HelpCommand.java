@@ -1,6 +1,6 @@
-package Controller.Commands;
+package controller.commands;
 
-import Constants.CommandConstants;
+import constants.CommandConstants;
 
 import java.util.List;
 

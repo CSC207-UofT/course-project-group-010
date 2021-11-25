@@ -1,7 +1,7 @@
-package Controller.Commands;
+package controller.commands;
 
-import Controller.DatabaseGetter.CourseDatabaseGetter;
-import Controller.DatabaseGetter.UserDatabaseGetter;
+import controller.databasegetter.CourseDatabaseGetter;
+import controller.databasegetter.UserDatabaseGetter;
 
 import java.util.List;
 

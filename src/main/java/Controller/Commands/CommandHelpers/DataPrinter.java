@@ -1,8 +1,7 @@
-package Controller.Commands.CommandHelpers;
+package controller.commands.commandHelpers;
 
-import Constants.CommandConstants;
+import constants.CommandConstants;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class DataPrinter {

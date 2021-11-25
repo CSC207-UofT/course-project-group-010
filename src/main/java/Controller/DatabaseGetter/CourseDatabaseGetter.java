@@ -1,10 +1,10 @@
-package Controller.DatabaseGetter;
+package controller.databasegetter;
 
-import Constants.FileConstants;
-import Exceptions.CommandNotAuthorizedException;
-import Exceptions.NotInDatabaseException;
-import Outer.Database.Database;
-import UseCase.CourseManager.CourseManager;
+import constants.FileConstants;
+import exceptions.CommandNotAuthorizedException;
+import exceptions.NotInDatabaseException;
+import outer.database.Database;
+import usecase.courseManager.CourseManager;
 
 import java.io.IOException;
 import java.util.HashMap;

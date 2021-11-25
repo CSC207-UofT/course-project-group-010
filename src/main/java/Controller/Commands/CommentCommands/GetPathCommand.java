@@ -1,11 +1,10 @@
-package Controller.Commands.CommentCommands;
+package controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import Controller.CommentPresenter;
-import Exceptions.ArgumentException;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.CommentPresenter;
+import exceptions.ArgumentException;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
 
 import java.util.List;
 

@@ -1,20 +1,15 @@
-package UseCase.CourseManager;
+package usecase.courseManager;
 
-import Constants.PermissionLevel;
-import Entity.*;
-import Exceptions.ArgumentException;
-import Exceptions.CommandNotAuthorizedException;
+import constants.PermissionLevel;
+import entity.*;
+import exceptions.ArgumentException;
 import Interface.IDBSaveable;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
-import UseCase.CoursePage.CoursePage;
-import UseCase.CoursePage.CoursePageBuilder;
-import UseCase.CoursePage.Director;
-import UseCase.UserManager;
+import usecase.commentManager.CommentManager;
+import usecase.coursePage.CoursePage;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * The CourseManager modifies the information in CoursePage. Reflecting instructor filter and
@@ -87,8 +82,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.coursePage = coursePage;
         this.filterInstructor = null;
     }
-
-    public void addRating(float ratingNum, StudentUser user) throws Exception {
+    
+    public void addRating(float ratingNum, StudentUser user) throws Exception{
         if(this.filterInstructor == null) {
             throw new Exception("Must filter by instructor to rate.");
         }

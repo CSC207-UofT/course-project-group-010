@@ -1,9 +1,8 @@
-package Controller.Commands.CourseCommands;
+package controller.commands.coursecommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import UseCase.CourseManager.CourseManager;
-import UseCase.CoursePage.CoursePage;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import usecase.courseManager.CourseManager;
 
 import java.util.List;
 import java.util.Scanner;

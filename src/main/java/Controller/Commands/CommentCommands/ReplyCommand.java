@@ -1,12 +1,11 @@
-package Controller.Commands.CommentCommands;
+package controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import Controller.CommentPresenter;
-import Exceptions.ArgumentException;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.CommentPresenter;
+import exceptions.ArgumentException;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
-import UseCase.UserManager;
+import usecase.UserManager;
 
 import java.util.List;
 import java.util.Scanner;
@@ -40,7 +39,7 @@ public class ReplyCommand extends Command {
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
         String id = arguments.get(0);
-        String userName = user.getUser().getdisplayName();
+        String userName = user.getUser().getDisplayName();
         System.out.println("Type your comment:");
         String text = in.nextLine();
         if (text.equalsIgnoreCase("")) {

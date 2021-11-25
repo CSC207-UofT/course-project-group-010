@@ -1,21 +1,14 @@
-package Controller.Commands;
+package controller.commands;
 
-import Controller.AuthHelper;
-import Controller.Commands.CommandHelpers.CommentsGetter;
-import Controller.Commands.CommandHelpers.UserGetter;
-import Controller.DatabaseGetter.CourseDatabaseGetter;
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.Rating;
-import Exceptions.ArgumentException;
-import Exceptions.CommandNotAuthorizedException;
+import controller.AuthHelper;
+import controller.commands.commandHelpers.CommentsGetter;
+import controller.commands.commandHelpers.UserGetter;
+import controller.databasegetter.CourseDatabaseGetter;
+import exceptions.ArgumentException;
 import Interface.IHasPermission;
 import Interface.IReadModifiable;
-import UseCase.CourseManager.CourseManager;
-import UseCase.CoursePage.CoursePage;
+import usecase.courseManager.CourseManager;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

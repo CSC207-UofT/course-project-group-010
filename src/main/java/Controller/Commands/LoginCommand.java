@@ -1,9 +1,9 @@
-package Controller.Commands;
+package controller.commands;
 
-import Exceptions.ArgumentException;
-import Exceptions.CommandNotAuthorizedException;
-import Controller.DatabaseGetter.UserDatabaseGetter;
-import UseCase.UserManager;
+import exceptions.ArgumentException;
+import exceptions.CommandNotAuthorizedException;
+import controller.databasegetter.UserDatabaseGetter;
+import usecase.UserManager;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class LoginCommand extends Command {
             throw new ArgumentException("User not found in Database");
         } else {
             ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getdisplayName();
+            return "Logged in as " + mgr.getUser().getDisplayName();
         }
     }
 }

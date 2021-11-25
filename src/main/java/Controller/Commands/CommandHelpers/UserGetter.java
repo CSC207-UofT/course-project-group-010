@@ -1,7 +1,7 @@
-package Controller.Commands.CommandHelpers;
+package controller.commands.commandHelpers;
 
-import Controller.Commands.CommandExecutor;
-import UseCase.UserManager;
+import controller.commands.CommandExecutor;
+import usecase.UserManager;
 
 public class UserGetter {
     public void getUserPage(CommandExecutor ce) {

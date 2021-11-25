@@ -1,15 +1,6 @@
-package UseCase.CoursePage;
-
-import Entity.CommentGraph;
-import Entity.Course;
-import Entity.Rating;
-import Entity.StudentUser;
-import org.junit.Test;
+package usecase.coursePage;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CoursePageBuilderTest {
 
