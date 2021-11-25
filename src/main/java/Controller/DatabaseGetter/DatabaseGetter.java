@@ -1,4 +1,4 @@
-package Controller.databasegetter;
+package controller.databasegetter;
 
 import exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;

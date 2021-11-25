@@ -1,4 +1,4 @@
-package Controller.commands.commandHelpers;
+package controller.commands.commandHelpers;
 
 import constants.CommandConstants;
 

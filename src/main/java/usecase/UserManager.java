@@ -1,12 +1,12 @@
-package UseCase;
+package usecase;
 
 import Interface.IUser;
 import constants.PermissionLevel;
 import constants.UserType;
-import Entity.Course;
-import Entity.InstructorUser;
-import Entity.StudentUser;
-import Entity.UserFactory;
+import entity.Course;
+import entity.InstructorUser;
+import entity.StudentUser;
+import entity.UserFactory;
 import Interface.IDBSaveable;
 import Interface.IHasPermission;
 import Interface.IReadModifiable;

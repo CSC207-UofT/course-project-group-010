@@ -1,9 +1,9 @@
-package Controller.commands;
+package controller.commands;
 
 import constants.UserType;
 import exceptions.ArgumentException;
-import Controller.databasegetter.UserDatabaseGetter;
-import UseCase.UserManager;
+import controller.databasegetter.UserDatabaseGetter;
+import usecase.UserManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +33,7 @@ public class NewUserCommand extends Command {
         super.checkArgumentsNum(arguments);
         // super.checkUserExists(ce);
         Scanner in = new Scanner(System.in);
-        System.out.println("Type of user[STUDENT/INSTRUCTOR] and Please use Capital letters:");
+        System.out.println("Type of user[STUDENT/INSTRUCTOR]:");
         String argUserType = in.nextLine().toUpperCase();
         if (!argUserType.equals("STUDENT") && !argUserType.equals("INSTRUCTOR")) {
             throw new ArgumentException("Type must be [STUDENT/INSTRUCTOR], you entered " + argUserType);
@@ -44,13 +44,13 @@ public class NewUserCommand extends Command {
         String argId = in.nextLine().replace(" ", "");
         boolean isSame = argId.matches("^[a-z][a-z0-9]*");
         if (!isSame) {
-            throw new ArgumentException("Your entered ID is invaild, you entered " + argId);
+            throw new ArgumentException("Your ID is invaild. The ID must start with a letter. All subsequent characters can be letters or numbers.");
         }
         System.out.println("any spaces were removed. ID is " + argId);
         UserType desiredUserType = getUserType(argUserType);
-        System.out.println("Program Detail: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE");
+        System.out.println("Program Detail: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE. Or Entry N/A for Program Detail");
         String argProgramDetail = in.nextLine().toUpperCase();
-        if (!argProgramDetail.equals(" ")) {
+        if (!argProgramDetail.equalsIgnoreCase("N/A")) {
             HashMap<String, String> adddetail = new HashMap<>();
             adddetail.put("programDetail", argProgramDetail);
             UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);

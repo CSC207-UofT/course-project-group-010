@@ -1,8 +1,8 @@
-package Controller.commands;
+package controller.commands;
 
 import constants.CommandConstants;
 import Interface.IReadModifiable;
-import UseCase.UserManager;
+import usecase.UserManager;
 
 /**
  * CommandExecutor will hold the necessary information for executing a command, such as

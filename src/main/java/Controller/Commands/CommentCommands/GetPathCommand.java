@@ -1,8 +1,8 @@
-package Controller.commands.commentcommands;
+package controller.commands.commentcommands;
 
-import Controller.commands.Command;
-import Controller.commands.CommandExecutor;
-import Controller.CommentPresenter;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.CommentPresenter;
 import exceptions.ArgumentException;
 import Interface.IReadModifiable;
 

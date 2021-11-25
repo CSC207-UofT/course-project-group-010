@@ -1,12 +1,12 @@
-package Controller.commands.coursecommands;
+package controller.commands.coursecommands;
 
-import Controller.commands.Command;
-import Controller.commands.CommandExecutor;
-import Controller.databasegetter.CourseDatabaseGetter;
-import UseCase.courseManager.CourseManager;
-import UseCase.coursePage.CoursePage;
-import UseCase.coursePage.CoursePageBuilder;
-import UseCase.coursePage.Director;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.databasegetter.CourseDatabaseGetter;
+import usecase.courseManager.CourseManager;
+import usecase.coursePage.CoursePage;
+import usecase.coursePage.CoursePageBuilder;
+import usecase.coursePage.Director;
 
 import java.util.ArrayList;
 import java.util.List;

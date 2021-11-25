@@ -1,4 +1,4 @@
-package Outer.database;
+package outer.database;
 
 import Interface.IDBSaveable;
 

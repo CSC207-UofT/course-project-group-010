@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import Interface.IReviewer;
 import Interface.IUser;

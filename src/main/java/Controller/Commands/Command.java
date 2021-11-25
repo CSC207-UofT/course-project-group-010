@@ -1,11 +1,11 @@
-package Controller.commands;
+package controller.commands;
 
-import Controller.AuthHelper;
+import controller.AuthHelper;
 import exceptions.ArgumentException;
 import exceptions.CommandHelpException;
 import exceptions.CommandNotAuthorizedException;
 import Interface.IReadModifiable;
-import UseCase.UserManager;
+import usecase.UserManager;
 
 import java.util.List;
 
