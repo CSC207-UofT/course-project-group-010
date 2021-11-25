@@ -2,7 +2,6 @@ package entity;
 
 import Interface.IReviewer;
 import Interface.IUser;
-import constants.UserType;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -13,8 +12,6 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
-    private IUser user;
-    private UserType type;
     private String displayName; //Username
     private Map<String, String> otherData;
     private int reviewCount; //Number of reviews left by this user
@@ -24,7 +21,6 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
 
     //Constructors
     public InstructorUser(String displayName, String ID, Map<String, String> otherData) {
-        this.type = UserType.INSTRUCTOR;
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
@@ -32,7 +28,6 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     }
 
     public InstructorUser(String displayName, String ID) {
-        this.type = UserType.INSTRUCTOR;
         this.displayName = displayName;
         this.ID = ID;
         this.reviewCount = 0;
@@ -51,6 +46,13 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     @Override
     public String getDisplayName() {
         return this.displayName;
+    }
+
+    @Override
+    public void setDisplayName(String s) {
+        if (s.length() < MAXIMUM_DISPLAY_LENGTH) {
+            this.displayName = s;
+        }
     }
 
     public String getPosition() {
@@ -75,15 +77,22 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         return this.currentlyTeaching;
     }
 
+    //Setters
+
     public void setCurrentlyTeaching(List<Course> t) {
         this.currentlyTeaching = t;
     }
 
-    //Setters
-
     @Override
     public int getReviewCount() {
         return reviewCount;
+    }
+
+    @Override
+    public void setReviewCount(int count) {
+        if (count >= 0) {
+            this.reviewCount = count;
+        }
     }
 
     @Override
@@ -100,31 +109,17 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     public HashMap<String, Object> getData() {
         HashMap<String, Object> result = new HashMap<>();
         // Input all general information of user
-        result.put("ID", user.getID());
-        result.put("displayName", user.getDisplayName());
-        result.put("position", ((InstructorUser) user).getPosition());
-        result.put("currentlyTeaching", ((InstructorUser) user).getCurrentlyTeaching());
-        result.put("courses", user.getCourses());
+        result.put("ID", ID);
+        result.put("displayName", displayName);
+        result.put("position", getPosition());
+        result.put("currentlyTeaching", getCurrentlyTeaching());
+        result.put("courses", courses);
         return result;
     }
 
     @Override
     public void incrementReviewCount() {
         this.reviewCount++;
-    }
-
-    @Override
-    public void setReviewCount(int count) {
-        if (count >= 0) {
-            this.reviewCount = count;
-        }
-    }
-
-    @Override
-    public void setDisplayName(String s) {
-        if (s.length() < MAXIMUM_DISPLAY_LENGTH) {
-            this.displayName = s;
-        }
     }
 
 
