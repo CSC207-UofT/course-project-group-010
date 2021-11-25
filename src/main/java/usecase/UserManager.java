@@ -146,6 +146,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
 
     // Modify Student User information.
 
+    // FIXME: dependency on StudentUser
     /**
      * Set program detail of a given user.
      *
@@ -158,6 +159,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
 
     // Modify InstructorUser information.
 
+    // FIXME: dependency on InstructorUser
     /**
      * Set currently teaching courses of a given InstructorUser.
      *
@@ -168,6 +170,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
         instructorUser.setCurrentlyTeaching(t);
     }
 
+    // FIXME: dependency on InstructorUser
     /**
      * Set position of a give InstructorUser.
      *
