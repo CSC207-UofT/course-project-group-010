@@ -1,5 +1,6 @@
 package entity;
 
+import Interface.IUser;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -10,28 +11,28 @@ import static org.junit.Assert.assertEquals;
 public class UserTest {
 
     @Test(timeout = 100)
-    public void testgetID() {
-        User a = new StudentUser("Kevin Hart", "12345", null);
+    public void testGetID() {
+        IUser a = new StudentUser("Kevin Hart", "12345", null);
         assertEquals(a.getID(), "12345");
     }
 
     @Test(timeout = 100)
-    public void testgetdisplayName() {
-        User a = new StudentUser("Kevin Hart", "12345", null);
+    public void testGetDisplayName() {
+        IUser a = new StudentUser("Kevin Hart", "12345", null);
 
-        assertEquals(a.getdisplayName(), "Kevin Hart");
+        assertEquals(a.getDisplayName(), "Kevin Hart");
     }
 
     @Test(timeout = 100)
-    public void testgetReviewCount() {
-        User a = new StudentUser("Kevin Hart", "12345", null);
+    public void testGetReviewCount() {
+        IUser a = new StudentUser("Kevin Hart", "12345", null);
 
         assertEquals(a.getReviewCount(), 0);
     }
 
     @Test(timeout = 100)
-    public void testgetOtherData() {
-        User a = new StudentUser("Kevin Hart", "12345");
+    public void testGetOtherData() {
+        IUser a = new StudentUser("Kevin Hart", "12345");
 
         HashMap<String, String> detail = new HashMap<>();
         detail.put("programDetail", "n/a");
@@ -39,29 +40,29 @@ public class UserTest {
     }
 
     @Test(timeout = 100)
-    public void testtoString() {
-        User a = new StudentUser("Kevin Hart", "12345");
+    public void testToString() {
+        IUser a = new StudentUser("Kevin Hart", "12345");
         assertEquals(a.toString(), "Kevin Hart" + "\n" + "12345");
     }
 
     @Test(timeout = 100)
-    public void test2getOtherData() {
-        HashMap<String, String> adddetail = new HashMap<>();
-        adddetail.put("programDetail", "Computer Science Specialist");
-        User a = new StudentUser("Kevin Hart", "12345", adddetail);
-        assertEquals(a.getOtherData(), adddetail);
+    public void testGetOtherData2() {
+        HashMap<String, String> addDetail = new HashMap<>();
+        addDetail.put("programDetail", "Computer Science Specialist");
+        IUser a = new StudentUser("Kevin Hart", "12345", addDetail);
+        assertEquals(a.getOtherData(), addDetail);
     }
 
     @Test(timeout = 100)
-    public void testgetProgramDetial() {
-        HashMap<String, String> adddetail = new HashMap<>();
-        adddetail.put("programDetail", "Computer Science Specialist");
-        StudentUser a = new StudentUser("Kevin Hart", "12345", adddetail);
+    public void testGetProgramDetail() {
+        HashMap<String, String> addDetail = new HashMap<>();
+        addDetail.put("programDetail", "Computer Science Specialist");
+        StudentUser a = new StudentUser("Kevin Hart", "12345", addDetail);
         assertEquals(a.getProgramDetail(), "Computer Science Specialist");
     }
 
     @Test(timeout = 100)
-    public void testgetPosition() {
+    public void testGetPosition() {
         HashMap<String, String> data = new HashMap<>();
         data.put("position", "Prof");
         InstructorUser a = new InstructorUser("Jonathan Calver", "11111", data);
@@ -69,7 +70,7 @@ public class UserTest {
     }
 
     @Test(timeout = 100)
-    public void testsetPosition() {
+    public void testSetPosition() {
         InstructorUser a = new InstructorUser("Jonathan Calver", "11111");
         a.setPosition("Prof");
         assertEquals(a.getPosition(), "Prof");
