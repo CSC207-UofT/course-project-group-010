@@ -108,7 +108,7 @@ public class StudentUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
-    public void setreviewCount(int count) {
+    public void setReviewCount(int count) {
         if (count >= 0) {
             this.reviewCount = count;
         }

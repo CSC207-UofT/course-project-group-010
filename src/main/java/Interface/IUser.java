@@ -34,7 +34,7 @@ public interface IUser {
 
     void setDisplayName(String s);
 
-    void setreviewCount(int count);
+    void setReviewCount(int count);
 
 
 }
