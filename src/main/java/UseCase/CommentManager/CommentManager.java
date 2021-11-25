@@ -1,27 +1,39 @@
 package UseCase.CommentManager;
 
+// imports
+
 import Constants.CommandConstants;
 import Constants.PermissionLevel;
 import Entity.CommentGraph;
+import Exceptions.InvalidIDException;
 import Interface.IReadModifiable;
 
 import java.io.Serializable;
 import java.util.*;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CommentManager Class
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Class that handles comments in a CommentGraph
  */
 public class CommentManager implements IReadModifiable, Serializable
 {
+
+//======================================================================================================================
+// Comment Manager Instance Variables
+//======================================================================================================================
+
     // initial CommentGraph
     CommentGraph commentGraph;
+    // authorization mapping
     Map<PermissionLevel, List<String>> authDict;
 
-    /**
-     * CommentManager constructor
-     *
-     * @param commentGraph
-     */
+//======================================================================================================================
+// Comment Manager Constructors
+//======================================================================================================================
+
     public CommentManager(CommentGraph commentGraph)
     {
         // Initialize CommentGraph
@@ -30,6 +42,141 @@ public class CommentManager implements IReadModifiable, Serializable
         this.authDict = getDefaultAuthDict();
     }
 
+//======================================================================================================================
+// User Interaction Functions
+//======================================================================================================================
+
+    /**
+     * Reply to a comment.
+     *
+     * @param commentId id of Comment to reply to.
+     * @param text      Text of reply.
+     * @param userName  name of user that created reply
+     */
+    public void replyToComment(String commentId, String text, String userName) throws InvalidIDException
+    {
+        if (this.commentGraph.getVertices().containsKey(commentId))
+        {
+            // reply to comment.
+            this.commentGraph.reply(commentId, text, userName);
+        }
+
+        else
+        {
+            throw new InvalidIDException();
+        }
+    }
+
+    /**
+     * upvote or downvote comment
+     *
+     * @param commentId id of comment to upvote or downvote
+     * @param up        upvote or downvote
+     */
+    public void vote(String commentId, boolean up)
+    {
+        // upvote comment
+        if (up)
+        {
+            this.commentGraph.upvote(commentId);
+        }
+
+        //downvote comment
+        else
+        {
+            this.commentGraph.downvote(commentId);
+        }
+    }
+
+//======================================================================================================================
+// String Representation Functions
+//======================================================================================================================
+
+    /**
+     * Helper function for getting string representation
+     *
+     * @param descendingSort sort by descending votes or not
+     * @param upToDepth      get up to a certain depth
+     * @param startComment   comment to start from
+     * @return String representation.
+     */
+    private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment)
+    {
+        // get depth to get String representation up to.
+        int endDepth;
+
+        // if upToDepth is less than 0 simply get the representation up to the MaxDepth.
+        if (upToDepth < 0)
+        {
+            endDepth = this.commentGraph.getMaxDepth();
+        }
+        else
+        {
+            endDepth = upToDepth;
+        }
+
+        // return String representation.
+        return commentGraph.stringRepresentation(startComment, 0, endDepth, descendingSort);
+    }
+
+    /**
+     * Get complete String representation of CommentGraph
+     *
+     * @param descendingSort sort by descending votes or not
+     * @param upToDepth      get up to a certain depth
+     * @return String representation
+     */
+    public String displayEntireThread(Boolean descendingSort, int upToDepth)
+    {
+        // Comment to start from
+        CommentGraph.Comment startComment = this.commentGraph.getComment("root");
+        // return String representation
+        return getThreadHelper(descendingSort, upToDepth, startComment);
+    }
+
+    /**
+     * Get subset of String representation of Comment Graph
+     *
+     * @param startId        Comment to start from
+     * @param descendingSort sort by descending votes or not
+     * @param upToDepth      get up to a certain depth
+     * @return String representation
+     */
+    public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth)
+    {
+        // Comment to start from
+        CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
+        // return String representation
+        return getThreadHelper(descendingSort, upToDepth, startComment);
+    }
+
+    /**
+     * Generate a path in String form from one Comment to another.
+     *
+     * @param startId id of Comment to start at
+     * @param endId   if of Comment to end at
+     * @return the path from one Comment to another
+     */
+    public String getPath(String startId, String endId)
+    {
+        // Comment to start at
+        CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
+        // Comment to end at
+        CommentGraph.Comment endComment = this.commentGraph.getComment(endId);
+        // return the path
+        return this.commentGraph.stringPath(startComment, endComment);
+    }
+
+//======================================================================================================================
+// Searching Functions
+//======================================================================================================================
+
+    /**
+     * Searches for comments by username and returns their formatted representation.
+     *
+     * @param userName to search for
+     * @return list of formatted comments.
+     */
     public List<String> getCommentsByUserName(String userName)
     {
         // new empty list
@@ -56,19 +203,30 @@ public class CommentManager implements IReadModifiable, Serializable
     }
 
     /**
-     * Gets the formatted String representation of a comment by its id.
+     * Searches for comments by id and returns their formatted representation.
      *
-     * @param id
-     * @return
+     * @param id to search for.
+     * @return list of formatted comments.
      */
-    public String getCommentById(String id)
+    public String getCommentById(String id) throws InvalidIDException
     {
-        return this.commentGraph.getComment(id).getFormattedRepresentation();
+        // if id is valid (i.e, it exists)
+        if (commentGraph.getVertices().containsKey(id))
+        {
+            // return formatted comment
+            return this.commentGraph.getComment(id).getFormattedRepresentation();
+        }
+
+        // if id is invalid (i.e, it doesn't exist)
+        else
+        {
+            // throw InvalidIDException
+            throw new InvalidIDException();
+        }
     }
 
     /**
-     * Gets a list of formatted String representations of Comments that contain the provided String in their text
-     * attribute.
+     * Searches for comments by id and returns their formatted representation.
      *
      * @param text String to search for.
      * @return List of formatted Strings.
@@ -96,6 +254,32 @@ public class CommentManager implements IReadModifiable, Serializable
 
         // return list
         return comments;
+    }
+
+//======================================================================================================================
+// Getters and Special Functions
+//======================================================================================================================
+
+    /**
+     * Get the vote of a Comment given the id.
+     *
+     * @param id of Comment.
+     * @return vote value.
+     */
+    public int getVote(String id)
+    {
+        return this.commentGraph.getComment(id).getVote();
+    }
+
+    /**
+     * Get the depth of the specified Comment.
+     *
+     * @param id of Comment.
+     * @return depth value.
+     */
+    public int getDepth(String id)
+    {
+        return this.commentGraph.getComment(id).getDepth();
     }
 
     /**
@@ -140,136 +324,9 @@ public class CommentManager implements IReadModifiable, Serializable
         return false;
     }
 
-    /**
-     * Get the vote of a Comment given the id.
-     *
-     * @param id of Comment.
-     * @return vote value.
-     */
-    public int getVote(String id)
-    {
-        return this.commentGraph.getComment(id).getVote();
-    }
-
-    /**
-     * Get the depth of the specified Comment.
-     *
-     * @param id of Comment.
-     * @return depth value.
-     */
-    public int getDepth(String id)
-    {
-        return this.commentGraph.getComment(id).getDepth();
-    }
-
-    /**
-     * Get complete String representation of CommentGraph
-     *
-     * @param descendingSort sort by descending votes or not
-     * @param upToDepth      get up to a certain depth
-     * @return String representation
-     */
-    public String displayEntireThread(Boolean descendingSort, int upToDepth)
-    {
-        // Comment to start from
-        CommentGraph.Comment startComment = this.commentGraph.getComment("root");
-        // return String representation
-        return getThreadHelper(descendingSort, upToDepth, startComment);
-    }
-
-    /**
-     * Get subset of String representation of Comment Graph
-     *
-     * @param startId        Comment to start from
-     * @param descendingSort sort by descending votes or not
-     * @param upToDepth      get up to a certain depth
-     * @return String representation
-     */
-    public String displaySubsetThread(String startId, Boolean descendingSort, int upToDepth)
-    {
-        // Comment to start from
-        CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
-        // return String representation
-        return getThreadHelper(descendingSort, upToDepth, startComment);
-    }
-
-    /**
-     * Helper function for getting string representation
-     *
-     * @param descendingSort sort by descending votes or not
-     * @param upToDepth      get up to a certain depth
-     * @param startComment   comment to start from
-     * @return String representation.
-     */
-    private String getThreadHelper(Boolean descendingSort, int upToDepth, CommentGraph.Comment startComment)
-    {
-        // get depth to get String representation up to.
-        int endDepth;
-
-        // if upToDepth is less than 0 simply get the representation up to the MaxDepth.
-        if (upToDepth < 0)
-        {
-            endDepth = this.commentGraph.getMaxDepth();
-        }
-        else
-        {
-            endDepth = upToDepth;
-        }
-
-        // return String representation.
-        return commentGraph.stringRepresentation(startComment, 0, endDepth, descendingSort);
-    }
-
-    /**
-     * Generate a path in String form from one Comment to another.
-     *
-     * @param startId id of Comment to start at
-     * @param endId   if of Comment to end at
-     * @return the path from one Comment to another
-     */
-    public String getPath(String startId, String endId)
-    {
-        // Comment to start at
-        CommentGraph.Comment startComment = this.commentGraph.getComment(startId);
-        // Comment to end at
-        CommentGraph.Comment endComment = this.commentGraph.getComment(endId);
-        // return the path
-        return this.commentGraph.stringPath(startComment, endComment);
-    }
-
-    /**
-     * Reply to a comment.
-     *
-     * @param commentId id of Comment to reply to.
-     * @param text      Text of reply.
-     * @param userName  name of user that created reply
-     */
-    public void replyToComment(String commentId, String text, String userName)
-    {
-        // reply to comment.
-        this.commentGraph.reply(commentId, text, userName);
-    }
-
-    /**
-     * upvote or downvote comment
-     *
-     * @param commentId id of comment to upvote or downvote
-     * @param up        upvote or downvote
-     */
-    public void vote(String commentId, boolean up)
-    {
-        // upvote comment
-        if (up)
-        {
-            this.commentGraph.upvote(commentId);
-        }
-
-        //downvote comment
-        else
-        {
-            this.commentGraph.downvote(commentId);
-        }
-    }
+//======================================================================================================================
+// Data and Authorization Functions
+//======================================================================================================================
 
     /**
      * Implementing the IGettable interface, gives the entire thread by default.
@@ -316,3 +373,4 @@ public class CommentManager implements IReadModifiable, Serializable
         return this.authDict;
     }
 }
+
