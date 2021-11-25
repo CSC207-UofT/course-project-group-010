@@ -66,15 +66,6 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
 
     // Modify User information
 
-    /** Set permission level of a given user.
-     *
-     * @param user instance of a user.
-     * @param level permission level.
-     */
-//    public void userSetPermissionLevel(User user, int level){
-//        user.setpermissionLevel(level);
-//    }
-
     /**
      * Increment review count of a given user.
      *
