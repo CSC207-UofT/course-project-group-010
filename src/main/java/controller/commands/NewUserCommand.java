@@ -44,7 +44,7 @@ public class NewUserCommand extends Command {
         String argId = in.nextLine().replace(" ", "");
         boolean isSame = argId.matches("^[a-z][a-z0-9]*");
         if (!isSame) {
-            throw new ArgumentException("Your ID is invaild. The ID must start with a letter. All subsequent characters can be letters or numbers.");
+            throw new ArgumentException("Your ID is invalid. The ID must start with a letter. All subsequent characters can be letters or numbers.");
         }
         System.out.println("any spaces were removed. ID is " + argId);
         UserType desiredUserType = getUserType(argUserType);

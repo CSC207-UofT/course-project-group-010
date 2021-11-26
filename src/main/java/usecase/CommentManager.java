@@ -28,6 +28,10 @@ public class CommentManager implements IReadModifiable, Serializable {
         this.authDict = getDefaultAuthDict();
     }
 
+    public CommentManager() {
+        this.commentGraph = new CommentGraph("Comments", "Comments");
+    }
+
     public List<String> getCommentsByUserName(String userName) {
         // new empty list
         List<String> comments = new ArrayList<>() {
