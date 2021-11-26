@@ -18,6 +18,7 @@ public class CommentsGetter {
     public void getCommentSection(CommandExecutor ce) throws CommandNotAuthorizedException {
         try {
             // Get use case comment manager
+            // TODO FIX
             CommentManager cm = ((CourseManager) ce.getPageManager()).getOnlyComment();
 
             // wrap it, and set as the page manager
