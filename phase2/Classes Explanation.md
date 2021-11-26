@@ -5,9 +5,9 @@ Make sure you follow the instructions of /README.md before coming here!
 Note that this program has students/teachers that can login(users), view courses, rate courses, and view the comment
 section.
 
-## Entity
+## entity
 
-Entity classes store data, and have methods that allow other classes to modify their data.
+entity classes store data, and have methods that allow other classes to modify their data.
 
 - User is the parent class of InstructorUser and StudentUser. These classes store user related data.
 - Course stores course related data. Rating stores data that is related to Course, that is bundled by the CourseManager
