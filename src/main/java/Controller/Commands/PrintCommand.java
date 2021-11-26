@@ -1,6 +1,6 @@
-package Controller.Commands;
+package controller.commands;
 
-import Interface.IHasPermission;
+import controller.commands.commandHelpers.DataPrinter;
 import Interface.IReadModifiable;
 
 import java.util.List;
@@ -16,6 +16,7 @@ public class PrintCommand extends Command {
 
     /**
      * Prints the currently viewing page. Format is "print"
+     * Is able to print course pages and comment pages(anything implementing IGettable)
      *
      * @param ce
      * @param arguments
@@ -28,19 +29,13 @@ public class PrintCommand extends Command {
         IReadModifiable currentlyViewingPage = ce.getPageManager();
 
         Map<String, Object> dataMap = currentlyViewingPage.getData();
-        String returnString = "";
-        for (String o : dataMap.keySet()) {
-            try {
-                returnString = returnString + o + " : " + dataMap.get(o).toString() + "\n";
-            } catch (Exception e) {
-                returnString = returnString + o + " : " + "n/a" + "\n";
-            }
-        }
-        return returnString;
+        DataPrinter dp = new DataPrinter();
+        return dp.printData(dataMap);
     }
 
     @Override
     public String help() {
-        return "Prints a course's info. Must be viewing a course to use. format: \"print\"";
+        return "Prints the page you are currently viewing. Format: \"print\"\n" +
+                "This includes course pages, user profiles, comment sections.";
     }
 }

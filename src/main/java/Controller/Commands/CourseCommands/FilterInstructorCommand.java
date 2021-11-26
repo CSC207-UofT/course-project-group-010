@@ -1,13 +1,15 @@
-package Controller.Commands.CourseCommands;
+package controller.commands.coursecommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import UseCase.CourseManager.CourseManager;
-import UseCase.CoursePage.CoursePage;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import usecase.courseManager.CourseManager;
 
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Not in use, as the filter by instructor option was removed.
+ */
 public class FilterInstructorCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
@@ -33,7 +35,7 @@ public class FilterInstructorCommand extends Command {
         System.out.println("Available instructors: " + cm.getCoursePage().getInstructors().toString());
         String instructor = in.nextLine();
 
-        CoursePage a = cm.filterInstructor(instructor);
-        return "filtered by " +  a.getInstructor();
+        // CoursePage a = cm.filterInstructor(instructor);
+        return "FILTERING IS DEPRECATED JUST DELETE THIS CLASS";
     }
 }

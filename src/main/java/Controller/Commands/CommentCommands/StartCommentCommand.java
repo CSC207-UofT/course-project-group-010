@@ -1,12 +1,16 @@
-package Controller.Commands.CommentCommands;
+package controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import UseCase.CourseManager.CourseManager;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import usecase.courseManager.CourseManager;
 
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Starts a comment. This command is not currently in use, and will probably never be used.
+ */
+// TODO delete this sometime.
 public class StartCommentCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
@@ -29,7 +33,7 @@ public class StartCommentCommand extends Command {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter your comment text: ");
         String text = in.nextLine();
-        cm.startComment(text, ce.getUserManager().getUser());
+        // cm.startComment(text, ce.getUserManager().getUser());
         return "started a comment thread";
     }
 }
