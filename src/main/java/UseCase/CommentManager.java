@@ -1,4 +1,4 @@
-package usecase.commentManager;
+package UseCase;
 
 import constants.CommandConstants;
 import constants.PermissionLevel;

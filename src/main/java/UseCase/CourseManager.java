@@ -1,4 +1,4 @@
-package UseCase.CourseManager;
+package UseCase;
 
 import UseCase.CoursePage.CoursePage;
 import constants.PermissionLevel;

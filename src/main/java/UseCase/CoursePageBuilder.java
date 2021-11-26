@@ -1,10 +1,13 @@
-package UseCase.CoursePage;
+package UseCase;
 
+import Interface.Builder;
 import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
-import Interface.Builder;
+import entity.StudentUser;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CoursePageBuilder implements Builder {
@@ -12,7 +15,7 @@ public class CoursePageBuilder implements Builder {
     private Course course; // course object. Empty string if not assigned.
     private List<String> instructors; // List containing empty string if not assigned.
     private List<Rating> ratings = null; // List of all ratings left for this course across all instructors.
-    private List<CommentGraph> commentGraphs = null; //List of all commentGraphs for this course across all instructors.
+    private CommentGraph commentGraph = null; //List of all commentGraphs for this course across all instructors.
 
 
     @Override
@@ -30,29 +33,80 @@ public class CoursePageBuilder implements Builder {
         this.ratings = ratings;
     }
 
+    @Override
+    public void setCommentGraph(CommentGraph cg) {
+        this.commentGraph = cg;
+    }
 
     @Override
-    public void setCommentGraphs(List<CommentGraph> cg) {
-        this.commentGraphs = cg;
+    public void buildRatings(List<List<String>> ratings) {
+
+        //Creating a list of Rating of objects to be assigned to CoursePage.
+        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
+
+        //For every List containing Rating information
+        for (List<String> l : ratings) {
+
+            //Create StudentUser object
+            StudentUser student = new StudentUser(l.get(0), l.get(1));
+
+            //Convert score from string to float.
+            float score = Float.parseFloat(l.get(2));
+
+            //Create Rating object
+            Rating r = new Rating(student, score, l.get(4));
+
+            //Add Rating object to cp_ratings.
+            cp_ratings.add(r);
+        }
+
+        //Set CoursePageBuilder's ratings to the above.
+        this.setRatings(cp_ratings);
+    }
+
+    @Override
+    public void buildCourse(List<String> course) {
+        Course c = new Course(course.get(0), course.get(1));
+        if (course.size() == 3) {
+            c.setDescription(course.get(2));
+        }
+        //Set CoursePageBuilder's course to the above.
+        this.setCourse(c);
+
+    }
+
+    /**
+     * This builds the commentGraph for CoursePage provided with necessary strings.
+     *
+     * @param typeName A list of two strings, denoting the rootType and rootName for this commentGraph.
+     * @param initialComments A hashmap of strings required as input for commentGraph constructor.
+     *
+     * Example:
+     *
+     *                      String rootType, String rootName, HashMap<String, List<String>> initialComments
+     *
+     * { [List<String> mainComments: [String mainCommentType, String mainCommenterName] }
+     */
+    @Override
+    public void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments) {
+        this.setCommentGraph(new CommentGraph(typeName.get(0), typeName.get(1), initialComments));
+
+    }
+
+
+    public CoursePage getResult() {
+        CoursePage cp = new CoursePage(this.course, this.instructors);
+        //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
+        cp.setRatings(this.ratings);
+        cp.setCommentGraphs(this.commentGraph);
+        this.reset();
+        return cp;
     }
 
     @Override
     public void reset() {
         this.ratings = null;
-        this.commentGraphs = null;
-    }
-
-    public CoursePage getResult() {
-        CoursePage cp = new CoursePage(this.course, this.instructors);
-        //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
-        if (this.ratings != null) {
-            cp.setRatings(this.ratings);
-        }
-        if (this.commentGraphs != null) {
-            cp.setCommentGraphs(this.commentGraphs);
-        }
-        this.reset();
-        return cp;
+        this.commentGraph = null;
     }
 
 

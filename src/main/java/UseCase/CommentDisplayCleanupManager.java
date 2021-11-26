@@ -1,4 +1,4 @@
-package usecase.commentManager;
+package UseCase;
 
 public class CommentDisplayCleanupManager
 {
