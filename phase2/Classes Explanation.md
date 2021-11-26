@@ -46,7 +46,7 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
     - Many classes implement this, such as CoursePages, which can give data to a presenter and must check that users are
       authorized to take certain actions concerning it.
 
-## Controller
+## controller
 
 ### Commands
 
@@ -90,15 +90,15 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
   manages comments like a file system structure, maintaining a "path" that the user is
   viewing.[WE MAY MAKE THIS A USE CASE CLASS BUT WHO KNOWS]
 
-## Constants and Exceptions
+## Constants and exceptions
 
 The Constants package contains various constants that are used around the program. It also contains enums that are used.
 You can look at the individual files for more details.
 
-Exceptions are custom exceptions that may be thrown by the program. This helps make more accurate, descriptive
+exceptions are custom exceptions that may be thrown by the program. This helps make more accurate, descriptive
 exceptions. That's all.
 
-# Outer
+# outer
 
 - The Database class simply reads and writes from a database. It currently just returns all data from the database as a
   map, because YOU(Pan) told us not to use an actual database. If we were to use SQL, for example, this class would have

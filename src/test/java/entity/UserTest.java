@@ -1,6 +1,6 @@
 package entity;
 
-import Interface.IUser;
+import interfaces.IUser;
 import org.junit.Test;
 
 import java.util.HashMap;

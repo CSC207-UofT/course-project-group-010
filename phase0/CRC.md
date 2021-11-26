@@ -57,28 +57,28 @@ Rating processor for a course
 
 ## Use Case Classes
 
-|IDBSaveable|Interface|
+|IDBSaveable|interfaces|
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |getData||
 
 Anything that has some sort of authorization requirement
 
-|IAuthorizable|Interface|
+|IAuthorizable|interfaces|
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |getAuthRequirement||
 
 Anything that has an authorization level and will try to do things
 
-|IHasPermission|Interface|
+|IHasPermission|interfaces|
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |getPermissionLevel||
 
 Anything that will pass its data to a presenter
 
-|IGettable|Interface|
+|IGettable|interfaces|
 |:-------------|:--|
 |Responsibilities|Collaborators|
 |getData||

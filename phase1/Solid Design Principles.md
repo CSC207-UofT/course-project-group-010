@@ -50,7 +50,7 @@ before downcasting it, but there are definitely alternatives. For example, this 
 and it should be validated a bit differently(eg. using the PermissionLevel variable that can identify a user as a student or instructor)
 
 
-##Interface segregation principle (ISP)
+##interfaces segregation principle (ISP)
 
 Specific example:
 We have many small and specific interfaces and each has its own specific function : IAuthorizable, IDBSaveable and IHasPermission.

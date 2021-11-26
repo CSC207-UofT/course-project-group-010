@@ -1,7 +1,7 @@
 package entity;
 
-import Interface.IReviewer;
-import Interface.IUser;
+import interfaces.IReviewer;
+import interfaces.IUser;
 
 import java.io.Serializable;
 import java.util.HashMap;

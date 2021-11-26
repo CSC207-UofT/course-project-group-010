@@ -23,10 +23,10 @@ The database package does the same. It saves use-case classes, accessing them us
 The IGettable interface allows outer layer classes to access relevant fields of Use Case classes, for the purpose of displaying
 information on the screen.
 
-## Outer
+## outer
 ScreenIO is the main class in this application. It only depends on controller classes, and nothing else.
 
-Database objects will save UseCase objects, which isn't really clean architecture. However, using the
+Database objects will save usecase objects, which isn't really clean architecture. However, using the
 dependency injection design pattern, we simply take the objects and serialize them, so Database doesn't actually
 depend on how the objects are created, it uses the Serializable interface to save them.
 
@@ -78,6 +78,6 @@ Assumption : We assume a student already has an account in our system, with an a
 ### Step 5 : The student can leave a comment in course page
 - The commandRequest asks CommentManager to process the comment to show the review in course page
 
-The CommentManager class(UseCase) depend on the methods of CommentGraph class(entity)
+The CommentManager class(usecase) depend on the methods of CommentGraph class(entity)
 - Clean Architecture - dependence on adjacent layer: Use Cases class depend on entities 
 

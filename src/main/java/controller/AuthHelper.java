@@ -2,8 +2,8 @@ package controller;
 
 import constants.PermissionLevel;
 import exceptions.CommandNotAuthorizedException;
-import Interface.IAuthorizable;
-import Interface.IHasPermission;
+import interfaces.IAuthorizable;
+import interfaces.IHasPermission;
 
 import java.util.List;
 import java.util.Map;
