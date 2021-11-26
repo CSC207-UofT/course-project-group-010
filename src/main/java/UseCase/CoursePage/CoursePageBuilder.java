@@ -1,4 +1,4 @@
-package usecase.coursePage;
+package UseCase.CoursePage;
 
 import entity.CommentGraph;
 import entity.Course;

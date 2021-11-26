@@ -1,7 +1,6 @@
-package usecase.coursePage;
+package UseCase.CoursePage;
 
 import entity.*;
-
 import java.util.*;
 
 

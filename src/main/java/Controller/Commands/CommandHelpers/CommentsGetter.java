@@ -1,5 +1,6 @@
 package controller.commands.commandHelpers;
 
+import UseCase.CourseManager.CourseManager;
 import controller.commands.CommandExecutor;
 import controller.CommentPresenter;
 import exceptions.CommandNotAuthorizedException;
