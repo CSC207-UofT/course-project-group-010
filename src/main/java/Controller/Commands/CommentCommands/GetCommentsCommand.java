@@ -1,8 +1,8 @@
-package Controller.Commands.CommentCommands;
+package controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
-import UseCase.CourseManager.CourseManager;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.commands.commandHelpers.CommentsGetter;
 
 import java.util.List;
 
@@ -16,16 +16,26 @@ public class GetCommentsCommand extends Command {
 
     @Override
     public String help() {
-        return "format: getcomments";
+        return "Gets the comment section. This is deprecated, try using checkout -c instead.";
     }
 
+    /**
+     * Gets the comment section of the page that the user is currently viewing, if it is a course page.
+     * This is integrated into checkout -c as well, currently.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelpArgsUserPageAuth(ce, arguments, "getcomments");
 
         // then pageManager will be instance of CourseManager
-        ce.setPageManager(((CourseManager) ce.getPageManager()).getOnlyComment());
+        CommentsGetter cg = new CommentsGetter();
+
+        // all necessary checks should have been run by checkPageAuth
+        cg.getCommentSection(ce);
         return "viewing comments";
     }
-    // TODO implement this once coursePage is updated.
 }

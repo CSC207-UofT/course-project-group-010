@@ -1,9 +1,9 @@
-package Controller.Commands.CommentCommands;
+package controller.commands.commentcommands;
 
-import Controller.Commands.Command;
-import Controller.Commands.CommandExecutor;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
+import controller.CommentPresenter;
 import Interface.IReadModifiable;
-import UseCase.CommentManager.CommentManager;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class VoteCommand extends Command {
 
     @Override
     public String help() {
-        return "vote [commendID] [up/down] : up/downvotes comment with id";
+        return "vote [commentID] [up/down] : up/downvotes comment with id";
     }
 
     /**
@@ -34,7 +34,7 @@ public class VoteCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         boolean up = arguments.get(1).equalsIgnoreCase("up");
-        ((CommentManager) currentlyViewingPage).vote(arguments.get(0), up);
+        ((CommentPresenter) currentlyViewingPage).vote(arguments.get(0), up);
         return "voted on comment " + arguments.get(0) + "with up=" + up;
     }
 }

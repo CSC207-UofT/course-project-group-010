@@ -1,9 +1,9 @@
-package Controller.Commands;
+package controller.commands;
 
-import Exceptions.ArgumentException;
-import Exceptions.CommandNotAuthorizedException;
-import Controller.DatabaseGetter.UserDatabaseGetter;
-import UseCase.UserManager;
+import exceptions.ArgumentException;
+import exceptions.CommandNotAuthorizedException;
+import controller.databasegetter.UserDatabaseGetter;
+import usecase.UserManager;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class LoginCommand extends Command {
     /**
-     * The format for a login command is login [utorID] for now
+     * The format for a login command is login [ID] for now
      * so it will only take 1 argument
      */
     public LoginCommand() {
@@ -22,7 +22,7 @@ public class LoginCommand extends Command {
 
     @Override
     public String help() {
-        String s = "Attempts login. Format: login [utorid]\n Format: \"login 12345\"";
+        String s = "Attempts login. Format: login [id]\n Example: \"login 12345\"";
         return s;
     }
 
@@ -48,7 +48,7 @@ public class LoginCommand extends Command {
             throw new ArgumentException("User not found in Database");
         } else {
             ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getdisplayName();
+            return "Logged in as " + mgr.getUser().getDisplayName();
         }
     }
 }
