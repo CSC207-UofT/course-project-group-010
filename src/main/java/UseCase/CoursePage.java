@@ -27,6 +27,32 @@ public class CoursePage implements Serializable {
     private CommentGraph commentGraphs;
 
 
+    /**
+     *    { Mathematics:  { Specialist: [Rating1, Rating2, Rating3]
+     *                       Major: [Rating1, Rating2, Rating3]
+     *                       Minor: [Rating1, Rating2, Rating3] }
+     *
+     *      Philosophy:   { Specialist: [Rating1, Rating2, Rating3]
+     *                       Major: [Rating1, Rating2, Rating3]
+     *                       Minor: [Rating1, Rating2, Rating3] }
+     *
+     *
+     *      Computer Science: { Specialist: [Rating1, Rating2, Rating3]
+     *                              Major: [Rating1, Rating2, Rating3]
+     *                              Minor: [Rating1, Rating2, Rating3] }
+     *
+     *    Constants for programs:
+     *
+     *
+     *
+     */
+
+    public float getRelativeRating(List<Rating> ratings) {
+        HashMap<String, HashMap<String, List<Rating>>> programToRating = new HashMap<>();
+        for (Rating r : ratings) {
+            programToRating.put()
+        }
+    }
 
     public CoursePage(Course course, List<String> instructors) {
 
