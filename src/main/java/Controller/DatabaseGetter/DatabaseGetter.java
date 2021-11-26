@@ -1,6 +1,6 @@
-package controller.databasegetter;
+package Controller.DatabaseGetter;
 
-import exceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 import Interface.IDBSaveable;
 
 import java.io.IOException;

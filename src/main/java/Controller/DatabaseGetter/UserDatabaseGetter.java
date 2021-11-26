@@ -1,10 +1,10 @@
-package controller.databasegetter;
+package Controller.DatabaseGetter;
 
-import constants.FileConstants;
-import exceptions.CommandNotAuthorizedException;
-import exceptions.NotInDatabaseException;
-import outer.database.Database;
-import usecase.UserManager;
+import Constants.FileConstants;
+import Exceptions.CommandNotAuthorizedException;
+import Exceptions.NotInDatabaseException;
+import Outer.Database.Database;
+import UseCase.UserManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -76,22 +76,5 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     public void saveAll() throws IOException {
         db.saveToFile(new FileConstants().USER_FILE, this.userDict);
-    }
-
-    /**
-     * Represents the user database as a string, showing all available ids and corresponding display names.
-     * @return
-     */
-    @Override
-    public String toString() {
-        StringBuilder retStr = new StringBuilder();
-        for (String key : this.userDict.keySet()) {
-            // TODO make it easier to access users basic info from userManager
-            // this is dependent on the abstract user class, I guess, so that's alright?
-            retStr.append(key + ": ");
-            UserManager um = userDict.get(key);
-            retStr.append(um.getUser().getDisplayName() + "\n");
-        }
-        return retStr.toString().strip();
     }
 }

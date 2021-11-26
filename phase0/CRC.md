@@ -2,7 +2,7 @@ All child classes/implementations of interfaces must implement abstract methods.
 Will not be listed in the CRC card.
 We will break classes with lots of responsibilities into helper classes later.
 
-## entity Classes
+## Entity Classes
 Basic entity data
 
 |User(abstract)||
@@ -11,7 +11,7 @@ Basic entity data
 |getName||
 |getID ||
 
-Student entity
+Student Entity
 
 |StudentEntityData||
 |:-------------|:--|
@@ -19,7 +19,7 @@ Student entity
 |getProgram|extends EntityData|
 |getYearOfStudy||
 
-Prof entity
+Prof Entity
 
 |ProfEntityData||
 |:-------------|:--|
@@ -152,7 +152,7 @@ Databases for holding objects. This may be more like a gateway to some sort of d
 |Responsibilities|Collaborators|
 ||extends Database<CourseManager>|
 
-## outer Layer
+## Outer Layer
 
 takes text input
 
@@ -163,7 +163,7 @@ takes text input
 
 # How does this work?
 
-- entity classes store data for courses, users, etc.
+- Entity classes store data for courses, users, etc.
 - Use case classes hold data and manage use cases pertaining to the data.
   - eg. CourseManager holds everything related to a course: the course itself, the rating and review system
 - Controllers break up tasks into smaller tasks

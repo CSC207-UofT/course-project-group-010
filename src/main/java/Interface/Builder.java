@@ -1,10 +1,13 @@
 package Interface;
 
-import entity.CommentGraph;
-import entity.Course;
-import entity.Rating;
+import Entity.CommentGraph;
+import Entity.Course;
+import Entity.InstructorUser;
+import Entity.Rating;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public interface Builder {
 

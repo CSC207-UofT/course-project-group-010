@@ -11,7 +11,7 @@ other documents.
 # Running the program:
 - If it can't run after cloning, try "new project from VCS" in the IntelliJ editor.
     - github desktop cloning seems to encounter issues
-    - main method is in src/main/java/outer/ScreenIO.
+    - main method is in src/main/java/Outer/ScreenIO.
 - the enter "help" to get help, or enter [commandname] -h for specific command help
 - start by making a new user with the newuser command, then login as the new user.
 - Try accessing a page

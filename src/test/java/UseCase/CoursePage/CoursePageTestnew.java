@@ -1,4 +1,4 @@
-package usecase.coursePage;
+package UseCase.CoursePage;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import entity.*;
+import Entity.*;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ public class CoursePageTestnew {
         data.put("position", "Prof");
         InstructorUser instructorone = new InstructorUser("Jonathan Calver", "11111", data);
         List<String> ins = new ArrayList<>();
-        ins.add(instructorone.getDisplayName());
+        ins.add(instructorone.getdisplayName());
         CoursePage a = new CoursePage(courseone, ins);
         assertEquals(a.getCourse(), courseone);
     }
@@ -32,7 +32,7 @@ public class CoursePageTestnew {
         data.put("position", "Prof");
         InstructorUser instructorone = new InstructorUser("Jonathan Calver", "11111", data);
         List<String> ins = new ArrayList<>();
-        ins.add(instructorone.getDisplayName());
+        ins.add(instructorone.getdisplayName());
         CoursePage a = new CoursePage(courseone, ins);
         assertEquals(a.getInstructors(), ins);
     }
@@ -44,7 +44,7 @@ public class CoursePageTestnew {
         data.put("position", "Prof");
         InstructorUser instructorone = new InstructorUser("Jonathan Calver", "11111", data);
         List<String> ins = new ArrayList<>();
-        ins.add(instructorone.getDisplayName());
+        ins.add(instructorone.getdisplayName());
         CoursePage a = new CoursePage(courseone, ins);
         assertNull(a.getRatings());
     }
@@ -56,7 +56,7 @@ public class CoursePageTestnew {
         data.put("position", "Prof");
         InstructorUser instructorone = new InstructorUser("Jonathan Calver", "11111", data);
         List<String> ins = new ArrayList<>();
-        ins.add(instructorone.getDisplayName());
+        ins.add(instructorone.getdisplayName());
         CoursePage a = new CoursePage(courseone, ins);
         a.setAverageScore(4.55f);
         assertEquals(a.getAverageScore(), 4.55f, 0.0);

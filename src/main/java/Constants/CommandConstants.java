@@ -1,11 +1,10 @@
-package constants;
+package Constants;
 
-import controller.commands.*;
-import controller.commands.commentcommands.*;
-import controller.commands.coursecommands.CreateCourseCommand;
-import controller.commands.debuggingcommands.ListCoursesCommand;
-import controller.commands.debuggingcommands.ListUsersCommand;
-import exceptions.CommandNotFoundException;
+import Controller.Commands.*;
+import Controller.Commands.CommentCommands.*;
+import Controller.Commands.CourseCommands.CreateCourseCommand;
+import Controller.Commands.CourseCommands.FilterInstructorCommand;
+import Exceptions.CommandNotFoundException;
 
 import java.util.Hashtable;
 
@@ -14,8 +13,6 @@ import java.util.Hashtable;
  */
 public class CommandConstants {
     public final Hashtable<String, Command> command_dict = new Hashtable<>();
-    // allDataString used in the checkoutCommand.
-    public static final String allDataString = "all-data";
 
     public CommandConstants() {
         command_dict.put("help", new HelpCommand());
@@ -32,12 +29,9 @@ public class CommandConstants {
         command_dict.put("reply", new ReplyCommand());
         command_dict.put("vote", new VoteCommand());
         command_dict.put("createcourse", new CreateCourseCommand());
-        // command_dict.put("filter", new FilterInstructorCommand());
+        command_dict.put("filter", new FilterInstructorCommand());
         command_dict.put("getcomments", new GetCommentsCommand());
         //command_dict.put("startcomment", new StartCommentCommand());
-        command_dict.put("listcourses", new ListCoursesCommand());
-        command_dict.put("listusers", new ListUsersCommand());
-        command_dict.put("cd", new CommentCDCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {

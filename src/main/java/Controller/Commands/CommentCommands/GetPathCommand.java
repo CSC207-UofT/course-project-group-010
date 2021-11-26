@@ -1,10 +1,10 @@
-package controller.commands.commentcommands;
+package Controller.Commands.CommentCommands;
 
-import controller.commands.Command;
-import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
-import exceptions.ArgumentException;
+import Controller.Commands.Command;
+import Controller.Commands.CommandExecutor;
+import Exceptions.ArgumentException;
 import Interface.IReadModifiable;
+import UseCase.CommentManager.CommentManager;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class GetPathCommand extends Command {
 
     @Override
     public String help() {
-        return "getpath [startid] [endid]: displays path of comments from startid to endid\n It's basically a filtering command.";
+        return "getpath [startid] [endid]: displays path of comments from startid to endid";
     }
 
     /**
@@ -35,7 +35,7 @@ public class GetPathCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "getpath");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         try {
-            return ((CommentPresenter) currentlyViewingPage).getCommentManager().getPath(arguments.get(0), arguments.get(1));
+            return ((CommentManager) currentlyViewingPage).getPath(arguments.get(0), arguments.get(1));
         } catch (Exception e) {
             throw new ArgumentException("Please input valid ids");
         }

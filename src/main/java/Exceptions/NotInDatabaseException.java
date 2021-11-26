@@ -1,4 +1,4 @@
-package exceptions;
+package Exceptions;
 
 public class NotInDatabaseException extends Exception {
     public NotInDatabaseException(String message) {

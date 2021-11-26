@@ -1,6 +1,6 @@
-package entity;
+package Entity;
 
-import exceptions.CommandNotAuthorizedException;
+import Exceptions.CommandNotAuthorizedException;
 import org.junit.Before;
 import org.junit.Test;
 

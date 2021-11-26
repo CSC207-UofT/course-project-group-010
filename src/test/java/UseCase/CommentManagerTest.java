@@ -1,16 +1,11 @@
-package usecase;
+package UseCase;
 
-import entity.CommentGraph;
-import usecase.commentManager.CommentDisplayCleanupManager;
-import usecase.commentManager.CommentManager;
+import Entity.CommentGraph;
+import UseCase.CommentManager.CommentManager;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class CommentManagerTest
 {
@@ -29,7 +24,7 @@ public class CommentManagerTest
     public static CommentGraph sampleCommentGraphBuilder() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
     {
         // Get private methods from commentGraph Class
-        Class<?> commentGraphClass = Class.forName("entity.CommentGraph");
+        Class<?> commentGraphClass = Class.forName("Entity.CommentGraph");
 
         Method createCommentMethod = commentGraphClass.getDeclaredMethod("createComment", String.class, String.class, String.class);
         createCommentMethod.setAccessible(true);
@@ -40,9 +35,8 @@ public class CommentManagerTest
         Method linkMethod = commentGraphClass.getDeclaredMethod("link", String.class, CommentGraph.Comment.class);
         linkMethod.setAccessible(true);
 
-
         // create an empty Comment Graph
-        CommentGraph CSC207Thread = new CommentGraph("Questions", "Instructor", new HashMap<>());
+        CommentGraph CSC207Thread = new CommentGraph("Questions", "Instructor", "Prof 1");
 
         // Manually create comments and links, this should not be done, only done for the sake of testing.
         CommentGraph.Comment question1 = (CommentGraph.Comment) createCommentMethod.invoke(CSC207Thread, "id1", "How did you like the course?", "Instructor");
@@ -310,30 +304,5 @@ public class CommentManagerTest
         int initialVote = commentManager.getVote("id1");
         commentManager.vote("id1", true);
         assert (commentManager.getVote("id1") == initialVote + 1);
-    }
-
-    public static void main(String[] args) throws IOException, InterruptedException 
-    {
-        HashMap<String, List<String>> initialQuestions = new HashMap<>();
-        initialQuestions.put("Prof 1", Arrays.asList("How did you like the course?", "Was the course fun?"));
-        initialQuestions.put("Prof 2", Arrays.asList("Tell us how we can improve the course."));
-        CommentGraph cg = new CommentGraph("Questions", "RootName", initialQuestions);
-
-        CommentManager cm = new CommentManager(cg);
-        String display = cm.displayEntireThread(true, -1);
-        System.out.println("\n");
-        System.out.print(display);
-
-        // Thread.sleep(5000);
-        
-        // cm.clearThreadDisplay(display);
-        // Thread.sleep(1000);
-        // System.out.println("----------CLEARING---------------------\n".repeat(10));
-
-        
-        Thread.sleep(5000);
-        CommentDisplayCleanupManager.setCommentNewLineCount(display);
-        CommentDisplayCleanupManager.eraseCurrentThread();
-        
     }
 }

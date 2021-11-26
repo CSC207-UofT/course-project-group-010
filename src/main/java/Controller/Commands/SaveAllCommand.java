@@ -1,7 +1,7 @@
-package controller.commands;
+package Controller.Commands;
 
-import controller.databasegetter.CourseDatabaseGetter;
-import controller.databasegetter.UserDatabaseGetter;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class SaveAllCommand extends Command {
 
     @Override
     public String help() {
-        return "saves all users/course editing progress. Format: saveall";
+        return "saves all users/course editing progress.";
     }
 
     /**

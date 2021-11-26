@@ -1,14 +1,15 @@
-package controller.commands;
+package Controller.Commands;
 
-import controller.AuthHelper;
-import controller.commands.commandHelpers.CommentsGetter;
-import controller.commands.commandHelpers.UserGetter;
-import controller.databasegetter.CourseDatabaseGetter;
-import exceptions.ArgumentException;
-import Interface.IHasPermission;
-import Interface.IReadModifiable;
-import usecase.courseManager.CourseManager;
+import Controller.AuthHelper;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Entity.Course;
+import Entity.InstructorUser;
+import Entity.Rating;
+import Exceptions.ArgumentException;
+import UseCase.CourseManager.CourseManager;
+import UseCase.CoursePage.CoursePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,47 +40,26 @@ public class CheckoutCommand extends Command {
         checkArgumentsNum(arguments);
         checkUserExists(ce);
         String id = arguments.get(0);
-        if (arguments.get(0).equals("-c")) {
-            checkPageAuth(ce);
-            CommentsGetter cg = new CommentsGetter();
-
-            // all necessary checks should have been run by checkPageAuth
-            cg.getCommentSection(ce);
-            return "now viewing comment section for page";
-        } else if (arguments.get(0).equals("-u")){
-            new UserGetter().getUserPage(ce);
-            return "now viewing profile of " + ce.getUserManager().getID();
+        // TODO get comment section if r.
+        if (arguments.get(0).equals("r")) {
+            return "Review pages don't exist yet";
         } else {
 
-            getCourseFromDB(ce, id);
-            return "now viewing course " + id;
-        }
-    }
-
-    private boolean checkPageAuth(CommandExecutor ce) throws Exception{
-        checkViewingPageExists(ce);
-        AuthHelper ah = new AuthHelper();
-        IReadModifiable page = ce.getPageManager();
-        IHasPermission user = ce.getUserManager();
-        ah.checkAuth(page, user, "getcomments");
-        return true;
-    }
-
-    private void getCourseFromDB(CommandExecutor ce, String id) throws Exception {
-        CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
-        CourseManager mgr = cdg.getEntry(id);
-        if (mgr == null) {
-            throw new ArgumentException("Course not found in Database");
-        } else {
-            AuthHelper ah = new AuthHelper();
-            ah.checkAuth(mgr, ce.getUserManager(), "checkout");
-            ce.setPageManager(mgr);
+            CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
+            CourseManager mgr = cdg.getEntry(id);
+            if (mgr == null) {
+                throw new ArgumentException("Course not found in Database");
+            } else {
+                AuthHelper ah = new AuthHelper();
+                ah.checkAuth(mgr, ce.getUserManager(), "checkout");
+                ce.setPageManager(mgr);
+                return "now viewing course: " + id;
+            }
         }
     }
 
     @Override
     public String help() {
-        return "checks out a page.\n - checkout [coursecode]: checks out a course\n - checkout -c gets the comment " +
-                "section of the page.\n - checkout -u gets the currently logged in user's profile page.";
+        return "checks out a page. eg. checkout MAT137";
     }
 }

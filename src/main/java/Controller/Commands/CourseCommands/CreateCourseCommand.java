@@ -1,12 +1,13 @@
-package controller.commands.coursecommands;
+package Controller.Commands.CourseCommands;
 
-import controller.commands.Command;
-import controller.commands.CommandExecutor;
-import controller.databasegetter.CourseDatabaseGetter;
-import usecase.courseManager.CourseManager;
-import usecase.coursePage.CoursePage;
-import usecase.coursePage.CoursePageBuilder;
-import usecase.coursePage.Director;
+import Controller.Commands.Command;
+import Controller.Commands.CommandExecutor;
+import Controller.DatabaseGetter.CourseDatabaseGetter;
+import Controller.DatabaseGetter.UserDatabaseGetter;
+import UseCase.CourseManager.CourseManager;
+import UseCase.CoursePage.CoursePage;
+import UseCase.CoursePage.CoursePageBuilder;
+import UseCase.CoursePage.Director;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +27,6 @@ public class CreateCourseCommand extends Command {
         return "creates a course. Enter createcourse then follow the prompts given.";
     }
 
-    /**
-     * Prompts the user to create a new course.
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
-     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelp(arguments);
@@ -67,7 +61,6 @@ public class CreateCourseCommand extends Command {
 
         // Save to db and return
         CourseDatabaseGetter.getInstance().addEntry(cm);
-        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.\n" +
-                "Make sure to run saveall to save your progress!";
+        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.";
     }
 }

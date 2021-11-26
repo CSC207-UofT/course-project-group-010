@@ -1,15 +1,12 @@
-package controller.commands.commentcommands;
+package Controller.Commands.CommentCommands;
 
-import controller.commands.Command;
-import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
+import Controller.Commands.Command;
+import Controller.Commands.CommandExecutor;
 import Interface.IReadModifiable;
+import UseCase.CommentManager.CommentManager;
 
 import java.util.List;
 
-/**
- * Displays the full comment thread. This is deprecated, you can use checkout -c instead.
- */
 public class DisplayFullThreadCommand extends Command {
 
     /**
@@ -21,11 +18,11 @@ public class DisplayFullThreadCommand extends Command {
 
     @Override
     public String help() {
-        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c instead.";
+        return "displayfullthread: display full comment thread";
     }
 
     /**
-     * Displays full comment thread if the user is viewing a comment. THIS IS VERY VERY VERY DEPRECATED
+     * Displays full comment thread, assuming that the user is viewing a comment.
      *
      * @param ce
      * @param arguments
@@ -37,6 +34,6 @@ public class DisplayFullThreadCommand extends Command {
         checkHelpArgsUserPageAuth(ce, arguments, "displayfullthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         // If we're authorized to displayfullthread, the thing should be of type CommentManager.
-        return ((CommentPresenter) currentlyViewingPage).getCommentManager().displayEntireThread(true, -1);
+        return ((CommentManager) currentlyViewingPage).displayEntireThread(true, -1);
     }
 }

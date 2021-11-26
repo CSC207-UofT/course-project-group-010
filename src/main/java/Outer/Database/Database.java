@@ -1,9 +1,10 @@
-package outer.database;
+package Outer.Database;
 
 import Interface.IDBSaveable;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,8 +15,7 @@ import java.util.Map;
  * @param <T>
  */
 public class Database<T extends IDBSaveable & Serializable> {
-    // TODO TODO TODO DatabaseGetter currently instantiates database, this is VERRRY BAD, fix.
-    // consider making db.LoadDatabase like a new class like DatabaseLoader idk the TA didn't even notice this.
+
     // TODO make create user/course commands that make new objects and then save them to the db or something
     // TODO make the database load on startup and save before the program closes.
 

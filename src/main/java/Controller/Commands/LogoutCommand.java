@@ -1,6 +1,6 @@
-package controller.commands;
+package Controller.Commands;
 
-import usecase.UserManager;
+import UseCase.UserManager;
 
 import java.util.List;
 
@@ -28,11 +28,6 @@ public class LogoutCommand extends Command {
         checkUserExists(ce);
         UserManager um = ce.getUserManager();
         ce.resetAll();
-        return "Logged out of " + um.getUser().getDisplayName();
-    }
-
-    @Override
-    public String help() {
-        return "logs out. format: logout";
+        return "Logged out of " + um.getUser().getdisplayName();
     }
 }

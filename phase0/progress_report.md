@@ -15,9 +15,9 @@ and leave ratings. Additional features are listed in the markdown file as well.
 
 The CRC model for our program approximately follows a clean architecture structure.
 
-- entity classes store data for users, courses, and anything else that has data
+- Entity classes store data for users, courses, and anything else that has data
 - Use case classes manage use cases for entities. For example, UserManager will initialize with a user and will manage its use cases and update the userData accordingly
-- controller/presenter/gateways are in the next layer. 
+- Controller/presenter/gateways are in the next layer. 
   - CommandExecutor is a controller that will break each command that we came up with in our specification(eg. login, rateCourse) into smaller tasks
   - Database classes will probably be gateways to external databases(like SQL) in the future.
 - ScreenIO is our only outer layer class. It will take text input from the user and call the appropriate functions.
@@ -57,7 +57,7 @@ src/test/java is where our tests are stored
 ### Running the program:
 - If it can't run after cloning, try "new project from VCS" in the IntelliJ editor.
   - github desktop cloning seems to encounter issues with problems
-  - main method is in src/main/java/outer/ScreenIO.
+  - main method is in src/main/java/Outer/ScreenIO.
 - the enter "help" to get help.
 - login 12345 and checkout MAT137 are the only valid login and checkout cases for now.
   - courses and users are currently hardcoded.
@@ -71,7 +71,7 @@ src/test/java is where our tests are stored
   - So we have other interfaces that get implemented. However, variables can only have one class.
   - So how do we ensure that one variable meets multiple categories, or is there a better implementation method?
 
-- Some of our use case classes are closely tied with the entity classes. If a controller wants to initialize a use case class, it needs to initialize entity classes as well right now.
+- Some of our use case classes are closely tied with the Entity classes. If a controller wants to initialize a use case class, it needs to initialize entity classes as well right now.
 However, if we try to take data from a database, it may be too complex to transfer all the data that needs to be stored. Should we try simplifying
 the entity objects, or try advancing the Databases, or do something different?
   - For example, CourseManager requires a coursePage to be initialized.
@@ -89,7 +89,7 @@ is that they all take in arguments and then output a string for now, so it was e
 Also, I copied the the Command design pattern because I was learning it in class, and broke commands into request objects. I think that made the program really nice.
   - New commands are really easy to integrate now, and the project's mostly about fine-tuning the use-case classes and entity classes to be more workable.
 
-- outer classes in general are integrated quite nicely. They don't depend on the wrong classes at all. For example, the CommandExecutor class hasn't changed since I first
+- Outer classes in general are integrated quite nicely. They don't depend on the wrong classes at all. For example, the CommandExecutor class hasn't changed since I first
 worked on it, even though entities weren't even created at that point. Use case classes need a bit of work, but hopefully they will be like that too.
 
 ## What has each group member been working on and plans to work on?
