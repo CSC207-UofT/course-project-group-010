@@ -15,7 +15,7 @@ public class CoursePageBuilder implements Builder {
     private Course course; // course object. Empty string if not assigned.
     private List<String> instructors; // List containing empty string if not assigned.
     private List<Rating> ratings = null; // List of all ratings left for this course across all instructors.
-    private CommentGraph commentGraph = null; //List of all commentGraphs for this course across all instructors.
+    private CommentGraph commentGraph = null; //Comment Graph for this CoursePage.
 
 
     @Override
@@ -98,7 +98,7 @@ public class CoursePageBuilder implements Builder {
         CoursePage cp = new CoursePage(this.course, this.instructors);
         //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
         cp.setRatings(this.ratings);
-        cp.setCommentGraphs(this.commentGraph);
+        cp.setCommentGraph(this.commentGraph);
         this.reset();
         return cp;
     }

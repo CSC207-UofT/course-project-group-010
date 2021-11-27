@@ -18,14 +18,14 @@ public class CoursePage implements Serializable {
      * @param instructors    A list of instructors who have taught this course.
      * @param ratings        A list of all ratings left for this course. Null if not assigned.
      * @param averageScore   The average rating score value across all ratings for this course.
-     * @param commentGraphs  A commentGraph object representing the comment section on this page. Null if not assigned.
+     * @param commentGraph  A commentGraph object representing the comment section on this page. Null if not assigned.
      */
 
     private Course course;
     private List<String> instructors;
     private List<Rating> ratings;
     private float averageScore;
-    private CommentGraph commentGraphs;
+    private CommentGraph commentGraph;
 
 
     /**
@@ -60,7 +60,7 @@ public class CoursePage implements Serializable {
         this.course = course;
         this.instructors = instructors;
         this.ratings = null;
-        this.commentGraphs = null;
+        this.commentGraph = null;
     }
 
     public Course getCourse() {
@@ -79,12 +79,12 @@ public class CoursePage implements Serializable {
         return this.averageScore;
     }
 
-    public CommentGraph getCommentGraphs() {
-        return this.commentGraphs;
+    public CommentGraph getCommentGraph() {
+        return this.commentGraph;
     }
 
     public CommentManager getThread() {
-        return new CommentManager(this.getCommentGraphs());
+        return new CommentManager(this.getCommentGraph());
     }
 
 
@@ -107,8 +107,8 @@ public class CoursePage implements Serializable {
         this.averageScore = AverageScore;
     }
 
-    public void setCommentGraphs(CommentGraph commentGraphs) {
-        this.commentGraphs = commentGraphs;
+    public void setCommentGraph(CommentGraph commentGraph) {
+        this.commentGraph = commentGraph;
     }
 
 }
