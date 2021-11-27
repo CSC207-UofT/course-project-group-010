@@ -1,6 +1,6 @@
 package outer.database;
 
-import Interface.IDBSaveable;
+import interfaces.IDBSaveable;
 
 import java.io.*;
 import java.util.HashMap;

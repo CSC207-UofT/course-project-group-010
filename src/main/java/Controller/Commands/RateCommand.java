@@ -2,7 +2,7 @@ package controller.commands;
 
 import entity.StudentUser;
 import exceptions.CommandNotAuthorizedException;
-import usecase.courseManager.CourseManager;
+import usecase.CourseManager;
 
 import java.util.List;
 

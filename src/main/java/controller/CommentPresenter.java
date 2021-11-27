@@ -4,8 +4,8 @@ import constants.CommandConstants;
 import constants.PermissionLevel;
 import entity.CommentGraph;
 import exceptions.ArgumentException;
-import Interface.IReadModifiable;
-import usecase.commentManager.CommentManager;
+import interfaces.IReadModifiable;
+import usecase.CommentManager;
 
 import java.util.Arrays;
 import java.util.HashMap;

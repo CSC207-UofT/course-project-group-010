@@ -1,7 +1,7 @@
 package entity;
 
 import constants.UserType;
-import Interface.IUser;
+import interfaces.IUser;
 
 import java.util.Map;
 

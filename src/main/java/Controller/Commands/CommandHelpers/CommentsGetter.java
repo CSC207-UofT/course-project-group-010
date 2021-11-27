@@ -1,11 +1,10 @@
 package controller.commands.commandHelpers;
 
-import UseCase.CourseManager.CourseManager;
 import controller.commands.CommandExecutor;
 import controller.CommentPresenter;
 import exceptions.CommandNotAuthorizedException;
-import usecase.commentManager.CommentManager;
-import usecase.courseManager.CourseManager;
+import usecase.CommentManager;
+import usecase.CourseManager;
 
 public class CommentsGetter {
 
@@ -19,7 +18,7 @@ public class CommentsGetter {
     public void getCommentSection(CommandExecutor ce) throws CommandNotAuthorizedException {
         try {
             // Get use case comment manager
-            CommentManager cm = ((CourseManager) ce.getPageManager()).getOnlyComment();
+            CommentManager cm = ((CourseManager) ce.getPageManager()).getCommentSection();
 
             // wrap it, and set as the page manager
             ce.setPageManager(new CommentPresenter(cm));

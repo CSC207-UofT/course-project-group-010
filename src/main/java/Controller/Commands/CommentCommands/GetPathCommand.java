@@ -4,7 +4,7 @@ import controller.commands.Command;
 import controller.commands.CommandExecutor;
 import controller.CommentPresenter;
 import exceptions.ArgumentException;
-import Interface.IReadModifiable;
+import interfaces.IReadModifiable;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import controller.AuthHelper;
 import exceptions.ArgumentException;
 import exceptions.CommandHelpException;
 import exceptions.CommandNotAuthorizedException;
-import Interface.IReadModifiable;
+import interfaces.IReadModifiable;
 import usecase.UserManager;
 
 import java.util.List;

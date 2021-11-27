@@ -2,7 +2,7 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import usecase.courseManager.CourseManager;
+import usecase.CourseManager;
 
 import java.util.List;
 import java.util.Scanner;

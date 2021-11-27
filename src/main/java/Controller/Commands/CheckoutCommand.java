@@ -5,9 +5,9 @@ import controller.commands.commandHelpers.CommentsGetter;
 import controller.commands.commandHelpers.UserGetter;
 import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.ArgumentException;
-import Interface.IHasPermission;
-import Interface.IReadModifiable;
-import usecase.courseManager.CourseManager;
+import interfaces.IHasPermission;
+import interfaces.IReadModifiable;
+import usecase.CourseManager;
 
 import java.util.List;
 

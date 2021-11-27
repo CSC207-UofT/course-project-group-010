@@ -16,6 +16,12 @@ public class Rating implements Serializable {
         this.instructor = instructor;
     }
 
+    public Rating(StudentUser rater, float score) {
+        this.rater = rater;
+        this.score = score;
+        this.instructor = "";
+    }
+
     /**
      * @return a string indicating that the student has successfully left a review iff this student
      * has not already placed a review for this course rating.
@@ -89,14 +95,14 @@ public class Rating implements Serializable {
         return score >= 0 && score <= 1;
     }
 
-    /**
-     * Getter for the instructor of the course that this rating is for.
-     *
-     * @return Instructor name
-     */
-    public String getInstructor() {
-        return this.instructor;
-    }
+//    /**
+//     * Getter for the instructor of the course that this rating is for.
+//     *
+//     * @return Instructor name
+//     */
+//    public String getInstructor() {
+//        return this.instructor;
+//    }
 
     /**
      * Getter for the author of this rating, a.k.a. the rater.

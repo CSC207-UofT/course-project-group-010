@@ -1,9 +1,9 @@
-package UseCase;
+package usecase;
 
 import constants.CommandConstants;
 import constants.PermissionLevel;
 import entity.CommentGraph;
-import Interface.IReadModifiable;
+import interfaces.IReadModifiable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -26,6 +26,10 @@ public class CommentManager implements IReadModifiable, Serializable {
         this.commentGraph = commentGraph;
         // get Default authdict
         this.authDict = getDefaultAuthDict();
+    }
+
+    public CommentManager() {
+        this.commentGraph = new CommentGraph("Comments", "Comments");
     }
 
     public List<String> getCommentsByUserName(String userName) {

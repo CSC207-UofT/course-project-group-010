@@ -1,7 +1,7 @@
 package controller.commands;
 
 import controller.commands.commandHelpers.DataPrinter;
-import Interface.IReadModifiable;
+import interfaces.IReadModifiable;
 
 import java.util.List;
 import java.util.Map;

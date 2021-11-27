@@ -4,7 +4,7 @@ import constants.FileConstants;
 import exceptions.CommandNotAuthorizedException;
 import exceptions.NotInDatabaseException;
 import outer.database.Database;
-import usecase.courseManager.CourseManager;
+import usecase.CourseManager;
 
 import java.io.IOException;
 import java.util.HashMap;

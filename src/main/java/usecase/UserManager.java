@@ -1,9 +1,9 @@
 package usecase;
 
-import Interface.IDBSaveable;
-import Interface.IHasPermission;
-import Interface.IReadModifiable;
-import Interface.IUser;
+import interfaces.IDBSaveable;
+import interfaces.IHasPermission;
+import interfaces.IReadModifiable;
+import interfaces.IUser;
 import constants.PermissionLevel;
 import constants.UserType;
 import entity.Course;

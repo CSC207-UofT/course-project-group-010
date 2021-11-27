@@ -1,7 +1,7 @@
 package controller.commands;
 
 import constants.CommandConstants;
-import Interface.IReadModifiable;
+import interfaces.IReadModifiable;
 import usecase.UserManager;
 
 /**

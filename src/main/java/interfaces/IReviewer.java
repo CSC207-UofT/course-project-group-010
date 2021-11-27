@@ -1,4 +1,4 @@
-package Interface;
+package interfaces;
 
 public interface IReviewer {
     void incrementReviewCount();

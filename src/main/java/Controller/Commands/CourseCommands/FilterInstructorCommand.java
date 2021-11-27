@@ -2,11 +2,12 @@ package controller.commands.coursecommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import usecase.courseManager.CourseManager;
+import usecase.CourseManager;
 
 import java.util.List;
 import java.util.Scanner;
 
+// TODO delete.
 /**
  * Not in use, as the filter by instructor option was removed.
  */
