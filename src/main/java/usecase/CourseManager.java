@@ -281,7 +281,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      */
     public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
         Map<PermissionLevel, List<String>> retDict = new HashMap<>();
-        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment");
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment", "relativerating");
         List<String> instructorPermissions = Arrays.asList("all");
         retDict.put(PermissionLevel.STUDENT, studentPermissions);
         retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);

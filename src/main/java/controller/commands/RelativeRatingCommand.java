@@ -28,7 +28,7 @@ import java.util.Scanner;
 
 public class RelativeRatingCommand extends Command {
 
-    public RelativeRatingCommand() { super(1, 1);
+    public RelativeRatingCommand() { super(0, 0);
     }
 
     /**
@@ -46,21 +46,20 @@ public class RelativeRatingCommand extends Command {
     // List<String> arguments: [getRelativeRating, Computer Science]
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-
-        checkHelp(arguments);
-        super.checkArgumentsNum(arguments);
+        checkViewingPageExists(ce);
+        checkUserExists(ce);
+        checkArgumentsNum(arguments);
         Scanner in = new Scanner(System.in);
 
-        checkHelpArgsUserPageAuth(ce, arguments, "getRelativeRating");
-        checkUserExists(ce);
-
         //Ask user to select the program which they want the relative rating for
-        System.out.println("Relative Ratings across Programs: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE.");
+        System.out.println("Relative Ratings across Program: " + "Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE.");
         //Get Users input.
         String argProgramDetail = in.nextLine().toUpperCase();
         //Get all the ratings that were left by students of argProgramDetail.
         if (ce.getPageManager() instanceof CourseManager) {
+            //Calculate relativeRating via courseManager
             float relativeRating = ((CourseManager) ce.getPageManager()).getRelativeRating(arguments.get(0));
+            //Create string object of course and rr to display.
             String courseCode =  ((CourseManager) ce.getPageManager()).getID();
             String string_RR =  (String.valueOf(relativeRating));
 
@@ -71,25 +70,12 @@ public class RelativeRatingCommand extends Command {
 
             else {
             return "Students from " + argProgramDetail + "on average rated " + courseCode + " " + string_RR + "."; }
-
-
-
-
         }
+
         return "Unable to provide Relative Rating. Make sure you are viewing a course, or have selected one of the " +
                 "provided programs.";
     }
-    private void getCourseFromDB(CommandExecutor ce, String id) throws Exception {
-        CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
-        CourseManager mgr = cdg.getEntry(id);
-        if (mgr == null) {
-            throw new ArgumentException("Course not found in Database");
-        } else {
-            AuthHelper ah = new AuthHelper();
-            ah.checkAuth(mgr, ce.getUserManager(), "checkout");
-            ce.setPageManager(mgr);
-        }
-    }
+
     @Override
     public String help() {
         return "View the average rating across all ratings from students of [program name].";
