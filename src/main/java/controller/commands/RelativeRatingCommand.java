@@ -1,7 +1,10 @@
 package controller.commands;
 
+import controller.AuthHelper;
+import controller.databasegetter.CourseDatabaseGetter;
 import controller.databasegetter.UserDatabaseGetter;
 import entity.StudentUser;
+import exceptions.ArgumentException;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
 import usecase.UserManager;
@@ -76,10 +79,20 @@ public class RelativeRatingCommand extends Command {
         return "Unable to provide Relative Rating. Make sure you are viewing a course, or have selected one of the " +
                 "provided programs.";
     }
-
+    private void getCourseFromDB(CommandExecutor ce, String id) throws Exception {
+        CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
+        CourseManager mgr = cdg.getEntry(id);
+        if (mgr == null) {
+            throw new ArgumentException("Course not found in Database");
+        } else {
+            AuthHelper ah = new AuthHelper();
+            ah.checkAuth(mgr, ce.getUserManager(), "checkout");
+            ce.setPageManager(mgr);
+        }
+    }
     @Override
     public String help() {
-        return "Rates a course, must be viewing a course to use. Format \"rate [1-10]\"";
+        return "View the average rating across all ratings from students of [program name].";
     }
 
 
