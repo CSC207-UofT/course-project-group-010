@@ -48,12 +48,12 @@ public class CoursePage implements Serializable {
      *
      */
 
-    public float getRelativeRating(List<Rating> ratings) {
-        HashMap<String, HashMap<String, List<Rating>>> programToRating = new HashMap<>();
-        for (Rating r : ratings) {
-            programToRating.put()
-        }
-    }
+//    public float getRelativeRating(List<Rating> ratings) {
+//        HashMap<String, HashMap<String, List<Rating>>> programToRating = new HashMap<>();
+//        for (Rating r : ratings) {
+//            programToRating.put()
+//        }
+//    }
 
     public CoursePage(Course course, List<String> instructors) {
 

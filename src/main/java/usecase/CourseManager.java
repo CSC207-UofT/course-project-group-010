@@ -31,8 +31,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     private Course course;
     // All ratings about the course of CourseManager.
     private List<Rating> ratings;
-    // All commentGraphs about the course of CourseManager.
-    private List<CommentGraph> commentGraphs;
+    // All commentGraph about the course of CourseManager.
+    private CommentGraph commentGraph;
     // A CoursePage that CourseManager handles.
     private CoursePage coursePage;
     // Map of permission level.
@@ -49,7 +49,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.authDict = getDefaultAuthDict();
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
-        this.commentGraphs = coursePage.getCommentGraphs();
+        this.commentGraph = coursePage.getCommentGraph();
         this.coursePage = coursePage;
         // TODO [kevin] merge commentmanager and commentpresenter.
         this.commentSection = new CommentManager();
@@ -69,7 +69,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.authDict = getDefaultAuthDict();
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
-        this.commentGraphs = coursePage.getCommentGraphs();
+        this.commentGraph = coursePage.getCommentGraph();
         this.coursePage = coursePage;
     }
 
@@ -148,17 +148,17 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 //                text, "Question", user.getDisplayName());
 //        if (commentManager == null) {
 //            this.coursePage.setCommentGraph(newCommentGraph);
-//            if (this.coursePage.getCommentGraphs() == null) {
-//                this.coursePage.setCommentGraphs(new ArrayList<CommentGraph>());
+//            if (this.coursePage.getcommentGraph() == null) {
+//                this.coursePage.setcommentGraph(new ArrayList<CommentGraph>());
 //            }
-//            this.coursePage.getCommentGraphs().add(newCommentGraph);
+//            this.coursePage.getcommentGraph().add(newCommentGraph);
 //        } else {
 //            throw new Exception("There is already starting comment");
 //        }
-//        if (this.commentGraphs == null) {
-//            this.commentGraphs = new ArrayList<CommentGraph>();
+//        if (this.commentGraph == null) {
+//            this.commentGraph = new ArrayList<CommentGraph>();
 //        }
-//        this.commentGraphs.add(newCommentGraph);
+//        this.commentGraph.add(newCommentGraph);
 //
 //
 //    }
@@ -207,16 +207,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
 
     /**
-     * Change to default coursePage where all ratings and commentGraphs are there.
+     * Change to default coursePage where all ratings and commentGraph are there.
      *
      * @return Default coursePage.
      */
     public CoursePage defaultCoursePage() {
         this.coursePage.setCourse(this.course);
-        this.coursePage.setCommentGraphs(this.commentGraphs);
+        this.coursePage.setCommentGraph(this.commentGraph);
         this.coursePage.setCommentGraph(null);
         this.coursePage.setRatings(this.ratings);
-        this.coursePage.setInstructor(null);
         this.updateAvgScore();
         return this.coursePage;
     }
@@ -254,7 +253,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     @Override
     public HashMap<String, Object> getData() {
         HashMap<String, Object> infoMap = new HashMap<>();
-        infoMap.put("filtering by", this.coursePage.getInstructor());
+        infoMap.put("filtering by", this.coursePage.getInstructors());
         infoMap.put("courseName", this.coursePage.getCourse().getName());
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
@@ -266,7 +265,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
         return infoMap;
     }
-
+    public float getRelativeRating(String programName) {
+        return (float) 2.3;
+    }
     /**
      * Private method that returns average rating score of current coursePage.
      *
