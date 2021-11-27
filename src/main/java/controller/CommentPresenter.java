@@ -17,7 +17,6 @@ import java.util.Map;
  * It breaks the CommentManager's methods into larger, more human-related methods
  * It's like a wrapper class. I think that's the correct terminology
  */
-// TODO consider moving this to usecase, or merging it with commentManager
 public class CommentPresenter implements IReadModifiable {
     private CommentManager cm;
     private String currentID;
