@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  * courseManager.updateRating(5, user);
  */
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     // Course that CourseManager handles.
@@ -70,9 +71,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * Add rating to the CoursePage.
      * @param ratingNum score that a user wants to leave.
      * @param user user who leaves a rating.
-     * @throws Exception if it is not valid, throw exception.
      */
-    public void addRating(float ratingNum, StudentUser user) throws Exception {
+    public void addRating(float ratingNum, StudentUser user){
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
@@ -113,6 +113,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     public float getRelativeRating(String program) {
         List<Rating> filterdRatings = this.ratings.stream().filter(
                 r -> r.getRater().getProgramDetail().equals(program)).collect(Collectors.toList());
+        if(filterdRatings.isEmpty()) {
+            return -1;
+        }
         float total = 0;
         for(Rating r : filterdRatings) {
             total += r.getScore();
@@ -128,12 +131,12 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param user Current user.
      * @param text Context that user wants to leave at the start of comment.
-     * @throws Exception
+     * @throws Exception when there is an starting comment already.
      */
     public void startComment(IUser user, String text) throws Exception {
         CommentGraph commentGraph = this.coursePage.getCommentGraph();
         if (commentGraph == null) {
-            HashMap<String, List<String>> initialComments = new HashMap<String, List<String>>();
+            HashMap<String, List<String>> initialComments = new HashMap<>();
             initialComments.put(user.getDisplayName(), List.of(text));
             CommentGraph newCommentGraph = new CommentGraph(
                     text, "Question", initialComments);
@@ -152,7 +155,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param prevId CommentId of the comment that user wants to reply to.
      * @param text   Context of comment that user wants to leave.
      * @param user   Current user.
-     * @throws Exception
+     * @throws Exception when there is no comment to reply.
      */
     public void addComment(String prevId, String text, IUser user) throws Exception {
         CommentGraph commentGraph = this.coursePage.getCommentGraph();
@@ -173,7 +176,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param commentId Id of comment that the user wants to upvote or downvote.
      * @param upvote    If true, upvotes, if false, downvotes a comment.
-     * @throws Exception
+     * @throws Exception when current comment graph is empty.
      */
     public void updateCommentVote(String commentId, boolean upvote) throws Exception {
         CommentGraph currCommentGraph = this.coursePage.getCommentGraph();
@@ -213,7 +216,11 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
     }
 
-
+    public List<String> getRatingPrograms() {
+        HashSet<String> ratingPrograms = new HashSet<>();
+        this.ratings.stream().forEach(r -> ratingPrograms.add(r.getRaterProgramOfStudy()));
+        return ratingPrograms.stream().collect(Collectors.toList());
+    }
 
     /**
      * Get Data about courseManager in HashMap.
@@ -236,18 +243,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     /**
      * Private method that returns average rating score of current coursePage.
-     *
-     * @return average of current rating scores.
      */
     public void updateAvgScore() {
-        if (this.coursePage.getRatings() == null) {
-            this.coursePage.setAverageScore(0);
+        if (this.ratings == null) {
+            this.coursePage.setAverageScore(-1);
         }
         float total = 0;
-        for (Rating r : this.coursePage.getRatings()) {
+        for (Rating r : this.ratings) {
             total += r.getScore();
         }
-        this.coursePage.setAverageScore(total / this.coursePage.getRatings().size());
+        this.coursePage.setAverageScore(total / this.ratings.size());
     }
 
     // IDBSAVEABLE methods

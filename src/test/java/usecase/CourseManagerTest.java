@@ -24,20 +24,20 @@ public class CourseManagerTest {
         assertEquals(courseManager.getCoursePage().getRatings(), null);
         try {
             courseManager.getComment();
-            fail("Show throw an exception here");
+            fail("Shouldn't throw an exception here");
         } catch (Exception e) {
         }
 
         assertEquals(courseManager.getCoursePage().getCommentGraph(), null);
-
-        StudentUser studentUser1 = new StudentUser("Student1", "00001");
-
+        HashMap<String, String> studentUser1otherData = new HashMap<>();
+        studentUser1otherData.put("programDetail", "COMPUTER SCIENCE");
+        StudentUser studentUser1 = new StudentUser("Student1", "00001", studentUser1otherData);
         try {
             courseManager.addRating((float) 0.5, studentUser1);
         } catch (Exception e) {
             fail("Should not throw exception here");
         }
-
+        assertEquals(courseManager.getRatingPrograms(), Arrays.asList("COMPUTER SCIENCE"));
         assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
         try {
             courseManager.updateRating((float) 0.7, studentUser1);
@@ -53,13 +53,19 @@ public class CourseManagerTest {
             fail("Should not throw exception here");
         }
 
-        StudentUser studentUser12 = new StudentUser("Student2", "00002");
+        HashMap<String, String> studentUser2otherData = new HashMap<>();
+        studentUser2otherData.put("programDetail", "DATA SCIENCE");
+        StudentUser studentUser2 = new StudentUser("Student2", "00002", studentUser2otherData);
         try {
-            courseManager.addRating((float) 0.3, studentUser12);
+            courseManager.addRating((float) 0.3, studentUser2);
         } catch (Exception e) {
             fail("Should not throw error here");
         }
-
+        List<String> programList = Arrays.asList("DATA SCIENCE", "COMPUTER SCIENCE");
+        Collections.sort(programList);
+        List<String> actual = courseManager.getRatingPrograms();
+        Collections.sort(actual);
+        assertEquals(programList, actual);
         assertEquals(courseManager.getCoursePage().getAverageScore(), 0.5, 0.001);
 //        System.out.println(courseManager.getCoursePage().getCommentGraph());
         CommentManager commentManager = courseManager.getComment();
@@ -76,7 +82,6 @@ public class CourseManagerTest {
             fail("Should not throw exception here");
         }
         assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);
-//        System.out.println(courseManager.getComment().displayEntireThread(true, 3));
 
     }
 }
