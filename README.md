@@ -16,6 +16,7 @@ First, understand how our program was build(code-wise)
 - go to Commands.md. This will explain our design choices regarding the commands package, which you seem to find confusing. Hopefully this helps.
 - [other markdown docs to explain our decisions]
 - [progress report here]
+- Then, try running the program.
 
 # Run the program
 
