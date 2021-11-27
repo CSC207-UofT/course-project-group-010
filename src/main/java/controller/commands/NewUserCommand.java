@@ -50,20 +50,9 @@ public class NewUserCommand extends Command {
         UserType desiredUserType = getUserType(argUserType);
         System.out.println("Program Detail: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE. Or Entry N/A for Program Detail");
         String argProgramDetail = in.nextLine().toUpperCase();
-        if (!argProgramDetail.equalsIgnoreCase("N/A")) {
-            HashMap<String, String> adddetail = new HashMap<>();
-            adddetail.put("programDetail", argProgramDetail);
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
-                    "Run saveall to save this progress.";
-        } else {
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
-                    "Run saveall to save this progress.";
-        }
-
+        UserManager um = createUser(desiredUserType, argDisplayName, argId, argProgramDetail);
+        return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
+                "Run saveall to save this progress.";
         // AuthHelper ah = new AuthHelper();
         // ah.checkAuth(um, ce.getUserManager(), "newuser");
         // No auth checks for now, because we have 0 users in the db right now which is unfortunate
@@ -87,5 +76,20 @@ public class NewUserCommand extends Command {
     @Override
     public String help() {
         return "Creates a new user. No arguments, follow system instructions after entering the command.";
+    }
+
+    private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, String argProgramDetail) throws Exception {
+        if (!argProgramDetail.equalsIgnoreCase("N/A")||!argProgramDetail.equalsIgnoreCase("")) {
+            HashMap<String, String> adddetail = new HashMap<>();
+            adddetail.put("programDetail", argProgramDetail);
+            UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
+            UserDatabaseGetter.getInstance().addEntry(um);
+            return um;
+
+        } else {
+            UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
+            UserDatabaseGetter.getInstance().addEntry(um);
+            return um;
+        }
     }
 }

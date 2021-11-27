@@ -26,7 +26,7 @@ public class StartCommentCommand extends Command {
 
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "getcomments");
+        checkAll(ce, arguments, "getcomments");
 
         // then pageManager will be instance of CourseManager
         CourseManager cm = ((CourseManager) ce.getPageManager());

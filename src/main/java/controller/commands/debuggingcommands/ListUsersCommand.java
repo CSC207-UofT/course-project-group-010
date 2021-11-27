@@ -9,7 +9,6 @@ import java.util.List;
 public class ListUsersCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public ListUsersCommand() {
         super(0, 0);
@@ -24,8 +23,7 @@ public class ListUsersCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelp(arguments);
-        checkArgumentsNum(arguments);
+        checkAll(ce, arguments, "listusers");
         UserDatabaseGetter udg = UserDatabaseGetter.getInstance();
         String str = udg.toString().equals("") || udg.toString().equals("\n") ? "No users" : udg.toString();
         return "This is a DEBUGGING method: \n" + str;
@@ -34,5 +32,11 @@ public class ListUsersCommand extends Command {
     @Override
     public String help() {
         return "This is a DEBUGGING method, that will list all available users and their IDs";
+    }
+
+    @Override
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+        checkHelp(arguments);
+        checkArgumentsNum(arguments);
     }
 }

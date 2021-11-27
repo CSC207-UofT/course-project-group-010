@@ -16,8 +16,10 @@ import java.util.List;
  * Format for now is checkout [pagename] or checkout r for reviews i guess??
  */
 public class CheckoutCommand extends Command {
-    private final String reviewArgument = "r";
 
+    /**
+     * Initializes a Command with max and minimum argument numbers.
+     */
     public CheckoutCommand() {
         super(1, 1);
     }

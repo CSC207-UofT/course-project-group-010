@@ -27,7 +27,7 @@ public class FilterInstructorCommand extends Command {
 
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-         checkHelpArgsUserPageAuth(ce, arguments, "filter");
+         checkAll(ce, arguments, "filter");
          Scanner in = new Scanner(System.in);
          // if it's authorized, then getPageManager should be an instance of CourseManager
         CourseManager cm = ((CourseManager) ce.getPageManager());

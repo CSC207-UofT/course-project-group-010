@@ -31,7 +31,7 @@ public class VoteCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "vote");
+        checkAll(ce, arguments, "vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         boolean up = arguments.get(1).equalsIgnoreCase("up");
         ((CommentPresenter) currentlyViewingPage).vote(arguments.get(0), up);

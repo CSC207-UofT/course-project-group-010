@@ -34,7 +34,7 @@ public class ReplyCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "reply");
+        checkAll(ce, arguments, "reply");
         Scanner in = new Scanner(System.in);
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
