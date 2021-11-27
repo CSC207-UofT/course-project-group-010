@@ -1,6 +1,5 @@
 package usecase.coursePage;
 
-import UseCase.CoursePage.CoursePage;
 import org.junit.Test;
 
 import java.util.ArrayList;

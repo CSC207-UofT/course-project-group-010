@@ -1,8 +1,9 @@
-package UseCase;
+package usecase.coursePage;
 
 import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
+import usecase.CommentManager;
 
 
 import java.io.Serializable;

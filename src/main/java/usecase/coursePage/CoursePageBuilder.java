@@ -1,6 +1,6 @@
-package UseCase;
+package usecase.coursePage;
 
-import Interface.Builder;
+import interfaces.Builder;
 import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
