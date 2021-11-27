@@ -6,7 +6,6 @@ import exceptions.ArgumentException;
 import interfaces.IDBSaveable;
 import interfaces.IReadModifiable;
 import interfaces.IUser;
-import usecase.CommentManager;
 import usecase.coursePage.CoursePage;
 
 import java.io.Serializable;
@@ -32,13 +31,10 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     // All ratings about the course of CourseManager.
     private List<Rating> ratings;
     // All commentGraph about the course of CourseManager.
-    private CommentGraph commentGraph;
     // A CoursePage that CourseManager handles.
     private CoursePage coursePage;
     // Map of permission level.
     private Map<PermissionLevel, List<String>> authDict;
-
-    private CommentManager commentSection;
 
     /**
      * Constructor of CourseManager.
@@ -49,27 +45,23 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.authDict = getDefaultAuthDict();
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
-        this.commentGraph = coursePage.getCommentGraph();
         this.coursePage = coursePage;
-        // TODO [kevin] merge commentmanager and commentpresenter.
-        this.commentSection = new CommentManager();
     }
 
     public CommentManager getCommentSection() {
-        return this.commentSection;
+        return this.coursePage.getThread();
     }
 
 
     /**
      * Change current coursePage that CourseManager is handling to another coursePage.
      *
-     * @param coursePage
+     * @param coursePage A course page that a user wants to change to view
      */
     public void changeCourse(CoursePage coursePage) {
         this.authDict = getDefaultAuthDict();
         this.course = coursePage.getCourse();
         this.ratings = coursePage.getRatings();
-        this.commentGraph = coursePage.getCommentGraph();
         this.coursePage = coursePage;
     }
 
@@ -85,17 +77,12 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         if (ratingList == null) {
             ratingList = new ArrayList<>();
             this.coursePage.setRatings(ratingList);
+            this.ratings = this.coursePage.getRatings();
         }
 
-        // TODO : assuming instructor is deleted in rating class.
         Rating r = new Rating(user, ratingNum);
         ratingList.add(r);
         this.updateAvgScore();
-        if (this.ratings == null) {
-            this.ratings = new ArrayList<Rating>();
-        }
-        this.ratings.add(r);
-
 
     }
 
@@ -104,7 +91,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param ratingNum A rating score that a user wants to change to. (0 <= ratingNum <= 1)
      * @param user      A user who wants to change its rating score.
-     * @throws Exception
+     * @throws Exception When rating cannot be updated.
      */
     public void updateRating(float ratingNum, IUser user) throws Exception {
         for (Rating r : coursePage.getRatings()) {
@@ -123,103 +110,88 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param program string of program name of raters' that will be filtered.
      */
-    public void relativeRating(String program) {
+    public float getRelativeRating(String program) {
         List<Rating> filterdRatings = this.ratings.stream().filter(
                 r -> r.getRater().getProgramDetail().equals(program)).collect(Collectors.toList());
         float total = 0;
         for(Rating r : filterdRatings) {
             total += r.getScore();
         }
-        // coursePage.setRelativRating(total / filterdRatings.size());
-        // TODO fix ^^^
+        return total / filterdRatings.size();
+
     }
 
-//    /**
-//     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
-//     * filtered coursePage.
-//     *
-//     * @param text Context that user wants to leave at the start of comment.
-//     * @param user Current user.
-//     * @throws Exception
-//     */
-//    public void startComment(String text, IUser user) throws Exception {
-//        CommentManager commentManager = this.coursePage.getThread();
-//        CommentGraph newCommentGraph = new CommentGraph(
-//                text, "Question", user.getDisplayName());
-//        if (commentManager == null) {
-//            this.coursePage.setCommentGraph(newCommentGraph);
-//            if (this.coursePage.getcommentGraph() == null) {
-//                this.coursePage.setcommentGraph(new ArrayList<CommentGraph>());
-//            }
-//            this.coursePage.getcommentGraph().add(newCommentGraph);
-//        } else {
-//            throw new Exception("There is already starting comment");
-//        }
-//        if (this.commentGraph == null) {
-//            this.commentGraph = new ArrayList<CommentGraph>();
-//        }
-//        this.commentGraph.add(newCommentGraph);
-//
-//
-//    }
-    // TODO delete this, not used
+    /**
+     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
+     * filtered coursePage.
+     *
+     *
+     * @param user Current user.
+     * @param text Context that user wants to leave at the start of comment.
+     * @throws Exception
+     */
+    public void startComment(IUser user, String text) throws Exception {
+        CommentGraph commentGraph = this.coursePage.getCommentGraph();
+        if (commentGraph == null) {
+            HashMap<String, List<String>> initialComments = new HashMap<String, List<String>>();
+            initialComments.put(user.getDisplayName(), List.of(text));
+            CommentGraph newCommentGraph = new CommentGraph(
+                    text, "Question", initialComments);
+            this.coursePage.setCommentGraph(newCommentGraph);
+        } else {
+            throw new Exception("There is already a starting comment");
+        }
 
+    }
 
-//    /**
-//     * Add comment to another comment in the commentGraph of current coursePage.
-//     *
-//     * @param prevId CommentId of the comment that user wants to reply to.
-//     * @param text   Context of comment that user wants to leave.
-//     * @param user   Current user.
-//     * @throws Exception
-//     */
-//    public void addComment(String prevId, String text, User user) throws Exception {
-//
-//        CommentManager commentManager = this.coursePage.getThread());
-//        commentManager.replyToComment(prevId, text, user.getdisplayName());
-//    }
-    // TODO delete this, not used.
-
-
-
-
-
-//    /**
-//     * Upvote or downvote a comment in the commentGraph of current coursePage.
-//     *
-//     * @param commentId Id of comment that the user wants to upvote or downvote.
-//     * @param upvote    If true, upvotes, if false, downvotes a comment.
-//     * @throws Exception
-//     */
-//    public void updateCommentVote(String commentId, boolean upvote) throws Exception {
-//        CommentGraph currCommentGraph = this.coursePage.getCommentGraph();
-//        if (currCommentGraph == null) {
-//            throw new Exception("There is no comment in this coursePage");
-//        }
-//
-//        if (upvote) {
-//            currCommentGraph.upvote(commentId);
-//        } else {
-//            currCommentGraph.downvote(commentId);
-//        }
-//    }
-    // TODO delete this, not used.
 
 
     /**
-     * Change to default coursePage where all ratings and commentGraph are there.
+     * Add comment to another comment in the commentGraph of current coursePage.
      *
-     * @return Default coursePage.
+     * @param prevId CommentId of the comment that user wants to reply to.
+     * @param text   Context of comment that user wants to leave.
+     * @param user   Current user.
+     * @throws Exception
      */
-    public CoursePage defaultCoursePage() {
-        this.coursePage.setCourse(this.course);
-        this.coursePage.setCommentGraph(this.commentGraph);
-        this.coursePage.setCommentGraph(null);
-        this.coursePage.setRatings(this.ratings);
-        this.updateAvgScore();
-        return this.coursePage;
+    public void addComment(String prevId, String text, IUser user) throws Exception {
+        CommentGraph commentGraph = this.coursePage.getCommentGraph();
+        if(commentGraph == null) {
+            throw new Exception("There are no comments in this course page, you cannot add a comment");
+        }
+        this.coursePage.getThread().replyToComment(prevId, text, user.getDisplayName());
+
     }
-    // TODO delete, unused
+
+
+
+
+
+
+    /**
+     * Upvote or downvote a comment in the commentGraph of current coursePage.
+     *
+     * @param commentId Id of comment that the user wants to upvote or downvote.
+     * @param upvote    If true, upvotes, if false, downvotes a comment.
+     * @throws Exception
+     */
+    public void updateCommentVote(String commentId, boolean upvote) throws Exception {
+        CommentGraph currCommentGraph = this.coursePage.getCommentGraph();
+        if (currCommentGraph == null) {
+            throw new Exception("There is no comment in this coursePage");
+        }
+
+        if (upvote) {
+            currCommentGraph.upvote(commentId);
+        } else {
+            currCommentGraph.downvote(commentId);
+        }
+    }
+
+
+
+
+
 
 
     // Getters
@@ -232,17 +204,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     public CoursePage getCoursePage() {
         return this.coursePage;
     }
-//
-//    public CommentManager getComment() throws ArgumentException {
-//        if (this.getCoursePage().getInstructor() == null) {
-//            throw new ArgumentException("No comments found. Remember to filter by an instructor to get their comment section.");
-//        } else if (this.coursePage.getCommentGraph() == null) {
-//            throw new ArgumentException("No comment section. try starting one[startcomment]!");
-//        } else {
-//            return new CommentManager(this.coursePage.getCommentGraph());
-//        }
-//    }
-    // TODO delete, not used.
+
+    public CommentManager getComment() throws ArgumentException {
+        if (this.coursePage.getCommentGraph() == null) {
+            throw new ArgumentException("No comment section. try starting one[startcomment]!");
+        } else {
+            return new CommentManager(this.coursePage.getCommentGraph());
+        }
+    }
+
 
 
     /**
@@ -258,16 +228,12 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
         infoMap.put("all instructors", this.coursePage.getInstructors());
-//        infoMap.put("years", this.coursePage.getYears());
-//        infoMap.put("currentInstructors", this.coursePage.getInstructor());
-//        infoMap.put("currentYear", this.coursePage.getYear());
         infoMap.put("rating", this.coursePage.getAverageScore());
 
         return infoMap;
     }
-    public float getRelativeRating(String programName) {
-        return (float) 2.3;
-    }
+
+
     /**
      * Private method that returns average rating score of current coursePage.
      *
@@ -294,7 +260,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      */
     @Override
     public String getID() {
-        return coursePage.getCourse().getCode();
+        return this.course.getCode();
     }
 
     /**
