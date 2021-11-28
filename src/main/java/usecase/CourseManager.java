@@ -230,7 +230,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     @Override
     public HashMap<String, Object> getData() {
         HashMap<String, Object> infoMap = new HashMap<>();
-        infoMap.put("filtering by", this.coursePage.getInstructors());
         infoMap.put("courseName", this.coursePage.getCourse().getName());
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
@@ -247,6 +246,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     public void updateAvgScore() {
         if (this.ratings == null) {
             this.coursePage.setAverageScore(-1);
+            return;
         }
         float total = 0;
         for (Rating r : this.ratings) {
