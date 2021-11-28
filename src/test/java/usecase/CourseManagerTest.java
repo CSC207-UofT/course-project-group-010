@@ -1,7 +1,9 @@
 package usecase;
 
+import constants.PermissionLevel;
 import entity.*;
 import exceptions.ArgumentException;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import usecase.coursePage.*;
@@ -12,12 +14,22 @@ import java.util.*;
 
 
 public class CourseManagerTest {
+
     @Test(timeout = 100)
     public void testCourseManager1() throws ArgumentException {
         CoursePage coursePage = new CoursePage(
                 new Course("Sample Course1", "CSC108"),
                 List.of("Instructor A", "Instructor B", "Instructor C"));
         CourseManager courseManager = new CourseManager(coursePage);
+
+        courseManager.updateAvgScore();
+        assertEquals(-1, courseManager.getCoursePage().getAverageScore());
+
+        Map<PermissionLevel, List<String>> authDict = courseManager.getAuthDict();
+        assertEquals(authDict.get(PermissionLevel.STUDENT),
+                Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment"));
+        assertEquals(authDict.get(PermissionLevel.INSTRUCTOR),
+                Arrays.asList("all"));
 
         assertEquals(courseManager.getID(), "CSC108");
         assertEquals(courseManager.getCoursePage(), coursePage);
@@ -67,9 +79,8 @@ public class CourseManagerTest {
         Collections.sort(actual);
         assertEquals(programList, actual);
         assertEquals(courseManager.getCoursePage().getAverageScore(), 0.5, 0.001);
-//        System.out.println(courseManager.getCoursePage().getCommentGraph());
+
         CommentManager commentManager = courseManager.getComment();
-//        System.out.println(commentManager.displayEntireThread(false, 3));
         String prevId = commentManager.getChildrenComments("root").get(0).getId();
         try {
             courseManager.addComment(prevId, "Comment 2", studentUser1);
@@ -82,6 +93,26 @@ public class CourseManagerTest {
             fail("Should not throw exception here");
         }
         assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);
+        try {
+            courseManager.updateCommentVote(prevId, false);
+        } catch (Exception e) {
+            fail("Should not throw exception here");
+        }
 
+        try {
+            courseManager.updateCommentVote("12345", true);
+            fail("Should throw exception here");
+        } catch (Exception e) {
+        }
+
+        HashMap<String, Object> coursePageData = courseManager.getData();
+        assertEquals("Sample Course1", coursePageData.get("courseName"));
+        assertEquals("CSC108", coursePageData.get("courseCode"));
+        assertEquals("There is currently no description available for this course",
+                coursePageData.get("courseDescription"));
+        assertEquals(Arrays.asList("Instructor A", "Instructor B", "Instructor C"),
+                coursePageData.get("all instructors"));
+        assertEquals(Double.valueOf(0.5),
+                Double.valueOf(coursePageData.get("rating").toString()), 0.001);
     }
 }
