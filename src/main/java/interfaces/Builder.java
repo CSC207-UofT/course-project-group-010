@@ -4,18 +4,24 @@ import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface Builder {
 
+    public void buildRatings(List<List<String>> ratings);
+
+    public void setCommentGraph(CommentGraph cg);
+
+    public void buildCourse(List<String> course);
+
+    public void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments);
 
     public void setCourse(Course course);
 
     public void setInstructors(List<String> instructors);
 
     public void setRatings(List<Rating> ratings);
-
-    public void setCommentGraphs(List<CommentGraph> cg);
 
     public void reset();
 
