@@ -4,6 +4,7 @@ import constants.CommandConstants;
 import constants.PermissionLevel;
 import entity.CommentGraph;
 import exceptions.ArgumentException;
+import exceptions.InvalidIDException;
 import interfaces.IReadModifiable;
 import usecase.CommentManager;
 
@@ -60,7 +61,8 @@ public class CommentPresenter implements IReadModifiable {
 
     // Make use of the CommentManager's main functions that people will reasonably interact with.
 
-    public void replyToComment(String commentID, String text, String userName) {
+    public void replyToComment(String commentID, String text, String userName) throws InvalidIDException
+    {
         this.cm.replyToComment(commentID, text, userName);
     }
 
