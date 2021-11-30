@@ -29,7 +29,7 @@ public class GetCommentsCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "getcomments");
+        checkAll(ce, arguments, "getcomments");
 
         // then pageManager will be instance of CourseManager
         CommentsGetter cg = new CommentsGetter();

@@ -26,6 +26,6 @@ public class CommentsGetter {
             // casting exception, etc.
             throw new CommandNotAuthorizedException("Current viewing page does not have a comment section");
         }
-        // otherwise, just throw whatever exception upwards.
+        // otherwise, just throw the exception upwards.
     }
 }

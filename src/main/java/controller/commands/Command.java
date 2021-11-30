@@ -77,7 +77,15 @@ public abstract class Command {
         }
     }
 
-    protected void checkHelpArgsUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+    /**
+     * Checks all. By default, checks that the user is logged in, viewing a page, and is authorized to take
+     * some inputted action on the page. This is standard for most commands.
+     * @param ce
+     * @param arguments
+     * @param method
+     * @throws Exception
+     */
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);

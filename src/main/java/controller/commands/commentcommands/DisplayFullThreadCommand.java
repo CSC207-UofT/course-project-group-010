@@ -34,7 +34,7 @@ public class DisplayFullThreadCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "displayfullthread");
+        checkAll(ce, arguments, "displayfullthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         // If we're authorized to displayfullthread, the thing should be of type CommentManager.
         return ((CommentPresenter) currentlyViewingPage).getCommentManager().displayEntireThread(true, -1);

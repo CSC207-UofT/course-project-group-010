@@ -33,7 +33,7 @@ public class DisplaySubsetThreadCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "displaysubsetthread");
+        checkAll(ce, arguments, "displaysubsetthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         String startid = arguments.get(0);
         int upToDepth = Integer.parseInt(arguments.get(1));

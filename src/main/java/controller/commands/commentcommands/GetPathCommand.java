@@ -32,7 +32,7 @@ public class GetPathCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "getpath");
+        checkAll(ce, arguments, "getpath");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         try {
             return ((CommentPresenter) currentlyViewingPage).getCommentManager().getPath(arguments.get(0), arguments.get(1));

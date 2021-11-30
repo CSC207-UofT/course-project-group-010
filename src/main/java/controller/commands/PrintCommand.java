@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class PrintCommand extends Command {
     /**
-     * Initializes object, takes no arguments
+     * Initializes a Command with max and minimum argument numbers.
      */
     public PrintCommand() {
         super(0, 0);
@@ -25,7 +25,7 @@ public class PrintCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "print");
+        checkAll(ce, arguments, "print");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
 
         Map<String, Object> dataMap = currentlyViewingPage.getData();

@@ -24,8 +24,7 @@ public class LogoutCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelp(arguments);
-        checkUserExists(ce);
+        checkAll(ce, arguments, "logout");
         UserManager um = ce.getUserManager();
         ce.resetAll();
         return "Logged out of " + um.getUser().getDisplayName();
@@ -34,5 +33,11 @@ public class LogoutCommand extends Command {
     @Override
     public String help() {
         return "logs out. format: logout";
+    }
+
+    @Override
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+        checkHelp(arguments);
+        checkUserExists(ce);
     }
 }

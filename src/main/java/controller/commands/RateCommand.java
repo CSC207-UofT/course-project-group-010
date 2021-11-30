@@ -13,6 +13,9 @@ import java.util.List;
  */
 public class RateCommand extends Command {
 
+    /**
+     * Initializes a Command with max and minimum argument numbers.
+     */
     public RateCommand() {
         super(1, 1);
     }
@@ -28,14 +31,14 @@ public class RateCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "rate");
+        checkAll(ce, arguments, "rate");
         checkUserExists(ce);
         // TODO change this last minute code
         if (!(ce.getUserManager().getUser() instanceof StudentUser)) {
             throw new CommandNotAuthorizedException("You must be a student to rate courses");
         }
         if (arguments.get(0) == "rm") {
-            // TODO implement this
+            // TODO implement this, or maybe just...don't.
             return "Removing rating is not implemented yet";
         } else {
             if (ce.getPageManager() instanceof CourseManager) {

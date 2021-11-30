@@ -13,8 +13,7 @@ import java.util.List;
  */
 public class LoginCommand extends Command {
     /**
-     * The format for a login command is login [ID] for now
-     * so it will only take 1 argument
+     * Initializes a Command with max and minimum argument numbers.
      */
     public LoginCommand() {
         super(1, 1);
@@ -36,8 +35,7 @@ public class LoginCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelp(arguments);
-        checkArgumentsNum(arguments);
+        checkAll(ce, arguments, "login");
         String id = arguments.get(0);
         if (ce.getUserManager() != null) {
             throw new CommandNotAuthorizedException("Already logged in.");
@@ -50,5 +48,11 @@ public class LoginCommand extends Command {
             ce.addUserManager(mgr);
             return "Logged in as " + mgr.getUser().getDisplayName();
         }
+    }
+
+    @Override
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+        checkHelp(arguments);
+        checkArgumentsNum(arguments);
     }
 }
