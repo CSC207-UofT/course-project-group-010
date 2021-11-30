@@ -1,7 +1,10 @@
 package usecase;
 
-import constants.PermissionLevel;
-import entity.*;
+import constants.UserType;
+import entity.CommentGraph;
+import entity.Course;
+import entity.Rating;
+import entity.StudentUser;
 import exceptions.ArgumentException;
 import interfaces.IDBSaveable;
 import interfaces.IReadModifiable;
@@ -35,7 +38,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     // A CoursePage that CourseManager handles.
     private CoursePage coursePage;
     // Map of permission level.
-    private Map<PermissionLevel, List<String>> authDict;
+    private Map<UserType, List<String>> authDict;
 
     /**
      * Constructor of CourseManager.
@@ -53,18 +56,18 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return this.coursePage.getThread();
     }
 
-
-    /**
-     * Change current coursePage that CourseManager is handling to another coursePage.
-     *
-     * @param coursePage A course page that a user wants to change to view
-     */
-    public void changeCourse(CoursePage coursePage) {
-        this.authDict = getDefaultAuthDict();
-        this.course = coursePage.getCourse();
-        this.ratings = coursePage.getRatings();
-        this.coursePage = coursePage;
-    }
+// NOT USED
+//    /**
+//     * Change current coursePage that CourseManager is handling to another coursePage.
+//     *
+//     * @param coursePage A course page that a user wants to change to view
+//     */
+//    public void changeCourse(CoursePage coursePage) {
+//        this.authDict = getDefaultAuthDict();
+//        this.course = coursePage.getCourse();
+//        this.ratings = coursePage.getRatings();
+//        this.coursePage = coursePage;
+//    }
 
   
     /**
@@ -72,7 +75,10 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param ratingNum score that a user wants to leave.
      * @param user user who leaves a rating.
      */
-    public void addRating(float ratingNum, StudentUser user){
+    public void addRating(float ratingNum, StudentUser user) throws ArgumentException {
+        if (ratingNum > 10 || ratingNum < 0) {
+            throw new ArgumentException("Rating must be between 0 and 10");
+        }
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
@@ -86,6 +92,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     }
 
+    // TODO this is never used except in tests(and now I removed it from tests). Consider deleting.
     /**
      * Updates a rating that a current user already left.
      *
@@ -93,16 +100,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user      A user who wants to change its rating score.
      * @throws Exception When rating cannot be updated.
      */
-    public void updateRating(float ratingNum, IUser user) throws Exception {
-        for (Rating r : coursePage.getRatings()) {
-            if (r.getRater().getID().equals(user.getID())) {
-                r.setScore(ratingNum);
-                this.updateAvgScore();
-                return;
-            }
-        }
-        throw new Exception("Rating is not updated");
-    }
+//    public void updateRating(float ratingNum, IUser user) throws Exception {
+//        for (Rating r : coursePage.getRatings()) {
+//            if (r.getRater().getID().equals(user.getID())) {
+//                r.setScore(ratingNum);
+//                this.updateAvgScore();
+//                return;
+//            }
+//        }
+//        throw new Exception("Rating is not updated");
+//    }
 
 
     /**
@@ -170,7 +177,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
 
 
-
+    // TODO This never gets called, except in tests. Consider deleting.
+    // Because dealing with comments is commentManager's job, this belongs in there anyways.
     /**
      * Upvote or downvote a comment in the commentGraph of current coursePage.
      *
@@ -199,6 +207,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     // Getters
 
+    // TODO getCoursePage is used once in the program(by filterinstructorcommand, which is not in use anymore), and otherwise is only called in tests. Consider deleting
     /**
      * Get current coursePage of courseManager.
      *
@@ -208,6 +217,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return this.coursePage;
     }
 
+    // TODO getComment is only called in tests, consider deleting
     public CommentManager getComment() throws ArgumentException {
         if (this.coursePage.getCommentGraph() == null) {
             throw new ArgumentException("No comment section. try starting one[startcomment]!");
@@ -216,6 +226,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
     }
 
+    // TODO this is only called in tests, consider deleting
     public List<String> getRatingPrograms() {
         HashSet<String> ratingPrograms = new HashSet<>();
         this.ratings.stream().forEach(r -> ratingPrograms.add(r.getRaterProgramOfStudy()));
@@ -274,7 +285,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @return Current AuthDict.
      */
     @Override
-    public Map<PermissionLevel, List<String>> getAuthDict() {
+    public Map<UserType, List<String>> getAuthDict() {
         return this.authDict;
     }
 
@@ -284,12 +295,12 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @return Map of permission level and list of string.
      */
-    public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
-        Map<PermissionLevel, List<String>> retDict = new HashMap<>();
+    public Map<UserType, List<String>> getDefaultAuthDict() {
+        Map<UserType, List<String>> retDict = new HashMap<>();
         List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment");
         List<String> instructorPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment");
-        retDict.put(PermissionLevel.STUDENT, studentPermissions);
-        retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
+        retDict.put(UserType.STUDENT, studentPermissions);
+        retDict.put(UserType.INSTRUCTOR, instructorPermissions);
         return retDict;
     }
 }

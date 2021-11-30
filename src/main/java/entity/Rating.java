@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class Rating implements Serializable {
 
     private final StudentUser rater;
+    // TODO field instructor is assigned but never accessed.
     private final String instructor;
     private float score;
 
@@ -77,6 +78,7 @@ public class Rating implements Serializable {
      * @param score The score to be set
      * @throws CommandNotAuthorizedException if the score is out of range
      */
+    // TODO this is only used in tests, we can delete
     public void setScore(float score) throws CommandNotAuthorizedException {
         if (isInRange(score))
             this.score = score;
@@ -90,6 +92,7 @@ public class Rating implements Serializable {
      * @param score The score trying to be set
      * @return Whether the score is acceptable
      */
+    // TODO this is only used in setScore, which is only used in tests, we can delete
     private boolean isInRange(float score) {
         // FIXME: score bounds should probably be stored as a constant
         return score >= 0 && score <= 1;

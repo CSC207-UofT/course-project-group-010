@@ -17,7 +17,7 @@ import java.util.*;
  * This graph is akin to threads found on the website Reddit.
  */
 
-
+// TODO delete methods not in use, justify methods in use.
 public class CommentGraph implements Serializable
 {
 

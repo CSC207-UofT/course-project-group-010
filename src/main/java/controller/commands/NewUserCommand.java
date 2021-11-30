@@ -82,17 +82,11 @@ public class NewUserCommand extends Command {
     }
 
     private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, String argProgramDetail) throws Exception {
-        if (!argProgramDetail.equalsIgnoreCase("N/A")||!argProgramDetail.equalsIgnoreCase("")) {
-            HashMap<String, String> adddetail = new HashMap<>();
-            adddetail.put("programDetail", argProgramDetail);
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return um;
-
-        } else {
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return um;
-        }
+        HashMap<String, String> adddetail = new HashMap<>();
+        argProgramDetail = argProgramDetail.equalsIgnoreCase("N/A") || argProgramDetail.equalsIgnoreCase("") ? "N/A" : argProgramDetail;
+        adddetail.put("programDetail", argProgramDetail);
+        UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
+        UserDatabaseGetter.getInstance().addEntry(um);
+        return um;
     }
 }

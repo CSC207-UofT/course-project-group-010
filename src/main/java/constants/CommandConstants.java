@@ -13,7 +13,7 @@ import exceptions.CommandNotFoundException;
 import java.util.Hashtable;
 
 /**
- * Stores strings that will call different command objects.
+ * Stores all constants related to commands.
  */
 public class CommandConstants {
     public final Hashtable<String, Command> command_dict = new Hashtable<>();

@@ -3,18 +3,18 @@ package usecase;
 // imports
 
 import constants.CommandConstants;
-import constants.PermissionLevel;
 import entity.CommentGraph;
 import exceptions.InvalidIDException;
-import interfaces.IReadModifiable;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CommentManager Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// TODO delete anything that isn't used, and justify the existence of the other methods in this class.
 /**
  * Class that handles comments in a CommentGraph
  */

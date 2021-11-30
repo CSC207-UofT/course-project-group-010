@@ -55,7 +55,7 @@ public class Course implements Serializable {
     public void setDescription(String s) {
         this.description = s;
     }
-    public void setName(String s) {this.name = name;}
+    public void setName(String s) {this.name = s;}
     public void setCode(String c) {this.code = c;}
 
 

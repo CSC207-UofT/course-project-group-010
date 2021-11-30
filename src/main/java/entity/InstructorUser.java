@@ -1,6 +1,5 @@
 package entity;
 
-import interfaces.IReviewer;
 import interfaces.IUser;
 
 import java.io.Serializable;
@@ -8,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InstructorUser implements Serializable, IReviewer, IUser {
+public class InstructorUser implements Serializable, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
@@ -27,6 +26,7 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         this.reviewCount = 0;
     }
 
+    // TODO this constructor is not in use except in tests, we can delete
     public InstructorUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
@@ -79,16 +79,19 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
 
     //Setters
 
+    // TODO no usages, we can delete
     public void setCurrentlyTeaching(List<Course> t) {
         this.currentlyTeaching = t;
     }
 
     @Override
+    // TODO only used in tests, we can delete
     public int getReviewCount() {
         return reviewCount;
     }
 
     @Override
+    // TODO no usages, we can delete
     public void setReviewCount(int count) {
         if (count >= 0) {
             this.reviewCount = count;
@@ -96,11 +99,13 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
+    // TODO no usages, we can delete
     public HashMap<Integer, List<Course>> getCourses() {
         return this.courses;
     }
 
     @Override
+    // TODO no usages, we can delete
     public void setCourses(HashMap<Integer, List<Course>> c) {
         this.courses = c;
     }
@@ -118,6 +123,7 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
     }
 
     @Override
+    // TODO no usages, we can delete
     public void incrementReviewCount() {
         this.reviewCount++;
     }

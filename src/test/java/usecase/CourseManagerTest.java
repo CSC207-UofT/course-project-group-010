@@ -1,16 +1,16 @@
 package usecase;
 
-import constants.PermissionLevel;
-import entity.*;
-import exceptions.ArgumentException;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import usecase.coursePage.*;
-import usecase.*;
+import constants.UserType;
 import entity.Course;
+import entity.StudentUser;
+import exceptions.ArgumentException;
+import org.junit.Test;
+import usecase.coursePage.CoursePage;
+
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 
 public class CourseManagerTest {
@@ -25,10 +25,10 @@ public class CourseManagerTest {
         courseManager.updateAvgScore();
         assertEquals(-1, courseManager.getCoursePage().getAverageScore());
 
-        Map<PermissionLevel, List<String>> authDict = courseManager.getAuthDict();
-        assertEquals(authDict.get(PermissionLevel.STUDENT),
+        Map<UserType, List<String>> authDict = courseManager.getAuthDict();
+        assertEquals(authDict.get(UserType.STUDENT),
                 Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment"));
-        assertEquals(authDict.get(PermissionLevel.INSTRUCTOR),
+        assertEquals(authDict.get(UserType.INSTRUCTOR),
                 Arrays.asList("all"));
 
         assertEquals(courseManager.getID(), "CSC108");
@@ -52,7 +52,7 @@ public class CourseManagerTest {
         assertEquals(courseManager.getRatingPrograms(), Arrays.asList("COMPUTER SCIENCE"));
         assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
         try {
-            courseManager.updateRating((float) 0.7, studentUser1);
+            courseManager.addRating((float) 0.7, studentUser1);
         } catch (Exception e) {
             assertEquals("Should not throw exception here", "");
         }
