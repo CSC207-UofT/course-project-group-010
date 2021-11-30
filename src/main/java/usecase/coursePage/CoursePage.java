@@ -6,6 +6,7 @@ import entity.Rating;
 import usecase.CommentManager;
 
 
+import javax.xml.stream.events.Comment;
 import java.io.Serializable;
 import java.util.*;
 
@@ -60,7 +61,6 @@ public class CoursePage implements Serializable {
         this.course = course;
         this.instructors = instructors;
         this.ratings = null;
-        this.commentGraph = null;
     }
 
     public Course getCourse() {
