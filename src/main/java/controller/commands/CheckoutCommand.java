@@ -41,12 +41,13 @@ public class CheckoutCommand extends Command {
         checkArgumentsNum(arguments);
         checkUserExists(ce);
         String id = arguments.get(0);
+        // Chose to not use a factory design pattern as there are only two options for now.
+        // The commentsGetter/userGetter serves to help the Single Responsibility principle.
         if (arguments.get(0).equals("-c")) {
             checkPageAuth(ce);
-            CommentsGetter cg = new CommentsGetter();
 
             // all necessary checks should have been run by checkPageAuth
-            cg.getCommentSection(ce);
+            new CommentsGetter().getCommentSection(ce);
             return "now viewing comment section for page";
         } else if (arguments.get(0).equals("-u")){
             new UserGetter().getUserPage(ce);
@@ -58,6 +59,13 @@ public class CheckoutCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the user is currently viewing a page that allows the "getcomments" functionality
+     * (implying there exists a comment section)
+     * @param ce
+     * @return
+     * @throws Exception
+     */
     private boolean checkPageAuth(CommandExecutor ce) throws Exception{
         checkViewingPageExists(ce);
         AuthHelper ah = new AuthHelper();

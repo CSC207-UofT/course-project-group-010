@@ -5,7 +5,7 @@ import entity.*;
 import exceptions.ArgumentException;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import usecase.coursePage.*;
 import usecase.*;
 import entity.Course;

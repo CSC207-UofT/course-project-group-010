@@ -3,6 +3,9 @@ package constants;
 import controller.commands.*;
 import controller.commands.commentcommands.*;
 import controller.commands.coursecommands.CreateCourseCommand;
+import controller.commands.coursecommands.PrintCommand;
+import controller.commands.coursecommands.RateCommand;
+import controller.commands.coursecommands.RelativeRatingCommand;
 import controller.commands.debuggingcommands.ListCoursesCommand;
 import controller.commands.debuggingcommands.ListUsersCommand;
 import exceptions.CommandNotFoundException;
@@ -38,9 +41,11 @@ public class CommandConstants {
         command_dict.put("listcourses", new ListCoursesCommand());
         command_dict.put("listusers", new ListUsersCommand());
         command_dict.put("cd", new CommentCDCommand());
+        command_dict.put("rrate", new RelativeRatingCommand());
     }
 
     public Command get(String key) throws CommandNotFoundException {
+        System.out.println("bruh");
         if (!command_dict.containsKey(key)) {
             throw new CommandNotFoundException();
         }

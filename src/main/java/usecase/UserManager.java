@@ -137,7 +137,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
         Map<PermissionLevel, List<String>> permDict = new HashMap<>();
         // for now, everyone can make a new user
         List<String> studentPermissions = Arrays.asList("print", "checkout", "newuser");
-        List<String> instructorPermissions = List.of("all");
+        List<String> instructorPermissions = List.of("print", "checkout", "newuser");
         permDict.put(PermissionLevel.STUDENT, studentPermissions);
         permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
         return permDict;

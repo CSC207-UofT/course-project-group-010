@@ -1,4 +1,4 @@
-package controller;
+package usecase;
 
 import constants.CommandConstants;
 import constants.PermissionLevel;

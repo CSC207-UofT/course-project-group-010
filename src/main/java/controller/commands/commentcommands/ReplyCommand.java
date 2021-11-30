@@ -2,7 +2,7 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
+import usecase.CommentPresenter;
 import exceptions.ArgumentException;
 import interfaces.IReadModifiable;
 import usecase.UserManager;

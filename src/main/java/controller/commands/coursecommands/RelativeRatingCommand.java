@@ -1,7 +1,11 @@
-package controller.commands;
+package controller.commands.coursecommands;
 
+import constants.ProgramConstants;
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
 import controller.databasegetter.UserDatabaseGetter;
 import entity.StudentUser;
+import exceptions.ArgumentException;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
 import usecase.UserManager;
@@ -43,38 +47,36 @@ public class RelativeRatingCommand extends Command {
     // List<String> arguments: [getRelativeRating, Computer Science]
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-
-        checkHelp(arguments);
-        super.checkArgumentsNum(arguments);
+        // CheckAll auto-runs checkhelp, etc.
+        // checkHelp(arguments);
+        // super.checkArgumentsNum(arguments);
         Scanner in = new Scanner(System.in);
 
-        checkHelpArgsUserPageAuth(ce, arguments, "getRelativeRating");
-        checkUserExists(ce);
+        // checkAll(ce, arguments, "rate");
+        // checkUserExists(ce);
 
         //Ask user to select the program which they want the relative rating for
-        System.out.println("Relative Ratings across Programs: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE.");
+        ProgramConstants pc = new ProgramConstants();
+        System.out.println("Relative Ratings across Programs: " + "\n" + "Note : Choose from one of following options: \n" + pc);
         //Get Users input.
         String argProgramDetail = in.nextLine().toUpperCase();
-        //Get all the ratings that were left by students of argProgramDetail.
-        if (ce.getPageManager() instanceof CourseManager) {
-            float relativeRating = ((CourseManager) ce.getPageManager()).getRelativeRating(arguments.get(0));
-            String courseCode =  ((CourseManager) ce.getPageManager()).getID();
-            String string_RR =  (String.valueOf(relativeRating));
-
-            //If there are no ratings left by students of argProgramDetail, i.e = 0
-            if (relativeRating == 0) {
-                return "There are currently no ratings by students from " + argProgramDetail + ".";
-            }
-
-            else {
-            return "Students from " + argProgramDetail + "on average rated " + courseCode + " " + string_RR + "."; }
-
-
-
-
+        if (!pc.contains(argProgramDetail)) {
+            throw new ArgumentException("Unable to provide Relative Rating. Make sure you are viewing a course, or have selected one of the " +
+                    "provided programs.");
         }
-        return "Unable to provide Relative Rating. Make sure you are viewing a course, or have selected one of the " +
-                "provided programs.";
+        //Get all the ratings that were left by students of argProgramDetail.
+        // pageManager will be an instance of CourseManager because it is authorized.
+        float relativeRating = ((CourseManager) ce.getPageManager()).getRelativeRating(arguments.get(0));
+        String courseCode =  ((CourseManager) ce.getPageManager()).getID();
+        String string_RR =  (String.valueOf(relativeRating));
+
+        //If there are no ratings left by students of argProgramDetail, i.e = 0
+        if (relativeRating == 0) {
+            return "There are currently no ratings by students from " + argProgramDetail + ".";
+        }
+
+        else {
+            return "Students from " + argProgramDetail + "on average rated " + courseCode + " " + string_RR + "."; }
     }
 
     @Override

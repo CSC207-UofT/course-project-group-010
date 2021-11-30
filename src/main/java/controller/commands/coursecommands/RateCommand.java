@@ -1,5 +1,7 @@
-package controller.commands;
+package controller.commands.coursecommands;
 
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
 import entity.StudentUser;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
