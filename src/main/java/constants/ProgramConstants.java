@@ -14,7 +14,7 @@ public class ProgramConstants {
     public String toString() {
         String str = "";
         for (String s : possiblePrograms) {
-            str += s;
+            str += s + "\n";
         }
         return str;
     }

@@ -45,7 +45,6 @@ public class CommandConstants {
     }
 
     public Command get(String key) throws CommandNotFoundException {
-        System.out.println("bruh");
         if (!command_dict.containsKey(key)) {
             throw new CommandNotFoundException();
         }

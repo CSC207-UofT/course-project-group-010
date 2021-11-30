@@ -43,6 +43,9 @@ public class RelativeRatingCommand extends Command {
      *
      *
      */
+    // TODO what is the format of relativeratingcommand? How do you use it(should be in the help string)
+    // TODO relative rating doesn't display right on courses anyways
+    // TODO what does relativeratingcommand even do??
 
     // List<String> arguments: [getRelativeRating, Computer Science]
     @Override
@@ -52,7 +55,7 @@ public class RelativeRatingCommand extends Command {
         // super.checkArgumentsNum(arguments);
         Scanner in = new Scanner(System.in);
 
-        // checkAll(ce, arguments, "rate");
+        checkAll(ce, arguments, "rate");
         // checkUserExists(ce);
 
         //Ask user to select the program which they want the relative rating for
