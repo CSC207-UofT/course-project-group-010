@@ -1,5 +1,7 @@
 package entity;
 
+import constants.ProgramConstants;
+import exceptions.ArgumentException;
 import interfaces.IUser;
 
 import java.io.Serializable;
@@ -19,6 +21,7 @@ public class StudentUser implements Serializable, IUser {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
+        fixOtherData();
     }
 
     // TODO this is only in use in tests, consider deleting(but honestly I think it's alright, idk)
@@ -26,7 +29,7 @@ public class StudentUser implements Serializable, IUser {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = new HashMap<>();
-        setProgramDetail("N/A");
+        fixOtherData();
     }
 
     @Override
@@ -68,6 +71,13 @@ public class StudentUser implements Serializable, IUser {
         result.put("displayName", displayName);
         result.put("programDetail", getProgramDetail());
         return result;
+    }
+
+    private void fixOtherData() {
+        ProgramConstants pc = new ProgramConstants();
+        if (!this.otherData.containsKey("programDetail") || !pc.contains(this.otherData.get("programDetail"))) {
+            setProgramDetail("N/A");
+        }
     }
 }
 

@@ -14,7 +14,7 @@ public class CoursePageBuilder implements Builder {
 
     private Course course; // course object. Empty string if not assigned.
     private List<String> instructors; // List containing empty string if not assigned.
-    private List<Rating> ratings = null; // List of all ratings left for this course across all instructors.
+    private List<Rating> ratings = new ArrayList<>(); // List of all ratings left for this course across all instructors.
     // TODO what does this commentGraph thing do?? it just keeps setting the cg of coursePage to null(undesired)
     private CommentGraph commentGraph = null; //Comment Graph for this CoursePage.
 

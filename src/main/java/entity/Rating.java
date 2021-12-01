@@ -25,9 +25,9 @@ public class Rating implements Serializable {
      *
      * @return string representation of rater's program of study
      */
-//    public String getRaterProgramOfStudy() {
-//        return rater.getProgramDetail();
-//    }
+    public String getRaterProgramOfStudy() {
+        return rater.getOtherData().containsKey("programDetail") ? rater.getOtherData().get("programDetail") : "N/A";
+    }
 
     /**
      * Getter for the score of the rating.

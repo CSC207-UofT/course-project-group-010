@@ -1,5 +1,6 @@
 package usecase;
 
+import constants.ProgramConstants;
 import constants.UserType;
 import entity.CommentGraph;
 import entity.Course;
@@ -99,21 +100,32 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param program string of program name of raters' that will be filtered.
      */
     // TODO only used in relativerating command, if we remove that then remove this.
-    // also I made rating take IUsers and not StudentUsers. That is way too specific and will fuck up SOLID principles. Consider making a new interface or something if you still wanna keep relative rating
-    // OR just delete it, because why not. We have enough things in the program.
-//    public float getRelativeRating(String program) {
-//        List<Rating> filterdRatings = this.ratings.stream().filter(
-//                r -> r.getRater().getProgramDetail().equals(program)).collect(Collectors.toList());
-//        if(filterdRatings.isEmpty()) {
-//            return -1;
-//        }
-//        float total = 0;
-//        for(Rating r : filterdRatings) {
-//            total += r.getScore();
-//        }
-//        return total / filterdRatings.size();
-//
-//    }
+    // also I made rating take IUsers and not StudentUsers. That is way too specific and will fuck up SOLID principles.
+    // I changed the way rater.getPoST is implemented so now it works with IUser.
+    public float getRelativeRating(String program) {
+        List<Rating> filteredRatings = this.ratings.stream().filter(
+                r -> r.getRaterProgramOfStudy().equals(program)).collect(Collectors.toList());
+        if(filteredRatings.isEmpty()) {
+            return -1;
+        }
+        float total = 0;
+        for(Rating r : filteredRatings) {
+            total += r.getScore();
+        }
+        return total / filteredRatings.size();
+
+    }
+
+    public Map<String, Float> getRelativeRatings() {
+        Map<String, Float> retMap = new HashMap<>();
+        ProgramConstants pc = new ProgramConstants();
+        for (String program : pc.getPossiblePrograms()) {
+            if (getRelativeRating(program) != -1) {
+                retMap.put(program, getRelativeRating(program));
+            }
+        }
+        return retMap;
+    }
 
     // Getters
 
@@ -157,6 +169,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
         infoMap.put("all instructors", this.coursePage.getInstructors());
         infoMap.put("rating", avgScore);
+        infoMap.put("relative ratings", getRelativeRatings());
 
         return infoMap;
     }

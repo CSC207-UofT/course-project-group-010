@@ -64,8 +64,7 @@
 //        //Get Users input.
 //        String argProgramDetail = in.nextLine().toUpperCase();
 //        if (!pc.contains(argProgramDetail)) {
-//            throw new ArgumentException("Unable to provide Relative Rating. Make sure you are viewing a course, or have selected one of the " +
-//                    "provided programs.");
+//            throw new ArgumentException("Unable to provide Relative Rating. Please enter a valid program from the list");
 //        }
 //        //Get all the ratings that were left by students of argProgramDetail.
 //        // pageManager will be an instance of CourseManager because it is authorized.
