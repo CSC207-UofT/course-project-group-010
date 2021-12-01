@@ -9,21 +9,24 @@ import java.util.List;
 
 public interface Builder {
 
-    public void buildRatings(List<List<String>> ratings);
+    // TODO builder has 1 class that uses it, do we really need builder --> cpb --> director to build a single course page??
+    // void buildRatings(List<List<String>> ratings);
 
-    public void setCommentGraph(CommentGraph cg);
+    // todo never used, only implemented
+    // void setCommentGraph(CommentGraph cg);
 
-    public void buildCourse(List<String> course);
+    void buildCourse(List<String> course);
 
-    public void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments);
+    // void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments);
 
-    public void setCourse(Course course);
+    void setCourse(Course course);
 
-    public void setInstructors(List<String> instructors);
+    void setInstructors(List<String> instructors);
 
-    public void setRatings(List<Rating> ratings);
+    // todo never used, only implemented
+    // void setRatings(List<Rating> ratings);
 
-    public void reset();
+    void reset();
 
 
 //    public void setRelativeScore(float programRelativeScore);

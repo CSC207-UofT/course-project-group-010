@@ -3,8 +3,10 @@ package controller.commands;
 import exceptions.ArgumentException;
 import exceptions.CommandNotAuthorizedException;
 import controller.databasegetter.UserDatabaseGetter;
+import exceptions.NotInDatabaseException;
 import usecase.UserManager;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -37,22 +39,20 @@ public class LoginCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "login");
         String id = arguments.get(0);
-        if (ce.getUserManager() != null) {
-            throw new CommandNotAuthorizedException("Already logged in.");
-        }
         UserDatabaseGetter userDB = UserDatabaseGetter.getInstance();
+
+        // this will throw NotInDatabaseException upwards if user is not found, which is fine.
         UserManager mgr = userDB.getEntry(id);
-        if (mgr == null) {
-            throw new ArgumentException("User not found in Database");
-        } else {
-            ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getDisplayName();
-        }
+        ce.addUserManager(mgr);
+        return "Logged in as " + mgr.getUser().getDisplayName();
     }
 
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
+        if (ce.getUserManager() != null) {
+            throw new CommandNotAuthorizedException("Already logged in.");
+        }
     }
 }

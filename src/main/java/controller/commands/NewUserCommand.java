@@ -35,6 +35,9 @@ public class NewUserCommand extends Command {
         // super.checkUserExists(ce);
         Scanner in = new Scanner(System.in);
         // TODO consider breaking this up into helpers like getUserType() [prompts the user] then getDisplayName etc.
+        // TODO consider making like a getInput thing where you can pass in an input checking method and shit. google how to do this.
+        // TODO prompt user to try again upon failure.
+        // prompts user, takes input, checks input, returns input if valid
         System.out.println("Type of user[STUDENT/INSTRUCTOR]:");
         String argUserType = in.nextLine().toUpperCase();
         if (!argUserType.equals("STUDENT") && !argUserType.equals("INSTRUCTOR")) {

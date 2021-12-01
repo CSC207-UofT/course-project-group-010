@@ -14,12 +14,12 @@ public class AuthHelper {
         Map<UserType, List<String>> authDict = a.getAuthDict();
         UserType permissionLevel = user.getPermissionLevel();
         if (!authDict.containsKey(permissionLevel)) {
-            throw new CommandNotAuthorizedException("You do not have the permission to take this action.");
+            throw new CommandNotAuthorizedException("You cannot take this action.");
         } else if (authDict.get(permissionLevel).contains(method) ||
                 authDict.get(permissionLevel).contains("all")) {
             return true;
         } else {
-            throw new CommandNotAuthorizedException("You do not have the permission to take this action");
+            throw new CommandNotAuthorizedException("You are not able to take this action, or are not authorized to do so.");
         }
 
     }

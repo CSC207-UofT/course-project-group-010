@@ -42,7 +42,6 @@ public class CommandExecutor {
      * @param request
      * @throws Exception
      */
-    // TODO change the return type to the appropriate type
     public String processRequest(CommandRequest request) {
         CommandConstants commandConstants = new CommandConstants();
         try {
@@ -58,7 +57,6 @@ public class CommandExecutor {
      * Resets the state of the CommandExecutor
      */
     public void resetAll() {
-        // TODO reset the filters on the pageManager
         this.userManager = null;
         this.pageManager = null;
     }

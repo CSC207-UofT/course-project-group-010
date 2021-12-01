@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is a class that extends the CommentManager functionality, and help the program present it.
- * It breaks the CommentManager's methods into larger, more human-related methods
- * It's like a wrapper class. I think that's the correct terminology
+ * Wrapper class for CommentManager
+ * breaks the CommentManager's methods into larger, more human-related methods.
+ * Keeps technical methods in CommentManager, to keep things open for extension.
  */
 public class CommentPresenter implements IReadModifiable {
     private CommentManager cm;
@@ -43,12 +43,20 @@ public class CommentPresenter implements IReadModifiable {
      * @throws ArgumentException
      */
     public void cdCommand(String arg) throws ArgumentException {
+        // Fun fact, cd statnds for change dcomment !
         List<String> arguments = parseArgumentString(arg);
+        String pathTraversed = "";
         for (String id : arguments) {
-            if (id.equals("..")) {
-                checkoutParentID();
-            } else {
-                checkoutSingleID(id);
+            try {
+                if (id.equals("..")) {
+                    checkoutParentID();
+                } else {
+                    checkoutSingleID(id);
+                }
+                pathTraversed += id + "/";
+            } catch (InvalidIDException e) {
+                String errorStr = e.getMessage() + "\n(we managed to traverse " + pathTraversed + ")";
+                throw new ArgumentException(errorStr);
             }
         }
     }
@@ -59,35 +67,67 @@ public class CommentPresenter implements IReadModifiable {
 
     // Make use of the CommentManager's main functions that people will reasonably interact with.
 
+    /**
+     * Replies to a comment with specified text.
+     * @param commentID
+     * @param text
+     * @param userName
+     * @throws InvalidIDException
+     */
     public void replyToComment(String commentID, String text, String userName) throws InvalidIDException
     {
         this.cm.replyToComment(commentID, text, userName);
     }
 
+    /**
+     * Replies to current comment with specified text.
+     * @param text
+     * @param userName
+     * @throws InvalidIDException
+     */
+    public void replyToComment(String text, String userName) throws InvalidIDException {
+        this.cm.replyToComment(currentID, text, userName);
+    }
+
+    /**
+     * Upvotes/Downvotes a comment with given id
+     * @param commentID
+     * @param up
+     */
     public void vote(String commentID, boolean up) {
         this.cm.vote(commentID, up);
+    }
+
+    /**
+     * Upvotes/downvotes the current comment
+     * @param up
+     */
+    public void vote(boolean up) {
+        this.cm.vote(currentID, up);
     }
 
     private List<String> parseArgumentString(String argument) {
         return List.of(argument.split("/"));
     }
 
-    private void checkoutSingleID(String id) throws ArgumentException {
+    // helpers for the cd command
+
+    private void checkoutSingleID(String id) throws InvalidIDException {
         if (cm.hasChildID(this.currentID, id)) {
             this.currentID = id;
             this.fullPath += "/" + id;
         } else {
-            throw new ArgumentException("Could not check out comment with id " + id);
+            throw new InvalidIDException("Could not check out comment with id " + id);
         }
     }
 
-    private void checkoutParentID() throws ArgumentException {
+    private void checkoutParentID() throws InvalidIDException {
         if (cm.getParentComment(this.currentID) instanceof CommentGraph.Comment) {
             this.currentID = cm.getParentComment(this.currentID).getId();
             this.fullPath = this.fullPath.substring(0, this.fullPath.lastIndexOf("/"));
             this.fullPath = this.fullPath.trim();
         } else {
-            throw new ArgumentException("parent comment not found for " + this.currentID);
+            throw new InvalidIDException("parent comment not found for " + this.currentID);
         }
     }
 

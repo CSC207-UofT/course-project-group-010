@@ -8,6 +8,7 @@ import interfaces.IReadModifiable;
 
 import java.util.List;
 
+// TODO kind of deprecated, too technical and not really useful
 public class GetPathCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments

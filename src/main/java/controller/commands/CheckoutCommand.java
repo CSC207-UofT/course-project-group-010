@@ -25,10 +25,8 @@ public class CheckoutCommand extends Command {
     }
 
     /**
-     * Checks out the review section of a page[doesn't exist yet]
-     * or a page indicated by course code.
-     * Currently can only view "MAT137," and doesn't implement Authorization system.
-     * Currently also goes against clean architecture A LOT. sorry :(
+     * Checks out a page with given id
+     * or you can check out your user page using -u, or the comment section of a course using -c
      *
      * @param ce
      * @param arguments
@@ -59,6 +57,12 @@ public class CheckoutCommand extends Command {
         }
     }
 
+    @Override
+    public String help() {
+        return "checks out a page.\n - checkout [coursecode]: checks out a course\n - checkout -c gets the comment " +
+                "section of the page.\n - checkout -u gets the currently logged in user's profile page.";
+    }
+
     /**
      * Checks if the user is currently viewing a page that allows the "getcomments" functionality
      * (implying there exists a comment section)
@@ -75,6 +79,7 @@ public class CheckoutCommand extends Command {
         return true;
     }
 
+    // TODO consider putting this in a separate class
     private void getCourseFromDB(CommandExecutor ce, String id) throws Exception {
         CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
         CourseManager mgr = cdg.getEntry(id);
@@ -85,11 +90,5 @@ public class CheckoutCommand extends Command {
             ah.checkAuth(mgr, ce.getUserManager(), "checkout");
             ce.setPageManager(mgr);
         }
-    }
-
-    @Override
-    public String help() {
-        return "checks out a page.\n - checkout [coursecode]: checks out a course\n - checkout -c gets the comment " +
-                "section of the page.\n - checkout -u gets the currently logged in user's profile page.";
     }
 }

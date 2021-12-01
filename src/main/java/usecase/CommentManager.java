@@ -354,6 +354,7 @@ public class CommentManager implements Serializable
         > searchById(uses getCommentById)
         > searchByText(uses getCommentsByText)
          */
+        // TODO search functions potentially[low prio]
     }
 
 //    private Map<PermissionLevel, List<String>> getDefaultAuthDict()

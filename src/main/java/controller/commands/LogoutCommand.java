@@ -1,5 +1,7 @@
 package controller.commands;
 
+import exceptions.CommandHelpException;
+import exceptions.CommandNotAuthorizedException;
 import usecase.UserManager;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class LogoutCommand extends Command {
     }
 
     @Override
-    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws CommandHelpException, CommandNotAuthorizedException {
         checkHelp(arguments);
         checkUserExists(ce);
     }

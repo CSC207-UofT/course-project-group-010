@@ -24,7 +24,7 @@ public class DisplaySubsetThreadCommand extends Command {
     /**
      * Displays a subset of a thread, considering a starting id and a depth.
      * Can sort by ascending or descending upvotes.
-     * THIS IS QUITE DEPRECATED
+     * THIS IS QUITE DEPRECATED, only necessary if you don't want maximum depth.
      *
      * @param ce
      * @param arguments
