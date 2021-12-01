@@ -1,5 +1,6 @@
 package controller.commands;
 
+import constants.ProgramConstants;
 import constants.UserType;
 import controller.databasegetter.UserDatabaseGetter;
 import exceptions.ArgumentException;
@@ -33,6 +34,7 @@ public class NewUserCommand extends Command {
         super.checkArgumentsNum(arguments);
         // super.checkUserExists(ce);
         Scanner in = new Scanner(System.in);
+        // TODO consider breaking this up into helpers like getUserType() [prompts the user] then getDisplayName etc.
         System.out.println("Type of user[STUDENT/INSTRUCTOR]:");
         String argUserType = in.nextLine().toUpperCase();
         if (!argUserType.equals("STUDENT") && !argUserType.equals("INSTRUCTOR")) {
@@ -48,8 +50,9 @@ public class NewUserCommand extends Command {
         }
         System.out.println("any spaces were removed. ID is " + argId);
         UserType desiredUserType = getUserType(argUserType);
-        System.out.println("Program Detail: " + "\n" + "Note : Choose from one of following options: ACCOUNTING, ACTUARIAL SCIENCE, ANTHROPOLOGY, APPLIED MATHEMATICS, APPLIED STATISTICS,COMPUTER SCIENCE, DATA SCIENCE. Or Entry N/A for Program Detail");
+        System.out.println("Program Detail, enter N/A to skip: " + "\n" + "Choose from one of following options: \n" + new ProgramConstants());
         String argProgramDetail = in.nextLine().toUpperCase();
+        // TODO check if it's a valid program...probably split this up into a helper class huh...
         UserManager um = createUser(desiredUserType, argDisplayName, argId, argProgramDetail);
         return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
                 "Run saveall to save this progress.";
@@ -79,17 +82,11 @@ public class NewUserCommand extends Command {
     }
 
     private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, String argProgramDetail) throws Exception {
-        if (!argProgramDetail.equalsIgnoreCase("N/A")||!argProgramDetail.equalsIgnoreCase("")) {
-            HashMap<String, String> adddetail = new HashMap<>();
-            adddetail.put("programDetail", argProgramDetail);
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return um;
-
-        } else {
-            UserManager um = new UserManager(desiredUserType, argDisplayName, argId);
-            UserDatabaseGetter.getInstance().addEntry(um);
-            return um;
-        }
+        HashMap<String, String> adddetail = new HashMap<>();
+        argProgramDetail = argProgramDetail.equalsIgnoreCase("N/A") || argProgramDetail.equalsIgnoreCase("") ? "N/A" : argProgramDetail;
+        adddetail.put("programDetail", argProgramDetail);
+        UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
+        UserDatabaseGetter.getInstance().addEntry(um);
+        return um;
     }
 }

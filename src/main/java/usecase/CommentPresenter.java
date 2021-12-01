@@ -1,12 +1,11 @@
-package controller;
+package usecase;
 
 import constants.CommandConstants;
-import constants.PermissionLevel;
+import constants.UserType;
 import entity.CommentGraph;
 import exceptions.ArgumentException;
 import exceptions.InvalidIDException;
 import interfaces.IReadModifiable;
-import usecase.CommentManager;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ public class CommentPresenter implements IReadModifiable {
     private CommentManager cm;
     private String currentID;
     private String fullPath;
-    private Map<PermissionLevel, List<String>> authDict;
+    private Map<UserType, List<String>> authDict;
 
 
     public CommentPresenter(CommentManager cm) {
@@ -93,7 +92,7 @@ public class CommentPresenter implements IReadModifiable {
     }
 
     @Override
-    public Map<PermissionLevel, List<String>> getAuthDict() {
+    public Map<UserType, List<String>> getAuthDict() {
         return this.authDict;
     }
 
@@ -105,13 +104,13 @@ public class CommentPresenter implements IReadModifiable {
         return map;
     }
 
-    private Map<PermissionLevel, List<String>> getDefaultAuthDict() {
-        Map<PermissionLevel, List<String>> permDict = new HashMap<>();
+    private Map<UserType, List<String>> getDefaultAuthDict() {
+        Map<UserType, List<String>> permDict = new HashMap<>();
         List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote", "print", "commentcd");
         List<String> studentPermissions = l;
         List<String> instructorPermissions = l;
-        permDict.put(PermissionLevel.STUDENT, studentPermissions);
-        permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
+        permDict.put(UserType.STUDENT, studentPermissions);
+        permDict.put(UserType.INSTRUCTOR, instructorPermissions);
         return permDict;
     }
 }

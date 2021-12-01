@@ -1,6 +1,5 @@
 package entity;
 
-import interfaces.IReviewer;
 import interfaces.IUser;
 
 import java.io.Serializable;
@@ -8,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentUser implements Serializable, IReviewer, IUser {
+public class StudentUser implements Serializable, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
@@ -28,6 +27,7 @@ public class StudentUser implements Serializable, IReviewer, IUser {
         this.courses = new HashMap<>();
     }
 
+    // TODO this is only in use in tests, consider deleting(but honestly I think it's alright, idk)
     public StudentUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;

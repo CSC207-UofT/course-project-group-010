@@ -1,6 +1,6 @@
 package controller;
 
-import constants.PermissionLevel;
+import constants.UserType;
 import exceptions.CommandNotAuthorizedException;
 import interfaces.IAuthorizable;
 import interfaces.IHasPermission;
@@ -11,8 +11,8 @@ import java.util.Map;
 public class AuthHelper {
     public boolean checkAuth(IAuthorizable a, IHasPermission user, String method) throws CommandNotAuthorizedException {
 
-        Map<PermissionLevel, List<String>> authDict = a.getAuthDict();
-        PermissionLevel permissionLevel = user.getPermissionLevel();
+        Map<UserType, List<String>> authDict = a.getAuthDict();
+        UserType permissionLevel = user.getPermissionLevel();
         if (!authDict.containsKey(permissionLevel)) {
             throw new CommandNotAuthorizedException("You do not have the permission to take this action.");
         } else if (authDict.get(permissionLevel).contains(method) ||

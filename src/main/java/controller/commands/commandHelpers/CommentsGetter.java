@@ -1,7 +1,7 @@
 package controller.commands.commandHelpers;
 
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
+import usecase.CommentPresenter;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CommentManager;
 import usecase.CourseManager;

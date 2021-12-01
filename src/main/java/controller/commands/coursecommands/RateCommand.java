@@ -1,5 +1,7 @@
-package controller.commands;
+package controller.commands.coursecommands;
 
+import controller.commands.Command;
+import controller.commands.CommandExecutor;
 import entity.StudentUser;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
@@ -37,15 +39,10 @@ public class RateCommand extends Command {
         if (!(ce.getUserManager().getUser() instanceof StudentUser)) {
             throw new CommandNotAuthorizedException("You must be a student to rate courses");
         }
-        if (arguments.get(0) == "rm") {
-            // TODO implement this, or maybe just...don't.
-            return "Removing rating is not implemented yet";
-        } else {
-            if (ce.getPageManager() instanceof CourseManager) {
-                ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
-                        (StudentUser) ce.getUserManager().getUser());
-                return "Rated " + ((CourseManager) ce.getPageManager()).getID();
-            }
+        if (ce.getPageManager() instanceof CourseManager) {
+            ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
+                    (StudentUser) ce.getUserManager().getUser());
+            return "Rated " + ((CourseManager) ce.getPageManager()).getID();
         }
         return "Unable to rate. Make sure you are viewing a course.";
     }

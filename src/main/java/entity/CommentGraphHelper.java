@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * Class that contains a variety of helper subclasses and methods for CommentGraph.java
  */
+// TODO justify stuff
 public class CommentGraphHelper {
 
 //======================================================================================================================

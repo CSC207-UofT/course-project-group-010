@@ -3,22 +3,22 @@ package usecase;
 // imports
 
 import constants.CommandConstants;
-import constants.PermissionLevel;
 import entity.CommentGraph;
 import exceptions.InvalidIDException;
-import interfaces.IReadModifiable;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CommentManager Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// TODO delete anything that isn't used, and justify the existence of the other methods in this class.
 /**
  * Class that handles comments in a CommentGraph
  */
-public class CommentManager implements IReadModifiable, Serializable
+public class CommentManager implements Serializable
 {
 
 //======================================================================================================================
@@ -28,7 +28,7 @@ public class CommentManager implements IReadModifiable, Serializable
     // initial CommentGraph
     CommentGraph commentGraph;
     // authorization mapping
-    Map<PermissionLevel, List<String>> authDict;
+    // Map<PermissionLevel, List<String>> authDict;
 
 //======================================================================================================================
 // Comment Manager Constructors
@@ -39,7 +39,7 @@ public class CommentManager implements IReadModifiable, Serializable
         // Initialize CommentGraph
         this.commentGraph = commentGraph;
         // get Default authdict
-        this.authDict = getDefaultAuthDict();
+        // this.authDict = getDefaultAuthDict();
     }
 
 //======================================================================================================================
@@ -356,21 +356,21 @@ public class CommentManager implements IReadModifiable, Serializable
          */
     }
 
-    private Map<PermissionLevel, List<String>> getDefaultAuthDict()
-    {
-        Map<PermissionLevel, List<String>> permDict = new HashMap<>();
-        List<String> l = Arrays.asList("none");
-        List<String> studentPermissions = l;
-        List<String> instructorPermissions = l;
-        permDict.put(PermissionLevel.STUDENT, studentPermissions);
-        permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
-        return permDict;
-    }
-
-    @Override
-    public Map<PermissionLevel, List<String>> getAuthDict()
-    {
-        return this.authDict;
-    }
+//    private Map<PermissionLevel, List<String>> getDefaultAuthDict()
+//    {
+//        Map<PermissionLevel, List<String>> permDict = new HashMap<>();
+//        List<String> l = Arrays.asList("none");
+//        List<String> studentPermissions = l;
+//        List<String> instructorPermissions = l;
+//        permDict.put(PermissionLevel.STUDENT, studentPermissions);
+//        permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
+//        return permDict;
+//    }
+//
+//    @Override
+//    public Map<PermissionLevel, List<String>> getAuthDict()
+//    {
+//        return this.authDict;
+//    }
 }
 

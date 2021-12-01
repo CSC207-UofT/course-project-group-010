@@ -1,10 +1,10 @@
 package interfaces;
 
-import constants.PermissionLevel;
+import constants.UserType;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IAuthorizable {
-    Map<PermissionLevel, List<String>> getAuthDict();
+    Map<UserType, List<String>> getAuthDict();
 }

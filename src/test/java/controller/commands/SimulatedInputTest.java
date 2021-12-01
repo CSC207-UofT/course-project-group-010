@@ -2,13 +2,13 @@ package controller.commands;
 
 import constants.CommandConstants;
 import constants.UserType;
-import controller.CommentPresenter;
 import controller.commands.coursecommands.CreateCourseCommand;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import usecase.CommentPresenter;
 import usecase.UserManager;
 
 import java.lang.reflect.InvocationTargetException;
