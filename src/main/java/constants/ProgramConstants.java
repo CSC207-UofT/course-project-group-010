@@ -7,7 +7,11 @@ public class ProgramConstants {
     private List<String> possiblePrograms;
 
     public ProgramConstants() {
-        possiblePrograms = List.of("ACCOUNTING", "ACTUARIAL SCIENCE", "ANTHROPOLOGY", "APPLIED MATHEMATICS", "APPLIED STATISTICS","COMPUTER SCIENCE", "DATA SCIENCE");
+        possiblePrograms = List.of("ACCOUNTING", "ACTUARIAL SCIENCE", "ANTHROPOLOGY", "APPLIED MATHEMATICS", "APPLIED STATISTICS","COMPUTER SCIENCE", "DATA SCIENCE", "N/A");
+    }
+
+    public List<String> getPossiblePrograms() {
+        return possiblePrograms;
     }
 
     @Override

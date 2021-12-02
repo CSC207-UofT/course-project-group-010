@@ -13,8 +13,6 @@ public class InstructorUser implements Serializable, IUser {
     private final String ID; //ID
     private String displayName; //Username
     private Map<String, String> otherData;
-    private int reviewCount; //Number of reviews left by this user
-    private HashMap<Integer, List<Course>> courses;
     // position Options include "Prof" and "TA".
     private List<Course> currentlyTeaching;
 
@@ -23,14 +21,13 @@ public class InstructorUser implements Serializable, IUser {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
-        this.reviewCount = 0;
     }
 
     // TODO this constructor is not in use except in tests, we can delete
     public InstructorUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
-        this.reviewCount = 0;
+        setPosition("N/A");
     }
 
     @Override
@@ -48,13 +45,6 @@ public class InstructorUser implements Serializable, IUser {
         return this.displayName;
     }
 
-    @Override
-    public void setDisplayName(String s) {
-        if (s.length() < MAXIMUM_DISPLAY_LENGTH) {
-            this.displayName = s;
-        }
-    }
-
     public String getPosition() {
         return this.getOtherData().get("position");
     }
@@ -68,47 +58,11 @@ public class InstructorUser implements Serializable, IUser {
         return otherData;
     }
 
-    @Override
-    public void setOtherData(Map<String, String> otherData) {
-        this.otherData = otherData;
-    }
-
     public List<Course> getCurrentlyTeaching() {
         return this.currentlyTeaching;
     }
 
     //Setters
-
-    // TODO no usages, we can delete
-    public void setCurrentlyTeaching(List<Course> t) {
-        this.currentlyTeaching = t;
-    }
-
-    @Override
-    // TODO only used in tests, we can delete
-    public int getReviewCount() {
-        return reviewCount;
-    }
-
-    @Override
-    // TODO no usages, we can delete
-    public void setReviewCount(int count) {
-        if (count >= 0) {
-            this.reviewCount = count;
-        }
-    }
-
-    @Override
-    // TODO no usages, we can delete
-    public HashMap<Integer, List<Course>> getCourses() {
-        return this.courses;
-    }
-
-    @Override
-    // TODO no usages, we can delete
-    public void setCourses(HashMap<Integer, List<Course>> c) {
-        this.courses = c;
-    }
 
     @Override
     public HashMap<String, Object> getData() {
@@ -118,14 +72,7 @@ public class InstructorUser implements Serializable, IUser {
         result.put("displayName", displayName);
         result.put("position", getPosition());
         result.put("currentlyTeaching", getCurrentlyTeaching());
-        result.put("courses", courses);
         return result;
-    }
-
-    @Override
-    // TODO no usages, we can delete
-    public void incrementReviewCount() {
-        this.reviewCount++;
     }
 
 

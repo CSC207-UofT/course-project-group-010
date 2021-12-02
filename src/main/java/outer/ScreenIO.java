@@ -41,6 +41,6 @@ public class ScreenIO {
         }
         CourseDatabaseGetter.getInstance().saveAll();
         UserDatabaseGetter.getInstance().saveAll();
-        //in.close();
+        in.close();
     }
 }

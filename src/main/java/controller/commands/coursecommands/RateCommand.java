@@ -2,8 +2,6 @@ package controller.commands.coursecommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import entity.StudentUser;
-import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
 
 import java.util.List;
@@ -34,17 +32,11 @@ public class RateCommand extends Command {
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "rate");
-        checkUserExists(ce);
-        // TODO change this last minute code
-        if (!(ce.getUserManager().getUser() instanceof StudentUser)) {
-            throw new CommandNotAuthorizedException("You must be a student to rate courses");
-        }
-        if (ce.getPageManager() instanceof CourseManager) {
-            ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
-                    (StudentUser) ce.getUserManager().getUser());
-            return "Rated " + ((CourseManager) ce.getPageManager()).getID();
-        }
-        return "Unable to rate. Make sure you are viewing a course.";
+
+        // if the user is allowed to rate, that implies it is a student viewing a coursemanager page.
+        ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
+                ce.getUserManager().getUser());
+        return "Rated " + ((CourseManager) ce.getPageManager()).getID();
     }
 
     @Override

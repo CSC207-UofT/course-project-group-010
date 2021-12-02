@@ -19,7 +19,7 @@ public class CommentCDCommand extends Command {
      * Navigates the comment section, if the user is currently viewing one
      * eg. cd id1/id2/id3 will traverse to id1 > id2 > id3. cd .. will go backwards.
      * @param ce
-     * @param arguments arg(0) should be the id that the user wants to traverse to
+     * @param arguments
      * @return
      * @throws Exception
      */

@@ -21,7 +21,7 @@ public class DisplayFullThreadCommand extends Command {
 
     @Override
     public String help() {
-        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c instead.";
+        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c > print instead.";
     }
 
     /**

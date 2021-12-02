@@ -1,5 +1,7 @@
 package entity;
 
+import constants.ProgramConstants;
+import exceptions.ArgumentException;
 import interfaces.IUser;
 
 import java.io.Serializable;
@@ -13,26 +15,21 @@ public class StudentUser implements Serializable, IUser {
     private final String ID; //ID
     private String displayName; //Username
     private Map<String, String> otherData;
-    private int reviewCount; //Number of reviews left by this user
-
-    // Permission level : 0
-    private HashMap<Integer, List<Course>> courses;
 
     //Constructors
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
-        this.reviewCount = 0;
-        this.courses = new HashMap<>();
+        fixOtherData();
     }
 
     // TODO this is only in use in tests, consider deleting(but honestly I think it's alright, idk)
     public StudentUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
-        this.reviewCount = 0;
-        this.courses = new HashMap<>();
+        this.otherData = new HashMap<>();
+        fixOtherData();
     }
 
     @Override
@@ -52,35 +49,11 @@ public class StudentUser implements Serializable, IUser {
     }
 
     @Override
-    public void setDisplayName(String s) {
-        if (s.length() < MAXIMUM_DISPLAY_LENGTH) {
-            this.displayName = s;
-        }
-    }
-
-    @Override
     public Map<String, String> getOtherData() {
         return otherData;
     }
 
-    @Override
-    public void setOtherData(Map<String, String> otherData) {
-        this.otherData = otherData;
-    }
-
-    @Override
-    public int getReviewCount() {
-        return reviewCount;
-    }
-
     //Setters
-
-    @Override
-    public void setReviewCount(int count) {
-        if (count >= 0) {
-            this.reviewCount = count;
-        }
-    }
 
     public String getProgramDetail() {
 
@@ -97,23 +70,14 @@ public class StudentUser implements Serializable, IUser {
         result.put("ID", ID);
         result.put("displayName", displayName);
         result.put("programDetail", getProgramDetail());
-        result.put("courses", courses);
         return result;
     }
 
-    @Override
-    public void incrementReviewCount() {
-        this.reviewCount++;
-    }
-
-    @Override
-    public HashMap<Integer, List<Course>> getCourses() {
-        return this.courses;
-    }
-
-    @Override
-    public void setCourses(HashMap<Integer, List<Course>> c) {
-        this.courses = c;
+    private void fixOtherData() {
+        ProgramConstants pc = new ProgramConstants();
+        if (!this.otherData.containsKey("programDetail") || !pc.contains(this.otherData.get("programDetail"))) {
+            setProgramDetail("N/A");
+        }
     }
 }
 

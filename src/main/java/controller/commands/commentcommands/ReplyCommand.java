@@ -16,7 +16,7 @@ public class ReplyCommand extends Command {
      * Initializes the command with minimum/maximum arguments
      */
     public ReplyCommand() {
-        super(1, 1);
+        super(1, 0);
     }
 
     @Override
@@ -38,31 +38,20 @@ public class ReplyCommand extends Command {
         Scanner in = new Scanner(System.in);
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
-        String id = arguments.get(0);
         String userName = user.getUser().getDisplayName();
+        // TODO consider inputGetter class. INPUTGETTER should get input, check input, throw exception if checker returns false basically
         System.out.println("Type your comment:");
         String text = in.nextLine();
         if (text.equalsIgnoreCase("")) {
             throw new ArgumentException("Please write some text. Try again.");
         }
-        ((CommentPresenter) currentlyViewingPage).replyToComment(id, text, userName);
-        return userName + " replied to comment " + id + "with text [" + text.toString() + "]";
-    }
-
-    /**
-     * Old buildComment method, deprecated.
-     * @param arguments
-     * @return
-     * @throws ArgumentException
-     */
-    private String buildComment(List<String> arguments) throws ArgumentException {
-        checkArgumentsNum(arguments);
-        arguments = arguments.subList(1, arguments.size());
-        StringBuilder text = new StringBuilder();
-        for (String s : arguments) {
-            text.append(s);
-            text.append(" ");
+        CommentPresenter cp = ((CommentPresenter) currentlyViewingPage);
+        if (arguments.size() == 1) {
+            cp.replyToComment(arguments.get(0), text, userName);
+        } else {
+            cp.replyToComment(text, userName);
         }
-        return text.toString().trim();
+
+        return userName + " replied to comment with text [" + text + "]";
     }
 }

@@ -31,6 +31,7 @@ public class PrintCommand extends Command {
         IReadModifiable currentlyViewingPage = ce.getPageManager();
 
         Map<String, Object> dataMap = currentlyViewingPage.getData();
+        // Single responsibility principle
         DataPrinter dp = new DataPrinter();
         return dp.printData(dataMap);
     }

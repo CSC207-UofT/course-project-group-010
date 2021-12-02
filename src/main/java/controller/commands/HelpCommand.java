@@ -26,11 +26,12 @@ public class HelpCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkArgumentsNum(arguments);
         StringBuilder retStr = new StringBuilder();
+        // TODO quickstart command for quick start help
         retStr.append("Welcome to the course system! You can login and view/interact with courses\n");
         retStr.append("For any of the following commands, type [commandname] -h for detailed usage.\n");
         retStr.append("type 'end' to end the program. It will automatically save all progress\n");
         retStr.append("=============== Commands ================\n");
-        retStr.append("- Debugging commands: newuser, createcourse, listusers, listcourses\n");
+        retStr.append("- [Debugging] getting started: newuser, createcourse, listusers, listcourses\n");
         retStr.append("- Logging in: login, logout\n");
         retStr.append("- Basic functions: checkout, print, rate\n");
         retStr.append("- Comment Navigation: displayfullthread[deprecated], displaysubsetthread, getcomments[deprecated], getpath\n");

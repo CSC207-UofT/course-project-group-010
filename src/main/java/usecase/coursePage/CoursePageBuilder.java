@@ -14,7 +14,7 @@ public class CoursePageBuilder implements Builder {
 
     private Course course; // course object. Empty string if not assigned.
     private List<String> instructors; // List containing empty string if not assigned.
-    private List<Rating> ratings = null; // List of all ratings left for this course across all instructors.
+    private List<Rating> ratings = new ArrayList<>(); // List of all ratings left for this course across all instructors.
     // TODO what does this commentGraph thing do?? it just keeps setting the cg of coursePage to null(undesired)
     private CommentGraph commentGraph = null; //Comment Graph for this CoursePage.
 
@@ -29,41 +29,42 @@ public class CoursePageBuilder implements Builder {
         this.instructors = instructors;
     }
 
-    @Override
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
+//    @Override
+//    public void setRatings(List<Rating> ratings) {
+//        this.ratings = ratings;
+//    }
+//
+//    @Override
+//    public void setCommentGraph(CommentGraph cg) {
+//        this.commentGraph = cg;
+//    }
 
-    @Override
-    public void setCommentGraph(CommentGraph cg) {
-        this.commentGraph = cg;
-    }
-
-    @Override
-    public void buildRatings(List<List<String>> ratings) {
-
-        //Creating a list of Rating of objects to be assigned to CoursePage.
-        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
-
-        //For every List containing Rating information
-        for (List<String> l : ratings) {
-
-            //Create StudentUser object
-            StudentUser student = new StudentUser(l.get(0), l.get(1));
-
-            //Convert score from string to float.
-            float score = Float.parseFloat(l.get(2));
-
-            //Create Rating object
-            Rating r = new Rating(student, score, l.get(4));
-
-            //Add Rating object to cp_ratings.
-            cp_ratings.add(r);
-        }
-
-        //Set CoursePageBuilder's ratings to the above.
-        this.setRatings(cp_ratings);
-    }
+    // TODO only used in director, in a method that is never used by the rest of the program
+//    @Override
+//    public void buildRatings(List<List<String>> ratings) {
+//
+//        //Creating a list of Rating of objects to be assigned to CoursePage.
+//        List<Rating> cp_ratings = new ArrayList<>(); //Empty Array list to add Rating objects to.
+//
+//        //For every List containing Rating information
+//        for (List<String> l : ratings) {
+//
+//            //Create StudentUser object
+//            StudentUser student = new StudentUser(l.get(0), l.get(1));
+//
+//            //Convert score from string to float.
+//            float score = Float.parseFloat(l.get(2));
+//
+//            //Create Rating object
+//            Rating r = new Rating(student, score, l.get(4));
+//
+//            //Add Rating object to cp_ratings.
+//            cp_ratings.add(r);
+//        }
+//
+//        //Set CoursePageBuilder's ratings to the above.
+//        this.setRatings(cp_ratings);
+//    }
 
     @Override
     public void buildCourse(List<String> course) {
@@ -76,23 +77,24 @@ public class CoursePageBuilder implements Builder {
 
     }
 
-    /**
-     * This builds the commentGraph for CoursePage provided with necessary strings.
-     *
-     * @param typeName A list of two strings, denoting the rootType and rootName for this commentGraph.
-     * @param initialComments A hashmap of strings required as input for commentGraph constructor.
-     *
-     * Example:
-     *
-     *                      String rootType, String rootName, HashMap<String, List<String>> initialComments
-     *
-     * { [List<String> mainComments: [String mainCommentType, String mainCommenterName] }
-     */
-    @Override
-    public void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments) {
-        this.setCommentGraph(new CommentGraph(typeName.get(0), typeName.get(1), initialComments));
-
-    }
+//    /**
+//     * This builds the commentGraph for CoursePage provided with necessary strings.
+//     *
+//     * @param typeName A list of two strings, denoting the rootType and rootName for this commentGraph.
+//     * @param initialComments A hashmap of strings required as input for commentGraph constructor.
+//     *
+//     * Example:
+//     *
+//     *                      String rootType, String rootName, HashMap<String, List<String>> initialComments
+//     *
+//     * { [List<String> mainComments: [String mainCommentType, String mainCommenterName] }
+//     */
+    // TODO never used
+//    @Override
+//    public void buildCommentGraph(List<String> typeName, HashMap<String, List<String>> initialComments) {
+//        this.setCommentGraph(new CommentGraph(typeName.get(0), typeName.get(1), initialComments));
+//
+//    }
 
 
     public CoursePage getResult() {

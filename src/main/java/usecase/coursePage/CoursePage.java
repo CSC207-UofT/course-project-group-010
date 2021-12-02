@@ -60,7 +60,7 @@ public class CoursePage implements Serializable {
 
         this.course = course;
         this.instructors = instructors;
-        this.ratings = null;
+        this.ratings = new ArrayList<>();
     }
 
     public Course getCourse() {
