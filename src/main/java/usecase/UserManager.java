@@ -5,6 +5,7 @@ import entity.Course;
 import entity.InstructorUser;
 import entity.StudentUser;
 import entity.UserFactory;
+import exceptions.ArgumentException;
 import interfaces.IDBSaveable;
 import interfaces.IHasPermission;
 import interfaces.IReadModifiable;
@@ -36,7 +37,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
      * UserManager works on use cases for a user object,
      * so it will initialize with a student object or instructor object
      */
-    public UserManager(UserType type, String displayName, String ID, Map<String, String> otherData) throws Exception {
+    public UserManager(UserType type, String displayName, String ID, Map<String, String> otherData) throws ArgumentException {
 
         UserFactory userFactory = new UserFactory();
         user = userFactory.getUser(type, displayName, ID, otherData);
@@ -142,7 +143,7 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
         return permDict;
     }
 
-// I like the idea, but it's too late, and we don't have to do it.
+// TODO I like the idea, but it's too late, and we don't have to do it.
 //    // Modify Student User information.
 //
 //    // FIXME: dependency on StudentUser

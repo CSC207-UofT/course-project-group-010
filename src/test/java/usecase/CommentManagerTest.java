@@ -1,6 +1,7 @@
 package usecase;
 
 import entity.CommentGraph;
+import entity.CommentGraph;
 import exceptions.InvalidIDException;
 import usecase.CommentManager;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class CommentManagerTest
     public static CommentGraph sampleCommentGraphBuilder() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
     {
         // Get private methods from commentGraph Class
-        Class<?> commentGraphClass = Class.forName("Entity.CommentGraph");
+        Class<?> commentGraphClass = Class.forName("entity.CommentGraph");
 
         Method createCommentMethod = commentGraphClass.getDeclaredMethod("createComment", String.class, String.class, String.class);
         createCommentMethod.setAccessible(true);

@@ -178,7 +178,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     /**
      * Private method that returns average rating score of current coursePage.
      */
-    public void updateAvgScore() {
+    private void updateAvgScore() {
         if (this.ratings == null) {
             this.coursePage.setAverageScore(-1);
             return;

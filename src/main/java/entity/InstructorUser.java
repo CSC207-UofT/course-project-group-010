@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO instructorUser isn't really fleshed out, consider deleteing or adding methods similar to those in StudentUser
 public class InstructorUser implements Serializable, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
@@ -27,6 +28,7 @@ public class InstructorUser implements Serializable, IUser {
     public InstructorUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
+        this.otherData = new HashMap<>();
         setPosition("N/A");
     }
 
@@ -58,9 +60,10 @@ public class InstructorUser implements Serializable, IUser {
         return otherData;
     }
 
-    public List<Course> getCurrentlyTeaching() {
-        return this.currentlyTeaching;
-    }
+    // TODO unused, delete
+//    public List<Course> getCurrentlyTeaching() {
+//        return this.currentlyTeaching;
+//    }
 
     //Setters
 
@@ -71,7 +74,7 @@ public class InstructorUser implements Serializable, IUser {
         result.put("ID", ID);
         result.put("displayName", displayName);
         result.put("position", getPosition());
-        result.put("currentlyTeaching", getCurrentlyTeaching());
+        // result.put("currentlyTeaching", getCurrentlyTeaching());
         return result;
     }
 

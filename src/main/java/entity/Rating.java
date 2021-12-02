@@ -10,10 +10,11 @@ public class Rating implements Serializable {
     private final IUser rater;
     private float score;
 
-    public Rating(IUser rater, float score, String instructor) {
-        this.rater = rater;
-        this.score = score;
-    }
+    // TODO consider not using this
+//    public Rating(IUser rater, float score, String instructor) {
+//        this.rater = rater;
+//        this.score = score;
+//    }
 
     public Rating(IUser rater, float score) {
         this.rater = rater;
@@ -78,9 +79,9 @@ public class Rating implements Serializable {
      *
      * @return rater's StudentUser object
      */
-    public IUser getRater() {
-        return this.rater;
-    }
+//    public IUser getRater() {
+//        return this.rater;
+//    }
 
     @Override
     public String toString() {

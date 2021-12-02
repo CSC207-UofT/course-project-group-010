@@ -1,118 +1,77 @@
-//package usecase;
-//
-//import constants.UserType;
-//import entity.Course;
-//import entity.StudentUser;
-//import exceptions.ArgumentException;
-//import org.junit.Test;
-//import usecase.coursePage.CoursePage;
-//
-//import java.util.*;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.fail;
-//
-//
-//public class CourseManagerTest {
-//
-//    @Test(timeout = 100)
-//    public void testCourseManager1() throws ArgumentException {
-//        CoursePage coursePage = new CoursePage(
-//                new Course("Sample Course1", "CSC108"),
-//                List.of("Instructor A", "Instructor B", "Instructor C"));
-//        CourseManager courseManager = new CourseManager(coursePage);
-//
-//        courseManager.updateAvgScore();
-//        assertEquals(-1, courseManager.getCoursePage().getAverageScore());
-//
-//        Map<UserType, List<String>> authDict = courseManager.getAuthDict();
-//        assertEquals(authDict.get(UserType.STUDENT),
-//                Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment"));
-//        assertEquals(authDict.get(UserType.INSTRUCTOR),
-//                Arrays.asList("all"));
-//
-//        assertEquals(courseManager.getID(), "CSC108");
-//        assertEquals(courseManager.getCoursePage(), coursePage);
-//        assertEquals(courseManager.getCoursePage().getRatings(), null);
-//        try {
-//            courseManager.getComment();
-//            fail("Shouldn't throw an exception here");
-//        } catch (Exception e) {
-//        }
-//
-//        assertEquals(courseManager.getCoursePage().getCommentGraph(), null);
-//        HashMap<String, String> studentUser1otherData = new HashMap<>();
-//        studentUser1otherData.put("programDetail", "COMPUTER SCIENCE");
-//        StudentUser studentUser1 = new StudentUser("Student1", "00001", studentUser1otherData);
-//        try {
-//            courseManager.addRating((float) 0.5, studentUser1);
-//        } catch (Exception e) {
-//            fail("Should not throw exception here");
-//        }
-//        assertEquals(courseManager.getRatingPrograms(), Arrays.asList("COMPUTER SCIENCE"));
-//        assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
-//        try {
-//            courseManager.addRating((float) 0.7, studentUser1);
-//        } catch (Exception e) {
-//            assertEquals("Should not throw exception here", "");
-//        }
-//
-//        assertEquals(0.7, courseManager.getCoursePage().getAverageScore(), 0.001);
-//        try {
-//            courseManager.startComment(studentUser1, "Comment 1");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            fail("Should not throw exception here");
-//        }
-//
-//        HashMap<String, String> studentUser2otherData = new HashMap<>();
-//        studentUser2otherData.put("programDetail", "DATA SCIENCE");
-//        StudentUser studentUser2 = new StudentUser("Student2", "00002", studentUser2otherData);
-//        try {
-//            courseManager.addRating((float) 0.3, studentUser2);
-//        } catch (Exception e) {
-//            fail("Should not throw error here");
-//        }
-//        List<String> programList = Arrays.asList("DATA SCIENCE", "COMPUTER SCIENCE");
-//        Collections.sort(programList);
-//        List<String> actual = courseManager.getRatingPrograms();
-//        Collections.sort(actual);
-//        assertEquals(programList, actual);
-//        assertEquals(courseManager.getCoursePage().getAverageScore(), 0.5, 0.001);
-//
-//        CommentManager commentManager = courseManager.getComment();
-//        String prevId = commentManager.getChildrenComments("root").get(0).getId();
-//        try {
-//            courseManager.addComment(prevId, "Comment 2", studentUser1);
-//        } catch (Exception e) {
-//            fail("Should not throw exception here");
-//        }
-//        try {
-//            courseManager.updateCommentVote(prevId, true);
-//        } catch (Exception e) {
-//            fail("Should not throw exception here");
-//        }
-//        assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);
-//        try {
-//            courseManager.updateCommentVote(prevId, false);
-//        } catch (Exception e) {
-//            fail("Should not throw exception here");
-//        }
-//
-//        try {
-//            courseManager.updateCommentVote("12345", true);
-//            fail("Should throw exception here");
-//        } catch (Exception e) {
-//        }
-//
-//        HashMap<String, Object> coursePageData = courseManager.getData();
-//        assertEquals("Sample Course1", coursePageData.get("courseName"));
-//        assertEquals("CSC108", coursePageData.get("courseCode"));
-//        assertEquals("There is currently no description available for this course",
-//                coursePageData.get("courseDescription"));
-//        assertEquals(Arrays.asList("Instructor A", "Instructor B", "Instructor C"),
-//                coursePageData.get("all instructors"));
-//        assertEquals(Double.valueOf(0.5),
-//                Double.valueOf(coursePageData.get("rating").toString()), 0.001);
-//    }
-//}
+package usecase;
+
+import constants.UserType;
+import entity.Course;
+import entity.StudentUser;
+import exceptions.ArgumentException;
+import interfaces.IUser;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import usecase.coursePage.CoursePage;
+import usecase.coursePage.CoursePageBuilder;
+import usecase.coursePage.Director;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
+
+
+public class CourseManagerTest {
+
+    public CourseManager cm;
+    public StudentUser u = new StudentUser("Kevin", "k123");
+
+    @Before
+    public void setup() {
+        List<String> course = List.of("Math", "MAT137", "description");
+        List<String> instructor = List.of("Alfonso");
+        CoursePageBuilder cpb = new CoursePageBuilder();
+        Director d = new Director();
+
+        // Using the builder to build things
+        d.constructCoursePage(cpb, course, instructor);
+        CoursePage cp = cpb.getResult();
+        cm = new CourseManager(cp);
+    }
+
+    @Test
+    public void getComments() {
+        assertNotEquals(null, cm.getCommentSection());
+    }
+
+    @Test(expected = ArgumentException.class)
+    public void addRatingInvalid() throws ArgumentException {
+        cm.addRating(100, u);
+    }
+
+    @Test
+    public void testRatings() throws ArgumentException {
+        cm.addRating(10, u);
+        assertEquals(true, cm.getRelativeRatings().containsKey(u.getProgramDetail()));
+        assertEquals(10, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+        cm.addRating(5, u);
+        assertEquals(7.5, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+    }
+
+    @Test
+    public void testRelativeRatings() {
+        assertEquals(-1, cm.getRelativeRating("DATA SCIENCE"), 0.1);
+    }
+
+    @Test
+    public void testGetData() {
+        assertEquals(6, cm.getData().keySet().size());
+    }
+
+    @Test
+    public void testGetID() {
+        assertEquals("MAT137", cm.getID());
+    }
+
+    @Test
+    public void testAuth() {
+        assertEquals(true, cm.getAuthDict().containsKey(UserType.STUDENT));
+        assertEquals(true, cm.getAuthDict().containsKey(UserType.INSTRUCTOR));
+    }
+}
