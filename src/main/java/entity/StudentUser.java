@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class StudentUser implements Serializable, IUser {
 
-    public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
     private String displayName; //Username
     private Map<String, String> otherData;
@@ -62,6 +61,7 @@ public class StudentUser implements Serializable, IUser {
 
     public void setProgramDetail(String s) {
         this.getOtherData().put("programDetail", s);
+        fixOtherData();
     }
 
     @Override

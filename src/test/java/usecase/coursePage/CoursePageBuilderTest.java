@@ -1,34 +1,41 @@
 package usecase.coursePage;
 
+import entity.CommentGraph;
+import entity.Course;
+import entity.Rating;
+import entity.StudentUser;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class CoursePageBuilderTest {
+    public CoursePage cp;
 
-//    @Test
-//    public void getResult() {
-//        CoursePageBuilder builder = new CoursePageBuilder();
-//
-//        Course calculus1 = new Course("Calculus with Proofs", "MAT137");
-//
-//        List<String> sampleInstructors = Arrays.asList("Alfonso Gracia-Saz", "Joel Kamnitzer");
-//
-//        StudentUser sampleStudent = new StudentUser("Asuna", "500");
-//        Rating sampleRating = new Rating(sampleStudent, 0.9F, sampleInstructors.get(0));
-//        List<Rating> ratingsList = List.of(sampleRating);
-//
-//        CommentGraph sampleCommentGraph = new CommentGraph("Questions", "Wilson",
-//                sampleInstructors.get(0));
-//        List<CommentGraph> commentGraphList = List.of(sampleCommentGraph);
-//
-//        builder.setCourse(calculus1);
-//        builder.setInstructors(sampleInstructors);
-//        builder.setRatings(ratingsList);
-//        builder.setCommentGraphs(commentGraphList);
-//
-//        CoursePage coursePage = builder.getResult();
-//        assertEquals(coursePage.getCourse(), calculus1);
-//        assertEquals(coursePage.getCommentGraphs(), commentGraphList);
-//        assertEquals(coursePage.getRatings(), ratingsList);
-//        assertEquals(coursePage.getInstructors(), sampleInstructors);
-//    }
+    @Before
+    public void setup() {
+        List<String> course = List.of("Math", "MAT137", "description");
+        List<String> instructor = List.of("Alfonso");
+        CoursePageBuilder cpb = new CoursePageBuilder();
+        Director d = new Director();
+
+        // Using the builder to build things
+        d.constructCoursePage(cpb, course, instructor);
+        cp = cpb.getResult();
+    }
+
+    @Test
+    public void testBasic() {
+        assertEquals("MAT137", cp.getCourse().getCode());
+        assertEquals(1, cp.getInstructors().size());
+        assertEquals(0, cp.getRatings().size());
+        assertEquals(0, cp.getAverageScore(), 1);
+        assertNotEquals(null, cp.getCommentGraph());
+        assertNotEquals(null, cp.getThread());
+    }
+
 }

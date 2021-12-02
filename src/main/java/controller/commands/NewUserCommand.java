@@ -86,7 +86,6 @@ public class NewUserCommand extends Command {
 
     private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, String argProgramDetail) throws Exception {
         HashMap<String, String> adddetail = new HashMap<>();
-        argProgramDetail = argProgramDetail.equalsIgnoreCase("N/A") || argProgramDetail.equalsIgnoreCase("") ? "N/A" : argProgramDetail;
         adddetail.put("programDetail", argProgramDetail);
         UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
         UserDatabaseGetter.getInstance().addEntry(um);
