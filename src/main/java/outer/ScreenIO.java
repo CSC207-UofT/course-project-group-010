@@ -25,7 +25,7 @@ public class ScreenIO {
         Scanner in = new Scanner(System.in);
         String commandLine = "";
         // TODO consider a better way to implement then this possible
-        System.out.println("type \"end\" to end program.");
+        System.out.println("Welcome to the Course System! Enter help for help. Enter \"end\" to end program.");
         while (!commandLine.equals("end")) {
             System.out.print("$ ");
             commandLine = in.nextLine();
