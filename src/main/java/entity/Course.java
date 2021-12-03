@@ -3,31 +3,33 @@ package entity;
 import java.io.Serializable;
 
 public class Course implements Serializable {
-    String name; // Course name; i.e Introduction to Computer Science
-    String code; // Course code; i.e CSC110
-    String description; // Default description of the course that may be altered.
 
+    String name;
+    String code;
+    String description;
+    String DEFAULT = "There is currently no description available for this course";
 
-    //Constructor
-
+    /**
+     * A Course object containing information pertaining to the course. The description of the course is DEFAULT
+     * by default on creation, and may be set later.
+     *
+     * @param name The name of the Course; i.e Introduction to Computer Science.
+     * @param code The Course code; i.e CSC110.
+     */
     public Course(String name, String code) {
         this.name = name;
         this.code = code;
-        this.description = "There is currently no description available for this course";
+        this.description = DEFAULT;
     }
 
-    //Methods
 
     /**
      * @return a string representation of the course.
      */
-    @Override
     public String toString() {
         return this.name + "\n" + this.code + "\n" + this.description;
     }
 
-
-    //Getters
 
     /**
      * @return course's name.
@@ -36,12 +38,14 @@ public class Course implements Serializable {
         return this.name;
     }
 
+
     /**
      * @return course code.
      */
     public String getCode() {
         return this.code;
     }
+
 
     /**
      * @return course's description.
@@ -50,14 +54,11 @@ public class Course implements Serializable {
         return this.description;
     }
 
-
-    //Setters
     public void setDescription(String s) {
         this.description = s;
     }
+
     public void setName(String s) {this.name = s;}
-    // TODO not used, delete.
-    // public void setCode(String c) {this.code = c;}
 
 
 }

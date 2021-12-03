@@ -13,6 +13,12 @@ public class StudentUser implements Serializable, IUser {
     private String displayName; //Username
     private Map<String, String> otherData;
 
+    /**
+     * A StudentUser object
+     *
+     * @param name The name of the Course; i.e Introduction to Computer Science.
+     * @param code The Course code; i.e CSC110.
+     */
     //Constructors
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;

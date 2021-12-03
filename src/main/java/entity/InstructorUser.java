@@ -24,14 +24,6 @@ public class InstructorUser implements Serializable, IUser {
         this.otherData = otherData;
     }
 
-    // TODO this constructor is not in use except in tests, we can delete
-    public InstructorUser(String displayName, String ID) {
-        this.displayName = displayName;
-        this.ID = ID;
-        this.otherData = new HashMap<>();
-        setPosition("N/A");
-    }
-
     @Override
     public String toString() {
         return this.getDisplayName() + "\n" + this.getID();
