@@ -2,13 +2,11 @@ package usecase;
 
 // imports
 
-import constants.CommandConstants;
 import entity.CommentGraph;
 import exceptions.InvalidIDException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,8 +25,6 @@ public class CommentManager implements Serializable
 
     // initial CommentGraph
     CommentGraph commentGraph;
-    // authorization mapping
-    // Map<PermissionLevel, List<String>> authDict;
 
 //======================================================================================================================
 // Comment Manager Constructors
@@ -38,8 +34,6 @@ public class CommentManager implements Serializable
     {
         // Initialize CommentGraph
         this.commentGraph = commentGraph;
-        // get Default authdict
-        // this.authDict = getDefaultAuthDict();
     }
 
 //======================================================================================================================
@@ -57,7 +51,6 @@ public class CommentManager implements Serializable
     {
         if (this.commentGraph.getVertices().containsKey(commentId))
         {
-            // reply to comment.
             this.commentGraph.reply(commentId, text, userName);
         }
 
@@ -333,55 +326,5 @@ public class CommentManager implements Serializable
         }
         return childIDs;
     }
-
-//======================================================================================================================
-// Data and Authorization Functions
-//======================================================================================================================
-
-    /**
-     * Implementing the IGettable interface, gives the entire thread by default.
-     *
-     * @return
-     */
-    public HashMap<String, Object> getData()
-    {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put(CommandConstants.allDataString, displayEntireThread(true, -1));
-        return map;
-
-        /*
-        Commands that a user would have access to would be:
-        > displayFullThread(uses displayEntireThread function)
-        > displaySubsetThread(uses displaySubsetThread function)
-        > displayPath(uses getPath function)
-        > reply(uses replyToComment function)
-        > vote(uses vote function)
-
-        > parentComment (uses getParentComment function)
-        > childrenComments (uses getChildrenComments function)
-        > depthOfComment (uses getDepth function)
-        > searchByUser(uses getCommentsByUserName function)
-        > searchById(uses getCommentById)
-        > searchByText(uses getCommentsByText)
-         */
-        // TODO search functions potentially[low prio]
-    }
-
-//    private Map<PermissionLevel, List<String>> getDefaultAuthDict()
-//    {
-//        Map<PermissionLevel, List<String>> permDict = new HashMap<>();
-//        List<String> l = Arrays.asList("none");
-//        List<String> studentPermissions = l;
-//        List<String> instructorPermissions = l;
-//        permDict.put(PermissionLevel.STUDENT, studentPermissions);
-//        permDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
-//        return permDict;
-//    }
-//
-//    @Override
-//    public Map<PermissionLevel, List<String>> getAuthDict()
-//    {
-//        return this.authDict;
-//    }
 }
 

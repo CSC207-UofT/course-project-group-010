@@ -5,10 +5,9 @@ import entity.Course;
 import entity.Rating;
 import usecase.CommentManager;
 
-
-import javax.xml.stream.events.Comment;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CoursePage implements Serializable {
 

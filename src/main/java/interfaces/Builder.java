@@ -1,10 +1,7 @@
 package interfaces;
 
-import entity.CommentGraph;
 import entity.Course;
-import entity.Rating;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface Builder {

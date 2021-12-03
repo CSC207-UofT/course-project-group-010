@@ -1,12 +1,9 @@
 package controller.commands;
 
-import exceptions.ArgumentException;
-import exceptions.CommandNotAuthorizedException;
 import controller.databasegetter.UserDatabaseGetter;
-import exceptions.NotInDatabaseException;
+import exceptions.CommandNotAuthorizedException;
 import usecase.UserManager;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

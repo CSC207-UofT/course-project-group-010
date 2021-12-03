@@ -71,7 +71,8 @@ public class SimulatedInputTest {
     @Test (timeout = 100)
     public void testCreateCourse() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         CreateCourseCommand ccm = new CreateCourseCommand();
-        List<String> course = List.of("math", "MAT137", "calc");
+        // this code can't be in the database, or else you get an error.
+        List<String> course = List.of("math", "---------", "calc");
         List<String> instructor = List.of("a", "a");
         Class<?> createCourseCommandClass = Class.forName("controller.commands.coursecommands.CreateCourseCommand");
         Method constructCourse = createCourseCommandClass.getDeclaredMethod("constructCourse", List.class, List.class);
@@ -90,11 +91,11 @@ public class SimulatedInputTest {
         Method constructUser = nucClass.getDeclaredMethod("createUser", UserType.class, String.class, String.class, Map.class);
         constructUser.setAccessible(true);
 
-        String expected = "Added new user with ID " + "id" + " and name " + "name" + "\n" +
-                "Run saveall to save this progress.";
-        UserManager um = (UserManager) constructUser.invoke(nuc, UserType.STUDENT, "name", "id", new HashMap<>());
-        assertEquals("id", um.getID());
-        assertEquals("name", um.getUser().getDisplayName());
+        String name = "---";
+        String id = "----";
+        UserManager um = (UserManager) constructUser.invoke(nuc, UserType.STUDENT, name, id, new HashMap<>());
+        assertEquals(id, um.getID());
+        assertEquals(name, um.getUser().getDisplayName());
     }
 
     @Test (timeout = 100)

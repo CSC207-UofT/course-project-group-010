@@ -20,7 +20,28 @@ public class Database<T extends IDBSaveable & Serializable> {
     // TODO make create user/course commands that make new objects and then save them to the db or something
     // TODO make the database load on startup and save before the program closes.
 
-    public void saveToFile(String filePath, Map<String, T> objects) throws IOException {
+    /**
+     * Static method that "loads" the database(returns a map that represents the database)
+     * @param filePath
+     * @param <T>
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static <T extends IDBSaveable & Serializable> Map<String, T> loadDB(String filePath) throws IOException, ClassNotFoundException {
+        Database<T> db = new Database<>();
+        Map<String, T> retDict = db.loadFromFile(filePath);
+        return retDict == null ? new HashMap<>() : retDict;
+    }
+
+    /**
+     * Static method that saves the db contents to a file.
+     * @param filePath
+     * @param objects
+     * @param <T>
+     * @throws IOException
+     */
+    public static <T extends IDBSaveable & Serializable> void saveToFile(String filePath, Map<String, T> objects) throws IOException {
         // Create new file if it doesn't exist
         File dbFile = new File(filePath);
         dbFile.createNewFile();
@@ -43,7 +64,7 @@ public class Database<T extends IDBSaveable & Serializable> {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public Map<String, T> loadDatabase(String filePath) throws IOException, ClassNotFoundException {
+    public Map<String, T> loadFromFile(String filePath) throws IOException, ClassNotFoundException {
         File dbFile = new File(filePath);
         // Create new DB file if it doesn't exist.
         dbFile.createNewFile();

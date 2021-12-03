@@ -41,7 +41,9 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
     - eg. A User must have a permission level associated with it so the program knows that privileges it has.
 - IDBSaveable: When we save to the database, we want to associate an ID with each class that implements IDBSaveable.
     - We save objects in a map with the id as the key.
-- IGettable: Anything that can give up data to a presenter, to be presented on the UI. Data is currently given as a map.
+- IGettable: Anything that can give up data to a presenter, to be presented on the UI. 
+Data is currently given as a map, processed by controller.commandHelpers.DataPrinter, and then printed
+onto the screen.
 - IReadModifiable: Extends IGettable and IAuthorizable
     - Many classes implement this, such as CoursePages, which can give data to a presenter and must check that users are
       authorized to take certain actions concerning it.
