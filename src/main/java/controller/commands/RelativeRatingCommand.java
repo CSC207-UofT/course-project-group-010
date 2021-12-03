@@ -61,7 +61,6 @@ public class RelativeRatingCommand extends Command {
             float relativeRating = ((CourseManager) ce.getPageManager()).getRelativeRating(arguments.get(0));
             //Create string object of course and rr to display.
             String courseCode =  ((CourseManager) ce.getPageManager()).getID();
-            String string_RR =  (String.valueOf(relativeRating));
 
             //If there are no ratings left by students of argProgramDetail, i.e = 0
             if (relativeRating == 0) {
