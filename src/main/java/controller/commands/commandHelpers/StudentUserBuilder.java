@@ -10,7 +10,7 @@ public class StudentUserBuilder implements UserBuilder{
     @Override
     public Map<String, String> processOtherData(String argProgram) {
         argProgram = argProgram.toUpperCase();
-        argProgram = new ProgramConstants().contains(argProgram) ? argProgram : "N/A";
+        argProgram = new ProgramConstants().contains(argProgram) ? argProgram : ProgramConstants.NO_PROGRAM;
         Map<String, String> otherData = new HashMap<>();
         otherData.put("programDetail", argProgram);
         return otherData;

@@ -76,7 +76,7 @@ public class StudentUser implements Serializable, IUser {
     private void fixOtherData() {
         ProgramConstants pc = new ProgramConstants();
         if (!this.otherData.containsKey("programDetail") || !pc.contains(this.otherData.get("programDetail"))) {
-            setProgramDetail("N/A");
+            setProgramDetail(ProgramConstants.NO_PROGRAM);
         }
     }
 }
