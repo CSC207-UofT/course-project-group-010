@@ -1,15 +1,9 @@
 package controller.commands;
 
-import controller.AuthHelper;
 import controller.commands.commandHelpers.CommentsPageGetter;
 import controller.commands.commandHelpers.CoursePageGetter;
 import controller.commands.commandHelpers.PageGetter;
 import controller.commands.commandHelpers.UserPageGetter;
-import controller.databasegetter.CourseDatabaseGetter;
-import exceptions.ArgumentException;
-import interfaces.IHasPermission;
-import interfaces.IReadModifiable;
-import usecase.CourseManager;
 
 import java.util.List;
 

@@ -2,13 +2,11 @@ package usecase;
 
 // imports
 
-import constants.CommandConstants;
 import entity.CommentGraph;
 import exceptions.InvalidIDException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,12 +1,9 @@
 package controller.commands.commandHelpers;
 
-import controller.AuthHelper;
 import controller.commands.CommandExecutor;
-import interfaces.IHasPermission;
-import interfaces.IReadModifiable;
-import usecase.CommentPresenter;
 import exceptions.CommandNotAuthorizedException;
 import usecase.CommentManager;
+import usecase.CommentPresenter;
 import usecase.CourseManager;
 
 public class CommentsPageGetter implements PageGetter{

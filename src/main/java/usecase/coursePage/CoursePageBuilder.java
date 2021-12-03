@@ -1,13 +1,11 @@
 package usecase.coursePage;
 
-import interfaces.Builder;
 import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
-import entity.StudentUser;
+import interfaces.Builder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CoursePageBuilder implements Builder {

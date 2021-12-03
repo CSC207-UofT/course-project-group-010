@@ -1,6 +1,5 @@
 package controller.commands;
 
-import constants.ProgramConstants;
 import constants.UserType;
 import controller.commands.commandHelpers.InstructorUserBuilder;
 import controller.commands.commandHelpers.StudentUserBuilder;
@@ -9,7 +8,9 @@ import controller.databasegetter.UserDatabaseGetter;
 import exceptions.ArgumentException;
 import usecase.UserManager;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class NewUserCommand extends Command {
 

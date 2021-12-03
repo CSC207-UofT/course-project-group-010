@@ -7,7 +7,6 @@ import outer.database.Database;
 import usecase.UserManager;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

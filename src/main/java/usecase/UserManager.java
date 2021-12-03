@@ -1,9 +1,6 @@
 package usecase;
 
 import constants.UserType;
-import entity.Course;
-import entity.InstructorUser;
-import entity.StudentUser;
 import entity.UserFactory;
 import exceptions.ArgumentException;
 import interfaces.IDBSaveable;

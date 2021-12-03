@@ -1,7 +1,7 @@
 package usecase.coursePage;
 
 
-import java.util.*;
+import java.util.List;
 
 
 public class Director {

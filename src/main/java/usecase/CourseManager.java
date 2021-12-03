@@ -2,10 +2,8 @@ package usecase;
 
 import constants.ProgramConstants;
 import constants.UserType;
-import entity.CommentGraph;
 import entity.Course;
 import entity.Rating;
-import entity.StudentUser;
 import exceptions.ArgumentException;
 import interfaces.IDBSaveable;
 import interfaces.IReadModifiable;
