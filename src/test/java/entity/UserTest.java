@@ -26,6 +26,28 @@ public class UserTest {
     }
 
     @Test(timeout = 100)
+    public void testGetData() {
+        HashMap<String, String> detail = new HashMap<>();
+        detail.put("ID", "k12345");
+        detail.put("displayName", "Kevin Hart");
+        detail.put("programDetail", "N/A");
+        IUser a = new StudentUser("Kevin Hart", "k12345");
+        assertEquals(a.getData(), detail);
+    }
+
+    @Test(timeout = 100)
+    public void testGetData2() {
+        HashMap<String, String> detail = new HashMap<>();
+        detail.put("ID", "j11111");
+        detail.put("displayName", "Jonathan Calver");
+        detail.put("position", "Prof");
+        HashMap<String, String> data = new HashMap<>();
+        data.put("position", "Prof");
+        InstructorUser a = new InstructorUser("Jonathan Calver", "j11111", data);
+        assertEquals(a.getData(), detail);
+    }
+
+    @Test(timeout = 100)
     public void testGetOtherData() {
         IUser a = new StudentUser("Kevin Hart", "k12345");
 
@@ -83,13 +105,13 @@ public class UserTest {
     public void testGetPosition() {
         HashMap<String, String> data = new HashMap<>();
         data.put("position", "Prof");
-        InstructorUser a = new InstructorUser("Jonathan Calver", "11111", data);
+        InstructorUser a = new InstructorUser("Jonathan Calver", "j11111", data);
         assertEquals(a.getPosition(), "Prof");
     }
 
     @Test(timeout = 100)
     public void testSetPosition() {
-        InstructorUser a = new InstructorUser("Jonathan Calver", "11111");
+        InstructorUser a = new InstructorUser("Jonathan Calver", "j11111");
         a.setPosition("Prof");
         assertEquals(a.getPosition(), "Prof");
     }
