@@ -1,6 +1,7 @@
 package entity;
 
 import constants.UserType;
+import exceptions.ArgumentException;
 import interfaces.IUser;
 
 import java.util.Map;
@@ -17,25 +18,26 @@ public class UserFactory {
      */
 
     //
-    public IUser getUser(UserType userType, String displayName, String ID, Map<String, String> otherData) throws Exception {
+    public IUser getUser(UserType userType, String displayName, String ID, Map<String, String> otherData) throws ArgumentException {
         switch (userType) {
             case STUDENT:
                 return new StudentUser(displayName, ID, otherData);
             case INSTRUCTOR:
                 return new InstructorUser(displayName, ID, otherData);
             default:
-                throw new Exception("Couldn't initialize user");
+                throw new ArgumentException("Couldn't initialize user");
         }
     }
 
-    public IUser getUser(UserType userType, String displayName, String ID) throws Exception {
-        switch (userType) {
-            case STUDENT:
-                return new StudentUser(displayName, ID);
-            case INSTRUCTOR:
-                return new InstructorUser(displayName, ID);
-            default:
-                throw new Exception("Couldn't initialize user");
-        }
-    }
+    // TODO no usages found, consider deleting
+//    public IUser getUser(UserType userType, String displayName, String ID) throws Exception {
+//        switch (userType) {
+//            case STUDENT:
+//                return new StudentUser(displayName, ID);
+//            case INSTRUCTOR:
+//                return new InstructorUser(displayName, ID);
+//            default:
+//                throw new Exception("Couldn't initialize user");
+//        }
+//    }
 }

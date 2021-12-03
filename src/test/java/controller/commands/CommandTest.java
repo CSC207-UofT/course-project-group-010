@@ -1,12 +1,16 @@
 package controller.commands;
 
+import constants.CommandConstants;
+import controller.commands.commandHelpers.DataPrinter;
 import controller.commands.commentcommands.DisplayFullThreadCommand;
 import controller.commands.commentcommands.ReplyCommand;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,35 +29,32 @@ public class CommandTest {
         ce = CommandExecutor.getInstance();
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testNoCommand() {
         CommandRequest request = new CommandRequest("asdf");
         assertEquals(ce.processRequest(request), "Command not Found");
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testInvalidArgs() {
         CommandRequest request = new CommandRequest("print asdf agaj fklaj");
         assertEquals(ce.processRequest(request), "Invalid number of Arguments");
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testHelp() {
         CommandRequest request = new CommandRequest("displayfullthread -h");
         assertEquals(ce.processRequest(request), new DisplayFullThreadCommand().help());
     }
 
-    // This test was used to verify that buildComment in ReplyCommand works. However, that method is now private.
-
-    @Test(timeout = 100)
-    public void testReplyBuilder() throws Exception {
-        Class<?> replyCommandClass = Class.forName("controller.commands.commentcommands.ReplyCommand");
-        Method buildCommentMethod = replyCommandClass.getDeclaredMethod("buildComment", List.class);
-        buildCommentMethod.setAccessible(true);
-
-        CommandRequest request = new CommandRequest("reply id hello what is your name?");
-        ReplyCommand cmd = new ReplyCommand();
-        List<String> args = request.getArguments();
-        assertEquals(buildCommentMethod.invoke(cmd, args), "hello what is your name?");
+    @Test
+    public void testDataPrinter() {
+        DataPrinter dp = new DataPrinter();
+        Map<String, Object> map1 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
+        map1.put(CommandConstants.allDataString, "hello");
+        map2.put("hello", "goodbye");
+        assertEquals("hello", dp.printData(map1));
+        assertEquals(true, dp.printData(map2).contains("hello"));
     }
 }

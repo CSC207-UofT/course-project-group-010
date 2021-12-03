@@ -5,9 +5,9 @@ import entity.Course;
 import entity.Rating;
 import usecase.CommentManager;
 
-
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CoursePage implements Serializable {
 
@@ -59,8 +59,7 @@ public class CoursePage implements Serializable {
 
         this.course = course;
         this.instructors = instructors;
-        this.ratings = null;
-        this.commentGraph = null;
+        this.ratings = new ArrayList<>();
     }
 
     public Course getCourse() {

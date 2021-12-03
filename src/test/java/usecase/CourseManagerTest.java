@@ -1,82 +1,77 @@
 package usecase;
 
-import entity.*;
-import exceptions.ArgumentException;
-import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import usecase.coursePage.*;
-import usecase.*;
+import constants.UserType;
 import entity.Course;
+import entity.StudentUser;
+import exceptions.ArgumentException;
+import interfaces.IUser;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import usecase.coursePage.CoursePage;
+import usecase.coursePage.CoursePageBuilder;
+import usecase.coursePage.Director;
+
 import java.util.*;
 
+import static org.junit.Assert.*;
 
 
 public class CourseManagerTest {
-    @Test(timeout = 100)
-    public void testCourseManager1() throws ArgumentException {
-        CoursePage coursePage = new CoursePage(
-                new Course("Sample Course1", "CSC108"),
-                List.of("Instructor A", "Instructor B", "Instructor C"));
-        CourseManager courseManager = new CourseManager(coursePage);
 
-        assertEquals(courseManager.getID(), "CSC108");
-        assertEquals(courseManager.getCoursePage(), coursePage);
-        assertEquals(courseManager.getCoursePage().getRatings(), null);
-        try {
-            courseManager.getComment();
-            fail("Show throw an exception here");
-        } catch (Exception e) {
-        }
+    public CourseManager cm;
+    public StudentUser u = new StudentUser("Kevin", "k123");
 
-        assertEquals(courseManager.getCoursePage().getCommentGraph(), null);
+    @Before
+    public void setup() {
+        List<String> course = List.of("Math", "MAT137", "description");
+        List<String> instructor = List.of("Alfonso");
+        CoursePageBuilder cpb = new CoursePageBuilder();
+        Director d = new Director();
 
-        StudentUser studentUser1 = new StudentUser("Student1", "00001");
+        // Using the builder to build things
+        d.constructCoursePage(cpb, course, instructor);
+        CoursePage cp = cpb.getResult();
+        cm = new CourseManager(cp);
+    }
 
-        try {
-            courseManager.addRating((float) 0.5, studentUser1);
-        } catch (Exception e) {
-            fail("Should not throw exception here");
-        }
+    @Test
+    public void getComments() {
+        assertNotEquals(null, cm.getCommentSection());
+    }
 
-        assertEquals(0.5, courseManager.getCoursePage().getAverageScore(), 0.001);
-        try {
-            courseManager.updateRating((float) 0.7, studentUser1);
-        } catch (Exception e) {
-            assertEquals("Should not throw exception here", "");
-        }
+    @Test(expected = ArgumentException.class)
+    public void addRatingInvalid() throws ArgumentException {
+        cm.addRating(100, u);
+    }
 
-        assertEquals(0.7, courseManager.getCoursePage().getAverageScore(), 0.001);
-        try {
-            courseManager.startComment(studentUser1, "Comment 1");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Should not throw exception here");
-        }
+    @Test
+    public void testRatings() throws ArgumentException {
+        cm.addRating(10, u);
+        assertEquals(true, cm.getRelativeRatings().containsKey(u.getProgramDetail()));
+        assertEquals(10, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+        cm.addRating(5, u);
+        assertEquals(7.5, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+    }
 
-        StudentUser studentUser12 = new StudentUser("Student2", "00002");
-        try {
-            courseManager.addRating((float) 0.3, studentUser12);
-        } catch (Exception e) {
-            fail("Should not throw error here");
-        }
+    @Test
+    public void testRelativeRatings() {
+        assertEquals(-1, cm.getRelativeRating("DATA SCIENCE"), 0.1);
+    }
 
-        assertEquals(courseManager.getCoursePage().getAverageScore(), 0.5, 0.001);
-//        System.out.println(courseManager.getCoursePage().getCommentGraph());
-        CommentManager commentManager = courseManager.getComment();
-//        System.out.println(commentManager.displayEntireThread(false, 3));
-        String prevId = commentManager.getChildrenComments("root").get(0).getId();
-        try {
-            courseManager.addComment(prevId, "Comment 2", studentUser1);
-        } catch (Exception e) {
-            fail("Should not throw exception here");
-        }
-        try {
-            courseManager.updateCommentVote(prevId, true);
-        } catch (Exception e) {
-            fail("Should not throw exception here");
-        }
-        assertEquals(courseManager.getCoursePage().getCommentGraph().getComment(prevId).getVote(), 1);
-//        System.out.println(courseManager.getComment().displayEntireThread(true, 3));
+    @Test
+    public void testGetData() {
+        assertEquals(6, cm.getData().keySet().size());
+    }
 
+    @Test
+    public void testGetID() {
+        assertEquals("MAT137", cm.getID());
+    }
+
+    @Test
+    public void testAuth() {
+        assertEquals(true, cm.getAuthDict().containsKey(UserType.STUDENT));
+        assertEquals(true, cm.getAuthDict().containsKey(UserType.INSTRUCTOR));
     }
 }

@@ -1,7 +1,12 @@
 package interfaces;
 
-import constants.PermissionLevel;
+import constants.UserType;
 
 public interface IHasPermission {
-    PermissionLevel getPermissionLevel();
+
+    /**
+     * Gets the type of user, to identify what permissions they have.
+     * @return
+     */
+    UserType getPermissionLevel();
 }

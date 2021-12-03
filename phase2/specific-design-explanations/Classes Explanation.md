@@ -41,7 +41,9 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
     - eg. A User must have a permission level associated with it so the program knows that privileges it has.
 - IDBSaveable: When we save to the database, we want to associate an ID with each class that implements IDBSaveable.
     - We save objects in a map with the id as the key.
-- IGettable: Anything that can give up data to a presenter, to be presented on the UI. Data is currently given as a map.
+- IGettable: Anything that can give up data to a presenter, to be presented on the UI. 
+Data is currently given as a map, processed by controller.commandHelpers.DataPrinter, and then printed
+onto the screen.
 - IReadModifiable: Extends IGettable and IAuthorizable
     - Many classes implement this, such as CoursePages, which can give data to a presenter and must check that users are
       authorized to take certain actions concerning it.
@@ -51,24 +53,14 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
 ### Commands
 
 - The commands package contains commands that a user can run from the CLI. They all extend the command class.
-- The command class has a run method, and a help method, that can be overridden by derived classes. The run method
-  typically alters the program in some way before returning a result string, and the help method returns the command's
-  help string.
-- There are a few protected methods that help the run method, such as checking that the appropriate amount of arguments
-  were inputted by the user(checkArgumentsNum)
-- Commands are then packaged by category eg. CommentCommands are related to the managing of comment threads,
-  CourseCommands are related to courses.
-    - This makes it easier to find things, as there are many commands implemented.
-- CommandHelpers are helper classes that help certain commands. They maintain the single responsibility principle within
-  a command.
+- Look at commands.md for specific info on how they are run.
 
 - CommandRequest translates a text request to a method, and a list of arguments. This was made because it can be easily
-  adapted to many forms of request. For example, if we used HTTP requests in the future, we could input the request
-  arguments in here, instead of the text arguments that the user provides.
+  adapted to many forms of request.
 - CommandExecutor represents the state of the program, and helps execute commands. It holds a User(representing the
   current user that is logged in), an instance of IReadModifiable(representing the course page/comment page/user info
   page that the user is currently viewing), and has a method to help process commands. This is an example of the
-  open/closed principle, as it has not been modified for a long time, as it uses the shared run() method in commands to
+  open/closed principle, as it doesn't need to be modified as new commands are made, as it uses the shared run() method in commands to
   run specific commands and return their output.
 
 ### DatabaseGetter

@@ -1,7 +1,9 @@
 package usecase;
 
-import constants.PermissionLevel;
-import entity.*;
+import constants.ProgramConstants;
+import constants.UserType;
+import entity.Course;
+import entity.Rating;
 import exceptions.ArgumentException;
 import interfaces.IDBSaveable;
 import interfaces.IReadModifiable;
@@ -24,17 +26,13 @@ import java.util.stream.Collectors;
  * courseManager.updateRating(5, user);
  */
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
-    // Course that CourseManager handles.
     private Course course;
-    // All ratings about the course of CourseManager.
     private List<Rating> ratings;
-    // All commentGraph about the course of CourseManager.
-    // A CoursePage that CourseManager handles.
     private CoursePage coursePage;
-    // Map of permission level.
-    private Map<PermissionLevel, List<String>> authDict;
+    private Map<UserType, List<String>> authDict;
 
     /**
      * Constructor of CourseManager.
@@ -52,27 +50,15 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return this.coursePage.getThread();
     }
 
-
-    /**
-     * Change current coursePage that CourseManager is handling to another coursePage.
-     *
-     * @param coursePage A course page that a user wants to change to view
-     */
-    public void changeCourse(CoursePage coursePage) {
-        this.authDict = getDefaultAuthDict();
-        this.course = coursePage.getCourse();
-        this.ratings = coursePage.getRatings();
-        this.coursePage = coursePage;
-    }
-
-  
     /**
      * Add rating to the CoursePage.
      * @param ratingNum score that a user wants to leave.
      * @param user user who leaves a rating.
-     * @throws Exception if it is not valid, throw exception.
      */
-    public void addRating(float ratingNum, StudentUser user) throws Exception {
+    public void addRating(float ratingNum, IUser user) throws ArgumentException {
+        if (ratingNum > 10 || ratingNum < 0) {
+            throw new ArgumentException("Rating must be between 0 and 10");
+        }
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
@@ -86,6 +72,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     }
 
+    // TODO this is never used except in tests(and now I removed it from tests). Consider deleting.
     /**
      * Updates a rating that a current user already left.
      *
@@ -93,16 +80,16 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user      A user who wants to change its rating score.
      * @throws Exception When rating cannot be updated.
      */
-    public void updateRating(float ratingNum, IUser user) throws Exception {
-        for (Rating r : coursePage.getRatings()) {
-            if (r.getRater().getID().equals(user.getID())) {
-                r.setScore(ratingNum);
-                this.updateAvgScore();
-                return;
-            }
-        }
-        throw new Exception("Rating is not updated");
-    }
+//    public void updateRating(float ratingNum, IUser user) throws Exception {
+//        for (Rating r : coursePage.getRatings()) {
+//            if (r.getRater().getID().equals(user.getID())) {
+//                r.setScore(ratingNum);
+//                this.updateAvgScore();
+//                return;
+//            }
+//        }
+//        throw new Exception("Rating is not updated");
+//    }
 
 
     /**
@@ -110,92 +97,37 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param program string of program name of raters' that will be filtered.
      */
+    // TODO only used in relativerating command, if we remove that then remove this.
+    // also I made rating take IUsers and not StudentUsers. That is way too specific and will fuck up SOLID principles.
+    // I changed the way rater.getPoST is implemented so now it works with IUser.
     public float getRelativeRating(String program) {
-        List<Rating> filterdRatings = this.ratings.stream().filter(
-                r -> r.getRater().getProgramDetail().equals(program)).collect(Collectors.toList());
+        List<Rating> filteredRatings = this.ratings.stream().filter(
+                r -> r.getRaterProgramOfStudy().equals(program)).collect(Collectors.toList());
+        if(filteredRatings.isEmpty()) {
+            return -1;
+        }
         float total = 0;
-        for(Rating r : filterdRatings) {
+        for(Rating r : filteredRatings) {
             total += r.getScore();
         }
-        return total / filterdRatings.size();
+        return total / filteredRatings.size();
 
     }
 
-    /**
-     * Starts a comment on current coursePage. User can only leave a comment when it is seeing
-     * filtered coursePage.
-     *
-     *
-     * @param user Current user.
-     * @param text Context that user wants to leave at the start of comment.
-     * @throws Exception
-     */
-    public void startComment(IUser user, String text) throws Exception {
-        CommentGraph commentGraph = this.coursePage.getCommentGraph();
-        if (commentGraph == null) {
-            HashMap<String, List<String>> initialComments = new HashMap<String, List<String>>();
-            initialComments.put(user.getDisplayName(), List.of(text));
-            CommentGraph newCommentGraph = new CommentGraph(
-                    text, "Question", initialComments);
-            this.coursePage.setCommentGraph(newCommentGraph);
-        } else {
-            throw new Exception("There is already a starting comment");
+    public Map<String, Float> getRelativeRatings() {
+        Map<String, Float> retMap = new HashMap<>();
+        ProgramConstants pc = new ProgramConstants();
+        for (String program : pc.getPossiblePrograms()) {
+            if (getRelativeRating(program) != -1) {
+                retMap.put(program, getRelativeRating(program));
+            }
         }
-
+        return retMap;
     }
-
-
-
-    /**
-     * Add comment to another comment in the commentGraph of current coursePage.
-     *
-     * @param prevId CommentId of the comment that user wants to reply to.
-     * @param text   Context of comment that user wants to leave.
-     * @param user   Current user.
-     * @throws Exception
-     */
-    public void addComment(String prevId, String text, IUser user) throws Exception {
-        CommentGraph commentGraph = this.coursePage.getCommentGraph();
-        if(commentGraph == null) {
-            throw new Exception("There are no comments in this course page, you cannot add a comment");
-        }
-        this.coursePage.getThread().replyToComment(prevId, text, user.getDisplayName());
-
-    }
-
-
-
-
-
-
-    /**
-     * Upvote or downvote a comment in the commentGraph of current coursePage.
-     *
-     * @param commentId Id of comment that the user wants to upvote or downvote.
-     * @param upvote    If true, upvotes, if false, downvotes a comment.
-     * @throws Exception
-     */
-    public void updateCommentVote(String commentId, boolean upvote) throws Exception {
-        CommentGraph currCommentGraph = this.coursePage.getCommentGraph();
-        if (currCommentGraph == null) {
-            throw new Exception("There is no comment in this coursePage");
-        }
-
-        if (upvote) {
-            currCommentGraph.upvote(commentId);
-        } else {
-            currCommentGraph.downvote(commentId);
-        }
-    }
-
-
-
-
-
-
 
     // Getters
 
+    // TODO getCoursePage is used once in the program(by filterinstructorcommand, which is not in use anymore), and otherwise is only called in tests. Consider deleting
     /**
      * Get current coursePage of courseManager.
      *
@@ -205,15 +137,21 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         return this.coursePage;
     }
 
-    public CommentManager getComment() throws ArgumentException {
-        if (this.coursePage.getCommentGraph() == null) {
-            throw new ArgumentException("No comment section. try starting one[startcomment]!");
-        } else {
-            return new CommentManager(this.coursePage.getCommentGraph());
-        }
-    }
+    // TODO getComment is only called in tests, consider deleting
+//    public CommentManager getComment() throws ArgumentException {
+//        if (this.coursePage.getCommentGraph() == null) {
+//            throw new ArgumentException("No comment section. try starting one[startcomment]!");
+//        } else {
+//            return new CommentManager(this.coursePage.getCommentGraph());
+//        }
+//    }
 
-
+    // TODO this is only called in tests, consider deleting
+//    public List<String> getRatingPrograms() {
+//        HashSet<String> ratingPrograms = new HashSet<>();
+//        this.ratings.stream().forEach(r -> ratingPrograms.add(r.getRaterProgramOfStudy()));
+//        return ratingPrograms.stream().collect(Collectors.toList());
+//    }
 
     /**
      * Get Data about courseManager in HashMap.
@@ -222,13 +160,14 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      */
     @Override
     public HashMap<String, Object> getData() {
+        Object avgScore = this.coursePage.getAverageScore() == -1 ? "No ratings" : this.coursePage.getAverageScore();
         HashMap<String, Object> infoMap = new HashMap<>();
-        infoMap.put("filtering by", this.coursePage.getInstructors());
         infoMap.put("courseName", this.coursePage.getCourse().getName());
         infoMap.put("courseCode", this.coursePage.getCourse().getCode());
         infoMap.put("courseDescription", this.coursePage.getCourse().getDescription());
         infoMap.put("all instructors", this.coursePage.getInstructors());
-        infoMap.put("rating", this.coursePage.getAverageScore());
+        infoMap.put("rating", avgScore);
+        infoMap.put("relative ratings", getRelativeRatings());
 
         return infoMap;
     }
@@ -236,22 +175,18 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     /**
      * Private method that returns average rating score of current coursePage.
-     *
-     * @return average of current rating scores.
      */
-    public void updateAvgScore() {
-        if (this.coursePage.getRatings() == null) {
-            this.coursePage.setAverageScore(0);
+    private void updateAvgScore() {
+        if (this.ratings == null) {
+            this.coursePage.setAverageScore(-1);
+            return;
         }
         float total = 0;
-        for (Rating r : this.coursePage.getRatings()) {
+        for (Rating r : this.ratings) {
             total += r.getScore();
         }
-        this.coursePage.setAverageScore(total / this.coursePage.getRatings().size());
+        this.coursePage.setAverageScore(total / this.ratings.size());
     }
-
-    // IDBSAVEABLE methods
-
 
     /**
      * Get course code of course that CourseManager is handling.
@@ -269,7 +204,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @return Current AuthDict.
      */
     @Override
-    public Map<PermissionLevel, List<String>> getAuthDict() {
+    public Map<UserType, List<String>> getAuthDict() {
         return this.authDict;
     }
 
@@ -279,12 +214,12 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @return Map of permission level and list of string.
      */
-    public Map<PermissionLevel, List<String>> getDefaultAuthDict() {
-        Map<PermissionLevel, List<String>> retDict = new HashMap<>();
-        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment", "relativerating");
-        List<String> instructorPermissions = Arrays.asList("all");
-        retDict.put(PermissionLevel.STUDENT, studentPermissions);
-        retDict.put(PermissionLevel.INSTRUCTOR, instructorPermissions);
+    public Map<UserType, List<String>> getDefaultAuthDict() {
+        Map<UserType, List<String>> retDict = new HashMap<>();
+        List<String> studentPermissions = Arrays.asList("print", "checkout", "rate", "filter", "getcomments", "startcomment");
+        List<String> instructorPermissions = Arrays.asList("print", "checkout", "filter", "getcomments", "startcomment");
+        retDict.put(UserType.STUDENT, studentPermissions);
+        retDict.put(UserType.INSTRUCTOR, instructorPermissions);
         return retDict;
     }
 }

@@ -1,7 +1,7 @@
 package usecase.coursePage;
 
 
-import java.util.*;
+import java.util.List;
 
 
 public class Director {
@@ -72,18 +72,19 @@ public class Director {
      *
      */
     //Make CoursePage with Course info , list of instructors, and ratings.
-    public void constructCoursePage(CoursePageBuilder cpb,
-                                    List<String> course,
-                                    List<String> instructors,
-                                    List<List<String>> ratings,
-                                    List<String> typeName,
-                                    HashMap<String, List<String>> initialComments) {
-
-        //Use previous constructor to avoid duplicate code; Course and Instructors are set in CoursePage.
-        constructCoursePage(cpb, course, instructors);
-        cpb.buildRatings(ratings);
-        cpb.buildCommentGraph(typeName, initialComments);
-    }
+    // TODO never used
+//    public void constructCoursePage(CoursePageBuilder cpb,
+//                                    List<String> course,
+//                                    List<String> instructors,
+//                                    List<List<String>> ratings,
+//                                    List<String> typeName,
+//                                    HashMap<String, List<String>> initialComments) {
+//
+//        //Use previous constructor to avoid duplicate code; Course and Instructors are set in CoursePage.
+//        constructCoursePage(cpb, course, instructors);
+//        cpb.buildRatings(ratings);
+//        cpb.buildCommentGraph(typeName, initialComments);
+//    }
 
 
 

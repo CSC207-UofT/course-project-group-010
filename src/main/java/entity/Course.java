@@ -55,8 +55,9 @@ public class Course implements Serializable {
     public void setDescription(String s) {
         this.description = s;
     }
-    public void setName(String s) {this.name = name;}
-    public void setCode(String c) {this.code = c;}
+    public void setName(String s) {this.name = s;}
+    // TODO not used, delete.
+    // public void setCode(String c) {this.code = c;}
 
 
 }

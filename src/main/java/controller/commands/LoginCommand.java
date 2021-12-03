@@ -1,8 +1,7 @@
 package controller.commands;
 
-import exceptions.ArgumentException;
-import exceptions.CommandNotAuthorizedException;
 import controller.databasegetter.UserDatabaseGetter;
+import exceptions.CommandNotAuthorizedException;
 import usecase.UserManager;
 
 import java.util.List;
@@ -13,8 +12,7 @@ import java.util.List;
  */
 public class LoginCommand extends Command {
     /**
-     * The format for a login command is login [ID] for now
-     * so it will only take 1 argument
+     * Initializes a Command with max and minimum argument numbers.
      */
     public LoginCommand() {
         super(1, 1);
@@ -36,19 +34,22 @@ public class LoginCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkAll(ce, arguments, "login");
+        String id = arguments.get(0);
+        UserDatabaseGetter userDB = UserDatabaseGetter.getInstance();
+
+        // this will throw NotInDatabaseException upwards if user is not found, which is fine.
+        UserManager mgr = userDB.getEntry(id);
+        ce.addUserManager(mgr);
+        return "Logged in as " + mgr.getUser().getDisplayName();
+    }
+
+    @Override
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
-        String id = arguments.get(0);
         if (ce.getUserManager() != null) {
             throw new CommandNotAuthorizedException("Already logged in.");
-        }
-        UserDatabaseGetter userDB = UserDatabaseGetter.getInstance();
-        UserManager mgr = userDB.getEntry(id);
-        if (mgr == null) {
-            throw new ArgumentException("User not found in Database");
-        } else {
-            ce.addUserManager(mgr);
-            return "Logged in as " + mgr.getUser().getDisplayName();
         }
     }
 }

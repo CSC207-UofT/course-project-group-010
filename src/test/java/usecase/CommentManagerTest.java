@@ -1,14 +1,14 @@
 package usecase;
 
 import entity.CommentGraph;
+import entity.CommentGraph;
+import exceptions.InvalidIDException;
+import usecase.CommentManager;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class CommentManagerTest
 {
@@ -286,7 +286,7 @@ public class CommentManagerTest
      * @throws IllegalAccessException
      */
     @Test
-    public void testReply() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
+    public void testReply() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InvalidIDException
     {
         CommentManager commentManager = new CommentManager(sampleCommentGraphBuilder());
         commentManager.replyToComment("id6", "Sample Reply", "Student 8");
@@ -308,30 +308,5 @@ public class CommentManagerTest
         int initialVote = commentManager.getVote("id1");
         commentManager.vote("id1", true);
         assert (commentManager.getVote("id1") == initialVote + 1);
-    }
-
-    public static void main(String[] args) throws IOException, InterruptedException 
-    {
-        HashMap<String, List<String>> initialQuestions = new HashMap<>();
-        initialQuestions.put("Prof 1", Arrays.asList("How did you like the course?", "Was the course fun?"));
-        initialQuestions.put("Prof 2", Arrays.asList("Tell us how we can improve the course."));
-        CommentGraph cg = new CommentGraph("Questions", "RootName", initialQuestions);
-
-        CommentManager cm = new CommentManager(cg);
-        String display = cm.displayEntireThread(true, -1);
-        System.out.println("\n");
-        System.out.print(display);
-
-        // Thread.sleep(5000);
-        
-        // cm.clearThreadDisplay(display);
-        // Thread.sleep(1000);
-        // System.out.println("----------CLEARING---------------------\n".repeat(10));
-
-        
-        Thread.sleep(5000);
-        CommentDisplayCleanupManager.setCommentNewLineCount(display);
-        CommentDisplayCleanupManager.eraseCurrentThread();
-        
     }
 }

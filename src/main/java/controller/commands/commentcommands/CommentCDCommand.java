@@ -2,7 +2,7 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
+import usecase.CommentPresenter;
 
 import java.util.List;
 
@@ -15,12 +15,22 @@ public class CommentCDCommand extends Command {
         super(1, 1);
     }
 
+    /**
+     * Navigates the comment section, if the user is currently viewing one
+     * eg. cd id1/id2/id3 will traverse to id1 > id2 > id3. cd .. will go backwards.
+     * @param ce
+     * @param arguments
+     * @return
+     * @throws Exception
+     */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "commentcd");
-        // then the currentlyViewingPage is a commentPresenter
+        checkAll(ce, arguments, "commentcd");
 
+        // User is authorized to perform the command, then the currentlyViewingPage is a commentPresenter
         CommentPresenter cvp = (CommentPresenter) ce.getPageManager();
+
+        // pass control to the CommentPresenter
         cvp.cdCommand(arguments.get(0));
         return "Now checking out " + cvp.getFullPath();
     }

@@ -2,8 +2,8 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
 import interfaces.IReadModifiable;
+import usecase.CommentPresenter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class VoteCommand extends Command {
      * Initializes the command with minimum/maximum arguments
      */
     public VoteCommand() {
-        super(2, 2);
+        super(2, 1);
     }
 
     @Override
@@ -31,10 +31,15 @@ public class VoteCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "vote");
+        checkAll(ce, arguments, "vote");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
-        boolean up = arguments.get(1).equalsIgnoreCase("up");
-        ((CommentPresenter) currentlyViewingPage).vote(arguments.get(0), up);
-        return "voted on comment " + arguments.get(0) + "with up=" + up;
+        boolean up = arguments.size() == 2 ? arguments.get(1).equalsIgnoreCase("up") : arguments.get(0).equalsIgnoreCase("up");
+        CommentPresenter cp = (CommentPresenter) currentlyViewingPage;
+        if (arguments.size() == 1) {
+            cp.vote(up);
+        } else {
+            cp.vote(arguments.get(0), up);
+        }
+        return "voted on comment with up=" + up;
     }
 }

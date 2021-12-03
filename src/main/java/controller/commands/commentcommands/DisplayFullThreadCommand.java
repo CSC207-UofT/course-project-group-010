@@ -2,8 +2,8 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
 import interfaces.IReadModifiable;
+import usecase.CommentPresenter;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class DisplayFullThreadCommand extends Command {
 
     @Override
     public String help() {
-        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c instead.";
+        return "displayfullthread: display full comment thread\n This is deprecated, try using checkout -c > print instead.";
     }
 
     /**
@@ -34,7 +34,7 @@ public class DisplayFullThreadCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "displayfullthread");
+        checkAll(ce, arguments, "displayfullthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         // If we're authorized to displayfullthread, the thing should be of type CommentManager.
         return ((CommentPresenter) currentlyViewingPage).getCommentManager().displayEntireThread(true, -1);

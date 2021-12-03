@@ -19,7 +19,7 @@ public class CommandExecutor {
 
 
     /**
-     * Does literally nothing. Initializes a CommandExecutor though.
+     * Initializes a CommandExecutor
      */
     private CommandExecutor() {
     }
@@ -42,7 +42,6 @@ public class CommandExecutor {
      * @param request
      * @throws Exception
      */
-    // TODO change the return type to the appropriate type
     public String processRequest(CommandRequest request) {
         CommandConstants commandConstants = new CommandConstants();
         try {
@@ -54,14 +53,16 @@ public class CommandExecutor {
 
     }
 
-    public UserManager getUserManager() {
-        return userManager;
-    }
-
+    /**
+     * Resets the state of the CommandExecutor
+     */
     public void resetAll() {
-        // TODO reset the filters on the pageManager
         this.userManager = null;
         this.pageManager = null;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
     }
 
     public void addUserManager(UserManager u) {

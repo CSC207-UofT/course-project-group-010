@@ -4,11 +4,12 @@ import constants.CommandConstants;
 
 import java.util.Map;
 
+/**
+ * The data printer helps display data from the getData() method that all IGettable objects must implement.
+ * IT DECIDES HOW TO PROCESS THE DATA FROM IGETTABLE. THIS MAINTAINS THE SINGLE RESPONSIBILITY PRINCIPLE
+ * eg. Courses, comment threads implement the interface.
+ */
 public class DataPrinter {
-    /**
-     * The data printer helps display data from the getData() method that all IGettable objects must implement.
-     * eg. Courses, comment threads implement the interface.
-     */
     // Data from getData() is a hashmap
     // The data string to put if all data is mapped to one key
 

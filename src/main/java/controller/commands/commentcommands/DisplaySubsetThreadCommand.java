@@ -2,8 +2,8 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.CommentPresenter;
 import interfaces.IReadModifiable;
+import usecase.CommentPresenter;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class DisplaySubsetThreadCommand extends Command {
     /**
      * Displays a subset of a thread, considering a starting id and a depth.
      * Can sort by ascending or descending upvotes.
-     * THIS IS QUITE DEPRECATED
+     * THIS IS QUITE DEPRECATED, only necessary if you don't want maximum depth.
      *
      * @param ce
      * @param arguments
@@ -33,7 +33,7 @@ public class DisplaySubsetThreadCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
-        checkHelpArgsUserPageAuth(ce, arguments, "displaysubsetthread");
+        checkAll(ce, arguments, "displaysubsetthread");
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         String startid = arguments.get(0);
         int upToDepth = Integer.parseInt(arguments.get(1));

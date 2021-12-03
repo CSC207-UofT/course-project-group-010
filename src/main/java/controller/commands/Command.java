@@ -49,6 +49,13 @@ public abstract class Command {
         return "Help for this command is not available at this time";
     }
 
+    // CHECKING METHODS BELOW, reused in a lot of derived classes
+
+    /**
+     * IF the user typed -h, returns the help string immediately.
+     * @param arguments
+     * @throws CommandHelpException
+     */
     protected void checkHelp(List<String> arguments) throws CommandHelpException {
         if (arguments.size() > 0 && arguments.get(0).equalsIgnoreCase("-h")) {
             throw new CommandHelpException(this.help());
@@ -65,19 +72,38 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Checks that a user exists in the CommandExecutor.
+     * @param ce
+     * @throws CommandNotAuthorizedException
+     */
     protected void checkUserExists(CommandExecutor ce) throws CommandNotAuthorizedException {
         if (ce.getUserManager() == null) {
             throw new CommandNotAuthorizedException("Not logged in.");
         }
     }
 
+    /**
+     * Checks that the user is viewing a page in the CommandExecutor
+     * @param ce
+     * @throws ArgumentException
+     */
     protected void checkViewingPageExists(CommandExecutor ce) throws ArgumentException {
         if (ce.getPageManager() == null) {
             throw new ArgumentException("Not viewing any pages.");
         }
     }
 
-    protected void checkHelpArgsUserPageAuth(CommandExecutor ce, List<String> arguments, String method) throws Exception {
+    /**
+     * Checks all necessary conditions for a command to run.
+     * By default, checks that the user is logged in, viewing a page, and is authorized to take
+     * some inputted action on the page. This is standard for most commands, but is overriden by others(eg. HelpCommand)
+     * @param ce
+     * @param arguments
+     * @param method
+     * @throws Exception
+     */
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);

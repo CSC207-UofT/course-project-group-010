@@ -1,6 +1,5 @@
 package entity;
 
-import interfaces.IReviewer;
 import interfaces.IUser;
 
 import java.io.Serializable;
@@ -8,14 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InstructorUser implements Serializable, IReviewer, IUser {
+// TODO instructorUser isn't really fleshed out, consider deleteing or adding methods similar to those in StudentUser
+public class InstructorUser implements Serializable, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
     private String displayName; //Username
     private Map<String, String> otherData;
-    private int reviewCount; //Number of reviews left by this user
-    private HashMap<Integer, List<Course>> courses;
     // position Options include "Prof" and "TA".
     private List<Course> currentlyTeaching;
 
@@ -24,13 +22,14 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
-        this.reviewCount = 0;
     }
 
+    // TODO this constructor is not in use except in tests, we can delete
     public InstructorUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
-        this.reviewCount = 0;
+        this.otherData = new HashMap<>();
+        setPosition("N/A");
     }
 
     @Override
@@ -48,13 +47,6 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         return this.displayName;
     }
 
-    @Override
-    public void setDisplayName(String s) {
-        if (s.length() < MAXIMUM_DISPLAY_LENGTH) {
-            this.displayName = s;
-        }
-    }
-
     public String getPosition() {
         return this.getOtherData().get("position");
     }
@@ -68,42 +60,12 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         return otherData;
     }
 
-    @Override
-    public void setOtherData(Map<String, String> otherData) {
-        this.otherData = otherData;
-    }
-
-    public List<Course> getCurrentlyTeaching() {
-        return this.currentlyTeaching;
-    }
+    // TODO unused, delete
+//    public List<Course> getCurrentlyTeaching() {
+//        return this.currentlyTeaching;
+//    }
 
     //Setters
-
-    public void setCurrentlyTeaching(List<Course> t) {
-        this.currentlyTeaching = t;
-    }
-
-    @Override
-    public int getReviewCount() {
-        return reviewCount;
-    }
-
-    @Override
-    public void setReviewCount(int count) {
-        if (count >= 0) {
-            this.reviewCount = count;
-        }
-    }
-
-    @Override
-    public HashMap<Integer, List<Course>> getCourses() {
-        return this.courses;
-    }
-
-    @Override
-    public void setCourses(HashMap<Integer, List<Course>> c) {
-        this.courses = c;
-    }
 
     @Override
     public HashMap<String, Object> getData() {
@@ -112,14 +74,8 @@ public class InstructorUser implements Serializable, IReviewer, IUser {
         result.put("ID", ID);
         result.put("displayName", displayName);
         result.put("position", getPosition());
-        result.put("currentlyTeaching", getCurrentlyTeaching());
-        result.put("courses", courses);
+        // result.put("currentlyTeaching", getCurrentlyTeaching());
         return result;
-    }
-
-    @Override
-    public void incrementReviewCount() {
-        this.reviewCount++;
     }
 
 

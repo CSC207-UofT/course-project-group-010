@@ -2,20 +2,20 @@ package controller.commands.coursecommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
+import controller.commands.commandHelpers.CourseCreationGetter;
 import controller.databasegetter.CourseDatabaseGetter;
+import exceptions.CommandNotAuthorizedException;
 import usecase.CourseManager;
 import usecase.coursePage.CoursePage;
 import usecase.coursePage.CoursePageBuilder;
 import usecase.coursePage.Director;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 public class CreateCourseCommand extends Command {
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public CreateCourseCommand() {
         super(0, 0);
@@ -35,31 +35,27 @@ public class CreateCourseCommand extends Command {
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+        checkAll(ce, arguments, "createcourse");
+
+        // TODO consider implementing the userinputgetter thing and changing this up yeah but idk this is weird so...
+        List<List<String>> userInput = new CourseCreationGetter().getUserInput();
+        List<String> course = userInput.get(0);
+        List<String> instructor = userInput.get(1);
+        return constructCourse(course, instructor);
+
+    }
+
+    @Override
+    protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
-        Scanner in = new Scanner(System.in);
+    }
 
-        // Create the shit
+    private String constructCourse(List<String> course, List<String> instructor) throws IOException, ClassNotFoundException, CommandNotAuthorizedException {
+        // Create the builder
         CoursePageBuilder cpb = new CoursePageBuilder();
         Director d = new Director();
 
-        ArrayList<String> course = new ArrayList<>();
-        ArrayList<String> instructor = new ArrayList<>();
-        // Get the other 23%@$#$%^@
-        System.out.println("Title: ");
-        course.add(in.nextLine());
-        System.out.println("Code: ");
-        course.add(in.nextLine());
-        System.out.println("Description: ");
-        course.add(in.nextLine());
-        String input = "";
-        while (!input.equalsIgnoreCase("end")) {
-            System.out.println("Add instructor?[type end to end]");
-            input = in.nextLine();
-            if (!input.equalsIgnoreCase("end")) {
-                instructor.add(input);
-            }
-        }
         // Using the builder to build things
         d.constructCoursePage(cpb, course, instructor);
         CoursePage cp = cpb.getResult();
@@ -67,7 +63,7 @@ public class CreateCourseCommand extends Command {
 
         // Save to db and return
         CourseDatabaseGetter.getInstance().addEntry(cm);
-        return "Successfully created " + course.get(0).toString() + " with " + instructor.size() + " instructors.\n" +
+        return "Successfully created " + course.get(0) + " with " + instructor.size() + " instructors.\n" +
                 "Make sure to run saveall to save your progress!";
     }
 }
