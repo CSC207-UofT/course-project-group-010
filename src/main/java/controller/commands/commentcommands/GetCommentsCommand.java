@@ -2,7 +2,7 @@ package controller.commands.commentcommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
-import controller.commands.commandHelpers.CommentsGetter;
+import controller.commands.commandHelpers.CommentsPageGetter;
 
 import java.util.List;
 
@@ -32,10 +32,10 @@ public class GetCommentsCommand extends Command {
         checkAll(ce, arguments, "getcomments");
 
         // then pageManager will be instance of CourseManager
-        CommentsGetter cg = new CommentsGetter();
+        CommentsPageGetter cg = new CommentsPageGetter();
 
         // all necessary checks should have been run by checkPageAuth
-        cg.getCommentSection(ce);
+        cg.getPage(ce);
         return "viewing comments";
     }
 }

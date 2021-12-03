@@ -13,7 +13,9 @@ import usecase.UserManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -38,9 +40,9 @@ public class SimulatedInputTest {
 
             NewUserCommand nuc = new NewUserCommand();
             Class<?> nucClass = Class.forName("controller.commands.NewUserCommand");
-            Method constructUser = nucClass.getDeclaredMethod("createUser", UserType.class, String.class, String.class, String.class);
+            Method constructUser = nucClass.getDeclaredMethod("createUser", UserType.class, String.class, String.class, Map.class);
             constructUser.setAccessible(true);
-            constructUser.invoke(nuc, UserType.STUDENT, "SampleStudent", "test", "N/A");
+            constructUser.invoke(nuc, UserType.STUDENT, "SampleStudent", "test", new HashMap<>());
         } catch (Exception e) {
             // That means these courses/students were already initialized, we don't need to do it again
             e.getMessage();
@@ -85,12 +87,12 @@ public class SimulatedInputTest {
     public void testCreateUser() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
         NewUserCommand nuc = new NewUserCommand();
         Class<?> nucClass = Class.forName("controller.commands.NewUserCommand");
-        Method constructUser = nucClass.getDeclaredMethod("createUser", UserType.class, String.class, String.class, String.class);
+        Method constructUser = nucClass.getDeclaredMethod("createUser", UserType.class, String.class, String.class, Map.class);
         constructUser.setAccessible(true);
 
         String expected = "Added new user with ID " + "id" + " and name " + "name" + "\n" +
                 "Run saveall to save this progress.";
-        UserManager um = (UserManager) constructUser.invoke(nuc, UserType.STUDENT, "name", "id", "N/A");
+        UserManager um = (UserManager) constructUser.invoke(nuc, UserType.STUDENT, "name", "id", new HashMap<>());
         assertEquals("id", um.getID());
         assertEquals("name", um.getUser().getDisplayName());
     }

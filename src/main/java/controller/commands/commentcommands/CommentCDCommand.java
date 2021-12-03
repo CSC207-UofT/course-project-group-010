@@ -26,9 +26,11 @@ public class CommentCDCommand extends Command {
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "commentcd");
-        // then the currentlyViewingPage is a commentPresenter
 
+        // User is authorized to perform the command, then the currentlyViewingPage is a commentPresenter
         CommentPresenter cvp = (CommentPresenter) ce.getPageManager();
+
+        // pass control to the CommentPresenter
         cvp.cdCommand(arguments.get(0));
         return "Now checking out " + cvp.getFullPath();
     }

@@ -2,15 +2,18 @@ package controller.commands;
 
 import constants.ProgramConstants;
 import constants.UserType;
+import controller.commands.commandHelpers.InstructorUserBuilder;
+import controller.commands.commandHelpers.StudentUserBuilder;
+import controller.commands.commandHelpers.UserBuilder;
 import controller.databasegetter.UserDatabaseGetter;
 import exceptions.ArgumentException;
 import usecase.UserManager;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class NewUserCommand extends Command {
+
+
     /**
      * Initializes the command with minimum/maximum arguments
      */
@@ -32,51 +35,27 @@ public class NewUserCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkHelp(arguments);
         super.checkArgumentsNum(arguments);
-        // super.checkUserExists(ce);
         Scanner in = new Scanner(System.in);
-        // TODO consider breaking this up into helpers like getUserType() [prompts the user] then getDisplayName etc.
-        // TODO consider making like a getInput thing where you can pass in an input checking method and shit. google how to do this.
-        // TODO prompt user to try again upon failure.
-        // prompts user, takes input, checks input, returns input if valid
+
+        // Get use type
         System.out.println("Type of user[STUDENT/INSTRUCTOR]:");
-        String argUserType = in.nextLine().toUpperCase();
-        if (!argUserType.equals("STUDENT") && !argUserType.equals("INSTRUCTOR")) {
-            throw new ArgumentException("Type must be [STUDENT/INSTRUCTOR], you entered " + argUserType);
-        }
+        UserType desiredUserType = processUserType(in.nextLine());
+        UserBuilder userBuilder = getUserBuilder(desiredUserType);
+
+        // Get the display name(can be anything)
         System.out.println("Display name: ");
-        String argDisplayName = in.nextLine();
-        System.out.println("ID(no spaces)");
-        String argId = in.nextLine().replace(" ", "");
-        boolean isSame = argId.matches("^[a-z][a-z0-9]*");
-        if (!isSame) {
-            throw new ArgumentException("Your ID is invalid. The ID must start with a letter. All subsequent characters can be letters or numbers.");
-        }
-        System.out.println("any spaces were removed. ID is " + argId);
-        UserType desiredUserType = getUserType(argUserType);
-        System.out.println("Program Detail, enter N/A to skip: " + "\n" + "Choose from one of following options: \n" + new ProgramConstants());
-        String argProgramDetail = in.nextLine().toUpperCase();
-        // TODO check if it's a valid program...probably split this up into a helper class huh...
-        UserManager um = createUser(desiredUserType, argDisplayName, argId, argProgramDetail);
+        String argDisplayName = userBuilder.processDisplayName(in.nextLine());
+
+        // Get the id
+        System.out.println("ID[lowercase letters followed by lowercase numbers, eg. wangke1");
+        String argId = userBuilder.processID(in.nextLine());
+
+        // Process the otherData(eg. programDetail for student, position for instructor)
+        System.out.println(userBuilder.getOtherDataPromptString());
+        Map<String, String> otherData = userBuilder.processOtherData(in.nextLine());
+        UserManager um = createUser(desiredUserType, argDisplayName, argId, otherData);
         return "Added new user with ID " + um.getID() + " and name " + um.getUser().getDisplayName() + "\n" +
                 "Run saveall to save this progress.";
-        // AuthHelper ah = new AuthHelper();
-        // ah.checkAuth(um, ce.getUserManager(), "newuser");
-        // No auth checks for now, because we have 0 users in the db right now which is unfortunate
-    }
-
-    private UserType getUserType(String argUserType) throws ArgumentException {
-        UserType desiredUserType;
-        switch (argUserType) {
-            case "STUDENT":
-                desiredUserType = UserType.STUDENT;
-                break;
-            case "INSTRUCTOR":
-                desiredUserType = UserType.INSTRUCTOR;
-                break;
-            default:
-                throw new ArgumentException("Invalid user type");
-        }
-        return desiredUserType;
     }
 
     @Override
@@ -84,10 +63,34 @@ public class NewUserCommand extends Command {
         return "Creates a new user. No arguments, follow system instructions after entering the command.";
     }
 
-    private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, String argProgramDetail) throws Exception {
-        HashMap<String, String> adddetail = new HashMap<>();
-        adddetail.put("programDetail", argProgramDetail);
-        UserManager um = new UserManager(desiredUserType, argDisplayName, argId, adddetail);
+    // Helper methods
+
+    private UserType processUserType(String argUserType) throws ArgumentException {
+        argUserType = argUserType.toUpperCase();
+
+        switch (argUserType) {
+            case "STUDENT":
+                return UserType.STUDENT;
+            case "INSTRUCTOR":
+                return UserType.INSTRUCTOR;
+            default:
+                throw new ArgumentException("'Invalid user type. Type must be [STUDENT/INSTRUCTOR], you entered " + argUserType);
+        }
+    }
+
+    private UserBuilder getUserBuilder(UserType userType) throws ArgumentException {
+        switch (userType) {
+            case STUDENT:
+                return new StudentUserBuilder();
+            case INSTRUCTOR:
+                return new InstructorUserBuilder();
+            default:
+                throw new ArgumentException("Invalid user type");
+        }
+    }
+
+    private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, Map<String, String> otherData) throws Exception {
+        UserManager um = new UserManager(desiredUserType, argDisplayName, argId, otherData);
         UserDatabaseGetter.getInstance().addEntry(um);
         return um;
     }
