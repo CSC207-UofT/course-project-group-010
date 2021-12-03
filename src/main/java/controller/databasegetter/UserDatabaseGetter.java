@@ -19,17 +19,18 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
     // TODO move this in with Database, make a mock sql thing that literally just calls getEntry and stuff
     // like FROM DATABASE GET ID --> UserDatabaseGetter.getinstance().getwhatever
     private static UserDatabaseGetter instance = null;
-    private final Database<UserManager> db;
+    // private final Database<UserManager> db;
     private final Map<String, UserManager> userDict;
 
     private UserDatabaseGetter() throws IOException, ClassNotFoundException {
-        Map<String, UserManager> userDict1;
-        this.db = new Database<>();
-        userDict1 = this.db.loadDatabase(new FileConstants().USER_FILE);
-        if (userDict1 == null) {
-            userDict1 = new HashMap<>();
-        }
-        this.userDict = userDict1;
+        userDict = Database.loadDB(new FileConstants().USER_FILE);
+//        Map<String, UserManager> userDict1;
+//        this.db = new Database<>();
+//        userDict1 = this.db.loadFromFile(new FileConstants().USER_FILE);
+//        if (userDict1 == null) {
+//            userDict1 = new HashMap<>();
+//        }
+//        this.userDict = userDict1;
     }
 
     public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
@@ -57,11 +58,6 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
     }
 
     @Override
-    public void setEntry(UserManager entry) {
-        this.userDict.put(entry.getID(), entry);
-    }
-
-    @Override
     public void addEntry(UserManager entry) throws CommandNotAuthorizedException {
         if (!this.userDict.containsKey(entry.getID())) {
             this.userDict.put(entry.getID(), entry);
@@ -77,7 +73,7 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
     }
 
     public void saveAll() throws IOException {
-        db.saveToFile(new FileConstants().USER_FILE, this.userDict);
+        Database.saveToFile(new FileConstants().USER_FILE, this.userDict);
     }
 
     /**

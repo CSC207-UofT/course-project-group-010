@@ -24,15 +24,6 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
      */
     abstract public T getEntry(String id) throws Exception;
 
-    /**
-     * sets an entry in the database, returning True if something was updated.
-     * Checks getID() method of entry and updates existing entry if one with that id exists
-     * in the database already.
-     *
-     * @return
-     */
-    abstract public void setEntry(T entry);
-
     abstract public void addEntry(T entry) throws CommandNotAuthorizedException;
 
     abstract public boolean containsKey(String key);
