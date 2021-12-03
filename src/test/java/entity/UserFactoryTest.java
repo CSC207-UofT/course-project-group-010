@@ -1,5 +1,6 @@
 package entity;
 
+import constants.ProgramConstants;
 import constants.UserType;
 import interfaces.IUser;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class UserFactoryTest {
         IUser u = uf.getUser(UserType.STUDENT, "Kevin", "kev123", new HashMap<>());
         assertEquals("Kevin", u.getDisplayName());
         assertEquals("kev123", u.getID());
-        assertEquals("N/A", ((StudentUser)u).getProgramDetail());
+        assertEquals(ProgramConstants.NO_PROGRAM, ((StudentUser)u).getProgramDetail());
     }
 
     @Test

@@ -29,25 +29,25 @@ public class CommandTest {
         ce = CommandExecutor.getInstance();
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testNoCommand() {
         CommandRequest request = new CommandRequest("asdf");
         assertEquals(ce.processRequest(request), "Command not Found");
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testInvalidArgs() {
         CommandRequest request = new CommandRequest("print asdf agaj fklaj");
         assertEquals(ce.processRequest(request), "Invalid number of Arguments");
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testHelp() {
         CommandRequest request = new CommandRequest("displayfullthread -h");
         assertEquals(ce.processRequest(request), new DisplayFullThreadCommand().help());
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testDataPrinter() {
         DataPrinter dp = new DataPrinter();
         Map<String, Object> map1 = new HashMap<>();

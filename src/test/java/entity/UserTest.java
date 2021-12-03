@@ -1,5 +1,6 @@
 package entity;
 
+import constants.ProgramConstants;
 import interfaces.IUser;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class UserTest {
         HashMap<String, String> detail = new HashMap<>();
         detail.put("ID", "k12345");
         detail.put("displayName", "Kevin Hart");
-        detail.put("programDetail", "N/A");
+        detail.put("programDetail", ProgramConstants.NO_PROGRAM);
         IUser a = new StudentUser("Kevin Hart", "k12345");
         assertEquals(a.getData(), detail);
     }
@@ -76,7 +77,7 @@ public class UserTest {
         HashMap<String, String> addDetail = new HashMap<>();
         addDetail.put("programDetail", "Computer Science Specialist");
         StudentUser a = new StudentUser("Kevin Hart", "k12345", addDetail);
-        assertEquals("N/A", a.getProgramDetail());
+        assertEquals(ProgramConstants.NO_PROGRAM, a.getProgramDetail());
     }
 
     @Test(timeout = 100)
@@ -98,7 +99,7 @@ public class UserTest {
     public void testSetInvalidProgramDetail() {
         StudentUser a = new StudentUser("Kevin", "kev123");
         a.setProgramDetail("abasdf");
-        assertEquals("N/A", a.getProgramDetail());
+        assertEquals(ProgramConstants.NO_PROGRAM, a.getProgramDetail());
     }
 
     @Test(timeout = 100)
@@ -121,6 +122,6 @@ public class UserTest {
         IUser a = new InstructorUser("Kevin", "k123");
         assertEquals("Kevin", a.getDisplayName());
         assertEquals("k123", a.getID());
-        assertEquals("N/A", a.getOtherData().get("position"));
+        assertEquals(ProgramConstants.NO_PROGRAM, a.getOtherData().get("position"));
     }
 }
