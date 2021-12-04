@@ -51,5 +51,19 @@ public class CommentGraphTest
         assert expected == actual;
     }
 
+    @Test
+    public void testGetSize()
+    {
+        HashMap<String, List<String>> initialComments = new HashMap<>();
+        initialComments.put("sampleUser1", List.of("sampleText1"));
+        initialComments.put("sampleUser2", List.of("sampleText2"));
+        CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
+
+        int expected = 3;
+        int actual = cg.getSize();
+
+        assert actual == expected;
+    }
+
 
 }
