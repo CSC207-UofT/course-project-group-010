@@ -8,7 +8,15 @@ Comments are stored in a graph data structure. CommentGraph manages a
 graph of comment objects, and contains algorithms to add, delete, and interact
 with comments. It also contains all of the data regarding the entire comment section.
 
-CommentGraphHelper is simply a helper class to CommentGraph.
+The reason for which CommentGraph code is long is due to the complexity of the data structure. Graphs require nodes and 
+edges, each of which require special data. In our implementation the nodes of the graph require information and
+navigation data in order to function. In addition to this there must be methods that interact with and link nodes
+together creating more complexity. These complex methods require long explanations so that someone looking at our code
+will understand, thus adding to the bulk of the file. Ultimately CommentGraph has a single responsibility, which is to
+generate a reddit like thread that can be used for courses in our program.
+
+CommentGraphHelper is simply a helper class to CommentGraph. It is responsible for creating efficient sorting,
+pathfinding, and ID generation for the nodes in the graph.
 
 ### CommentManager(Use Case package)
 
@@ -38,3 +46,7 @@ If we want to add a new feature, we can leverage CommentManager's existing metho
 
 Also, CommentManager's methods will probably never be changed, as they fulfill simple tasks like replying/voting on a comment, whereas CommentPresenter's methods will probably be customized and added upon(eg.
 if we want to give more functionality to the user). We recognized these two categories of methods, and believe that separating them makes the code more organized.
+
+In regards to CommentGraph we decided against using a design pattern such as builder or factory as the data structure is already complex.
+Adding another layer in the form of a design pattern would render the code very difficult to work with as well as create much longer
+files.
