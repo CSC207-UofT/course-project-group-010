@@ -6,8 +6,10 @@ We use the following features to review and edit our code style and documentatio
 
 2. Inspect Code feature from Intellij
 
-3. Check each warning/red sign for each file
+3. Code Cleanup feature from Intellij to clean up leftover/unwanted materials 
 
-4. Review each class to see if the documentation is clear and easier to understand by outer
+4. Check each warning/red sign for each file
 
-5. Change/Add the commentary for each constant using in the program 
+5. Review each class to see if the documentation is clear and easier to understand by outer
+
+6. Change/Add the commentary for each constant using in the program 
