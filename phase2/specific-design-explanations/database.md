@@ -35,13 +35,25 @@ so we designed the classes to reflect taht structure.
 
 ## The biggest design problem that we have(and our justification for keeping it there)
 
+This problem was discussed briefly in SOLID.md.
+
 Currently DatabaseGetters depend on Database. This is bad. I considered inverting the dependency by creating
-a database Interface that Database extends. However, the moment we change to an actual database, the database interface
-would have to change as well(eg. we won't "loadData" with an SQL database, we would connect to the db instead.)
+a database Interface that Database extends. However, that doesn't REALLY invert the dependency.
 
-Thus, the interface depends on the class that implements it, and so the dependency is still there.
+eg. currently, our Database simply produces a map of ids to objects. It produces the entire database, and that is reflected in its method signature. A real database
+wouldn't have such a method.
 
-My
-solution is to keep this dependency here until databases are changed in the future, as real databases are vastly different
-than our current "database." Then, we'd create a Database interface, and change the implementation of DatabaseGetter's methods.
-Since the DatabaseGetter interface won't change, and the rest of the program only uses the shared methods, nothing else needs to be changed.
+Suppose we make a Database interface, and have DatabaseGetter depend on that. The dependency would technically be inverted. However, the Database interface depends on the Database class, not the other way around. If we were to use a real database, we would have to change the Database interface AND the class. Thus, DatabaseGetter still indirectly depends on the Database class. 
+
+### Our solution
+
+Our solution is to keep the issue there, and fix it when we move onto actual databases. Most actual databases have similar functionality, so then an interface would make sense. It's just because our database is so fundamentally different from an actual database that we can't change much right now. Then, the only class that depends on it is DatabaseGetter, and thus we'd have to change that as well.
+
+However, the methods inside DatabaseGetter would provide the same functionality. The DatabaseGetter abstract class, which is depended on by Commands and such, would not change. Thus, we would only have to change one class, which is good.
+
+Eg. We switch to SQL. Then,
+- the initializer of DatabaseGetters get changed to something else(eg. connecting to the DB)
+- the shared methods getEntry, addEntry, saveAll get changed to SQL queries, rather than their current implementations
+- Methods will do the same things, and other classes don't need to change
+
+Thus, it's not a very big problem, so we're deciding not to address it for now.
