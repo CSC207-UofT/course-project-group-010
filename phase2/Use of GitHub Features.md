@@ -4,7 +4,9 @@ We have used the following GitHub Features:
 
 1. Issues
 
--We use the issues section to create tickets about our program.
+
+- We use the issues section to create tickets about our program.
+
 
 2. Pull requests
 
@@ -19,7 +21,7 @@ We have used the following GitHub Features:
 
 4. Test Coverage
 
--We use the Intelli feature to check our test coverage. This helps to ensure a sufficient number of methods have been
+- We use the IntelliJ feature to check our test coverage. This helps to ensure a sufficient number of methods have been
 tested and work properly. 
 
 
