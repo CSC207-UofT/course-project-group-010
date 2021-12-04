@@ -148,4 +148,15 @@ public class CommentGraphTest
         assert cg.getVertices().get("root").getVote() == -1;
     }
 
+    @Test
+    public void testToString()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        CommentGraph.Comment comment = cg.getComment("root");
+
+        String expected = "Test root 0 Test";
+        String actual = comment.toString();
+
+        assert expected.equals(actual);
+    }
 }
