@@ -123,5 +123,13 @@ public class CommentGraphTest
         assert expected.length() == actual.length();
     }
 
+    @Test
+    public void testReply()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        cg.reply("root", "sampleText1", "sampleUser1");
+
+        assert cg.getVertices().size() == 2;
+    }
 
 }
