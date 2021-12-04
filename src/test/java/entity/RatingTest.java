@@ -15,6 +15,7 @@ public class RatingTest {
     @Before
     public void init() {
         sampleStudent = new StudentUser("Sam", "4000");
+        sampleStudent.setProgramDetail("DATA SCIENCE");
         rating = new Rating(sampleStudent, 10.0);
     }
 
@@ -26,10 +27,7 @@ public class RatingTest {
 
     @Test
     public void getPoST() {
-        StudentUser a = new StudentUser("Kevin", "kev123");
-        a.setProgramDetail("DATA SCIENCE");
-        Rating r = new Rating(a, 10.0);
-        assertEquals("DATA SCIENCE", r.getRaterProgramOfStudy());
+        assertEquals("DATA SCIENCE", rating.getRaterProgramOfStudy());
     }
 
     @Test
