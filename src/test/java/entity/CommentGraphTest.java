@@ -181,4 +181,14 @@ public class CommentGraphTest
 
         assert expected.equals(actual);
     }
+
+    @Test
+    public void testGetText()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        String expected = "Test";
+        String actual = cg.getComment("root").getText();
+
+        assert expected.equals(actual);
+    }
 }
