@@ -19,7 +19,7 @@ public class RatingTest {
     }
 
     @Test
-    public void getScoreOk() throws CommandNotAuthorizedException {
+    public void getScoreOk() {
         float desiredScore = 10.0F;
         assertEquals(desiredScore, rating.getScore(), 0.001);
     }

@@ -8,8 +8,8 @@ import java.util.List;
  * requests might change in the future to HTTP or something.
  */
 public class CommandRequest {
-    private String method;
-    private List<String> arguments;
+    private final String method;
+    private final List<String> arguments;
 
     /**
      * Initializes the commandRequest, splitting into method and arguments
@@ -20,9 +20,7 @@ public class CommandRequest {
         String[] splitCommand = command.split(" ");
         this.method = splitCommand[0];
         String[] args = new String[splitCommand.length - 1];
-        for (int i = 1; i < splitCommand.length; i++) {
-            args[i - 1] = splitCommand[i];
-        }
+        System.arraycopy(splitCommand, 1, args, 0, splitCommand.length - 1);
         this.arguments = List.of(args);
     }
 

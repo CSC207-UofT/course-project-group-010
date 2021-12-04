@@ -10,8 +10,8 @@ import java.util.Map;
 public class StudentUser implements Serializable, IUser {
 
     private final String ID; //ID
-    private String displayName; //Username
-    private Map<String, String> otherData;
+    private final String displayName; //Username
+    private final Map<String, String> otherData;
 
     //Constructors
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {

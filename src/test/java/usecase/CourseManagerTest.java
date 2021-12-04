@@ -1,13 +1,10 @@
 package usecase;
 
 import constants.UserType;
-import entity.Course;
 import entity.StudentUser;
 import exceptions.ArgumentException;
-import interfaces.IUser;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import usecase.coursePage.CoursePage;
 import usecase.coursePage.CoursePageBuilder;
 import usecase.coursePage.Director;
@@ -20,7 +17,7 @@ import static org.junit.Assert.*;
 public class CourseManagerTest {
 
     public CourseManager cm;
-    public StudentUser u = new StudentUser("Kevin", "k123");
+    public final StudentUser u = new StudentUser("Kevin", "k123");
 
     @Before
     public void setup() {

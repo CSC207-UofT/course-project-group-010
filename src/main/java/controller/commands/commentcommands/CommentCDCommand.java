@@ -37,9 +37,8 @@ public class CommentCDCommand extends Command {
 
     @Override
     public String help() {
-        String helpStr = "Navigates comments, like a directory. CD stands for Change DComment.\n" +
+        return "Navigates comments, like a directory. CD stands for Change DComment.\n" +
                 "Usage: cd [path]. Path is a string of ids, separated by a /. You can use .. to go back.\n" +
                 "eg. cd id1/id2, or cd ../..";
-        return helpStr;
     }
 }

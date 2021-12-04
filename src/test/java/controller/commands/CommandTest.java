@@ -3,13 +3,10 @@ package controller.commands;
 import constants.CommandConstants;
 import controller.commands.commandHelpers.DataPrinter;
 import controller.commands.commentcommands.DisplayFullThreadCommand;
-import controller.commands.commentcommands.ReplyCommand;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
