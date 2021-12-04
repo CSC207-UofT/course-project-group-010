@@ -65,14 +65,21 @@ public class CommentGraphTest
         assert actual == expected;
     }
 
-    public static String unEscapeString(String s){
+    public static String unEscapeString(String s)
+    {
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<s.length(); i++)
-            switch (s.charAt(i)){
-                case '\n': sb.append("\\n"); break;
-                case '\t': sb.append("\\t"); break;
+        for (int i = 0; i < s.length(); i++)
+            switch (s.charAt(i))
+            {
+                case '\n':
+                    sb.append("\\n");
+                    break;
+                case '\t':
+                    sb.append("\\t");
+                    break;
                 // ... rest of escape characters
-                default: sb.append(s.charAt(i));
+                default:
+                    sb.append(s.charAt(i));
             }
         return sb.toString();
     }
@@ -92,6 +99,29 @@ public class CommentGraphTest
         assert expected.length() == actual.length();
     }
 
+    @Test
+    public void testStringPath()
+    {
+        HashMap<String, List<String>> initialComments = new HashMap<>();
+        initialComments.put("sampleUser1", List.of("sampleText1"));
+        initialComments.put("sampleUser2", List.of("sampleText2"));
+        CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
+
+        String id = null;
+        for (var i : cg.getVertices().keySet())
+        {
+            if (cg.getVertices().get(i).getText().equals("sampleText2"))
+            {
+                id = i;
+                break;
+            }
+        }
+
+        String expected = "> Test [id: root]\nTest\n[+] 0 [-]\n\n    > sampleUser2 [id: 5xySx]\n    sampleText2\n    [+] 0 [-]\n\n";
+        String actual = cg.stringPath(cg.getVertices().get("root"), cg.getVertices().get(id));
+
+        assert expected.length() == actual.length();
+    }
 
 
 }
