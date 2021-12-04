@@ -51,7 +51,7 @@ public class CommentGraphHelperTest
     }
 
     /**
-     * Tests that depthFirstPath generates a path from start to end
+     * Tests that depthFirstPath function in CommentGraphHelper generates a path from start to end
      */
     @Test
     public void testDepthFirstPath()
@@ -94,12 +94,17 @@ public class CommentGraphHelperTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that genId function in CommentGraphHelper returns a proper Id
+     */
     @Test
     public void testGenId()
     {
+        // generate id
         CommentGraphHelper commentGraphHelper = new CommentGraphHelper();
         String generatedId = commentGraphHelper.genId();
 
+        // is the id alphanumeric and only has 5 characters?
         assert generatedId.length() == 5 && generatedId.matches("[A-Za-z0-9]+");
     }
 }
