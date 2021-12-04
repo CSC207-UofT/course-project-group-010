@@ -201,4 +201,24 @@ public class CommentGraphTest
 
         assert expected.equals(actual);
     }
+
+    @Test
+    public void testGetVote()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        int expected = 0;
+        int actual = cg.getComment("root").getVote();
+
+        assert expected == actual;
+    }
+
+    @Test
+    public void testGetDepth()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        int expected = 0;
+        int actual = cg.getComment("root").getDepth();
+
+        assert expected == actual;
+    }
 }
