@@ -41,5 +41,15 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    @Test
+    public void testGetMaxDepth()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        cg.reply("root", "sampleText1", "sampleUser1");
+        int expected = 1;
+        int actual = cg.getMaxDepth();
+        assert expected == actual;
+    }
+
 
 }
