@@ -1,6 +1,5 @@
 package entity;
 
-import exceptions.CommandNotAuthorizedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class RatingTest {
     }
 
     @Test
-    public void getScoreOk() throws CommandNotAuthorizedException {
+    public void getScoreOk() {
         double desiredScore = 10.0;
         assertEquals(desiredScore, rating.getScore(), 0.001);
     }
