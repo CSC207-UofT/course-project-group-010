@@ -9,7 +9,7 @@ import java.util.Map;
 public class UserFactory {
 
     /**
-     * use getUser method to get the user type and create a new user.
+     * Use getUser method to get the user type and create a new user.
      * @param userType the type of user.
      * @param displayName display name of StudentUser.
      * @param ID          id of user.

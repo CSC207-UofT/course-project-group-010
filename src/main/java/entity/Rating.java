@@ -15,7 +15,12 @@ public class Rating implements Serializable {
 //        this.rater = rater;
 //        this.score = score;
 //    }
-
+    /**
+     * A Rating object containing a score, and the User who left this rating.
+     *
+     * @param rater A user object of who left this rating.
+     * @param score The score of this rating between 0 and 10.
+     */
     public Rating(IUser rater, float score) {
         this.rater = rater;
         this.score = score;

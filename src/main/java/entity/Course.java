@@ -54,10 +54,16 @@ public class Course implements Serializable {
         return this.description;
     }
 
+    /**
+     * Set this course's description.
+     */
     public void setDescription(String s) {
         this.description = s;
     }
 
+    /**
+     * Set this course's name.
+     */
     public void setName(String s) {this.name = s;}
 
 
