@@ -25,5 +25,12 @@ public class CommentGraphTest
         assert cg.getVertices().size() == 1;
     }
 
+    @Test
+    public void testGetVertices()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        assert cg.getVertices().containsKey("root");
+    }
+
 
 }
