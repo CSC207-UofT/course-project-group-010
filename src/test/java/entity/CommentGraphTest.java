@@ -132,4 +132,12 @@ public class CommentGraphTest
         assert cg.getVertices().size() == 2;
     }
 
+    @Test
+    public void testUpvote()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        cg.upvote("root");
+        assert cg.getVertices().get("root").getVote() == 1;
+    }
+
 }
