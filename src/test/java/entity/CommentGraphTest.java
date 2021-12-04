@@ -32,5 +32,14 @@ public class CommentGraphTest
         assert cg.getVertices().containsKey("root");
     }
 
+    @Test
+    public void testGetComment()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        String expected = "Test";
+        String actual = cg.getComment("root").getText();
+        assert expected.equals(actual);
+    }
+
 
 }
