@@ -2,14 +2,15 @@ Make sure you follow the instructions of /README.md before coming here!
 
 # Explanation of Classes(By layer)
 
-Note that this program has students/teachers that can login(users), view courses, rate courses, and view the comment
+Note that this program has students/instructors that can login(users), view courses, rate courses, and view the comment
 section.
 
 ## Entity
 
 Entity classes store data, and have methods that allow other classes to modify their data.
 
-- User is the parent class of InstructorUser and StudentUser. These classes store user related data.
+- IUser is the parent class of InstructorUser and StudentUser. These classes store user related data. The UserFactory
+  class will define which subclass(StudentUser or Instructor User) to call .
 - Course stores course related data. Rating stores data that is related to Course, that is bundled by the CourseManager
   object
 - CommentGraph stores data for the comment section for a course. It uses the graph data structure to add/remove/find
@@ -41,12 +42,13 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
     - eg. A User must have a permission level associated with it so the program knows that privileges it has.
 - IDBSaveable: When we save to the database, we want to associate an ID with each class that implements IDBSaveable.
     - We save objects in a map with the id as the key.
-- IGettable: Anything that can give up data to a presenter, to be presented on the UI. 
-Data is currently given as a map, processed by controller.commandHelpers.DataPrinter, and then printed
-onto the screen.
+- IGettable: Anything that can give up data to a presenter, to be presented on the UI. Data is currently given as a map,
+  processed by controller.commandHelpers.DataPrinter, and then printed onto the screen.
 - IReadModifiable: Extends IGettable and IAuthorizable
     - Many classes implement this, such as CoursePages, which can give data to a presenter and must check that users are
       authorized to take certain actions concerning it.
+- IUser: An defined interface for creating an object. Any user class (StudentUser and InstructorUser) implement this
+  interfaces. This interface acts as a superclass specifies generic behavior and delegates the detail to subclasses.
 
 ## controller
 
@@ -60,8 +62,8 @@ onto the screen.
 - CommandExecutor represents the state of the program, and helps execute commands. It holds a User(representing the
   current user that is logged in), an instance of IReadModifiable(representing the course page/comment page/user info
   page that the user is currently viewing), and has a method to help process commands. This is an example of the
-  open/closed principle, as it doesn't need to be modified as new commands are made, as it uses the shared run() method in commands to
-  run specific commands and return their output.
+  open/closed principle, as it doesn't need to be modified as new commands are made, as it uses the shared run() method
+  in commands to run specific commands and return their output.
 
 ### DatabaseGetter
 
@@ -94,7 +96,7 @@ exceptions. That's all.
 
 - The Database class simply reads and writes from a database. It currently just returns all data from the database as a
   map, because YOU(Pan) told us not to use an actual database. If we were to use SQL, for example, this class would have
-  the same functionality but be implmented slightly differently. The DatabaseGetters would still end up returning a
+  the same functionality but be implemented slightly differently. The DatabaseGetters would still end up returning a
   single entry when getEntry() is run, or modifying a single entry when setEntry() is run, not changing anything in the
   program other than the implementations of their methods. The functionalities of Database and DatabaseGetter methods
   are quite general for this specific purpose(eg. Getting an entry/Saving all)
