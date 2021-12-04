@@ -159,4 +159,17 @@ public class CommentGraphTest
 
         assert expected.equals(actual);
     }
+
+    @Test
+    public void testFormattedRepresentation()
+    {
+        CommentGraph cg = new CommentGraph("Test", "Test");
+        CommentGraph.Comment comment = cg.getComment("root");
+
+        String expected = "[> Test [id: root], Test, [+] 0 [-]]";
+        String actual = comment.formattedRepresentation().toString();
+
+        assert expected.equals(actual);
+    }
+
 }
