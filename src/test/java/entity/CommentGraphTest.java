@@ -306,6 +306,9 @@ public class CommentGraphTest
         assert expected == actual;
     }
 
+    /**
+     * Tests that formatted representation getter works correctly
+     */
     @Test
     public void testGetFormattedRepresentation()
     {
