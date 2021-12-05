@@ -152,12 +152,17 @@ public class CommentGraphTest
         assert expected.length() == actual.length();
     }
 
+    /**
+     * Tests that the reply functionality works
+     */
     @Test
     public void testReply()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         cg.reply("root", "sampleText1", "sampleUser1");
 
+        // check that the size increases when a comment is replied to
         assert cg.getVertices().size() == 2;
     }
 
