@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ProgramConstants {
 
-    private List<String> possiblePrograms;
+    private final List<String> possiblePrograms;
     public static final String NO_PROGRAM = "N/A";
 
     public ProgramConstants() {

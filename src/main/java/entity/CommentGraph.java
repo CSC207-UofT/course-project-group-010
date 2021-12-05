@@ -32,8 +32,6 @@ public class CommentGraph implements Serializable
     private int size;
     // The depth of the lowest comment in the graph
     private int maxDepth;
-    // Root comment of the entire graph.
-    private Comment root;
 
 //======================================================================================================================
 // Comment Graph Constructors
@@ -55,8 +53,8 @@ public class CommentGraph implements Serializable
     /**
      * Initializes an empty CommentGraph with only a root comment.
      *
-     * @param rootType
-     * @param rootName
+     * @param rootType type of the root comment
+     * @param rootName name of the root comment
      */
     public CommentGraph(String rootType, String rootName)
     {
@@ -77,9 +75,10 @@ public class CommentGraph implements Serializable
         // initializes the size of the CommentGraph to be as there are no Comments within it.
         this.size = 0;
         // creates the root comment
-        this.root = createComment("root", rootType, rootName);
+        // Root comment of the entire graph.
+        Comment root = createComment("root", rootType, rootName);
         // adds the root comment to the CommentGraph.
-        addVertex("root", this.root);
+        addVertex("root", root);
     }
 
 
@@ -205,8 +204,8 @@ public class CommentGraph implements Serializable
     /**
      * Generates the path from one comment to another given there is a valid path.
      *
-     * @param startComment
-     * @param endComment
+     * @param startComment comment at the start of the path
+     * @param endComment ...end of the path
      * @return
      */
     public String stringPath(Comment startComment, Comment endComment)
@@ -569,8 +568,6 @@ public class CommentGraph implements Serializable
         private List<Comment> next;
         // Parent Comment
         private Comment prev;
-        // Distance to nextDistance used for Dijkstra's algorithm, may be used in the future
-        private double nextDistance;
         // Determines if Comment has been visited while path finding, may be used in the future
         private Boolean visited;
 
@@ -587,7 +584,8 @@ public class CommentGraph implements Serializable
             // Initialize parent node.
             this.prev = prev;
             // Initialize next distance as infinity as per Dijkstra's algorithm.
-            this.nextDistance = Double.POSITIVE_INFINITY;
+            // Distance to nextDistance used for Dijkstra's algorithm, may be used in the future
+            double nextDistance = Double.POSITIVE_INFINITY;
             // Initialize visited as false.
             this.visited = false;
         }

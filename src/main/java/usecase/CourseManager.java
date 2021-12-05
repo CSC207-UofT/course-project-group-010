@@ -29,10 +29,10 @@ import java.util.stream.Collectors;
 @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
-    private Course course;
+    private final Course course;
     private List<Rating> ratings;
-    private CoursePage coursePage;
-    private Map<UserType, List<String>> authDict;
+    private final CoursePage coursePage;
+    private final Map<UserType, List<String>> authDict;
 
     /**
      * Constructor of CourseManager.
@@ -55,10 +55,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param ratingNum score that a user wants to leave.
      * @param user user who leaves a rating.
      */
-    public void addRating(float ratingNum, IUser user) throws ArgumentException {
-        if (ratingNum > 10 || ratingNum < 0) {
-            throw new ArgumentException("Rating must be between 0 and 10");
-        }
+    public void addRating(double ratingNum, IUser user) throws ArgumentException {
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
@@ -67,46 +64,43 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
 
         Rating r = new Rating(user, ratingNum);
+        if (getRating(user) != null) {
+            ratingList.remove(getRating(user));
+        }
         ratingList.add(r);
         this.updateAvgScore();
 
     }
 
-    // TODO this is never used except in tests(and now I removed it from tests). Consider deleting.
     /**
-     * Updates a rating that a current user already left.
-     *
-     * @param ratingNum A rating score that a user wants to change to. (0 <= ratingNum <= 1)
-     * @param user      A user who wants to change its rating score.
-     * @throws Exception When rating cannot be updated.
+     * Gets the rating left by a user, if the user already left a rating.
+     * @param user user you are searching for.
+     * @return
      */
-//    public void updateRating(float ratingNum, IUser user) throws Exception {
-//        for (Rating r : coursePage.getRatings()) {
-//            if (r.getRater().getID().equals(user.getID())) {
-//                r.setScore(ratingNum);
-//                this.updateAvgScore();
-//                return;
-//            }
-//        }
-//        throw new Exception("Rating is not updated");
-//    }
-
+    private Rating getRating(IUser user) {
+        List<Rating> ratingList = this.coursePage.getRatings();
+        if (ratingList != null) {
+            for (Rating r : ratingList) {
+                if (r.getRater() == user) {
+                    return r;
+                }
+            }
+        }
+        return null;
+    }
 
     /**
      * Change current relative score of CoursePage.
      *
      * @param program string of program name of raters' that will be filtered.
      */
-    // TODO only used in relativerating command, if we remove that then remove this.
-    // also I made rating take IUsers and not StudentUsers. That is way too specific and will fuck up SOLID principles.
-    // I changed the way rater.getPoST is implemented so now it works with IUser.
-    public float getRelativeRating(String program) {
+    public double getRelativeRating(String program) {
         List<Rating> filteredRatings = this.ratings.stream().filter(
                 r -> r.getRaterProgramOfStudy().equals(program)).collect(Collectors.toList());
         if(filteredRatings.isEmpty()) {
             return -1;
         }
-        float total = 0;
+        double total = 0;
         for(Rating r : filteredRatings) {
             total += r.getScore();
         }
@@ -114,8 +108,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     }
 
-    public Map<String, Float> getRelativeRatings() {
-        Map<String, Float> retMap = new HashMap<>();
+    public Map<String, Double> getRelativeRatings() {
+        Map<String, Double> retMap = new HashMap<>();
         ProgramConstants pc = new ProgramConstants();
         for (String program : pc.getPossiblePrograms()) {
             if (getRelativeRating(program) != -1) {
@@ -126,32 +120,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     // Getters
-
-    // TODO getCoursePage is used once in the program(by filterinstructorcommand, which is not in use anymore), and otherwise is only called in tests. Consider deleting
-    /**
-     * Get current coursePage of courseManager.
-     *
-     * @return Current coursePage.
-     */
-    public CoursePage getCoursePage() {
-        return this.coursePage;
-    }
-
-    // TODO getComment is only called in tests, consider deleting
-//    public CommentManager getComment() throws ArgumentException {
-//        if (this.coursePage.getCommentGraph() == null) {
-//            throw new ArgumentException("No comment section. try starting one[startcomment]!");
-//        } else {
-//            return new CommentManager(this.coursePage.getCommentGraph());
-//        }
-//    }
-
-    // TODO this is only called in tests, consider deleting
-//    public List<String> getRatingPrograms() {
-//        HashSet<String> ratingPrograms = new HashSet<>();
-//        this.ratings.stream().forEach(r -> ratingPrograms.add(r.getRaterProgramOfStudy()));
-//        return ratingPrograms.stream().collect(Collectors.toList());
-//    }
 
     /**
      * Get Data about courseManager in HashMap.
@@ -181,7 +149,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
             this.coursePage.setAverageScore(-1);
             return;
         }
-        float total = 0;
+        double total = 0;
         for (Rating r : this.ratings) {
             total += r.getScore();
         }

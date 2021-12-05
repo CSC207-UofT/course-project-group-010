@@ -10,10 +10,15 @@ import java.util.Map;
 public class StudentUser implements Serializable, IUser {
 
     private final String ID; //ID
-    private String displayName; //Username
-    private Map<String, String> otherData;
+    private final String displayName; //Username
+    private final Map<String, String> otherData;
 
-    //Constructors
+    /**
+     * Initializes a new StudentUser
+     * @param displayName name
+     * @param ID id
+     * @param otherData other data, eg. programDetail.
+     */
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;
         this.ID = ID;
@@ -21,7 +26,11 @@ public class StudentUser implements Serializable, IUser {
         fixOtherData();
     }
 
-    // TODO this is only in use in tests, consider deleting(but honestly I think it's alright, idk)
+    /**
+     * Overloaded initializer, creates blank otherData
+     * @param displayName name
+     * @param ID id
+     */
     public StudentUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
@@ -62,6 +71,10 @@ public class StudentUser implements Serializable, IUser {
         fixOtherData();
     }
 
+    /**
+     * Gets data for presentation purposes
+     * @return a map of the data
+     */
     @Override
     public HashMap<String, Object> getData() {
         HashMap<String, Object> result = new HashMap<>();
@@ -71,6 +84,9 @@ public class StudentUser implements Serializable, IUser {
         return result;
     }
 
+    /**
+     * Sets the programDetail to N/A if it is invalid.
+     */
     private void fixOtherData() {
         ProgramConstants pc = new ProgramConstants();
         if (!this.otherData.containsKey("programDetail") || !pc.contains(this.otherData.get("programDetail"))) {

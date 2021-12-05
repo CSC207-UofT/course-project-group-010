@@ -19,9 +19,7 @@ public class LogoutCommand extends Command {
     /**
      * Logs out of the current user. Stops viewing the current page that the user was viewing.
      *
-     * @param ce
-     * @param arguments
-     * @return
+     * @return the result of the command
      * @throws Exception
      */
     @Override
@@ -37,6 +35,12 @@ public class LogoutCommand extends Command {
         return "logs out. format: logout";
     }
 
+    /**
+     * Checks all necessary conditions for the run() method to proceed.
+     * The user must be logged in in order to logout, basically.
+     * @throws CommandHelpException
+     * @throws CommandNotAuthorizedException
+     */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws CommandHelpException, CommandNotAuthorizedException {
         checkHelp(arguments);

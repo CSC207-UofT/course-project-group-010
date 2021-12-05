@@ -23,13 +23,6 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     private UserDatabaseGetter() throws IOException, ClassNotFoundException {
         userDict = Database.loadDB(new FileConstants().USER_FILE);
-//        Map<String, UserManager> userDict1;
-//        this.db = new Database<>();
-//        userDict1 = this.db.loadFromFile(new FileConstants().USER_FILE);
-//        if (userDict1 == null) {
-//            userDict1 = new HashMap<>();
-//        }
-//        this.userDict = userDict1;
     }
 
     public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
@@ -39,15 +32,13 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
         return instance;
     }
 
+    /**
+     * Gets a saved entry by id
+     * @param id id of the entry
+     * @return the entry
+     * @throws NotInDatabaseException
+     */
     public UserManager getEntry(String id) throws NotInDatabaseException {
-        // TODO create student/prof constants
-//        if (id.equals("12345")) {
-//            return new UserManager("student", "Kevin", "12345",
-//                    Map.ofEntries(Map.entry("programDetail", "Data Science Specialist")));
-//        }
-//        throw new NotInDatabaseException("User not found in Database.");
-        // If an entry is modified, it will reflect in this database. Therefore, we will just save all objects away
-        // before the program ends or something ??
         try {
             return this.userDict.get(id);
         } catch (Exception e) {
@@ -56,6 +47,11 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     }
 
+    /**
+     * Adds an entry to the database
+     * @param entry the entry to be added
+     * @throws CommandNotAuthorizedException
+     */
     @Override
     public void addEntry(UserManager entry) throws CommandNotAuthorizedException {
         if (!this.userDict.containsKey(entry.getID())) {
@@ -66,11 +62,20 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
         }
     }
 
+    /**
+     * checks if an id is in the database
+     * @param key the id
+     * @return
+     */
     @Override
     public boolean containsKey(String key) {
         return this.userDict.containsKey(key);
     }
 
+    /**
+     * Saves the database
+     * @throws IOException
+     */
     public void saveAll() throws IOException {
         Database.saveToFile(new FileConstants().USER_FILE, this.userDict);
     }
@@ -83,11 +88,9 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
     public String toString() {
         StringBuilder retStr = new StringBuilder();
         for (String key : this.userDict.keySet()) {
-            // TODO make it easier to access users basic info from userManager
-            // this is dependent on the abstract user class, I guess, so that's alright?
-            retStr.append(key + ": ");
+            retStr.append(key).append(": ");
             UserManager um = userDict.get(key);
-            retStr.append(um.getUser().getDisplayName() + "\n");
+            retStr.append(um.getUser().getDisplayName()).append("\n");
         }
         return retStr.toString().strip();
     }

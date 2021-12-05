@@ -1,7 +1,6 @@
 package usecase;
 
 import entity.CommentGraph;
-import entity.CommentGraph;
 import exceptions.InvalidIDException;
 import usecase.CommentManager;
 import org.junit.Test;

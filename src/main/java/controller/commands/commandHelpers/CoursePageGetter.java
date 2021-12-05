@@ -11,12 +11,25 @@ import usecase.CourseManager;
 import java.io.IOException;
 
 public class CoursePageGetter implements PageGetter {
-    private String id;
+    private final String id;
 
+    /**
+     * Initializes a new coursePageGetter that is meant to get the course with id [id]
+     * @param id the id of the course to get
+     */
     public CoursePageGetter(String id) {
         this.id = id;
     }
 
+    /**
+     * gets the course page with the specified id
+     * @param ce the command executor to put the page in
+     * @throws CommandNotAuthorizedException
+     * @throws ArgumentException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws NotInDatabaseException
+     */
     @Override
     public void getPage(CommandExecutor ce) throws CommandNotAuthorizedException, ArgumentException, IOException, ClassNotFoundException, NotInDatabaseException {
         CourseDatabaseGetter cdg = CourseDatabaseGetter.getInstance();
@@ -30,6 +43,9 @@ public class CoursePageGetter implements PageGetter {
         }
     }
 
+    /**
+     * @return The string to return if getPage is successful
+     */
     @Override
     public String getSuccessString() {
         return "now viewing course " + id;

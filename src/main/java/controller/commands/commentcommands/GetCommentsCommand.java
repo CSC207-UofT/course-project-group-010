@@ -6,7 +6,11 @@ import controller.commands.commandHelpers.CommentsPageGetter;
 
 import java.util.List;
 
+/**
+ * gets the comment section of the course page the user is currently viewing
+ */
 public class GetCommentsCommand extends Command {
+
     /**
      * Initializes the command with minimum/maximum arguments
      */
@@ -22,9 +26,9 @@ public class GetCommentsCommand extends Command {
     /**
      * Gets the comment section of the page that the user is currently viewing, if it is a course page.
      * This is integrated into checkout -c as well, currently.
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce command executor that is running
+     * @param arguments user arguments
+     * @return return string
      * @throws Exception
      */
     @Override

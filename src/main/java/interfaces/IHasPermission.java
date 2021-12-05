@@ -2,6 +2,10 @@ package interfaces;
 
 import constants.UserType;
 
+/**
+ * Any class that represents a user that may take authorizable actions, that must be given a permission level identifier
+ * in order to be authorized.
+ */
 public interface IHasPermission {
 
     /**

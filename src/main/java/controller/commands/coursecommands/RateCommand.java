@@ -2,6 +2,7 @@ package controller.commands.coursecommands;
 
 import controller.commands.Command;
 import controller.commands.CommandExecutor;
+import exceptions.ArgumentException;
 import usecase.CourseManager;
 
 import java.util.List;
@@ -24,18 +25,22 @@ public class RateCommand extends Command {
      * Rates the currently viewing page if it is a course.
      * Format is rate [1-10]
      *
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce commandExecutor
+     * @param arguments arguments(rating number)
+     * @return return string
      * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "rate");
-
         // if the user is allowed to rate, that implies it is a student viewing a coursemanager page.
-        ((CourseManager) ce.getPageManager()).addRating(Integer.parseInt(arguments.get(0)),
-                ce.getUserManager().getUser());
+        try {
+            ((CourseManager) ce.getPageManager()).addRating(Double.parseDouble(arguments.get(0)),
+                    ce.getUserManager().getUser());
+        } catch (NumberFormatException e) {
+            throw new ArgumentException("Invalid. Make sure you enter a number as a rating(you entered " + arguments.get(0) + ")");
+        }
+
         return "Rated " + ((CourseManager) ce.getPageManager()).getID();
     }
 

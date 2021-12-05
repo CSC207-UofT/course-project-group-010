@@ -20,14 +20,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     private final Map<String, CourseManager> courseDict;
 
     private CourseDatabaseGetter() throws IOException, ClassNotFoundException {
-        courseDict = Database.<CourseManager>loadDB(new FileConstants().COURSE_FILE);
-//        Map<String, CourseManager> courseDict1;
-//        this.db = new Database<>();
-//        courseDict1 = this.db.loadFromFile(new FileConstants().COURSE_FILE);
-//        if (courseDict1 == null) {
-//            courseDict1 = new HashMap<>();
-//        }
-//        this.courseDict = courseDict1;
+        courseDict = Database.loadDB(new FileConstants().COURSE_FILE);
     }
 
     public static CourseDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
@@ -37,6 +30,12 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
         return instance;
     }
 
+    /**
+     * Gets a course that is saved in the database using id.
+     * @param id the id of the course
+     * @return
+     * @throws NotInDatabaseException
+     */
     @Override
     public CourseManager getEntry(String id) throws NotInDatabaseException {
         try {
@@ -46,6 +45,11 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
         }
     }
 
+    /**
+     * Saves a new object to the database
+     * @param entry the entry to save
+     * @throws CommandNotAuthorizedException
+     */
     @Override
     public void addEntry(CourseManager entry) throws CommandNotAuthorizedException {
         if (!this.courseDict.containsKey(entry.getID())) {
@@ -62,7 +66,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     @Override
     public void saveAll() throws IOException {
-        Database.<CourseManager>saveToFile(new FileConstants().COURSE_FILE, this.courseDict);
+        Database.saveToFile(new FileConstants().COURSE_FILE, this.courseDict);
     }
 
     /**
@@ -73,10 +77,10 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     public String toString() {
         StringBuilder retStr = new StringBuilder();
         for (String key : this.courseDict.keySet()) {
-            retStr.append(key + ": ");
+            retStr.append(key).append(": ");
             Map<String, Object> dataMap = courseDict.get(key).getData();
             if (dataMap.containsKey("courseName")) {
-                retStr.append(dataMap.get("courseName") + "\n");
+                retStr.append(dataMap.get("courseName")).append("\n");
             } else {
                 retStr.append("[name missing]\n");
             }

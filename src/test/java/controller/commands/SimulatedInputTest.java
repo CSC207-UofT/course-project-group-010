@@ -3,9 +3,9 @@ package controller.commands;
 import constants.CommandConstants;
 import constants.UserType;
 import controller.commands.coursecommands.CreateCourseCommand;
+import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import usecase.CommentPresenter;
@@ -27,7 +27,7 @@ public class SimulatedInputTest {
     public static CommandExecutor ce;
 
     @BeforeClass
-    public static void setup() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void setup() {
         ce = CommandExecutor.getInstance();
         try {
             CreateCourseCommand ccm = new CreateCourseCommand();

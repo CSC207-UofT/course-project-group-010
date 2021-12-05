@@ -46,8 +46,8 @@ public class CoursePageTestnew {
         List<String> ins = new ArrayList<>();
         ins.add(instructorone.getDisplayName());
         CoursePage a = new CoursePage(courseone, ins);
-        a.setAverageScore(4.55f);
-        assertEquals(a.getAverageScore(), 4.55f, 0.0);
+        a.setAverageScore(4.55);
+        assertEquals(a.getAverageScore(), 4.55, 0.0);
     }
 }
 
