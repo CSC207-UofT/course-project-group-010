@@ -7,6 +7,9 @@ import java.util.List;
 
 public class CommentGraphTest
 {
+    /**
+     * Test the constructor
+     */
     @Test
     public void testCommentGraphConstructor()
     {
@@ -20,6 +23,9 @@ public class CommentGraphTest
         assert cg.getVertices().size() == 3;
     }
 
+    /**
+     * Tests the empty constructor
+     */
     @Test
     public void testCommentGraphEmptyConstructor()
     {
@@ -30,10 +36,15 @@ public class CommentGraphTest
         assert cg.getVertices().size() == 1;
     }
 
+    /**
+     * Tests that vertices are correctly retrieved
+     */
     @Test
     public void testGetVertices()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // get root vertex
         assert cg.getVertices().containsKey("root");
     }
 
