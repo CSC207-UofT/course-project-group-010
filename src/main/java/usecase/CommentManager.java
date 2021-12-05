@@ -146,7 +146,7 @@ public class CommentManager implements Serializable
      * Generate a path in String form from one Comment to another.
      *
      * @param startId id of Comment to start at
-     * @param endId   if of Comment to end at
+     * @param endId   id of Comment to end at
      * @return the path from one Comment to another
      */
     public String getPath(String startId, String endId)
@@ -199,9 +199,9 @@ public class CommentManager implements Serializable
     /**
      * Checks if findID is the id of one of the children of a Comment given an ID
      *
-     * @param startID
-     * @param findID
-     * @return
+     * @param startID id of Comment to start at
+     * @param findID id of comment to find
+     * @return true if findId is the id of one of the children of a Comment given an ID. false if it is not
      */
     public boolean hasChildID(String startID, String findID)
     {

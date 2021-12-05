@@ -14,7 +14,7 @@ public class CommandRequest {
     /**
      * Initializes the commandRequest, splitting into method and arguments
      *
-     * @param command
+     * @param command text command
      */
     public CommandRequest(String command) {
         String[] splitCommand = command.split(" ");

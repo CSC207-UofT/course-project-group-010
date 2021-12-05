@@ -17,7 +17,7 @@ public class AuthHelper {
      * @param a the object that the user wants to interact with
      * @param user the user
      * @param method the action the user wants to take
-     * @throws CommandNotAuthorizedException if the user is not allowed to take the action 
+     * @throws CommandNotAuthorizedException if the user is not allowed to take the action
      */
     public void checkAuth(IAuthorizable a, IHasPermission user, String method) throws CommandNotAuthorizedException {
 

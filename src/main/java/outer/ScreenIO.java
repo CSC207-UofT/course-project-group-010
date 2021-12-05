@@ -18,7 +18,7 @@ public class ScreenIO {
      * I swear
      * because it literally just takes input in a loop.
      *
-     * @param args
+     * @param args commandline for users to enter
      */
     public static void main(String[] args) throws Exception {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();

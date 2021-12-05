@@ -17,11 +17,11 @@ public class CoursePage implements Serializable {
     /**
      * A CoursePage object that stores all necessary data needed to display to the user.
      *
-     * @param course         A course object containing the Course name, code, and description.
-     * @param instructors    A list of instructors who have taught this course.
-     * @param ratings        A list of all ratings left for this course. Null if not assigned.
-     * @param averageScore   The average rating score value across all ratings for this course.
-     * @param commentGraph  A commentGraph object representing the comment section on this page. Null if not assigned.
+     * course         A course object containing the Course name, code, and description.
+     * instructors    A list of instructors who have taught this course.
+     * ratings        A list of all ratings left for this course. Null if not assigned.
+     * averageScore   The average rating score value across all ratings for this course.
+     * commentGraph  A commentGraph object representing the comment section on this page. Null if not assigned.
      */
 
     private Course course;
@@ -32,8 +32,9 @@ public class CoursePage implements Serializable {
 
     /**
      * Initializes a new coursePage
-     * @param course
-     * @param instructors
+     *
+     * @param course A course object containing the Course name, code, and description.
+     * @param instructors A list of instructors who have taught this course.
      */
     public CoursePage(Course course, List<String> instructors) {
 

@@ -7,10 +7,7 @@ import controller.commands.commandHelpers.UserPageGetter;
 
 import java.util.List;
 
-/**
- * Checks out a page or review section of a page(to be implemented later)
- * Format for now is checkout [pagename] or checkout r for reviews i guess??
- */
+
 public class CheckoutCommand extends Command {
 
     /**
@@ -26,10 +23,9 @@ public class CheckoutCommand extends Command {
      *
      * @param arguments user arguments(-c, -u or course code)
      * @return the result of the command
-     * @throws Exception
      */
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+    public String run(CommandExecutor ce, List<String> arguments) {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
@@ -37,7 +33,6 @@ public class CheckoutCommand extends Command {
         PageGetter pg = getPageGetter(arg);
         pg.getPage(ce);
 
-        // previous line will throw exception if it fails, so we assume it was successful here.
         return pg.getSuccessString();
     }
 
@@ -49,6 +44,7 @@ public class CheckoutCommand extends Command {
 
     /**
      * factory method that gets the pageGetter corresponding to user input
+     *
      * @param argument user input argument
      * @return the PageGetter
      */

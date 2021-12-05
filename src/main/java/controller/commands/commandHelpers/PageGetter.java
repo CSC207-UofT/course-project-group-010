@@ -13,12 +13,8 @@ import java.io.IOException;
 public interface PageGetter {
     /**
      * Gets a page of a certain type
-     * @param ce
-     * @throws CommandNotAuthorizedException
-     * @throws ArgumentException
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws NotInDatabaseException
+     *
+     * @param ce the necessary information for executing a command
      */
     void getPage(CommandExecutor ce) throws CommandNotAuthorizedException, ArgumentException, IOException, ClassNotFoundException, NotInDatabaseException;
 
