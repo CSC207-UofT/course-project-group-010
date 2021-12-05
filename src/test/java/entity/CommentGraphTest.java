@@ -209,15 +209,20 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that the formatted representation works
+     */
     @Test
     public void testFormattedRepresentation()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         CommentGraph.Comment comment = cg.getComment("root");
-
+        // expected string
         String expected = "[> Test [id: root], Test, [+] 0 [-]]";
+        // actual representation
         String actual = comment.formattedRepresentation().toString();
-
+        // check that the representation is correct
         assert expected.equals(actual);
     }
 
