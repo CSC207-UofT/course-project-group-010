@@ -4,7 +4,12 @@ import controller.commands.commandHelpers.CommentsPageGetter;
 import controller.commands.commandHelpers.CoursePageGetter;
 import controller.commands.commandHelpers.PageGetter;
 import controller.commands.commandHelpers.UserPageGetter;
+import exceptions.ArgumentException;
+import exceptions.CommandHelpException;
+import exceptions.CommandNotAuthorizedException;
+import exceptions.NotInDatabaseException;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -25,7 +30,7 @@ public class CheckoutCommand extends Command {
      * @return the result of the command
      */
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) {
+    public String run(CommandExecutor ce, List<String> arguments) throws CommandHelpException, ArgumentException, CommandNotAuthorizedException, NotInDatabaseException, IOException, ClassNotFoundException {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
