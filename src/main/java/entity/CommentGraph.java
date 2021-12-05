@@ -407,7 +407,7 @@ public class CommentGraph implements Serializable
          */
         private Comment(NavigationAttributes nav, InformationAttributes info, int depth)
         {
-            // Initializes NavivationAttributes.
+            // Initializes NavigationAttributes.
             this.nav = nav;
             // Initializes InformationAttributes.
             this.info = info;

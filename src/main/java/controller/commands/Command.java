@@ -95,7 +95,7 @@ public abstract class Command {
     /**
      * Checks all necessary conditions for a command to run.
      * By default, checks that the user is logged in, viewing a page, and is authorized to take
-     * some inputted action on the page. This is standard for most commands, but is overriden by others(eg. HelpCommand)
+     * some inputted action on the page. This is standard for most commands, but is overridden by others(eg. HelpCommand)
      * @param method command method to be checked for authorization.
      * @throws Exception
      */

@@ -14,7 +14,7 @@ public class ScreenIO {
 
     /**
      * This is a CLI that prompts the user and prints the output.
-     * Idea is basically stolen from Java-Shell, but this is academically integrit
+     * Idea is basically stolen from Java-Shell, but this is academically integrity
      * I swear
      * because it literally just takes input in a loop.
      *
