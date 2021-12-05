@@ -192,15 +192,20 @@ public class CommentGraphTest
         assert cg.getVertices().get("root").getVote() == -1;
     }
 
+    /**
+     * Tests that string representation works
+     */
     @Test
     public void testToString()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         CommentGraph.Comment comment = cg.getComment("root");
-
+        // expected string
         String expected = "Test root 0 Test";
+        // actual representation
         String actual = comment.toString();
-
+        // check that representation is correct
         assert expected.equals(actual);
     }
 
