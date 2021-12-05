@@ -64,13 +64,20 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that maximum depth if correctly retrieved
+     */
     @Test
     public void testGetMaxDepth()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         cg.reply("root", "sampleText1", "sampleUser1");
+        // expected value
         int expected = 1;
+        // get maximum depth
         int actual = cg.getMaxDepth();
+        // check maximum depth is the same
         assert expected == actual;
     }
 
