@@ -21,7 +21,8 @@ public class ReplyCommand extends Command {
 
     @Override
     public String help() {
-        return "Replies to a comment. Format: reply [commendID]. \nYou will be prompted for text.";
+        return "Replies to a comment. Format: reply [commendID], or reply to reply to the comment you are currently viewing. " +
+                "\nYou will be prompted for text.";
     }
 
     /**
