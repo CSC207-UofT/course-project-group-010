@@ -20,7 +20,6 @@ public class LogoutCommand extends Command {
      * Logs out of the current user. Stops viewing the current page that the user was viewing.
      *
      * @return the result of the command
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -38,8 +37,6 @@ public class LogoutCommand extends Command {
     /**
      * Checks all necessary conditions for the run() method to proceed.
      * The user must be logged in in order to logout, basically.
-     * @throws CommandHelpException
-     * @throws CommandNotAuthorizedException
      */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws CommandHelpException, CommandNotAuthorizedException {
