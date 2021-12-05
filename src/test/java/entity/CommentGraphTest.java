@@ -166,11 +166,16 @@ public class CommentGraphTest
         assert cg.getVertices().size() == 2;
     }
 
+    /**
+     * Tests that the upvote functionality works
+     */
     @Test
     public void testUpvote()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         cg.upvote("root");
+        // check that the vote is correct
         assert cg.getVertices().get("root").getVote() == 1;
     }
 
