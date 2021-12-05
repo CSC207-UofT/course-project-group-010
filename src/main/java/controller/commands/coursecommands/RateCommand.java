@@ -28,7 +28,7 @@ public class RateCommand extends Command {
      * @param ce commandExecutor
      * @param arguments arguments(rating number)
      * @return return string
-     * @throws Exception
+     * @throws Exception if rating number is invalid
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

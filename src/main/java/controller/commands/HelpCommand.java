@@ -16,7 +16,6 @@ public class HelpCommand extends Command {
      * For individual command help text, you can type [method] -h
      *
      * @return the help string
-     * @throws Exception
      */
     @SuppressWarnings("UnnecessaryLocalVariable")
     @Override

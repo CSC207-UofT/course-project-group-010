@@ -15,6 +15,7 @@ public class CoursePageGetter implements PageGetter {
 
     /**
      * Initializes a new coursePageGetter that is meant to get the course with id [id]
+     *
      * @param id the id of the course to get
      */
     public CoursePageGetter(String id) {
@@ -23,12 +24,8 @@ public class CoursePageGetter implements PageGetter {
 
     /**
      * gets the course page with the specified id
+     *
      * @param ce the command executor to put the page in
-     * @throws CommandNotAuthorizedException
-     * @throws ArgumentException
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws NotInDatabaseException
      */
     @Override
     public void getPage(CommandExecutor ce) throws CommandNotAuthorizedException, ArgumentException, IOException, ClassNotFoundException, NotInDatabaseException {

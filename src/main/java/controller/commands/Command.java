@@ -36,14 +36,12 @@ public abstract class Command {
      *
      * @param arguments user arguments
      * @return the string output that the user should see.
-     * @throws Exception
      */
     abstract public String run(CommandExecutor ce, List<String> arguments) throws Exception;
 
     /**
-     * returns the help string for a command. May not be implemented yet.
      *
-     * @return
+     * @return the help string for a command.
      */
     public String help() {
         return "Help for this command is not available at this time";
@@ -54,7 +52,7 @@ public abstract class Command {
     /**
      * IF the user typed -h, returns the help string immediately.
      * @param arguments user arguments
-     * @throws CommandHelpException
+     * @throws CommandHelpException if the help string is not available
      */
     protected void checkHelp(List<String> arguments) throws CommandHelpException {
         if (arguments.size() > 0 && arguments.get(0).equalsIgnoreCase("-h")) {
@@ -74,7 +72,7 @@ public abstract class Command {
 
     /**
      * Checks that a user exists in the CommandExecutor.
-     * @throws CommandNotAuthorizedException
+     * @throws CommandNotAuthorizedException if the user is not logged in
      */
     protected void checkUserExists(CommandExecutor ce) throws CommandNotAuthorizedException {
         if (ce.getUserManager() == null) {
@@ -84,7 +82,7 @@ public abstract class Command {
 
     /**
      * Checks that the user is viewing a page in the CommandExecutor
-     * @throws ArgumentException
+     * @throws ArgumentException if user is not viewing any pages
      */
     protected void checkViewingPageExists(CommandExecutor ce) throws ArgumentException {
         if (ce.getPageManager() == null) {
@@ -97,7 +95,6 @@ public abstract class Command {
      * By default, checks that the user is logged in, viewing a page, and is authorized to take
      * some inputted action on the page. This is standard for most commands, but is overridden by others(eg. HelpCommand)
      * @param method command method to be checked for authorization.
-     * @throws Exception
      */
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);

@@ -10,7 +10,8 @@ public interface IHasPermission {
 
     /**
      * Gets the type of user, to identify what permissions they have.
-     * @return
+     *
+     * @return the permission level the type of user have
      */
     UserType getPermissionLevel();
 }

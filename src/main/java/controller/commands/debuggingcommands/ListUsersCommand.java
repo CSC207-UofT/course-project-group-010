@@ -16,10 +16,11 @@ public class ListUsersCommand extends Command {
 
     /**
      * Lists all available users and their IDs.
-     * @param ce commandExecutor
+     *
+     * @param ce        commandExecutor
      * @param arguments user arguments(none required)
      * @return string representation of all users in database.
-     * @throws Exception
+     * @throws Exception if the users and their IDs could not find
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -36,7 +37,6 @@ public class ListUsersCommand extends Command {
 
     /**
      * checks all necessary requirements for the run() method to proceed
-     * @throws Exception
      */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
