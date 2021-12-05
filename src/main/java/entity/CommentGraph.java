@@ -206,7 +206,7 @@ public class CommentGraph implements Serializable
      *
      * @param startComment comment at the start of the path
      * @param endComment ...end of the path
-     * @return
+     * @return string representing path
      */
     public String stringPath(Comment startComment, Comment endComment)
     {
@@ -218,17 +218,14 @@ public class CommentGraph implements Serializable
         Collections.reverse(path);
 
         //convert path to formatted String representation
-        String strPath = "";
+        StringBuilder strPath = new StringBuilder();
         for (Comment comment : path)
         {
-            strPath = strPath +
-                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(0) + "\n" +
-                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(1) + "\n" +
-                    "    ".repeat(comment.depth) + comment.formattedRepresentation().get(2) + "\n\n";
+            strPath.append("    ".repeat(comment.depth)).append(comment.formattedRepresentation().get(0)).append("\n").append("    ".repeat(comment.depth)).append(comment.formattedRepresentation().get(1)).append("\n").append("    ".repeat(comment.depth)).append(comment.formattedRepresentation().get(2)).append("\n\n");
         }
 
         // return String representation.
-        return strPath;
+        return strPath.toString();
     }
 
 //======================================================================================================================
@@ -312,13 +309,8 @@ public class CommentGraph implements Serializable
      */
     public void reply(String prevId, String text, String userName)
     {
-        // if the reply has no text or the parent id is not in the dictionary of vertices
-        if (text.equals("") || !this.vertices.containsKey(prevId))
-        {
-            // do nothing
-        }
-        //otherwise
-        else
+        // not if the reply has no text or the parent id is not in the dictionary of vertices
+        if (!(text.equals("") || !this.vertices.containsKey(prevId)))
         {
             // generate unique id for comment
             String uniqueId = genUniqueId();
@@ -388,6 +380,7 @@ public class CommentGraph implements Serializable
      * The Comment class are the nodes for the CommentGraph. It stores all attributes related to comments, including
      * navigation attributes, and information attributes.
      */
+    @SuppressWarnings({"FieldMayBeFinal", "CanBeFinal"})
     public class Comment implements Serializable
     {
         // navigation attributes for the Comment.
@@ -405,6 +398,7 @@ public class CommentGraph implements Serializable
          * @param info  InformationAttributes of the Comment.
          * @param depth of the Comment.
          */
+        @SuppressWarnings("SameParameterValue")
         private Comment(NavigationAttributes nav, InformationAttributes info, int depth)
         {
             // Initializes NavigationAttributes.
@@ -483,16 +477,6 @@ public class CommentGraph implements Serializable
         }
 
         /**
-         * Getter that returns whether the Comment has been visited or not.
-         *
-         * @return true or false.
-         */
-        public Boolean getVisited()
-        {
-            return this.nav.visited;
-        }
-
-        /**
          * Getter that returns the id of the Comment.
          *
          * @return String id.
@@ -562,14 +546,13 @@ public class CommentGraph implements Serializable
     /**
      * NavigationAttributes stores values used for navigation for the Comment class.
      */
+    @SuppressWarnings({"FieldMayBeFinal", "CanBeFinal"})
     public class NavigationAttributes implements Serializable
     {
         // List of children Comments
         private List<Comment> next;
         // Parent Comment
         private Comment prev;
-        // Determines if Comment has been visited while path finding, may be used in the future
-        private Boolean visited;
 
         /**
          * Constructor for NavigationAttributes.
@@ -577,6 +560,7 @@ public class CommentGraph implements Serializable
          * @param next children nodes.
          * @param prev parent node.
          */
+        @SuppressWarnings("SameParameterValue")
         private NavigationAttributes(List<Comment> next, Comment prev)
         {
             // Initialize children nodes.
@@ -584,16 +568,13 @@ public class CommentGraph implements Serializable
             // Initialize parent node.
             this.prev = prev;
             // Initialize next distance as infinity as per Dijkstra's algorithm.
-            // Distance to nextDistance used for Dijkstra's algorithm, may be used in the future
-            double nextDistance = Double.POSITIVE_INFINITY;
-            // Initialize visited as false.
-            this.visited = false;
         }
     }
 
     /**
      * InformationAttributes stores values used for textual information for the Comment class.
      */
+    @SuppressWarnings({"FieldMayBeFinal", "CanBeFinal", "InnerClassMayBeStatic"})
     public class InformationAttributes implements Serializable
     {
         // id of Comment.
