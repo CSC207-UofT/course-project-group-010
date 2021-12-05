@@ -23,10 +23,11 @@ public class Database<T extends IDBSaveable & Serializable> {
 
     /**
      * Static method that "loads" the database(returns a map that represents the database)
+     *
      * @param filePath
      * @param <T>
      * @return
-     * @throws IOException if input/output is invalid
+     * @throws IOException            if input/output is invalid
      * @throws ClassNotFoundException if the class is not found
      */
     public static <T extends IDBSaveable & Serializable> Map<String, T> loadDB(String filePath) throws IOException, ClassNotFoundException {
@@ -37,7 +38,8 @@ public class Database<T extends IDBSaveable & Serializable> {
 
     /**
      * Static method that saves the db contents to a file.
-     * @param filePath
+     *
+     * @param filePath the path of file
      * @param objects
      * @param <T>
      * @throws IOException if input/output is invalid
@@ -60,10 +62,10 @@ public class Database<T extends IDBSaveable & Serializable> {
     /**
      * Loads a map of DBSaveable object ids to objects.
      *
-     * @param filePath
+     * @param filePath the path of file
      * @return the map, or an empty map otherwise.
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException            if input/output is invalid
+     * @throws ClassNotFoundException if the class is not found
      */
     public Map<String, T> loadFromFile(String filePath) throws IOException, ClassNotFoundException {
         File dbFile = new File(filePath);
