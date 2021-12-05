@@ -8,9 +8,10 @@ import java.io.Serializable;
 public class Rating implements Serializable {
 
     private final IUser rater;
-    private final float score;
+    private double score;
 
-    public Rating(IUser rater, float score) {
+
+    public Rating(IUser rater, double score) {
         this.rater = rater;
         this.score = score;
     }
@@ -29,12 +30,12 @@ public class Rating implements Serializable {
      *
      * @return Score
      */
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
     @Override
     public String toString() {
-        return Float.toString(getScore());
+        return Double.toString(getScore());
     }
 }

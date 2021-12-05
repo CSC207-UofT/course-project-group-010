@@ -55,7 +55,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param ratingNum score that a user wants to leave.
      * @param user user who leaves a rating.
      */
-    public void addRating(float ratingNum, IUser user) throws ArgumentException {
+    public void addRating(double ratingNum, IUser user) throws ArgumentException {
         if (ratingNum > 10 || ratingNum < 0) {
             throw new ArgumentException("Rating must be between 0 and 10");
         }
@@ -77,13 +77,13 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      *
      * @param program string of program name of raters' that will be filtered.
      */
-    public float getRelativeRating(String program) {
+    public double getRelativeRating(String program) {
         List<Rating> filteredRatings = this.ratings.stream().filter(
                 r -> r.getRaterProgramOfStudy().equals(program)).collect(Collectors.toList());
         if(filteredRatings.isEmpty()) {
             return -1;
         }
-        float total = 0;
+        double total = 0;
         for(Rating r : filteredRatings) {
             total += r.getScore();
         }
@@ -91,8 +91,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
 
     }
 
-    public Map<String, Float> getRelativeRatings() {
-        Map<String, Float> retMap = new HashMap<>();
+    public Map<String, Double> getRelativeRatings() {
+        Map<String, Double> retMap = new HashMap<>();
         ProgramConstants pc = new ProgramConstants();
         for (String program : pc.getPossiblePrograms()) {
             if (getRelativeRating(program) != -1) {
@@ -132,7 +132,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
             this.coursePage.setAverageScore(-1);
             return;
         }
-        float total = 0;
+        double total = 0;
         for (Rating r : this.ratings) {
             total += r.getScore();
         }

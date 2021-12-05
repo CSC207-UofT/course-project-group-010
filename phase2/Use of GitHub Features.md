@@ -4,7 +4,9 @@ We have used the following GitHub Features:
 
 1. Issues
 
+
 - We use the issues section to create tickets about our program.
+
 
 2. Pull requests
 
