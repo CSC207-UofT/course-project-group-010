@@ -15,8 +15,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * The CourseManager modifies the information in CoursePage. Reflecting relative scores depending
- * on student's program.
+ * The CourseManager handles modification and retrieval of information in a CoursePage object.
+ *
+ * For example;
+ *
+ * Updating the commentGraph in the CoursePage object when a user leaves an upvote/new reply to a thread,
+ *
+ * Retrieval of the ratings left by only the students in a specific program for this CoursePage,
+ *
+ * Update the rating of this course when a user provides a new ratings, and more.
  *
  * Example usage:
  * CourseManager courseManager = new CourseManager(coursePage);
@@ -29,10 +36,10 @@ import java.util.stream.Collectors;
 @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
-    private Course course;
+    private final Course course;
     private List<Rating> ratings;
     private CoursePage coursePage;
-    private Map<UserType, List<String>> authDict;
+    private final Map<UserType, List<String>> authDict;
 
     /**
      * Constructor of CourseManager.
@@ -46,6 +53,9 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         this.coursePage = coursePage;
     }
 
+    /**
+     * @return The commentGraph for the CoursePage.
+     */
     public CommentManager getCommentSection() {
         return this.coursePage.getThread();
     }
@@ -73,6 +83,8 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     }
 
     // TODO this is never used except in tests(and now I removed it from tests). Consider deleting.
+    // TODO #2 this can be used when a user may want to change their ratings, since a user can leave infinite ratings
+    // TODO we should consider using this somewhere.
     /**
      * Updates a rating that a current user already left.
      *

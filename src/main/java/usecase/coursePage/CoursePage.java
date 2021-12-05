@@ -11,15 +11,7 @@ import java.util.List;
 
 public class CoursePage implements Serializable {
 
-    /**
-     * A CoursePage object that stores all necessary data needed to display to the user.
-     *
-     * @param course         A course object containing the Course name, code, and description.
-     * @param instructors    A list of instructors who have taught this course.
-     * @param ratings        A list of all ratings left for this course. Null if not assigned.
-     * @param averageScore   The average rating score value across all ratings for this course.
-     * @param commentGraph  A commentGraph object representing the comment section on this page. Null if not assigned.
-     */
+
 
     private Course course;
     private List<String> instructors;
@@ -27,33 +19,14 @@ public class CoursePage implements Serializable {
     private float averageScore;
     private CommentGraph commentGraph;
 
-
     /**
-     *    { Mathematics:  { Specialist: [Rating1, Rating2, Rating3]
-     *                       Major: [Rating1, Rating2, Rating3]
-     *                       Minor: [Rating1, Rating2, Rating3] }
+     * A CoursePage object that stores all necessary data needed to display to the user.
+     * The constructor requires a Course object and a List of instructors who have taught that course to initialize.
+     * The ratings parameter is an empty array by default, and may be updated as needed in other domains.
      *
-     *      Philosophy:   { Specialist: [Rating1, Rating2, Rating3]
-     *                       Major: [Rating1, Rating2, Rating3]
-     *                       Minor: [Rating1, Rating2, Rating3] }
-     *
-     *
-     *      Computer Science: { Specialist: [Rating1, Rating2, Rating3]
-     *                              Major: [Rating1, Rating2, Rating3]
-     *                              Minor: [Rating1, Rating2, Rating3] }
-     *
-     *    Constants for programs:
-     *
-     *
-     *
+     * @param course         A course object containing the Course name, code, and description.
+     * @param instructors    A list of instructors who have taught this course.
      */
-
-//    public float getRelativeRating(List<Rating> ratings) {
-//        HashMap<String, HashMap<String, List<Rating>>> programToRating = new HashMap<>();
-//        for (Rating r : ratings) {
-//            programToRating.put()
-//        }
-//    }
 
     public CoursePage(Course course, List<String> instructors) {
 
@@ -87,15 +60,8 @@ public class CoursePage implements Serializable {
     }
 
 
-    //Setters
-
-    // Set information for course Page
     public void setCourse(Course course) {
         this.course = course;
-    }
-
-    public void setInstructors(List<String> instructors) {
-        this.instructors = instructors;
     }
 
     public void setRatings(List<Rating> ratings) {
