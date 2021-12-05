@@ -16,8 +16,6 @@ public class UserFactory {
      * @param otherData   other data.
      * @return created Student user or throw "couldn't initialize user" message.
      */
-
-    //
     public IUser getUser(UserType userType, String displayName, String ID, Map<String, String> otherData) throws ArgumentException {
         switch (userType) {
             case STUDENT:

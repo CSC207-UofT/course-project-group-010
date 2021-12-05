@@ -16,9 +16,9 @@ public class ListUsersCommand extends Command {
 
     /**
      * Lists all available users and their IDs.
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce commandExecutor
+     * @param arguments user arguments(none required)
+     * @return string representation of all users in database.
      * @throws Exception
      */
     @Override
@@ -34,6 +34,10 @@ public class ListUsersCommand extends Command {
         return "This is a DEBUGGING method, that will list all available users and their IDs";
     }
 
+    /**
+     * checks all necessary requirements for the run() method to proceed
+     * @throws Exception
+     */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);

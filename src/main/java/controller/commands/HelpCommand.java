@@ -17,15 +17,12 @@ public class HelpCommand extends Command {
      * Returns a list of command method names, and their entire help string.
      * For individual command help text, you can type [method] -h
      *
-     * @param ce
-     * @param arguments
-     * @return
+     * @return the help string
      * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkArgumentsNum(arguments);
-        // TODO quickstart command for quick start help
         String retStr = "Welcome to the course system! You can login and view/interact with courses\n" +
                 "For any of the following commands, type [commandname] -h for detailed usage.\n" +
                 "type 'end' to end the program. It will automatically save all progress\n" +
@@ -33,16 +30,11 @@ public class HelpCommand extends Command {
                 "- [Debugging] getting started: newuser, createcourse, listusers, listcourses\n" +
                 "- Logging in: login, logout\n" +
                 "- Basic functions: checkout, print, rate\n" +
-                "- Comment Navigation: displayfullthread[deprecated], displaysubsetthread, getcomments[deprecated], getpath\n" +
+                "- Comment Navigation: getcomments[deprecated], cd\n" +
                 "- Comment Interaction: vote, reply\n" +
                 "- Saving: saveall";
 
         return retStr;
 
-    }
-
-    @Override
-    public String help() {
-        return "Help command";
     }
 }

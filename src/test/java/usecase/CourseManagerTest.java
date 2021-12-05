@@ -3,6 +3,7 @@ package usecase;
 import constants.UserType;
 import entity.StudentUser;
 import exceptions.ArgumentException;
+import interfaces.IUser;
 import org.junit.Before;
 import org.junit.Test;
 import usecase.coursePage.CoursePage;
@@ -48,7 +49,19 @@ public class CourseManagerTest {
         assertEquals(true, cm.getRelativeRatings().containsKey(u.getProgramDetail()));
         assertEquals(10, cm.getRelativeRating(u.getProgramDetail()), 0.1);
         cm.addRating(5, u);
+        assertEquals(5.0, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+    }
+
+    @Test
+    public void testMultipleUserRatings() throws ArgumentException {
+        cm.addRating(10, u);
+        IUser u2 = new StudentUser("kev2", "kev2");
+        cm.addRating(5, u2);
+        assertEquals(7.5, (Double) cm.getData().get("rating"), 0.1);
         assertEquals(7.5, cm.getRelativeRating(u.getProgramDetail()), 0.1);
+        cm.addRating(5, u);
+        assertEquals(5.0, (Double) cm.getData().get("rating"), 0.1);
+        assertEquals(5.0, cm.getRelativeRating(u.getProgramDetail()), 0.1);
     }
 
     @Test

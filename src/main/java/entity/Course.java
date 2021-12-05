@@ -7,9 +7,11 @@ public class Course implements Serializable {
     final String code; // Course code; i.e CSC110
     String description; // Default description of the course that may be altered.
 
-
-    //Constructor
-
+    /**
+     * Initializes a new couse
+     * @param name the display name of the course
+     * @param code the course code eg. MAT137
+     */
     public Course(String name, String code) {
         this.name = name;
         this.code = code;
@@ -52,12 +54,13 @@ public class Course implements Serializable {
 
 
     //Setters
+
+    /**
+     * Sets the course's description
+     * @param s new description
+     */
     public void setDescription(String s) {
         this.description = s;
     }
-    public void setName(String s) {this.name = s;}
-    // TODO not used, delete.
-    // public void setCode(String c) {this.code = c;}
-
 
 }

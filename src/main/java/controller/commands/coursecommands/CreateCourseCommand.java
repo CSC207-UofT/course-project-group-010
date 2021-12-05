@@ -28,9 +28,9 @@ public class CreateCourseCommand extends Command {
 
     /**
      * Prompts the user to create a new course.
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce command executor
+     * @param arguments arguments(none required)
+     * @return the return string
      * @throws Exception
      */
     @Override
@@ -45,12 +45,28 @@ public class CreateCourseCommand extends Command {
 
     }
 
+    /**
+     * Checks all necessary requirements are satisfied for run() method to proceed
+     * @param ce commandExecutor
+     * @param arguments arguments
+     * @param method method(createCourse)
+     * @throws Exception
+     */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
     }
 
+    /**
+     * Constructs the course, using coursePageBuilder
+     * @param course the course info, as a list
+     * @param instructor the instructor info, as a list
+     * @return the return string
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws CommandNotAuthorizedException
+     */
     private String constructCourse(List<String> course, List<String> instructor) throws IOException, ClassNotFoundException, CommandNotAuthorizedException {
         // Create the builder
         CoursePageBuilder cpb = new CoursePageBuilder();

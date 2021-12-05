@@ -1,5 +1,6 @@
 package entity;
 
+import exceptions.ArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class RatingTest {
     Rating rating;
 
     @Before
-    public void init() {
+    public void init() throws ArgumentException {
         sampleStudent = new StudentUser("Sam", "4000");
         sampleStudent.setProgramDetail("DATA SCIENCE");
         rating = new Rating(sampleStudent, 10.0);

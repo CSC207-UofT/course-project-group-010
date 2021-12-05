@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A course page, that holds a course, related ratings and comment section(commentGraph)
+ */
 public class CoursePage implements Serializable {
 
     /**
@@ -27,40 +30,19 @@ public class CoursePage implements Serializable {
     private double averageScore;
     private CommentGraph commentGraph;
 
-
     /**
-     *    { Mathematics:  { Specialist: [Rating1, Rating2, Rating3]
-     *                       Major: [Rating1, Rating2, Rating3]
-     *                       Minor: [Rating1, Rating2, Rating3] }
-     *
-     *      Philosophy:   { Specialist: [Rating1, Rating2, Rating3]
-     *                       Major: [Rating1, Rating2, Rating3]
-     *                       Minor: [Rating1, Rating2, Rating3] }
-     *
-     *
-     *      Computer Science: { Specialist: [Rating1, Rating2, Rating3]
-     *                              Major: [Rating1, Rating2, Rating3]
-     *                              Minor: [Rating1, Rating2, Rating3] }
-     *
-     *    Constants for programs:
-     *
-     *
-     *
+     * Initializes a new coursePage
+     * @param course
+     * @param instructors
      */
-
-//    public float getRelativeRating(List<Rating> ratings) {
-//        HashMap<String, HashMap<String, List<Rating>>> programToRating = new HashMap<>();
-//        for (Rating r : ratings) {
-//            programToRating.put()
-//        }
-//    }
-
     public CoursePage(Course course, List<String> instructors) {
 
         this.course = course;
         this.instructors = instructors;
         this.ratings = new ArrayList<>();
     }
+
+    // Getters
 
     public Course getCourse() {
         return this.course;

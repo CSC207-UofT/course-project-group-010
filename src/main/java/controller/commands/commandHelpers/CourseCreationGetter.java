@@ -8,6 +8,10 @@ import java.util.Scanner;
  * Gets user input for the necessary fields of course creation
  */
 public class CourseCreationGetter {
+    /**
+     * Gets user input for the purpose of course creation, converting to a list format that can be used by CoursePageBuilder
+     * @return the list format to be used by coursePageBuilder
+     */
     public List<List<String>> getUserInput() {
         Scanner in = new Scanner(System.in);
         ArrayList<String> course = new ArrayList<>();

@@ -53,8 +53,8 @@ public class CommentGraph implements Serializable
     /**
      * Initializes an empty CommentGraph with only a root comment.
      *
-     * @param rootType
-     * @param rootName
+     * @param rootType type of the root comment
+     * @param rootName name of the root comment
      */
     public CommentGraph(String rootType, String rootName)
     {
@@ -204,8 +204,8 @@ public class CommentGraph implements Serializable
     /**
      * Generates the path from one comment to another given there is a valid path.
      *
-     * @param startComment
-     * @param endComment
+     * @param startComment comment at the start of the path
+     * @param endComment ...end of the path
      * @return
      */
     public String stringPath(Comment startComment, Comment endComment)

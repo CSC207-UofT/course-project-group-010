@@ -12,7 +12,6 @@ import java.util.List;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CommentManager Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// TODO delete anything that isn't used, and justify the existence of the other methods in this class.
 /**
  * Class that handles comments in a CommentGraph
  */
@@ -217,6 +216,11 @@ public class CommentManager implements Serializable
         return false;
     }
 
+    /**
+     * Gets child ids of a comment(ids of all the replies)
+     * @param startID id of the comment to get child IDs for
+     * @return the child IDs, as a list
+     */
     public List<String> getChildIDs(String startID) {
         List<CommentGraph.Comment> lst = this.commentGraph.getComment(startID).getNext();
         List<String> childIDs = new ArrayList<>();
