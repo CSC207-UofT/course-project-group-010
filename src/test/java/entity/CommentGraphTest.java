@@ -226,19 +226,26 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that id generation works correctly
+     */
     @Test
     public void testGetId()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         String expected = "root";
+        // actual value
         String actual = cg.getComment("root").getId();
-
+        // check that actual and expected are the same
         assert expected.equals(actual);
     }
 
     @Test
     public void testGetText()
     {
+
         CommentGraph cg = new CommentGraph("Test", "Test");
         String expected = "Test";
         String actual = cg.getComment("root").getText();
@@ -249,6 +256,7 @@ public class CommentGraphTest
     @Test
     public void testGetUserName()
     {
+
         CommentGraph cg = new CommentGraph("Test", "Test");
         String expected = "Test";
         String actual = cg.getComment("root").getUserName();
@@ -259,6 +267,7 @@ public class CommentGraphTest
     @Test
     public void testGetVote()
     {
+
         CommentGraph cg = new CommentGraph("Test", "Test");
         int expected = 0;
         int actual = cg.getComment("root").getVote();
@@ -269,6 +278,7 @@ public class CommentGraphTest
     @Test
     public void testGetDepth()
     {
+
         CommentGraph cg = new CommentGraph("Test", "Test");
         int expected = 0;
         int actual = cg.getComment("root").getDepth();
@@ -279,6 +289,7 @@ public class CommentGraphTest
     @Test
     public void testGetFormattedRepresentation()
     {
+
         CommentGraph cg = new CommentGraph("Test", "Test");
         CommentGraph.Comment comment = cg.getComment("root");
 
