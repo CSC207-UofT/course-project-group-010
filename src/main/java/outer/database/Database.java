@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @param <T>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("ALL")
 public class Database<T extends IDBSaveable & Serializable> {
     // TODO [HIGH PRIO] work on DBs another day
     // TODO TODO TODO DatabaseGetter currently instantiates database, this is VERY BAD, fix.

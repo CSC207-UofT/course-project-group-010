@@ -312,14 +312,8 @@ public class CommentGraph implements Serializable
      */
     public void reply(String prevId, String text, String userName)
     {
-        // if the reply has no text or the parent id is not in the dictionary of vertices
-        if (text.equals("") || !this.vertices.containsKey(prevId))
-        {
-            // do nothing
-        }
-        //otherwise
-        else
-        {
+        // If the reply has text and there is a comment with matching prevId
+        if (!text.equals("") && this.vertices.containsKey(prevId)) {
             // generate unique id for comment
             String uniqueId = genUniqueId();
             // create comment with unique id, text, and name of the user

@@ -19,6 +19,7 @@ public class AuthHelper {
      * @param method the action the user wants to take
      * @throws CommandNotAuthorizedException
      */
+    @SuppressWarnings("StatementWithEmptyBody")
     public void checkAuth(IAuthorizable a, IHasPermission user, String method) throws CommandNotAuthorizedException {
 
         Map<UserType, List<String>> authDict = a.getAuthDict();

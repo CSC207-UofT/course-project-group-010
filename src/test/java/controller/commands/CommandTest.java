@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Basic test of the command classes and the commandExecutor.
@@ -45,6 +46,6 @@ public class CommandTest {
         map1.put(CommandConstants.allDataString, "hello");
         map2.put("hello", "goodbye");
         assertEquals("hello", dp.printData(map1));
-        assertEquals(true, dp.printData(map2).contains("hello"));
+        assertTrue(dp.printData(map2).contains("hello"));
     }
 }

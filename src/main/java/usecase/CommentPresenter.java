@@ -2,7 +2,6 @@ package usecase;
 
 import constants.CommandConstants;
 import constants.UserType;
-import entity.CommentGraph;
 import exceptions.ArgumentException;
 import exceptions.InvalidIDException;
 import interfaces.IReadModifiable;
@@ -153,7 +152,7 @@ public class CommentPresenter implements IReadModifiable {
      * @throws InvalidIDException if we cannot find a parent comment
      */
     private void checkoutParentID() throws InvalidIDException {
-        if (cm.getParentComment(this.currentID) instanceof CommentGraph.Comment) {
+        if (cm.getParentComment(this.currentID) != null) {
             this.currentID = cm.getParentComment(this.currentID).getId();
             this.fullPath = this.fullPath.substring(0, this.fullPath.lastIndexOf("/"));
             this.fullPath = this.fullPath.trim();

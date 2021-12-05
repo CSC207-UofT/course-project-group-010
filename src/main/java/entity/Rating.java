@@ -1,7 +1,6 @@
 package entity;
 
 import exceptions.ArgumentException;
-import exceptions.CommandNotAuthorizedException;
 import interfaces.IUser;
 
 import java.io.Serializable;

@@ -1,7 +1,5 @@
 package controller.commands;
 
-import constants.CommandConstants;
-
 import java.util.List;
 
 public class HelpCommand extends Command {

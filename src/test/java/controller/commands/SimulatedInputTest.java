@@ -3,7 +3,6 @@ package controller.commands;
 import constants.CommandConstants;
 import constants.UserType;
 import controller.commands.coursecommands.CreateCourseCommand;
-import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -23,6 +22,7 @@ import static org.junit.Assert.*;
  * contains basic tests for the entire COMMANDS package. These tests simulate user input into the CLI,
  * testing for the correct output.
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class SimulatedInputTest {
     public static CommandExecutor ce;
 
@@ -123,6 +123,7 @@ public class SimulatedInputTest {
         }
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Test (timeout = 100)
     public void testHelp() throws CommandNotFoundException {
         // Every command besides help should display their help string when -h is appended to the command.
