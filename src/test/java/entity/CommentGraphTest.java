@@ -290,6 +290,9 @@ public class CommentGraphTest
         assert expected == actual;
     }
 
+    /**
+     * Tests that depth getter works correctly
+     */
     @Test
     public void testGetDepth()
     {
