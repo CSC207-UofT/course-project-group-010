@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Rating implements Serializable {
 
     private final IUser rater;
+    @SuppressWarnings("FieldMayBeFinal")
     private double score;
     private final double MAX_SCORE = 10.0;
     private final double MIN_SCORE = 0.0;

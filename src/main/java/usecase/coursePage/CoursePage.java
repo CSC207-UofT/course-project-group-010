@@ -24,8 +24,8 @@ public class CoursePage implements Serializable {
      * @param commentGraph  A commentGraph object representing the comment section on this page. Null if not assigned.
      */
 
-    private Course course;
-    private List<String> instructors;
+    final private Course course;
+    final private List<String> instructors;
     private List<Rating> ratings;
     private double averageScore;
     private CommentGraph commentGraph;
@@ -70,15 +70,6 @@ public class CoursePage implements Serializable {
 
 
     //Setters
-
-    // Set information for course Page
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public void setInstructors(List<String> instructors) {
-        this.instructors = instructors;
-    }
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;

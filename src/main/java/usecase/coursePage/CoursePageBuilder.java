@@ -25,7 +25,6 @@ public class CoursePageBuilder implements Builder {
         this.instructors = instructors;
     }
 
-    @Override
     public void buildCourse(List<String> course) {
         Course c = new Course(course.get(0), course.get(1));
         if (course.size() == 3) {

@@ -9,6 +9,7 @@ import java.util.Map;
  * IT DECIDES HOW TO PROCESS THE DATA FROM IGETTABLE. THIS MAINTAINS THE SINGLE RESPONSIBILITY PRINCIPLE
  * eg. Courses, comment threads implement the interface.
  */
+@SuppressWarnings("StringConcatenationInLoop")
 public class DataPrinter {
     // Data from getData() is a hashmap
     // The data string to put if all data is mapped to one key
@@ -36,6 +37,7 @@ public class DataPrinter {
         String returnString = "";
         for (String o : data.keySet()) {
             try {
+                //noinspection StringConcatenationInLoop
                 returnString = returnString + o + " : " + data.get(o).toString() + "\n";
             } catch (Exception e) {
                 returnString = returnString + o + " : " + "n/a" + "\n";

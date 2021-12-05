@@ -3,7 +3,7 @@ package entity;
 import java.io.Serializable;
 
 public class Course implements Serializable {
-    String name; // Course name; i.e Introduction to Computer Science
+    final String name; // Course name; i.e Introduction to Computer Science
     final String code; // Course code; i.e CSC110
     String description; // Default description of the course that may be altered.
 

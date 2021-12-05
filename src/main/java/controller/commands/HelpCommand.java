@@ -18,6 +18,7 @@ public class HelpCommand extends Command {
      * @return the help string
      * @throws Exception
      */
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkArgumentsNum(arguments);

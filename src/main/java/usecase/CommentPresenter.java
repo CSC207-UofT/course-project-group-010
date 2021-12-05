@@ -37,6 +37,7 @@ public class CommentPresenter implements IReadModifiable {
      *            go backwards.
      * @throws ArgumentException if we cannot cd to the place
      */
+    @SuppressWarnings("StringConcatenationInLoop")
     public void cdCommand(String arg) throws ArgumentException {
         // Fun fact, cd stands for change dcomment !
         List<String> arguments = parseArgumentString(arg);

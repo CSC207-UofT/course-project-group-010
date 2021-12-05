@@ -2,6 +2,7 @@ package constants;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class ProgramConstants {
 
     private final List<String> possiblePrograms;
