@@ -17,5 +17,6 @@
       -I implemented factory patterns in Users by creating/modifying UserFactory, IUser, StudentUser, InstructorUser, and UserManager class.
 - Noah:
 - Nima:
-- Junhyuk:
+- Junhyuk: Implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
+    - [CourseManager implementation](https://github.com/CSC207-UofT/course-project-group-010/pull/100)
 - Wilson:
