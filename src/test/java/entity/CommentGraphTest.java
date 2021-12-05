@@ -179,11 +179,16 @@ public class CommentGraphTest
         assert cg.getVertices().get("root").getVote() == 1;
     }
 
+    /**
+     * Tests that donate functionality works
+     */
     @Test
     public void testDownvote()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         cg.downvote("root");
+        // check that the vote is correct
         assert cg.getVertices().get("root").getVote() == -1;
     }
 
