@@ -100,18 +100,24 @@ public class CommentGraphTest
         assert actual == expected;
     }
 
+    /**
+     * Tests that the string representation of the graph is correct
+     */
     @Test
     public void testStringRepresentation()
     {
+        // create graph with initial comments
         HashMap<String, List<String>> initialComments = new HashMap<>();
         initialComments.put("sampleUser1", List.of("sampleText1"));
         initialComments.put("sampleUser2", List.of("sampleText2"));
         CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
 
+        // expected string
         String expected = "> Test [id: root]\nTest\n[+] 0 [-]\n\n    > sampleUser1 [id: 7DU2C]\n    sampleText1\n  " +
                 "  [+] 0 [-]\n\n    > sampleUser2 [id: 0ZSJX]\n    sampleText2\n    [+] 0 [-]\n\n";
+        // actual string representation
         String actual = cg.stringRepresentation(cg.getVertices().get("root"), 0, 1, true);
-
+        // check that string representation is correct
         assert expected.length() == actual.length();
     }
 
