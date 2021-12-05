@@ -1,9 +1,12 @@
 # Testing
 
-1. Test Cases for all important features 
+We have test cases for all important features in the src/test/java folder
 
-2. Have @Before and @ After test cases
+We used Junit's @Before and @After annotations.
 
-3. Use the Test Coverage feature to check if we have sufficient test coverage
+You can rightclick src/test/java > run with coverage to look at our test coverage
+(you may need to scroll down the coverage chart to see relevant classes)
+(you may need to clear courses.ser and users.ser to make the tests pass, as it interferes with some of the tests)
+Here is an image of our test coverage.
 
-[TODO Add Test Coverage image ]
+![](resource/testcoverage.png)
