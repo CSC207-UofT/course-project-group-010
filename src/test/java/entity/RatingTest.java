@@ -1,6 +1,5 @@
 package entity;
 
-import exceptions.CommandNotAuthorizedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,21 +14,19 @@ public class RatingTest {
     @Before
     public void init() {
         sampleStudent = new StudentUser("Sam", "4000");
-        rating = new Rating(sampleStudent, 10.0F);
+        sampleStudent.setProgramDetail("DATA SCIENCE");
+        rating = new Rating(sampleStudent, 10.0);
     }
 
     @Test
-    public void getScoreOk() throws CommandNotAuthorizedException {
-        float desiredScore = 10.0F;
+    public void getScoreOk() {
+        double desiredScore = 10.0;
         assertEquals(desiredScore, rating.getScore(), 0.001);
     }
 
     @Test
     public void getPoST() {
-        StudentUser a = new StudentUser("Kevin", "kev123");
-        a.setProgramDetail("DATA SCIENCE");
-        Rating r = new Rating(a, 10.0F);
-        assertEquals("DATA SCIENCE", r.getRaterProgramOfStudy());
+        assertEquals("DATA SCIENCE", rating.getRaterProgramOfStudy());
     }
 
     @Test

@@ -24,7 +24,7 @@ public class CoursePage implements Serializable {
     private Course course;
     private List<String> instructors;
     private List<Rating> ratings;
-    private float averageScore;
+    private double averageScore;
     private CommentGraph commentGraph;
 
 
@@ -74,7 +74,7 @@ public class CoursePage implements Serializable {
         return this.ratings;
     }
 
-    public float getAverageScore() {
+    public double getAverageScore() {
         return this.averageScore;
     }
 
@@ -102,7 +102,7 @@ public class CoursePage implements Serializable {
         this.ratings = ratings;
     }
 
-    public void setAverageScore(float AverageScore) {
+    public void setAverageScore(double AverageScore) {
         this.averageScore = AverageScore;
     }
 

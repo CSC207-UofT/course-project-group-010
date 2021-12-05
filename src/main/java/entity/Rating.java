@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Rating implements Serializable {
 
     private final IUser rater;
-    private float score;
+    private double score;
 
     // TODO consider not using this
 //    public Rating(IUser rater, float score, String instructor) {
@@ -16,7 +16,7 @@ public class Rating implements Serializable {
 //        this.score = score;
 //    }
 
-    public Rating(IUser rater, float score) {
+    public Rating(IUser rater, double score) {
         this.rater = rater;
         this.score = score;
     }
@@ -35,7 +35,7 @@ public class Rating implements Serializable {
      *
      * @return Score
      */
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
@@ -85,6 +85,6 @@ public class Rating implements Serializable {
 
     @Override
     public String toString() {
-        return Float.toString(getScore());
+        return Double.toString(getScore());
     }
 }
