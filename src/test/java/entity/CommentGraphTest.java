@@ -258,6 +258,9 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that user name getter works correctly
+     */
     @Test
     public void testGetUserName()
     {
