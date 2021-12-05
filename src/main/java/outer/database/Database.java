@@ -24,7 +24,7 @@ public class Database<T extends IDBSaveable & Serializable> {
     /**
      * Static method that "loads" the database(returns a map that represents the database)
      *
-     * @param filePath
+     * @param filePath the path of file
      * @param <T>
      * @return
      * @throws IOException            if input/output is invalid
