@@ -19,7 +19,7 @@ public class ListCoursesCommand extends Command {
      * @param ce commandExecutor
      * @param arguments arguments(none required)
      * @return string representation of all courses
-     * @throws Exception
+     * @throws Exception if the course could not find
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -36,7 +36,6 @@ public class ListCoursesCommand extends Command {
 
     /**
      * checks all necessary requirements for the run() method to proceed
-     * @throws Exception
      */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {

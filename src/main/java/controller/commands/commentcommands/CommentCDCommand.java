@@ -14,7 +14,6 @@ public class CommentCDCommand extends Command {
 
     /**
      * Initializes the command with minimum/maximum arguments
-     *
      */
     public CommentCDCommand() {
         super(1, 1);
@@ -23,10 +22,10 @@ public class CommentCDCommand extends Command {
     /**
      * Navigates the comment section, if the user is currently viewing one
      * eg. cd id1/id2/id3 will traverse to id1 > id2 > id3. cd .. will go backwards.
-     * @param ce command executor
+     *
+     * @param ce        command executor
      * @param arguments user arguments
      * @return return string
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
