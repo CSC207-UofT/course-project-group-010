@@ -32,23 +32,25 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     /**
      * Gets a course that is saved in the database using id.
+     *
      * @param id the id of the course
-     * @return
-     * @throws NotInDatabaseException
+     * @return the course
+     * @throws NotInDatabaseException if the course is not found in the database
      */
     @Override
     public CourseManager getEntry(String id) throws NotInDatabaseException {
         try {
             return this.courseDict.get(id);
         } catch (Exception e) {
-            throw new NotInDatabaseException("Course not found in Database");
+            throw new NotInDatabaseException("Course not found in the Database");
         }
     }
 
     /**
      * Saves a new object to the database
+     *
      * @param entry the entry to save
-     * @throws CommandNotAuthorizedException
+     * @throws CommandNotAuthorizedException if the course with inputted code already in database
      */
     @Override
     public void addEntry(CourseManager entry) throws CommandNotAuthorizedException {
@@ -70,8 +72,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
     }
 
     /**
-     * String representation of this cdg will list all courses and their codes.
-     * @return
+     * @return a string representation of this cdg will list all courses and their codes.
      */
     @Override
     public String toString() {

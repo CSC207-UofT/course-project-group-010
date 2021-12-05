@@ -75,7 +75,7 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
     /**
      * Gets the rating left by a user, if the user already left a rating.
      * @param user user you are searching for.
-     * @return
+     * @return the user and the rating left by this user
      */
     private Rating getRating(IUser user) {
         List<Rating> ratingList = this.coursePage.getRatings();

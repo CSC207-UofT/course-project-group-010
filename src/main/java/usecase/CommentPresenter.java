@@ -104,7 +104,7 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * Gets authorization dictionary, part of the IAuthorizable interface.
-     * @return
+     * @return authorization dictionary
      */
     @Override
     public Map<UserType, List<String>> getAuthDict() {
@@ -165,7 +165,7 @@ public class CommentPresenter implements IReadModifiable {
     /**
      * Gets the default authorization dictionary. All users can take all possible actions on this commentPresenter.
      * Helper method for the getAuthDict() method.
-     * @return
+     * @return permission dictionary
      */
     private Map<UserType, List<String>> getDefaultAuthDict() {
         Map<UserType, List<String>> permDict = new HashMap<>();

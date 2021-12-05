@@ -29,7 +29,6 @@ public class NewUserCommand extends Command {
      *
      * @param arguments arguments(none)
      * @return the result of the creation
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -67,9 +66,10 @@ public class NewUserCommand extends Command {
 
     /**
      * Processes the inputted User type, converting to UserType enum instance
+     *
      * @param argUserType argument entered by user
      * @return corresponding enum instance
-     * @throws ArgumentException
+     * @throws ArgumentException if the user type is invalid
      */
     private UserType processUserType(String argUserType) throws ArgumentException {
         argUserType = argUserType.toUpperCase();
@@ -86,9 +86,10 @@ public class NewUserCommand extends Command {
 
     /**
      * Gets the corresponding user builder for the user type, to help process future user inputs for id, display name and otherData
+     *
      * @param userType userType
      * @return corresponding user builder
-     * @throws ArgumentException
+     * @throws ArgumentException if the user type is invalid
      */
     private UserBuilder getUserBuilder(UserType userType) throws ArgumentException {
         switch (userType) {
@@ -103,12 +104,12 @@ public class NewUserCommand extends Command {
 
     /**
      * Creates the user, based on inputted arguments
+     *
      * @param desiredUserType usertype
-     * @param argDisplayName display name
-     * @param argId id
-     * @param otherData other data(eg. programDetail for students)
+     * @param argDisplayName  display name
+     * @param argId           id
+     * @param otherData       other data(eg. programDetail for students)
      * @return UserManager created from the data
-     * @throws Exception
      */
     private UserManager createUser(UserType desiredUserType, String argDisplayName, String argId, Map<String, String> otherData) throws Exception {
         UserManager um = new UserManager(desiredUserType, argDisplayName, argId, otherData);

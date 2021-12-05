@@ -24,7 +24,7 @@ public class LoginCommand extends Command {
      *
      * @param arguments arguments(user id)
      * @return the result of the command
-     * @throws Exception
+     * @throws Exception if user is not found
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

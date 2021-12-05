@@ -34,9 +34,10 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     /**
      * Gets a saved entry by id
+     *
      * @param id id of the entry
      * @return the entry
-     * @throws NotInDatabaseException
+     * @throws NotInDatabaseException if user is not found in Database
      */
     public UserManager getEntry(String id) throws NotInDatabaseException {
         try {
@@ -49,23 +50,24 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     /**
      * Adds an entry to the database
+     *
      * @param entry the entry to be added
-     * @throws CommandNotAuthorizedException
+     * @throws CommandNotAuthorizedException if the command is not authorized
      */
     @Override
     public void addEntry(UserManager entry) throws CommandNotAuthorizedException {
         if (!this.userDict.containsKey(entry.getID())) {
             this.userDict.put(entry.getID(), entry);
-        }
-        else {
+        } else {
             throw new CommandNotAuthorizedException("user with inputted id is already in the database");
         }
     }
 
     /**
      * checks if an id is in the database
+     *
      * @param key the id
-     * @return
+     * @return true if the id is in the database . false if the id is not in the database
      */
     @Override
     public boolean containsKey(String key) {
@@ -74,7 +76,8 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     /**
      * Saves the database
-     * @throws IOException
+     *
+     * @throws IOException if input/output is invalid
      */
     public void saveAll() throws IOException {
         Database.saveToFile(new FileConstants().USER_FILE, this.userDict);
@@ -82,7 +85,8 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     /**
      * Represents the user database as a string, showing all available ids and corresponding display names.
-     * @return
+     *
+     * @return a string representation of user database
      */
     @Override
     public String toString() {

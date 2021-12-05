@@ -206,7 +206,7 @@ public class CommentGraph implements Serializable
      *
      * @param startComment comment at the start of the path
      * @param endComment ...end of the path
-     * @return
+     * @return string path of that comment
      */
     public String stringPath(Comment startComment, Comment endComment)
     {

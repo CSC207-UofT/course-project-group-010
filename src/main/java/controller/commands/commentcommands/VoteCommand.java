@@ -22,7 +22,6 @@ public class VoteCommand extends Command {
      * @param ce command executor
      * @param arguments user arguments(comment id and up/down)
      * @return return string
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

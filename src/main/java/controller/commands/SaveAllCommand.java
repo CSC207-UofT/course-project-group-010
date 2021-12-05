@@ -18,7 +18,6 @@ public class SaveAllCommand extends Command {
      * Format: saveall
      *
      * @return the result of the saving
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

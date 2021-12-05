@@ -18,29 +18,31 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
 
     /**
      * Looks for an entry in the database the has the id [id]
-     * Returns a map of the data it found, returns null if no data was found.
      *
-     * @return
+     * @return a map of the data it found, returns null if no data was found
      */
     abstract public T getEntry(String id) throws Exception;
 
     /**
      * Adds an entry to the database
+     *
      * @param entry the entry to be added
-     * @throws CommandNotAuthorizedException
+     * @throws CommandNotAuthorizedException if command is not authorized
      */
     abstract public void addEntry(T entry) throws CommandNotAuthorizedException;
 
     /**
      * Checks if a given id is already in the database
+     *
      * @param key the id
-     * @return
+     * @return true if a given id is in the database. false if a given id is not in the database
      */
     abstract public boolean containsKey(String key);
 
     /**
      * Saves the database to a file.
-     * @throws IOException
+     *
+     * @throws IOException if input/output is invalid
      */
     abstract public void saveAll() throws IOException;
 
