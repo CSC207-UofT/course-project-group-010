@@ -12,7 +12,7 @@
       [cleaning up unused methods](https://github.com/CSC207-UofT/course-project-group-010/commit/7c19b3375be20919d07d09906550ca258a4611f4)
     - I looked through all the classes to delete unused methods by using the "find usages" intelliJ feature. I also implemented patterns in Command Classes, that used to
       do many different things. As a result, the design of our program follows SOLID principles better, and our classes are easier to understand without redundant methods.
-- Fiona: I worked on implemented design patterns for users, wrote test cases, performed refactors, wrote the design document and fixed warnings using inspect code feature.  
+- Fiona: I worked on implemented design patterns for users, wrote test cases, performed refactors, wrote accessibility report, helped with design document, and fixed warnings using inspect code feature.  
     -[adding factory patterns to users](https://github.com/CSC207-UofT/course-project-group-010/pull/89/commits/09d842dfb805c348b28775a32459dbdc8dc1f3a5)
       -I implemented factory patterns in Users by creating/modifying UserFactory, IUser, StudentUser, InstructorUser, and UserManager class.
 - Noah:
