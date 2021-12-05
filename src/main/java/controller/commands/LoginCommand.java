@@ -20,8 +20,7 @@ public class LoginCommand extends Command {
 
     @Override
     public String help() {
-        String s = "Attempts login. Format: login [id]\n Example: \"login 12345\"";
-        return s;
+        return "Attempts login. Format: login [id]\n Example: \"login 12345\"";
     }
 
     /**

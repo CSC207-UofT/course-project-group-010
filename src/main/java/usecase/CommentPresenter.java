@@ -18,10 +18,10 @@ import java.util.Map;
  * Keeps technical methods in CommentManager, to keep things open for extension.
  */
 public class CommentPresenter implements IReadModifiable {
-    private CommentManager cm;
+    private final CommentManager cm;
     private String currentID;
     private String fullPath;
-    private Map<UserType, List<String>> authDict;
+    private final Map<UserType, List<String>> authDict;
 
 
     public CommentPresenter(CommentManager cm) {
@@ -176,10 +176,8 @@ public class CommentPresenter implements IReadModifiable {
     private Map<UserType, List<String>> getDefaultAuthDict() {
         Map<UserType, List<String>> permDict = new HashMap<>();
         List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote", "print", "commentcd");
-        List<String> studentPermissions = l;
-        List<String> instructorPermissions = l;
-        permDict.put(UserType.STUDENT, studentPermissions);
-        permDict.put(UserType.INSTRUCTOR, instructorPermissions);
+        permDict.put(UserType.STUDENT, l);
+        permDict.put(UserType.INSTRUCTOR, l);
         return permDict;
     }
 }

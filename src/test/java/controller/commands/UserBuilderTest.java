@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
 
 public class UserBuilderTest {
 
-    UserBuilder sb = new StudentUserBuilder();
-    UserBuilder ib = new InstructorUserBuilder();
-    List<UserBuilder> ubl = List.of(sb, ib);
+    final UserBuilder sb = new StudentUserBuilder();
+    final UserBuilder ib = new InstructorUserBuilder();
+    final List<UserBuilder> ubl = List.of(sb, ib);
 
     @Test
     public void testProcessDisplayName() {

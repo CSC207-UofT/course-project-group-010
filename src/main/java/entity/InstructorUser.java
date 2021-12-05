@@ -12,8 +12,8 @@ public class InstructorUser implements Serializable, IUser {
 
     public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
-    private String displayName; //Username
-    private Map<String, String> otherData;
+    private final String displayName; //Username
+    private final Map<String, String> otherData;
     // position Options include "Prof" and "TA".
     private List<Course> currentlyTeaching;
 

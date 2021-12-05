@@ -23,13 +23,6 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
     private UserDatabaseGetter() throws IOException, ClassNotFoundException {
         userDict = Database.loadDB(new FileConstants().USER_FILE);
-//        Map<String, UserManager> userDict1;
-//        this.db = new Database<>();
-//        userDict1 = this.db.loadFromFile(new FileConstants().USER_FILE);
-//        if (userDict1 == null) {
-//            userDict1 = new HashMap<>();
-//        }
-//        this.userDict = userDict1;
     }
 
     public static UserDatabaseGetter getInstance() throws IOException, ClassNotFoundException {
@@ -85,9 +78,9 @@ public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
         for (String key : this.userDict.keySet()) {
             // TODO make it easier to access users basic info from userManager
             // this is dependent on the abstract user class, I guess, so that's alright?
-            retStr.append(key + ": ");
+            retStr.append(key).append(": ");
             UserManager um = userDict.get(key);
-            retStr.append(um.getUser().getDisplayName() + "\n");
+            retStr.append(um.getUser().getDisplayName()).append("\n");
         }
         return retStr.toString().strip();
     }

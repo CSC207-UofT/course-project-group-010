@@ -11,7 +11,7 @@ import usecase.CourseManager;
 import java.io.IOException;
 
 public class CoursePageGetter implements PageGetter {
-    private String id;
+    private final String id;
 
     public CoursePageGetter(String id) {
         this.id = id;

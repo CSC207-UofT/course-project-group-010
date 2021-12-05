@@ -29,15 +29,4 @@ public class UserFactory {
         }
     }
 
-    // TODO no usages found, consider deleting
-//    public IUser getUser(UserType userType, String displayName, String ID) throws Exception {
-//        switch (userType) {
-//            case STUDENT:
-//                return new StudentUser(displayName, ID);
-//            case INSTRUCTOR:
-//                return new InstructorUser(displayName, ID);
-//            default:
-//                throw new Exception("Couldn't initialize user");
-//        }
-//    }
 }
