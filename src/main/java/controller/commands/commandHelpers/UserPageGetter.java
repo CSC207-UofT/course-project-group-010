@@ -9,11 +9,18 @@ import usecase.UserManager;
 public class UserPageGetter implements PageGetter {
     private UserManager um;
 
+    /**
+     * Gets the user's profile page
+     * @param ce command executor to get the page from
+     */
     public void getPage(CommandExecutor ce) {
         um = ce.getUserManager();
         ce.setPageManager(um);
     }
 
+    /**
+     * @return the string to print upon success
+     */
     @Override
     public String getSuccessString() {
         return "now viewing profile of " + um.getID();

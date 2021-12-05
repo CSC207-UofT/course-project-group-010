@@ -24,10 +24,24 @@ public abstract class DatabaseGetter<T extends IDBSaveable & Serializable> {
      */
     abstract public T getEntry(String id) throws Exception;
 
+    /**
+     * Adds an entry to the database
+     * @param entry the entry to be added
+     * @throws CommandNotAuthorizedException
+     */
     abstract public void addEntry(T entry) throws CommandNotAuthorizedException;
 
+    /**
+     * Checks if a given id is already in the database
+     * @param key the id
+     * @return
+     */
     abstract public boolean containsKey(String key);
 
+    /**
+     * Saves the database to a file.
+     * @throws IOException
+     */
     abstract public void saveAll() throws IOException;
 
     /*

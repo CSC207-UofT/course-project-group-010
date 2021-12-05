@@ -4,6 +4,9 @@ import entity.Course;
 
 import java.util.List;
 
+/**
+ * A course builder interface, that builds the related course and instructors.
+ */
 public interface Builder {
 
     void buildCourse(List<String> course);

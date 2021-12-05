@@ -7,24 +7,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO instructorUser isn't really fleshed out, consider deleteing or adding methods similar to those in StudentUser
 public class InstructorUser implements Serializable, IUser {
 
-    public static int MAXIMUM_DISPLAY_LENGTH = 25;
     private final String ID; //ID
     private final String displayName; //Username
     private final Map<String, String> otherData;
-    // position Options include "Prof" and "TA".
-    private List<Course> currentlyTeaching;
 
-    //Constructors
+    /**
+     * Initializes a new instructorUser
+     * @param displayName display name
+     * @param ID id
+     * @param otherData map of other relevant data, eg. position
+     */
     public InstructorUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;
         this.ID = ID;
         this.otherData = otherData;
     }
 
-    // TODO this constructor is not in use except in tests, we can delete
+    /**
+     * Overloaded constructor, creates a blank otherData dictionary
+     * @param displayName name
+     * @param ID id
+     */
     public InstructorUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;
@@ -60,13 +65,12 @@ public class InstructorUser implements Serializable, IUser {
         return otherData;
     }
 
-    // TODO unused, delete
-//    public List<Course> getCurrentlyTeaching() {
-//        return this.currentlyTeaching;
-//    }
-
     //Setters
 
+    /**
+     * Gets data relevant to this user, in a map format.
+     * @return the data
+     */
     @Override
     public HashMap<String, Object> getData() {
         HashMap<String, Object> result = new HashMap<>();

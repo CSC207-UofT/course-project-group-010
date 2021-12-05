@@ -39,7 +39,7 @@ public class CommandExecutor {
     /**
      * Processes a request sent to the command executor
      *
-     * @param request
+     * @param request command request to be processed
      * @throws Exception
      */
     public String processRequest(CommandRequest request) {

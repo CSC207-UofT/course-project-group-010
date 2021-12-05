@@ -56,9 +56,6 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
      * @param user user who leaves a rating.
      */
     public void addRating(double ratingNum, IUser user) throws ArgumentException {
-        if (ratingNum > 10 || ratingNum < 0) {
-            throw new ArgumentException("Rating must be between 0 and 10");
-        }
         List<Rating> ratingList = this.coursePage.getRatings();
         if (ratingList == null) {
             ratingList = new ArrayList<>();
@@ -67,9 +64,29 @@ public class CourseManager implements IReadModifiable, IDBSaveable, Serializable
         }
 
         Rating r = new Rating(user, ratingNum);
+        if (getRating(user) != null) {
+            ratingList.remove(getRating(user));
+        }
         ratingList.add(r);
         this.updateAvgScore();
 
+    }
+
+    /**
+     * Gets the rating left by a user, if the user already left a rating.
+     * @param user user you are searching for.
+     * @return
+     */
+    private Rating getRating(IUser user) {
+        List<Rating> ratingList = this.coursePage.getRatings();
+        if (ratingList != null) {
+            for (Rating r : ratingList) {
+                if (r.getRater() == user) {
+                    return r;
+                }
+            }
+        }
+        return null;
     }
 
     /**

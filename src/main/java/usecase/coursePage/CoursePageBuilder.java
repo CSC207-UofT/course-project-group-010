@@ -36,8 +36,10 @@ public class CoursePageBuilder implements Builder {
 
     }
 
-
-
+    /**
+     * Gets the resulting coursePage from this builder
+     * @return the coursepage that was built.
+     */
     public CoursePage getResult() {
         CoursePage cp = new CoursePage(this.course, this.instructors);
         //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
@@ -48,11 +50,12 @@ public class CoursePageBuilder implements Builder {
         return cp;
     }
 
+    /**
+     * Resets this class
+     */
     @Override
     public void reset() {
         this.ratings = null;
-        // TODO what does this commentGraph thing do?? it just keeps setting the cg of coursePage to null(undesired)
-        //Comment Graph for this CoursePage.
     }
 
 }

@@ -30,6 +30,12 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
         return instance;
     }
 
+    /**
+     * Gets a course that is saved in the database using id.
+     * @param id the id of the course
+     * @return
+     * @throws NotInDatabaseException
+     */
     @Override
     public CourseManager getEntry(String id) throws NotInDatabaseException {
         try {
@@ -39,6 +45,11 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
         }
     }
 
+    /**
+     * Saves a new object to the database
+     * @param entry the entry to save
+     * @throws CommandNotAuthorizedException
+     */
     @Override
     public void addEntry(CourseManager entry) throws CommandNotAuthorizedException {
         if (!this.courseDict.containsKey(entry.getID())) {

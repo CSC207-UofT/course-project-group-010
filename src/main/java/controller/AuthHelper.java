@@ -8,7 +8,17 @@ import interfaces.IHasPermission;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Helps check if users are allowed to take actions.
+ */
 public class AuthHelper {
+    /**
+     * Checks if user is allowed to take a certain method on an authorizable object
+     * @param a the object that the user wants to interact with
+     * @param user the user
+     * @param method the action the user wants to take
+     * @throws CommandNotAuthorizedException
+     */
     public void checkAuth(IAuthorizable a, IHasPermission user, String method) throws CommandNotAuthorizedException {
 
         Map<UserType, List<String>> authDict = a.getAuthDict();

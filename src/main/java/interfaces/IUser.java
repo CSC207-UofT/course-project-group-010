@@ -9,7 +9,7 @@ import java.util.Map;
 public interface IUser {
 
     /**
-     * @return string representation of this User
+     * @return id of the user
      */
     String getID();
 

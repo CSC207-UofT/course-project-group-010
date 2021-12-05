@@ -27,9 +27,9 @@ public class ReplyCommand extends Command {
     /**
      * Replies to a comment with text.
      *
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce command executor
+     * @param arguments user arguments(comment id[optional])
+     * @return the return string
      * @throws Exception
      */
     @Override
@@ -39,7 +39,6 @@ public class ReplyCommand extends Command {
         IReadModifiable currentlyViewingPage = ce.getPageManager();
         UserManager user = ce.getUserManager();
         String userName = user.getUser().getDisplayName();
-        // TODO consider inputGetter class. INPUTGETTER should get input, check input, throw exception if checker returns false basically
         System.out.println("Type your comment:");
         String text = in.nextLine();
         if (text.equalsIgnoreCase("")) {

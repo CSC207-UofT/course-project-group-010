@@ -3,6 +3,7 @@ package controller.commands;
 import constants.CommandConstants;
 import constants.UserType;
 import controller.commands.coursecommands.CreateCourseCommand;
+import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
 import org.junit.BeforeClass;

@@ -9,11 +9,11 @@ import usecase.CourseManager;
 public class CommentsPageGetter implements PageGetter{
 
     /**
+     * Gets the comment section of the course that the user is currently viewing, if possible.
      * This is an example of SRP, I wrapped CommentPresenter, and only have to change this one thing because I isolated
      * the functionality.
-     * Gets the comment section of the course that the user is currently viewing, if possible.
-     * @param ce
-     * @throws CommandNotAuthorizedException
+     * @param ce commandExecutor that is being used
+     * @throws CommandNotAuthorizedException if no comment section was found
      */
     public void getPage(CommandExecutor ce) throws CommandNotAuthorizedException {
         try {
@@ -29,6 +29,9 @@ public class CommentsPageGetter implements PageGetter{
         // otherwise, just throw the exception upwards.
     }
 
+    /**
+     * @return Success string to return if getPage works
+     */
     @Override
     public String getSuccessString() {
         return "now viewing comment section for page";

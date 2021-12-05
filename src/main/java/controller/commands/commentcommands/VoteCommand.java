@@ -16,17 +16,12 @@ public class VoteCommand extends Command {
         super(2, 1);
     }
 
-    @Override
-    public String help() {
-        return "vote [commentID] [up/down] : up/downvotes comment with id";
-    }
-
     /**
      * Upvotes/downvotes a comment.
      *
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce command executor
+     * @param arguments user arguments(comment id and up/down)
+     * @return return string
      * @throws Exception
      */
     @Override
@@ -41,5 +36,10 @@ public class VoteCommand extends Command {
             cp.vote(arguments.get(0), up);
         }
         return "voted on comment with up=" + up;
+    }
+
+    @Override
+    public String help() {
+        return "vote [commentID] [up/down] : up/downvotes comment with id";
     }
 }

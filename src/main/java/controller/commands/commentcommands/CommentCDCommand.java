@@ -6,7 +6,12 @@ import usecase.CommentPresenter;
 
 import java.util.List;
 
+/**
+ * Command to navigate the comment section like a filesystem.
+ * Works similar to the cd command on windows/linux
+ */
 public class CommentCDCommand extends Command {
+
     /**
      * Initializes the command with minimum/maximum arguments
      *
@@ -18,9 +23,9 @@ public class CommentCDCommand extends Command {
     /**
      * Navigates the comment section, if the user is currently viewing one
      * eg. cd id1/id2/id3 will traverse to id1 > id2 > id3. cd .. will go backwards.
-     * @param ce
-     * @param arguments
-     * @return
+     * @param ce command executor
+     * @param arguments user arguments
+     * @return return string
      * @throws Exception
      */
     @Override
