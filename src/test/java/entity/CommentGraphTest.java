@@ -10,11 +10,13 @@ public class CommentGraphTest
     @Test
     public void testCommentGraphConstructor()
     {
+        // create graph with initial comments
         HashMap<String, List<String>> initialComments = new HashMap<>();
         initialComments.put("sampleUser1", List.of("sampleText1"));
         initialComments.put("sampleUser2", List.of("sampleText2"));
         CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
 
+        // check that correct amount of comments are added to the graph
         assert cg.getVertices().size() == 3;
     }
 
