@@ -13,7 +13,7 @@
     - I looked through all the classes to delete unused methods by using the "find usages" intelliJ feature. I also implemented patterns in Command Classes, that used to
       do many different things. As a result, the design of our program follows SOLID principles better, and our classes are easier to understand without redundant methods.
 - Fiona: I worked on implemented design patterns for users, wrote test cases, performed refactors, wrote accessibility report, helped with design document, and fixed warnings using inspect code feature.  
-    -[adding factory patterns to users](https://github.com/CSC207-UofT/course-project-group-010/pull/89/commits/09d842dfb805c348b28775a32459dbdc8dc1f3a5)
+    - [adding factory patterns to users](https://github.com/CSC207-UofT/course-project-group-010/pull/89/commits/09d842dfb805c348b28775a32459dbdc8dc1f3a5)
       -I implemented factory patterns in Users by creating/modifying UserFactory, IUser, StudentUser, InstructorUser, and UserManager class.
 - Noah:
   - I created the commentGraph data structure that our program uses for threads in course pages. This includes `CommentGraph.java`, `CommentGraphHelper.java`, `CommentManager.java`, and related test files. 
