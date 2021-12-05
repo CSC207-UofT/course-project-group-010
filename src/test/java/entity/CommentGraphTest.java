@@ -48,12 +48,19 @@ public class CommentGraphTest
         assert cg.getVertices().containsKey("root");
     }
 
+    /**
+     * Tests that comments are correctly retrieved
+     */
     @Test
     public void testGetComment()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         String expected = "Test";
+        // actual actual
         String actual = cg.getComment("root").getText();
+        // check that text matches => got correct string
         assert expected.equals(actual);
     }
 
