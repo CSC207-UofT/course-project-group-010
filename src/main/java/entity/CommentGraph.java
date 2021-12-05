@@ -17,8 +17,6 @@ import java.util.List;
  * where each node can only have one parent but multiple children, making it very similar to a tree data structure.
  * This graph is akin to threads found on the website Reddit.
  */
-
-// TODO delete methods not in use, justify methods in use.
 public class CommentGraph implements Serializable
 {
 

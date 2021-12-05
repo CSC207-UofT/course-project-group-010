@@ -15,8 +15,6 @@ import java.util.Map;
  */
 public class UserDatabaseGetter extends DatabaseGetter<UserManager> {
 
-    // TODO move this in with Database, make a mock sql thing that literally just calls getEntry and stuff
-    // like FROM DATABASE GET ID --> UserDatabaseGetter.getinstance().getwhatever
     private static UserDatabaseGetter instance = null;
     // private final Database<UserManager> db;
     private final Map<String, UserManager> userDict;
