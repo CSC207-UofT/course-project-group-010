@@ -81,17 +81,22 @@ public class CommentGraphTest
         assert expected == actual;
     }
 
+    /**
+     * Tests that the size of the graph is correctly retrieved
+     */
     @Test
     public void testGetSize()
     {
+        // create graph with initial comments
         HashMap<String, List<String>> initialComments = new HashMap<>();
         initialComments.put("sampleUser1", List.of("sampleText1"));
         initialComments.put("sampleUser2", List.of("sampleText2"));
         CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
-
+        // expected value
         int expected = 3;
+        // get size of graph
         int actual = cg.getSize();
-
+        // check that size of graph is correct
         assert actual == expected;
     }
 
