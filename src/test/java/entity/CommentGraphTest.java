@@ -23,7 +23,10 @@ public class CommentGraphTest
     @Test
     public void testCommentGraphEmptyConstructor()
     {
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+
+        // check that correct amount of comments are added to the graph
         assert cg.getVertices().size() == 1;
     }
 
