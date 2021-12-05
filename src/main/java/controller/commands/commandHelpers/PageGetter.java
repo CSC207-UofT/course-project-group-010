@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public interface PageGetter {
     /**
-     * Gets a page of a cetain type
+     * Gets a page of a certain type
      * @param ce
      * @throws CommandNotAuthorizedException
      * @throws ArgumentException

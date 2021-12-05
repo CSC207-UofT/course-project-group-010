@@ -39,7 +39,7 @@ public class CommentPresenter implements IReadModifiable {
      * @throws ArgumentException if we cannot cd to the place
      */
     public void cdCommand(String arg) throws ArgumentException {
-        // Fun fact, cd statnds for change dcomment !
+        // Fun fact, cd stands for change dcomment !
         List<String> arguments = parseArgumentString(arg);
         String pathTraversed = "";
         for (String id : arguments) {

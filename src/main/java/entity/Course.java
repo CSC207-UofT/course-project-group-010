@@ -8,7 +8,7 @@ public class Course implements Serializable {
     String description; // Default description of the course that may be altered.
 
     /**
-     * Initializes a new couse
+     * Initializes a new course
      * @param name the display name of the course
      * @param code the course code eg. MAT137
      */
