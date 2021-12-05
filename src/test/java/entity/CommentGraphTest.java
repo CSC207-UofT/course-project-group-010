@@ -121,14 +121,19 @@ public class CommentGraphTest
         assert expected.length() == actual.length();
     }
 
+    /**
+     * Tests that the string path generated is correct
+     */
     @Test
     public void testStringPath()
     {
+        // create graph with initial comments
         HashMap<String, List<String>> initialComments = new HashMap<>();
         initialComments.put("sampleUser1", List.of("sampleText1"));
         initialComments.put("sampleUser2", List.of("sampleText2"));
         CommentGraph cg = new CommentGraph("Test", "Test", initialComments);
 
+        // get id
         String id = null;
         for (var i : cg.getVertices().keySet())
         {
@@ -139,9 +144,11 @@ public class CommentGraphTest
             }
         }
 
+        // expected string
         String expected = "> Test [id: root]\nTest\n[+] 0 [-]\n\n    > sampleUser2 [id: 5xySx]\n    sampleText2\n    [+] 0 [-]\n\n";
+        // check that the path representation is correct
         String actual = cg.stringPath(cg.getVertices().get("root"), cg.getVertices().get(id));
-
+        // check that the path is correct
         assert expected.length() == actual.length();
     }
 
