@@ -32,6 +32,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     /**
      * Gets a course that is saved in the database using id.
+     *
      * @param id the id of the course
      * @return
      * @throws NotInDatabaseException
@@ -47,6 +48,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     /**
      * Saves a new object to the database
+     *
      * @param entry the entry to save
      * @throws CommandNotAuthorizedException
      */
@@ -71,6 +73,7 @@ public class CourseDatabaseGetter extends DatabaseGetter<CourseManager> {
 
     /**
      * String representation of this cdg will list all courses and their codes.
+     *
      * @return
      */
     @Override
