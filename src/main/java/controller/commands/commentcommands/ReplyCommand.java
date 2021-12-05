@@ -28,10 +28,9 @@ public class ReplyCommand extends Command {
     /**
      * Replies to a comment with text.
      *
-     * @param ce command executor
+     * @param ce        command executor
      * @param arguments user arguments(comment id[optional])
      * @return the return string
-     * @throws Exception
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

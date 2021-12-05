@@ -19,7 +19,7 @@ public class Rating implements Serializable {
      * accepted bounds
      * @param rater User that is rating
      * @param score Score that the user gave.
-     * @throws ArgumentException
+     * @throws ArgumentException if the rating is not within the range
      */
     public Rating(IUser rater, double score) throws ArgumentException {
         if (score > MAX_SCORE || score < MIN_SCORE) {
