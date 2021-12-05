@@ -28,6 +28,9 @@ are met.
   give up necessary data.
 - UserManager initializes with a User object, and manages it. It provides functionalities related to saving,
   authorization, and presentation.
+- CommentPresenter is a wrapper class for CommentManager that helps present it in a more human-friendly manner. It
+    manages comments like a file system structure, maintaining a "path" that the user is
+    viewing.
 
 ## Interfaces
 
@@ -80,9 +83,6 @@ Many interfaces were used relating to Use Case Classes. Here are the notable one
 - AuthHelper helps with authentication, working with classes that implement IAuthorizable, and classes that implement
   IHasPermission. This isolates the authorization functionality, that is relied upon by many command classes, to a
   single class. The authorization process is always the same.
-- CommentPresenter is a wrapper class for CommentManager that helps present it in a more human-friendly manner. It
-  manages comments like a file system structure, maintaining a "path" that the user is
-  viewing.[WE MAY MAKE THIS A USE CASE CLASS BUT WHO KNOWS]
 
 ## Constants and exceptions
 
