@@ -242,12 +242,17 @@ public class CommentGraphTest
         assert expected.equals(actual);
     }
 
+    /**
+     * Tests that text getter works correctly
+     */
     @Test
     public void testGetText()
     {
-
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         String expected = "Test";
+        // actual value
         String actual = cg.getComment("root").getText();
 
         assert expected.equals(actual);
@@ -256,9 +261,11 @@ public class CommentGraphTest
     @Test
     public void testGetUserName()
     {
-
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         String expected = "Test";
+        // actual value
         String actual = cg.getComment("root").getUserName();
 
         assert expected.equals(actual);
@@ -267,9 +274,11 @@ public class CommentGraphTest
     @Test
     public void testGetVote()
     {
-
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         int expected = 0;
+        // actual value
         int actual = cg.getComment("root").getVote();
 
         assert expected == actual;
@@ -278,9 +287,11 @@ public class CommentGraphTest
     @Test
     public void testGetDepth()
     {
-
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
+        // expected value
         int expected = 0;
+        // actual value
         int actual = cg.getComment("root").getDepth();
 
         assert expected == actual;
@@ -289,13 +300,14 @@ public class CommentGraphTest
     @Test
     public void testGetFormattedRepresentation()
     {
-
+        // create graph
         CommentGraph cg = new CommentGraph("Test", "Test");
         CommentGraph.Comment comment = cg.getComment("root");
-
+        // expected value
         String expected = "> Test [id: root]\nTest\n[+] 0 [-]\n\n";
+        // actual value
         String actual = comment.getFormattedRepresentation();
-
+        // check that actual and expected are the same
         assert expected.equals(actual);
     }
 }
