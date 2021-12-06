@@ -3,7 +3,6 @@ package controller.commands;
 import constants.CommandConstants;
 import constants.UserType;
 import controller.commands.coursecommands.CreateCourseCommand;
-import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -23,9 +22,11 @@ import static org.junit.Assert.*;
  * contains basic tests for the entire COMMANDS package. These tests simulate user input into the CLI,
  * testing for the correct output.
  */
+@SuppressWarnings("UnusedAssignment")
 public class SimulatedInputTest {
     public static CommandExecutor ce;
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @BeforeClass
     public static void setup() {
         ce = CommandExecutor.getInstance();
@@ -101,7 +102,7 @@ public class SimulatedInputTest {
     @Test (timeout = 100)
     public void testCheckout() {
         // need to create a user
-        String output = testcommand("login test");
+        testcommand("login test");
         String output1 = testcommand("checkout CSC207");
         assertEquals("now viewing course CSC207", output1);
 
