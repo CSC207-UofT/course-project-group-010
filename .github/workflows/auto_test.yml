@@ -22,4 +22,4 @@ jobs:
 #     - name: Build with Gradle
 #       run: chmod +x ./gradlew | sudo ./gradlew
     - name: test
-      run: ./gradlew test
+      run: chmod +x ./gradlew | ./gradlew test
