@@ -60,6 +60,7 @@ public class CoursePageBuilder implements Builder {
         return cp;
     }
 
+
     /**
      * reset this CoursePageBuilder so that it may be used again.
      * Currently, there is not a need necessarily to reset the CoursePageBuilder as when called on by Director,

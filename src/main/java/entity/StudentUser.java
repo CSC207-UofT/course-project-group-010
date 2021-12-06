@@ -18,12 +18,14 @@ public class StudentUser implements Serializable, IUser {
      * otherData. The parameters are currently final as no changes need to be made; future developers may remove
      * the finality of the parameter if need be.
      *
+     *
+     * This is the StudentUser constructor.
+     *
      * @param ID The uTor ID of this student.
      * @param displayName The display name of this student.
      * @param otherData A map containing information about this student; currently ID, displayName, and program details.
      *                  Open to extension to include more data.
      */
-
     public StudentUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;
         this.ID = ID;
@@ -31,6 +33,14 @@ public class StudentUser implements Serializable, IUser {
         fixOtherData();
     }
 
+
+    /**
+     * This is the StudentUser constructor that can initialize a StudentUser object without otherData as an input.
+     * It initializes an empty HashMap instead.
+     *
+     * @param ID The uTor ID of this student.
+     * @param displayName The display name of this student.
+     */
     public StudentUser(String displayName, String ID) {
         this.displayName = displayName;
         this.ID = ID;

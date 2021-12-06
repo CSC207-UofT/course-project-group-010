@@ -27,14 +27,15 @@ public class Director {
      *
      *
      *
-     * This is the constructor for constructing a CoursePage with only Course info and a list of instructors.
+     * This is the Director method for constructing a CoursePage with only Course info and a list of instructors.
      * It denotes the minimum amount of data we need to make a CoursePage.
      *
      * @param cpb         a CoursePageBuilder object that will build CoursePage as needed.
      * @param course      A list of strings containing Course info in this format:
-     *                    <p>
+     *
      *                    [CourseName, CourseCode, Optional(CourseDescription)]
      *                    CourseDescription may be omitted if not available.
+     *
      * @param instructors A list of instructors who have taught/are teaching this course.
      */
 
