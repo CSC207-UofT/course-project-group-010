@@ -104,10 +104,10 @@ public class CommentManagerTest
      * Tests that the displayEntireThread method displays the String representation of the entire CommentGraph up to its
      * full depth.
      *
-     * @throws ClassNotFoundException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testCompleteStringRepresentationFullDepth() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException
@@ -153,10 +153,10 @@ public class CommentManagerTest
      * Tests that the displayEntireThread method displays the String representation of the entire CommentGraph up to
      * depth 2.
      *
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testCompleteStringRepresentationDepth2() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException
@@ -190,10 +190,10 @@ public class CommentManagerTest
      * Tests that the displaySubsetThread method displays the String representation of a subset of a CommentGraph
      * up to the full depth.
      *
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testSubsetStringRepresentationFullDepth() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException
@@ -218,10 +218,10 @@ public class CommentManagerTest
      * Tests that the displaySubsetThread method displays the String representation of a subset of a CommentGraph up
      * to depth 0.
      *
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testSubsetStringRepresentationDepth0() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
@@ -242,10 +242,10 @@ public class CommentManagerTest
     /**
      * Tests that path generation from one Comment to another Comment given that there is a valid path works properly.
      *
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testPath() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
@@ -275,10 +275,10 @@ public class CommentManagerTest
     /**
      * Tests that reply functionality works correctly.
      *
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testReply() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InvalidIDException
@@ -291,10 +291,10 @@ public class CommentManagerTest
     /**
      * Tests that vote functionality works correctly.
      *
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws ClassNotFoundException the class is not found
+     * @throws NoSuchMethodException the method is not found
+     * @throws InvocationTargetException reflection wrap error
+     * @throws IllegalAccessException access denied
      */
     @Test
     public void testVote() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
