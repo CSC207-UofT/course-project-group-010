@@ -21,6 +21,11 @@
     - [creating commentGraph functionality](https://github.com/CSC207-UofT/course-project-group-010/pull/39)
     - [making improvements to commentGraph](https://github.com/CSC207-UofT/course-project-group-010/pull/101)
 - Nima:
+  - I created/polished entities (except UserFactory, that is Fiona's) and provided detailed javadoc where needed. I also implemented the CoursePage use-case utilizing a Builder design pattern with a Builder interface, a CoursePageBuilder, and a Director, updated for Phase 2. 
+    - [creating entities](https://github.com/CSC207-UofT/course-project-group-010/pull/16)
+    - [addition of Builder Design under Kevin's Pull Request]([https://github.com/CSC207-UofT/course-project-group-010/pull/73)
+    - [polishing of code/javadoc](https://github.com/CSC207-UofT/course-project-group-010/pull/139)  
+    - I didn't make many pull requests so a lot of my work was pulled to main via others' pull requests since we were working on the same files.
 - Junhyuk: Implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
     - [CourseManager implementation](https://github.com/CSC207-UofT/course-project-group-010/pull/100)
 - Wilson:
