@@ -12,11 +12,15 @@
       [cleaning up unused methods](https://github.com/CSC207-UofT/course-project-group-010/commit/7c19b3375be20919d07d09906550ca258a4611f4)
     - I looked through all the classes to delete unused methods by using the "find usages" intelliJ feature. I also implemented patterns in Command Classes, that used to
       do many different things. As a result, the design of our program follows SOLID principles better, and our classes are easier to understand without redundant methods.
-- Fiona: I worked on implemented design patterns for users, wrote test cases, performed refactors and wrote the design document. 
-    -[adding factory patterns to users](https://github.com/CSC207-UofT/course-project-group-010/pull/89/commits/09d842dfb805c348b28775a32459dbdc8dc1f3a5)
+- Fiona: I worked on implemented design patterns for users, wrote test cases, performed refactors, wrote accessibility report, helped with design document, and fixed warnings using inspect code feature.  
+    - [adding factory patterns to users](https://github.com/CSC207-UofT/course-project-group-010/pull/89/commits/09d842dfb805c348b28775a32459dbdc8dc1f3a5)
       -I implemented factory patterns in Users by creating/modifying UserFactory, IUser, StudentUser, InstructorUser, and UserManager class.
 - Noah:
+  - I created the commentGraph data structure that our program uses for threads in course pages. This includes `CommentGraph.java`, `CommentGraphHelper.java`, `CommentManager.java`, and related test files. 
+  - Some notable pull requests are
+    - [creating commentGraph functionality](https://github.com/CSC207-UofT/course-project-group-010/pull/39)
+    - [making improvements to commentGraph](https://github.com/CSC207-UofT/course-project-group-010/pull/101)
 - Nima:
-- Junhyuk: I implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
+- Junhyuk: Implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
     - [CourseManager implementation](https://github.com/CSC207-UofT/course-project-group-010/pull/100)
 - Wilson:

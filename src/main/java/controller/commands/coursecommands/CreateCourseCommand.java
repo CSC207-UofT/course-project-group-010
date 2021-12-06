@@ -37,7 +37,6 @@ public class CreateCourseCommand extends Command {
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "createcourse");
 
-        // TODO consider implementing the userinputgetter thing and changing this up yeah but idk this is weird so...
         List<List<String>> userInput = new CourseCreationGetter().getUserInput();
         List<String> course = userInput.get(0);
         List<String> instructor = userInput.get(1);

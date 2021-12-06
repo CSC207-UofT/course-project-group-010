@@ -43,7 +43,6 @@ public class CoursePageBuilder implements Builder {
         CoursePage cp = new CoursePage(this.course, this.instructors);
         //If Director takes info regarding ratings/cg in the constructPage constructor, assign values in CoursePage.
         cp.setRatings(this.ratings);
-        // TODO pls don't change this
         cp.setCommentGraph(new CommentGraph("Comments", "Comments"));
         this.reset();
         return cp;

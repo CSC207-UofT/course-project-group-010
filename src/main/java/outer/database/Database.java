@@ -15,18 +15,13 @@ import java.util.Map;
  */
 @SuppressWarnings("ALL")
 public class Database<T extends IDBSaveable & Serializable> {
-    // TODO [HIGH PRIO] work on DBs another day
-    // TODO TODO TODO DatabaseGetter currently instantiates database, this is VERY BAD, fix.
-    // consider making db.LoadDatabase like a new class like DatabaseLoader idk the TA didn't even notice this.
-    // TODO make create user/course commands that make new objects and then save them to the db or something
-    // TODO make the database load on startup and save before the program closes.
 
     /**
      * Static method that "loads" the database(returns a map that represents the database)
      *
      * @param filePath the path of file
-     * @param <T>
-     * @return
+     * @param <T> type of object to be saved
+     * @return map of ids to T objects
      * @throws IOException            if input/output is invalid
      * @throws ClassNotFoundException if the class is not found
      */
@@ -40,8 +35,8 @@ public class Database<T extends IDBSaveable & Serializable> {
      * Static method that saves the db contents to a file.
      *
      * @param filePath the path of file
-     * @param objects
-     * @param <T>
+     * @param objects map of ids to T objects
+     * @param <T> Type of object to be saved
      * @throws IOException if input/output is invalid
      */
     public static <T extends IDBSaveable & Serializable> void saveToFile(String filePath, Map<String, T> objects) throws IOException {
