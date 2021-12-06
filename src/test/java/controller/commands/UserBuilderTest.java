@@ -57,7 +57,7 @@ public class UserBuilderTest {
     public void testOtherData() {
         Map<String, String> od1 = sb.processOtherData("asd");
         Map<String, String> od2 = ib.processOtherData("asd");
-        assertEquals(true, od1.get("programDetail").equals(ProgramConstants.NO_PROGRAM));
-        assertEquals(true, od2.get("position").equals("asd"));
+        assertEquals(ProgramConstants.NO_PROGRAM, od1.get("programDetail"));
+        assertEquals("asd", od2.get("position"));
     }
 }

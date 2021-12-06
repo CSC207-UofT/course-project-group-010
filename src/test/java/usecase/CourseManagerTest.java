@@ -46,7 +46,7 @@ public class CourseManagerTest {
     @Test
     public void testRatings() throws ArgumentException {
         cm.addRating(10, u);
-        assertEquals(true, cm.getRelativeRatings().containsKey(u.getProgramDetail()));
+        assertTrue(cm.getRelativeRatings().containsKey(u.getProgramDetail()));
         assertEquals(10, cm.getRelativeRating(u.getProgramDetail()), 0.1);
         cm.addRating(5, u);
         assertEquals(5.0, cm.getRelativeRating(u.getProgramDetail()), 0.1);
@@ -81,7 +81,7 @@ public class CourseManagerTest {
 
     @Test
     public void testAuth() {
-        assertEquals(true, cm.getAuthDict().containsKey(UserType.STUDENT));
-        assertEquals(true, cm.getAuthDict().containsKey(UserType.INSTRUCTOR));
+        assertTrue(cm.getAuthDict().containsKey(UserType.STUDENT));
+        assertTrue(cm.getAuthDict().containsKey(UserType.INSTRUCTOR));
     }
 }

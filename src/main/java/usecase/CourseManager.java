@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * courseManager.updateRating(5, user);
  */
 
-@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CourseManager implements IReadModifiable, IDBSaveable, Serializable {
 
     private final Course course;

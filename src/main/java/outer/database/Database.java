@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @param <T>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 public class Database<T extends IDBSaveable & Serializable> {
 
     /**
