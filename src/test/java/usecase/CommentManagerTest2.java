@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 public class CommentManagerTest2 {
 
     public CommentManager cm;
-    public CommentPresenter cp;
     public CommentGraph cg;
 
     @Before

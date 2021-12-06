@@ -3,7 +3,6 @@ package controller.commands;
 import constants.CommandConstants;
 import constants.UserType;
 import controller.commands.coursecommands.CreateCourseCommand;
-import controller.databasegetter.CourseDatabaseGetter;
 import exceptions.CommandNotFoundException;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -103,7 +102,7 @@ public class SimulatedInputTest {
     @Test (timeout = 100)
     public void testCheckout() {
         // need to create a user
-        String output = testcommand("login test");
+        testcommand("login test");
         String output1 = testcommand("checkout CSC207");
         assertEquals("now viewing course CSC207", output1);
 
