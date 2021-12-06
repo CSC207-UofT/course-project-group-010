@@ -36,35 +36,44 @@ public class InstructorUser implements Serializable, IUser {
         setPosition("N/A");
     }
 
+    /**
+     * @return a string representation of this InstructorUser in the following format: "Display_Name ID".
+     */
     @Override
     public String toString() {
         return this.getDisplayName() + "\n" + this.getID();
     }
 
+    /**
+     * @return a this InstructorUser's ID.
+     */
     @Override
     public String getID() {
         return this.ID;
     }
 
+    /**
+     * @return a this InstructorUser's DisplayName.
+     */
     @Override
     public String getDisplayName() {
         return this.displayName;
     }
 
+    /**
+     * @return a this InstructorUser's position.
+     */
     public String getPosition() {
         return this.getOtherData().get("position");
     }
 
-    public void setPosition(String p) {
-        this.getOtherData().put("position", p);
-    }
-
+    /**
+     * @return Get this InstructorUser's OtherData.
+     */
     @Override
     public Map<String, String> getOtherData() {
         return otherData;
     }
-
-    //Setters
 
     /**
      * Gets data relevant to this user, in a map format.
@@ -81,6 +90,11 @@ public class InstructorUser implements Serializable, IUser {
         return result;
     }
 
-
+    /**
+     * Set a this InstructorUser's position.
+     */
+    public void setPosition(String p) {
+        this.getOtherData().put("position", p);
+    }
 }
 

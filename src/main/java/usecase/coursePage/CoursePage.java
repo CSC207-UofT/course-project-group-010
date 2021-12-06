@@ -43,52 +43,88 @@ public class CoursePage implements Serializable {
         this.ratings = new ArrayList<>();
     }
 
-    // Getters
-
+    /**
+     * @return the Course object of this CoursePage.
+     */
     public Course getCourse() {
         return this.course;
     }
 
+    /**
+     * @return the List of Instructors of this CoursePage.
+     */
     public List<String> getInstructors() {
         return this.instructors;
     }
 
+
+    /**
+     * @return the List of Ratings of this CoursePage.
+     */
     public List<Rating> getRatings() {
         return this.ratings;
     }
 
+
+    /**
+     * @return the average score across all the ratings for this CoursePage.
+     */
     public double getAverageScore() {
         return this.averageScore;
     }
 
+
+    /**
+     * @return the commentGraph object associated with this CoursePage.
+     */
     public CommentGraph getCommentGraph() {
         return this.commentGraph;
     }
 
+
+    /**
+     * @return the a CommentManager object with this CoursePage's commentGraph as its input.
+     */
     public CommentManager getThread() {
         return new CommentManager(this.getCommentGraph());
     }
 
 
-    //Setters
-
-    // Set information for course Page
+    /**
+     * Set the Course object for this CoursePage.
+     */
     public void setCourse(Course course) {
         this.course = course;
     }
 
+
+    /**
+     * Set the Instructors variable for this CoursePage.
+     */
     public void setInstructors(List<String> instructors) {
         this.instructors = instructors;
     }
 
+
+    /**
+     * Set the Ratings for this CoursePage.
+     */
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
 
+
+    /**
+     * Set the AverageScore for this CoursePage.
+     */
     public void setAverageScore(double AverageScore) {
         this.averageScore = AverageScore;
     }
 
+
+    /**
+     * Set the CommentGraph object for this CoursePage.
+     */
     public void setCommentGraph(CommentGraph commentGraph) {
         this.commentGraph = commentGraph;
     }
