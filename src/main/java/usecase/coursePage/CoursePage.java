@@ -14,7 +14,7 @@ public class CoursePage implements Serializable {
 
 
     private Course course;
-    private List<String> instructors;
+    private final List<String> instructors;
     private List<Rating> ratings;
     private float averageScore;
     private CommentGraph commentGraph;
