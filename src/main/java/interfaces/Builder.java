@@ -13,19 +13,16 @@ public interface Builder {
     */
     void buildCourse(List<String> course);
 
-
     /**
     *
     * @param course set the Course object for the CoursePageBuilder.
     */
     void setCourse(Course course);
 
-
     /**
     * @param instructors set the instructors parameter for CoursePageBuilder.
     */
     void setInstructors(List<String> instructors);
-
 
     /**
     * reset this Builder so that it may be used again.

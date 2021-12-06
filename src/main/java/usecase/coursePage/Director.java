@@ -38,7 +38,6 @@ public class Director {
      *
      * @param instructors A list of instructors who have taught/are teaching this course.
      */
-
     public void constructCoursePage(CoursePageBuilder cpb,
                                     List<String> course,
                                     List<String> instructors) {

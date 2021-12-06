@@ -33,7 +33,6 @@ public class StudentUser implements Serializable, IUser {
         fixOtherData();
     }
 
-
     /**
      * This is the StudentUser constructor that can initialize a StudentUser object without otherData as an input.
      * It initializes an empty HashMap instead.

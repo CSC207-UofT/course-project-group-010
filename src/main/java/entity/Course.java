@@ -22,14 +22,12 @@ public class Course implements Serializable {
         this.description = DEFAULT;
     }
 
-
     /**
      * @return a string representation of the course.
      */
     public String toString() {
         return this.name + "\n" + this.code + "\n" + this.description;
     }
-
 
     /**
      * @return course's name.
@@ -38,14 +36,12 @@ public class Course implements Serializable {
         return this.name;
     }
 
-
     /**
      * @return course code.
      */
     public String getCode() {
         return this.code;
     }
-
 
     /**
      * @return course's description.

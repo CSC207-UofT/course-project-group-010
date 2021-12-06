@@ -1,29 +1,22 @@
 package entity;
 
-import constants.ProgramConstants;
 import interfaces.IUser;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-// TODO instructorUser isn't really fleshed out, consider deleteing or adding methods similar to those in StudentUser
 public class InstructorUser implements Serializable, IUser {
 
-    public static int MAXIMUM_DISPLAY_LENGTH = 25;
-    private final String ID;
-    private final String displayName;
+    private final String ID; //ID
+    private final String displayName; //Username
     private final Map<String, String> otherData;
 
     /**
-     * An InstructorUser object. The parameters are currently final as no changes need to be made; future developers
-     * may remove the finality of the parameter if need be.
-     *
-     * @param ID The ID of this InstructorUser.
-     * @param displayName The display name of this InstructorUser.
-     * @param otherData A map containing information about this InstructorUser; current info includes
-     *                  their position (TA or Prof) and more info may be added in the future by other developers.
+     * Initializes a new instructorUser
+     * @param displayName display name
+     * @param ID id
+     * @param otherData map of other relevant data, eg. position
      */
     public InstructorUser(String displayName, String ID, Map<String, String> otherData) {
         this.displayName = displayName;
@@ -32,7 +25,19 @@ public class InstructorUser implements Serializable, IUser {
     }
 
     /**
-     * @return a string representation of this  InstructorUser.
+     * Overloaded constructor, creates a blank otherData dictionary
+     * @param displayName name
+     * @param ID id
+     */
+    public InstructorUser(String displayName, String ID) {
+        this.displayName = displayName;
+        this.ID = ID;
+        this.otherData = new HashMap<>();
+        setPosition("N/A");
+    }
+
+    /**
+     * @return a string representation of this InstructorUser in the following format: "Display_Name ID".
      */
     @Override
     public String toString() {
@@ -40,7 +45,7 @@ public class InstructorUser implements Serializable, IUser {
     }
 
     /**
-     * @return the ID of this  InstructorUser.
+     * @return a this InstructorUser's ID.
      */
     @Override
     public String getID() {
@@ -48,7 +53,7 @@ public class InstructorUser implements Serializable, IUser {
     }
 
     /**
-     * @return the DisplayName of this  InstructorUser.
+     * @return a this InstructorUser's DisplayName.
      */
     @Override
     public String getDisplayName() {
@@ -56,7 +61,14 @@ public class InstructorUser implements Serializable, IUser {
     }
 
     /**
-     * @return the otherData of this  InstructorUser.
+     * @return a this InstructorUser's position.
+     */
+    public String getPosition() {
+        return this.getOtherData().get("position");
+    }
+
+    /**
+     * @return Get this InstructorUser's OtherData.
      */
     @Override
     public Map<String, String> getOtherData() {
@@ -64,22 +76,8 @@ public class InstructorUser implements Serializable, IUser {
     }
 
     /**
-     * @return this InstructorUser's teaching position, i.e whether they are a Professor or a TA.
-     */
-    public String getPosition() {
-        return this.getOtherData().get("position");
-    }
-
-    /**
-     * Set this InstructorUser's teaching position, i.e whether they are a Professor or a TA.
-     */
-    public void setPosition(String p) {
-        this.getOtherData().put("position", p);
-    }
-
-    /**
-     * @return A hashmap of data containing all information about this InstructorUser, used for displaying information
-     * in commands.
+     * Gets data relevant to this user, in a map format.
+     * @return the data
      */
     @Override
     public HashMap<String, Object> getData() {
@@ -92,6 +90,11 @@ public class InstructorUser implements Serializable, IUser {
         return result;
     }
 
-
+    /**
+     * Set a this InstructorUser's position.
+     */
+    public void setPosition(String p) {
+        this.getOtherData().put("position", p);
+    }
 }
 

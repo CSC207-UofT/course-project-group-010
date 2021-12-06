@@ -25,7 +25,6 @@ public class CoursePageBuilder implements Builder {
         this.course = course;
     }
 
-
     /**
      * @param instructors set the instructors parameter for CoursePageBuilder.
      */
@@ -33,7 +32,6 @@ public class CoursePageBuilder implements Builder {
     public void setInstructors(List<String> instructors) {
         this.instructors = instructors;
     }
-
 
     /**
      * @param course builds the courses for the CoursePage.
@@ -48,7 +46,6 @@ public class CoursePageBuilder implements Builder {
         this.setCourse(c);
     }
 
-
     /**
      * @return a CoursePage object by using the CoursePageBuilder's set variables.
      */
@@ -59,7 +56,6 @@ public class CoursePageBuilder implements Builder {
         this.reset();
         return cp;
     }
-
 
     /**
      * reset this CoursePageBuilder so that it may be used again.
