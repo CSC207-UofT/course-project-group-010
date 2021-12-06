@@ -19,7 +19,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Build with Gradle
-      run: chmod +x ./gradlew | sudo ./gradlew
+#     - name: Build with Gradle
+#       run: chmod +x ./gradlew | sudo ./gradlew
     - name: test
-      run: ./gradlew test
+      run: sudo ./gradlew test
