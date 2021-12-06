@@ -61,12 +61,12 @@ public class CommentPresenterTest {
 
     @Test
     public void testGetData() {
-        assertEquals(true, cp.getData().containsKey(CommandConstants.allDataString));
+        assertTrue(cp.getData().containsKey(CommandConstants.allDataString));
     }
 
     @Test
     public void testAuthDict() {
-        assertEquals(true, cp.getAuthDict().containsKey(UserType.STUDENT));
-        assertEquals(true, cp.getAuthDict().containsKey(UserType.INSTRUCTOR));
+        assertTrue(cp.getAuthDict().containsKey(UserType.STUDENT));
+        assertTrue(cp.getAuthDict().containsKey(UserType.INSTRUCTOR));
     }
 }

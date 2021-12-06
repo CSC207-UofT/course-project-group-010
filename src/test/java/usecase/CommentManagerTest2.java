@@ -31,9 +31,9 @@ public class CommentManagerTest2 {
         cm.replyToComment("root", "hasdf", "asd");
         List<String> children = cm.getChildIDs("root");
         assertEquals(1, cm.getChildIDs("root").size());
-        assertEquals(true, cm.hasChildID("root", children.get(0)));
+        assertTrue(cm.hasChildID("root", children.get(0)));
         assertEquals("root", cm.getParentComment(children.get(0)).getId());
         cm.vote("root", false);
-        assertEquals(false, cm.hasChildID("root", "asdfadsgsdf"));
+        assertFalse(cm.hasChildID("root", "asdfadsgsdf"));
     }
 }

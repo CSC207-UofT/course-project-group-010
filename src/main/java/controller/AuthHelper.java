@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Helps check if users are allowed to take actions.
  */
+@SuppressWarnings("StatementWithEmptyBody")
 public class AuthHelper {
     /**
      * Checks if user is allowed to take a certain method on an authorizable object

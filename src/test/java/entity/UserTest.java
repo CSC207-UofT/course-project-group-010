@@ -61,7 +61,7 @@ public class UserTest {
     public void testGetOtherData2() {
         IUser a = new StudentUser("Kevin", "k123");
         IUser b = new InstructorUser("Kevin", "k1234");
-        if (!(a.getOtherData() instanceof Map) || !(b.getOtherData() instanceof Map)) {
+        if (a.getOtherData() == null || b.getOtherData() == null) {
             fail();
         }
     }

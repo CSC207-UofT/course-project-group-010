@@ -8,6 +8,7 @@ import usecase.UserManager;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UserManagerTest {
 
@@ -23,7 +24,7 @@ public class UserManagerTest {
         assertEquals(um.getData(), um.getUser().getData());
         assertEquals("kev1", um.getID());
         assertEquals(UserType.STUDENT, um.getPermissionLevel());
-        assertEquals(true, um.getAuthDict().containsKey(UserType.STUDENT) && um.getAuthDict().containsKey(UserType.INSTRUCTOR));
+        assertTrue(um.getAuthDict().containsKey(UserType.STUDENT) && um.getAuthDict().containsKey(UserType.INSTRUCTOR));
     }
 
 }

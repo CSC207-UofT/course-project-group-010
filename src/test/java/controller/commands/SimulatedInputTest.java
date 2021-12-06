@@ -23,9 +23,11 @@ import static org.junit.Assert.*;
  * contains basic tests for the entire COMMANDS package. These tests simulate user input into the CLI,
  * testing for the correct output.
  */
+@SuppressWarnings("UnusedAssignment")
 public class SimulatedInputTest {
     public static CommandExecutor ce;
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @BeforeClass
     public static void setup() {
         ce = CommandExecutor.getInstance();
