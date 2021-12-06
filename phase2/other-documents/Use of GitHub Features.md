@@ -16,8 +16,8 @@ We have used the following GitHub Features:
 
 3. Actions
 
-- We use the Actions feature to automate our program workflows. For example, we added tests for some methods ( getSize,
-  getComment) to automate the testing process.
+- We use workflow actions to automate our JUnit tests whenever we push or merge request to main.
+- Without triggering tests manually, we can check our codes run as how they are supposed to on github.
 
 4. Test Coverage
 
