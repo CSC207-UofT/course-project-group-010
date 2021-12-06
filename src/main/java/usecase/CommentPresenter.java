@@ -18,10 +18,10 @@ import java.util.Map;
  * Keeps technical methods in CommentManager, to keep things open for extension.
  */
 public class CommentPresenter implements IReadModifiable {
-    private CommentManager cm;
+    private final CommentManager cm;
     private String currentID;
     private String fullPath;
-    private Map<UserType, List<String>> authDict;
+    private final Map<UserType, List<String>> authDict;
 
 
     public CommentPresenter(CommentManager cm) {
@@ -31,20 +31,15 @@ public class CommentPresenter implements IReadModifiable {
         this.authDict = getDefaultAuthDict();
     }
 
-    // TODO delete if we delete displayfullthread, displaysubsetthread, getpath
-    public CommentManager getCommentManager() {
-        return this.cm;
-    }
-
     /**
      * Works like the cd command in linux, but for comments. Navigates to a specific reply, or backwards to the parent comment.
      * Will update the fullPath and currentID accordingly.
      * @param arg [id1]/[id2]... will make the program go to subcomment id1, then subcomment id2. .. will make the program
      *            go backwards.
-     * @throws ArgumentException
+     * @throws ArgumentException if we cannot cd to the place
      */
     public void cdCommand(String arg) throws ArgumentException {
-        // Fun fact, cd statnds for change dcomment !
+        // Fun fact, cd stands for change dcomment !
         List<String> arguments = parseArgumentString(arg);
         String pathTraversed = "";
         for (String id : arguments) {
@@ -69,7 +64,7 @@ public class CommentPresenter implements IReadModifiable {
      * @param commentID comment id to reply to
      * @param text text to add
      * @param userName username to display
-     * @throws InvalidIDException
+     * @throws InvalidIDException if invalid id is entered
      */
     public void replyToComment(String commentID, String text, String userName) throws InvalidIDException
     {
@@ -80,7 +75,7 @@ public class CommentPresenter implements IReadModifiable {
      * Replies to CURRENT comment with specified text
      * @param text text of the reply
      * @param userName username to display
-     * @throws InvalidIDException
+     * @throws InvalidIDException if invalid id is entered
      */
     public void replyToComment(String text, String userName) throws InvalidIDException {
         this.cm.replyToComment(currentID, text, userName);
@@ -109,7 +104,7 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * Gets authorization dictionary, part of the IAuthorizable interface.
-     * @return
+     * @return authorization dictionary
      */
     @Override
     public Map<UserType, List<String>> getAuthDict() {
@@ -118,11 +113,10 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * Gets relevant data to be presented on the screen. Part of the IGettable interface.
-     * @return
-     * @throws IllegalArgumentException
+     * @return the data as a map
      */
     @Override
-    public HashMap<String, Object> getData() throws IllegalArgumentException {
+    public HashMap<String, Object> getData() {
         HashMap<String, Object> map = new HashMap<>();
         String coolString = "Path: " + this.fullPath + "\n" + cm.displaySubsetThread(currentID, true, -1);
         map.put(CommandConstants.allDataString, coolString);
@@ -131,8 +125,8 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * Parses the user's argument string for the cd command. eg. "../abc/.." --> ["..", "abc", ".."]
-     * @param argument
-     * @return
+     * @param argument argument string
+     * @return parsed argument string as a list
      */
     private List<String> parseArgumentString(String argument) {
         return List.of(argument.split("/"));
@@ -142,8 +136,8 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * helper method for checking out an id. Helps with cd [id]
-     * @param id
-     * @throws InvalidIDException
+     * @param id the id of the comment to checkout
+     * @throws InvalidIDException if it is an invalid id
      */
     private void checkoutSingleID(String id) throws InvalidIDException {
         if (cm.hasChildID(this.currentID, id)) {
@@ -156,7 +150,7 @@ public class CommentPresenter implements IReadModifiable {
 
     /**
      * helper method for checking out parent comment. Helps with cd ..
-     * @throws InvalidIDException
+     * @throws InvalidIDException if we cannot find a parent comment
      */
     private void checkoutParentID() throws InvalidIDException {
         if (cm.getParentComment(this.currentID) instanceof CommentGraph.Comment) {
@@ -171,15 +165,13 @@ public class CommentPresenter implements IReadModifiable {
     /**
      * Gets the default authorization dictionary. All users can take all possible actions on this commentPresenter.
      * Helper method for the getAuthDict() method.
-     * @return
+     * @return permission dictionary
      */
     private Map<UserType, List<String>> getDefaultAuthDict() {
         Map<UserType, List<String>> permDict = new HashMap<>();
         List<String> l = Arrays.asList("displayfullthread", "displaysubsetthread", "getpath", "reply", "vote", "print", "commentcd");
-        List<String> studentPermissions = l;
-        List<String> instructorPermissions = l;
-        permDict.put(UserType.STUDENT, studentPermissions);
-        permDict.put(UserType.INSTRUCTOR, instructorPermissions);
+        permDict.put(UserType.STUDENT, l);
+        permDict.put(UserType.INSTRUCTOR, l);
         return permDict;
     }
 }

@@ -39,8 +39,7 @@ public class CommandExecutor {
     /**
      * Processes a request sent to the command executor
      *
-     * @param request
-     * @throws Exception
+     * @param request command request to be processed
      */
     public String processRequest(CommandRequest request) {
         CommandConstants commandConstants = new CommandConstants();

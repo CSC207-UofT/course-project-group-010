@@ -1,8 +1,6 @@
 package usecase;
 
 import constants.UserType;
-import entity.InstructorUser;
-import entity.StudentUser;
 import org.junit.Before;
 import org.junit.Test;
 import usecase.UserManager;
@@ -10,14 +8,11 @@ import usecase.UserManager;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class UserManagerTest {
 
     public UserManager um;
-
-    // TODO New implementation of UserManager, check then change tests
-    // or explain how to implement into commandExecutor.
+    
     @Before
     public void setup() throws Exception {
         um = new UserManager(UserType.STUDENT, "Kevin", "kev1", new HashMap<>());

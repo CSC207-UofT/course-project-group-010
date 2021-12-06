@@ -2,14 +2,10 @@ package controller.commands;
 
 import constants.CommandConstants;
 import controller.commands.commandHelpers.DataPrinter;
-import controller.commands.commentcommands.DisplayFullThreadCommand;
-import controller.commands.commentcommands.ReplyCommand;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -39,12 +35,6 @@ public class CommandTest {
     public void testInvalidArgs() {
         CommandRequest request = new CommandRequest("print asdf agaj fklaj");
         assertEquals(ce.processRequest(request), "Invalid number of Arguments");
-    }
-
-    @Test
-    public void testHelp() {
-        CommandRequest request = new CommandRequest("displayfullthread -h");
-        assertEquals(ce.processRequest(request), new DisplayFullThreadCommand().help());
     }
 
     @Test

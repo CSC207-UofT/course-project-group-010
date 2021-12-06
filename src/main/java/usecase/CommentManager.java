@@ -12,7 +12,6 @@ import java.util.List;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CommentManager Class
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// TODO delete anything that isn't used, and justify the existence of the other methods in this class.
 /**
  * Class that handles comments in a CommentGraph
  */
@@ -24,7 +23,7 @@ public class CommentManager implements Serializable
 //======================================================================================================================
 
     // initial CommentGraph
-    CommentGraph commentGraph;
+    final CommentGraph commentGraph;
 
 //======================================================================================================================
 // Comment Manager Constructors
@@ -147,7 +146,7 @@ public class CommentManager implements Serializable
      * Generate a path in String form from one Comment to another.
      *
      * @param startId id of Comment to start at
-     * @param endId   if of Comment to end at
+     * @param endId   id of Comment to end at
      * @return the path from one Comment to another
      */
     public String getPath(String startId, String endId)
@@ -159,95 +158,6 @@ public class CommentManager implements Serializable
         // return the path
         return this.commentGraph.stringPath(startComment, endComment);
     }
-
-//======================================================================================================================
-// Searching Functions
-//======================================================================================================================
-
-    /**
-     * Searches for comments by username and returns their formatted representation.
-     *
-     * @param userName to search for
-     * @return list of formatted comments.
-     */
-//    public List<String> getCommentsByUserName(String userName)
-//    {
-//        // new empty list
-//        List<String> comments = new ArrayList<>()
-//        {
-//        };
-//
-//        // dictionary of vertices from CommentGraph
-//        HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
-//
-//        // search for text
-//        for (String key : vertices.keySet())
-//        {
-//            // if text found
-//            if (vertices.get(key).getUserName().contains(userName))
-//            {
-//                // add to list
-//                comments.add(vertices.get(key).getFormattedRepresentation());
-//            }
-//        }
-//
-//        // return list
-//        return comments;
-//    }
-
-    /**
-     * Searches for comments by id and returns their formatted representation.
-     *
-     * @param id to search for.
-     * @return list of formatted comments.
-     */
-//    public String getCommentById(String id) throws InvalidIDException
-//    {
-//        // if id is valid (i.e, it exists)
-//        if (commentGraph.getVertices().containsKey(id))
-//        {
-//            // return formatted comment
-//            return this.commentGraph.getComment(id).getFormattedRepresentation();
-//        }
-//
-//        // if id is invalid (i.e, it doesn't exist)
-//        else
-//        {
-//            // throw InvalidIDException
-//            throw new InvalidIDException();
-//        }
-//    }
-
-    /**
-     * Searches for comments by id and returns their formatted representation.
-     *
-     * @param text String to search for.
-     * @return List of formatted Strings.
-     */
-//    public List<String> getCommentsByText(String text)
-//    {
-//        // new empty list
-//        List<String> comments = new ArrayList<>()
-//        {
-//        };
-//
-//        // dictionary of vertices from CommentGraph
-//        HashMap<String, CommentGraph.Comment> vertices = this.commentGraph.getVertices();
-//
-//        // search for text
-//        for (String key : vertices.keySet())
-//        {
-//            // if text found
-//            if (vertices.get(key).getText().contains(text))
-//            {
-//                // add to list
-//                comments.add(vertices.get(key).getFormattedRepresentation());
-//            }
-//        }
-//
-//        // return list
-//        return comments;
-//    }
 
 //======================================================================================================================
 // Getters and Special Functions
@@ -263,18 +173,6 @@ public class CommentManager implements Serializable
     {
         return this.commentGraph.getComment(id).getVote();
     }
-
-    /**
-     * Get the depth of the specified Comment.
-     *
-     * @param id of Comment.
-     * @return depth value.
-     */
-    // TODO consider removing
-//    public int getDepth(String id)
-//    {
-//        return this.commentGraph.getComment(id).getDepth();
-//    }
 
     /**
      * Gets the parent of a Comment given an id.
@@ -301,9 +199,9 @@ public class CommentManager implements Serializable
     /**
      * Checks if findID is the id of one of the children of a Comment given an ID
      *
-     * @param startID
-     * @param findID
-     * @return
+     * @param startID id of Comment to start at
+     * @param findID id of comment to find
+     * @return true if findId is the id of one of the children of a Comment given an ID. false if it is not
      */
     public boolean hasChildID(String startID, String findID)
     {
@@ -318,6 +216,11 @@ public class CommentManager implements Serializable
         return false;
     }
 
+    /**
+     * Gets child ids of a comment(ids of all the replies)
+     * @param startID id of the comment to get child IDs for
+     * @return the child IDs, as a list
+     */
     public List<String> getChildIDs(String startID) {
         List<CommentGraph.Comment> lst = this.commentGraph.getComment(startID).getNext();
         List<String> childIDs = new ArrayList<>();

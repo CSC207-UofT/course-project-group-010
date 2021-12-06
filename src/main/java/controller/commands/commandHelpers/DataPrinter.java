@@ -16,8 +16,8 @@ public class DataPrinter {
     /**
      * Converts the data to a string representation.
      * If input map contains the allDataString, assumes that all data is mapped to that key.
-     * @param data
-     * @return
+     * @param data data to be processed
+     * @return processed data as a string representation
      */
     public String printData(Map<String, Object> data) {
         if (data.containsKey(CommandConstants.allDataString)) {
@@ -29,8 +29,8 @@ public class DataPrinter {
 
     /**
      * Processes a dictionary of strings to objects, converting it to a string representation
-     * @param data
-     * @return
+     * @param data dictionary of datat to be represented
+     * @return the string representation of the data
      */
     private String processDict(Map<String, Object> data) {
         String returnString = "";

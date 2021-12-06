@@ -13,19 +13,11 @@ public class SaveAllCommand extends Command {
         super(0, 0);
     }
 
-    @Override
-    public String help() {
-        return "saves all users/course editing progress. Format: saveall";
-    }
-
     /**
      * Saves all courses and users created so far in the session.
      * Format: saveall
      *
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     * @return the result of the saving
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -33,5 +25,10 @@ public class SaveAllCommand extends Command {
         UserDatabaseGetter.getInstance().saveAll();
         CourseDatabaseGetter.getInstance().saveAll();
         return "saved all";
+    }
+
+    @Override
+    public String help() {
+        return "saves all users/course editing progress. Format: saveall";
     }
 }

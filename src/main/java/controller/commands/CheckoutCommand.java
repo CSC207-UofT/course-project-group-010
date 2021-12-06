@@ -4,13 +4,15 @@ import controller.commands.commandHelpers.CommentsPageGetter;
 import controller.commands.commandHelpers.CoursePageGetter;
 import controller.commands.commandHelpers.PageGetter;
 import controller.commands.commandHelpers.UserPageGetter;
+import exceptions.ArgumentException;
+import exceptions.CommandHelpException;
+import exceptions.CommandNotAuthorizedException;
+import exceptions.NotInDatabaseException;
 
+import java.io.IOException;
 import java.util.List;
 
-/**
- * Checks out a page or review section of a page(to be implemented later)
- * Format for now is checkout [pagename] or checkout r for reviews i guess??
- */
+
 public class CheckoutCommand extends Command {
 
     /**
@@ -24,13 +26,11 @@ public class CheckoutCommand extends Command {
      * Checks out a page with given id
      * or you can check out your user page using -u, or the comment section of a course using -c
      *
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     * @param arguments user arguments(-c, -u or course code)
+     * @return the result of the command
      */
     @Override
-    public String run(CommandExecutor ce, List<String> arguments) throws Exception {
+    public String run(CommandExecutor ce, List<String> arguments) throws CommandHelpException, ArgumentException, CommandNotAuthorizedException, NotInDatabaseException, IOException, ClassNotFoundException {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
         checkUserExists(ce);
@@ -38,7 +38,6 @@ public class CheckoutCommand extends Command {
         PageGetter pg = getPageGetter(arg);
         pg.getPage(ce);
 
-        // previous line will throw exception if it fails, so we assume it was successful here.
         return pg.getSuccessString();
     }
 
@@ -48,6 +47,12 @@ public class CheckoutCommand extends Command {
                 "section of the page.\n - checkout -u gets the currently logged in user's profile page.";
     }
 
+    /**
+     * factory method that gets the pageGetter corresponding to user input
+     *
+     * @param argument user input argument
+     * @return the PageGetter
+     */
     private PageGetter getPageGetter(String argument) {
         switch (argument) {
             case "-u":

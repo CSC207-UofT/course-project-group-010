@@ -25,9 +25,9 @@ import java.util.Map;
  * Implement interfaces
  */
 public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable, Serializable {
-    private IUser user;
-    private UserType userType;
-    private Map<UserType, List<String>> authDict;
+    private final IUser user;
+    private final UserType userType;
+    private final Map<UserType, List<String>> authDict;
 
     /**
      * Initializes a new UserManager.
@@ -41,57 +41,6 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
         this.userType = type;
         this.authDict = getDefaultAuthDict();
     }
-
-
-    /**
-     * Initializes a new UserManager without other data inputted.
-     * @param type
-     * @param displayName
-     * @param ID
-     * @throws Exception
-     */
-    // Deprecated, we will return otherData mapping to NA if the user doesn't enter anything.
-//    public UserManager(UserType type, String displayName, String ID) throws Exception {
-//
-//        UserFactory userFactory = new UserFactory();
-//        user = userFactory.getUser(type, displayName, ID);
-//        this.userType = type;
-//        this.authDict = getDefaultAuthDict();
-//    }
-
-
-    // Modify User information
-
-    // METHOD NOT USED
-//    /**
-//     * Increment review count of a given user.
-//     *
-//     * @param user instance of a user.
-//     */
-//    public void userIncrementReviewCount(IUser user) {
-//        user.incrementReviewCount();
-//    }
-
-//    /**
-//     * Set display name of a given user.
-//     *
-//     * @param user instance of a user.
-//     * @param s    display name.
-//     */
-//    public void userSetDisplayName(IUser user, String s) {
-//        user.setDisplayName(s);
-//    }
-//
-//
-//    /**
-//     * Set courses of a given user.
-//     *
-//     * @param c List of courses.
-//     */
-//
-//    public void setCourses(IUser user, HashMap<Integer, List<Course>> c) {
-//        user.setCourses(c);
-//    }
 
     /**
      * Return the information about the user.
@@ -139,44 +88,6 @@ public class UserManager implements IDBSaveable, IHasPermission, IReadModifiable
         permDict.put(UserType.INSTRUCTOR, instructorPermissions);
         return permDict;
     }
-
-// TODO I like the idea, but it's too late, and we don't have to do it.
-//    // Modify Student User information.
-//
-//    // FIXME: dependency on StudentUser
-//    /**
-//     * Set program detail of a given user.
-//     *
-//     * @param studentUser instance of a StudentUser.
-//     * @param s           string of program detail.
-//     */
-//    public void studentSetProgramDetail(StudentUser studentUser, String s) {
-//        studentUser.setProgramDetail(s);
-//    }
-//
-//    // Modify InstructorUser information.
-//
-//    // FIXME: dependency on InstructorUser
-//    /**
-//     * Set currently teaching courses of a given InstructorUser.
-//     *
-//     * @param instructorUser instance of an InstructorUser.
-//     * @param t              list of courses.
-//     */
-//    public void instructorSetCurrentlyTeaching(InstructorUser instructorUser, List<Course> t) {
-//        instructorUser.setCurrentlyTeaching(t);
-//    }
-//
-//    // FIXME: dependency on InstructorUser
-//    /**
-//     * Set position of a give InstructorUser.
-//     *
-//     * @param instructorUser instance of an InstructorUser.
-//     * @param p              string of position.
-//     */
-//    public void instructorSetPosition(InstructorUser instructorUser, String p) {
-//        instructorUser.setPosition(p);
-//    }
 }
 
 

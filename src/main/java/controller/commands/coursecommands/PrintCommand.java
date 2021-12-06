@@ -20,10 +20,9 @@ public class PrintCommand extends Command {
      * Prints the currently viewing page. Format is "print"
      * Is able to print course pages and comment pages(anything implementing IGettable)
      *
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     * @param ce        commandExecutor
+     * @param arguments argumentS(none required)
+     * @return the string representation of the page.
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {

@@ -28,16 +28,15 @@ public class CreateCourseCommand extends Command {
 
     /**
      * Prompts the user to create a new course.
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     *
+     * @param ce        command executor
+     * @param arguments arguments(none required)
+     * @return the return string
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
         checkAll(ce, arguments, "createcourse");
 
-        // TODO consider implementing the userinputgetter thing and changing this up yeah but idk this is weird so...
         List<List<String>> userInput = new CourseCreationGetter().getUserInput();
         List<String> course = userInput.get(0);
         List<String> instructor = userInput.get(1);
@@ -45,12 +44,29 @@ public class CreateCourseCommand extends Command {
 
     }
 
+    /**
+     * Checks all necessary requirements are satisfied for run() method to proceed
+     *
+     * @param ce        commandExecutor
+     * @param arguments arguments
+     * @param method    method(createCourse)
+     */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);
         checkArgumentsNum(arguments);
     }
 
+    /**
+     * Constructs the course, using coursePageBuilder
+     *
+     * @param course     the course info, as a list
+     * @param instructor the instructor info, as a list
+     * @return the return string
+     * @throws IOException if invalid input/output
+     * @throws ClassNotFoundException if the class is not found
+     * @throws CommandNotAuthorizedException if command is not authorized
+     */
     private String constructCourse(List<String> course, List<String> instructor) throws IOException, ClassNotFoundException, CommandNotAuthorizedException {
         // Create the builder
         CoursePageBuilder cpb = new CoursePageBuilder();

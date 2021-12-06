@@ -11,6 +11,7 @@ import java.util.List;
  * Current format is login[utorID]
  */
 public class LoginCommand extends Command {
+
     /**
      * Initializes a Command with max and minimum argument numbers.
      */
@@ -18,19 +19,12 @@ public class LoginCommand extends Command {
         super(1, 1);
     }
 
-    @Override
-    public String help() {
-        String s = "Attempts login. Format: login [id]\n Example: \"login 12345\"";
-        return s;
-    }
-
     /**
      * Attempts to login.
      *
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     * @param arguments arguments(user id)
+     * @return the result of the command
+     * @throws Exception if user is not found
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -42,6 +36,11 @@ public class LoginCommand extends Command {
         UserManager mgr = userDB.getEntry(id);
         ce.addUserManager(mgr);
         return "Logged in as " + mgr.getUser().getDisplayName();
+    }
+
+    @Override
+    public String help() {
+        return "Attempts login. Format: login [id]\n Example: \"login 12345\"";
     }
 
     @Override

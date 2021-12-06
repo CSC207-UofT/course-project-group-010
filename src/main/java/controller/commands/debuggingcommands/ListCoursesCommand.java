@@ -16,10 +16,10 @@ public class ListCoursesCommand extends Command {
 
     /**
      * Lists all the courses in the database.
-     * @param ce
-     * @param arguments
-     * @return
-     * @throws Exception
+     * @param ce commandExecutor
+     * @param arguments arguments(none required)
+     * @return string representation of all courses
+     * @throws Exception if the course could not find
      */
     @Override
     public String run(CommandExecutor ce, List<String> arguments) throws Exception {
@@ -34,6 +34,9 @@ public class ListCoursesCommand extends Command {
         return "This is a DEBUGGING method, that will list all available courses and their IDs";
     }
 
+    /**
+     * checks all necessary requirements for the run() method to proceed
+     */
     @Override
     protected void checkAll(CommandExecutor ce, List<String> arguments, String method) throws Exception {
         checkHelp(arguments);

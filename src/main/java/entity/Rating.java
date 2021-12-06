@@ -1,5 +1,6 @@
 package entity;
 
+import exceptions.ArgumentException;
 import exceptions.CommandNotAuthorizedException;
 import interfaces.IUser;
 
@@ -8,22 +9,32 @@ import java.io.Serializable;
 public class Rating implements Serializable {
 
     private final IUser rater;
-    private float score;
+    private double score;
+    private final double MAX_SCORE = 10.0;
+    private final double MIN_SCORE = 0.0;
 
-    // TODO consider not using this
-//    public Rating(IUser rater, float score, String instructor) {
-//        this.rater = rater;
-//        this.score = score;
-//    }
+
     /**
-     * A Rating object containing a score, and the User who left this rating.
-     *
-     * @param rater A user object of who left this rating.
-     * @param score The score of this rating between 0 and 10.
+     * Initializes a new rating, throws an exception if it is not between the
+     * accepted bounds
+     * @param rater User that is rating
+     * @param score Score that the user gave.
+     * @throws ArgumentException if the rating is not within the range
      */
-    public Rating(IUser rater, float score) {
+    public Rating(IUser rater, double score) throws ArgumentException {
+        if (score > MAX_SCORE || score < MIN_SCORE) {
+            throw new ArgumentException("Rating must be between 0 and 10");
+        }
         this.rater = rater;
         this.score = score;
+    }
+
+    /**
+     * Gets the rater
+     * @return the rater
+     */
+    public IUser getRater() {
+        return rater;
     }
 
     /**
@@ -32,7 +43,7 @@ public class Rating implements Serializable {
      * @return string representation of rater's program of study
      */
     public String getRaterProgramOfStudy() {
-        return rater.getOtherData().containsKey("programDetail") ? rater.getOtherData().get("programDetail") : "N/A";
+        return rater.getOtherData().getOrDefault("programDetail", "N/A");
     }
 
     /**
@@ -40,56 +51,12 @@ public class Rating implements Serializable {
      *
      * @return Score
      */
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
-    /**
-     * Set the rating score.
-     *
-     * @param score The score to be set
-     * @throws CommandNotAuthorizedException if the score is out of range
-     */
-    // TODO this is only used in tests, we can delete
-//    public void setScore(float score) throws CommandNotAuthorizedException {
-//        if (isInRange(score))
-//            this.score = score;
-//        else
-//            throw new CommandNotAuthorizedException("Score " + score + " must be between 0 and 1 inclusive.");
-//    }
-
-    /**
-     * Helper method to check if a given score is within the acceptable range.
-     *
-     * @param score The score trying to be set
-     * @return Whether the score is acceptable
-     */
-    // TODO this is only used in setScore, which is only used in tests, we can delete
-//    private boolean isInRange(float score) {
-//        // FIXME: score bounds should probably be stored as a constant
-//        return score >= 0 && score <= 1;
-//    }
-
-//    /**
-//     * Getter for the instructor of the course that this rating is for.
-//     *
-//     * @return Instructor name
-//     */
-//    public String getInstructor() {
-//        return this.instructor;
-//    }
-
-    /**
-     * Getter for the author of this rating, a.k.a. the rater.
-     *
-     * @return rater's StudentUser object
-     */
-//    public IUser getRater() {
-//        return this.rater;
-//    }
-
     @Override
     public String toString() {
-        return Float.toString(getScore());
+        return Double.toString(getScore());
     }
 }

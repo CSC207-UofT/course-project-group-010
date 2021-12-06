@@ -30,13 +30,4 @@ public class CourseTest {
         assertEquals(c.getDescription(), "Rip Alfonso");
     }
 
-    @Test(timeout = 100)
-    public void testSetName() {
-        Course c = new Course("good course", "MAT137");
-        c.setName("hello");
-        assertEquals("hello", c.getName());
-        c.setDescription("xd");
-        assertEquals("xd", c.getDescription());
-    }
-
 }

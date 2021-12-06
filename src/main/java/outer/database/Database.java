@@ -13,20 +13,17 @@ import java.util.Map;
  *
  * @param <T>
  */
+@SuppressWarnings("unchecked")
 public class Database<T extends IDBSaveable & Serializable> {
-    // TODO [HIGH PRIO] work on DBs another day
-    // TODO TODO TODO DatabaseGetter currently instantiates database, this is VERRRY BAD, fix.
-    // consider making db.LoadDatabase like a new class like DatabaseLoader idk the TA didn't even notice this.
-    // TODO make create user/course commands that make new objects and then save them to the db or something
-    // TODO make the database load on startup and save before the program closes.
 
     /**
      * Static method that "loads" the database(returns a map that represents the database)
-     * @param filePath
-     * @param <T>
-     * @return
-     * @throws IOException
-     * @throws ClassNotFoundException
+     *
+     * @param filePath the path of file
+     * @param <T> type of object to be saved
+     * @return map of ids to T objects
+     * @throws IOException            if input/output is invalid
+     * @throws ClassNotFoundException if the class is not found
      */
     public static <T extends IDBSaveable & Serializable> Map<String, T> loadDB(String filePath) throws IOException, ClassNotFoundException {
         Database<T> db = new Database<>();
@@ -36,10 +33,11 @@ public class Database<T extends IDBSaveable & Serializable> {
 
     /**
      * Static method that saves the db contents to a file.
-     * @param filePath
-     * @param objects
-     * @param <T>
-     * @throws IOException
+     *
+     * @param filePath the path of file
+     * @param objects map of ids to T objects
+     * @param <T> Type of object to be saved
+     * @throws IOException if input/output is invalid
      */
     public static <T extends IDBSaveable & Serializable> void saveToFile(String filePath, Map<String, T> objects) throws IOException {
         // Create new file if it doesn't exist
@@ -59,10 +57,10 @@ public class Database<T extends IDBSaveable & Serializable> {
     /**
      * Loads a map of DBSaveable object ids to objects.
      *
-     * @param filePath
+     * @param filePath the path of file
      * @return the map, or an empty map otherwise.
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException            if input/output is invalid
+     * @throws ClassNotFoundException if the class is not found
      */
     public Map<String, T> loadFromFile(String filePath) throws IOException, ClassNotFoundException {
         File dbFile = new File(filePath);

@@ -1,7 +1,6 @@
 package usecase;
 
 import entity.CommentGraph;
-import entity.CommentGraph;
 import exceptions.InvalidIDException;
 import usecase.CommentManager;
 import org.junit.Test;
@@ -19,10 +18,6 @@ public class CommentManagerTest
      * impossible to test otherwise.
      *
      * @return A sample CommentGraph that is used for tests.
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
      */
     public static CommentGraph sampleCommentGraphBuilder() throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException
     {

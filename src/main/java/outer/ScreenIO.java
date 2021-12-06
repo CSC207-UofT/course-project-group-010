@@ -14,17 +14,16 @@ public class ScreenIO {
 
     /**
      * This is a CLI that prompts the user and prints the output.
-     * Idea is basically stolen from Java-Shell, but this is academically integrit
+     * Idea is basically stolen from Java-Shell, but this is academically integrity
      * I swear
      * because it literally just takes input in a loop.
      *
-     * @param args
+     * @param args commandline for users to enter
      */
     public static void main(String[] args) throws Exception {
         CommandExecutor commandExecutor = CommandExecutor.getInstance();
         Scanner in = new Scanner(System.in);
         String commandLine = "";
-        // TODO consider a better way to implement then this possible
         System.out.println("Welcome to the Course System! Enter help for help. Enter \"end\" to end program.");
         while (!commandLine.equals("end")) {
             System.out.print("$ ");
