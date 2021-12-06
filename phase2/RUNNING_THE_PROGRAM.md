@@ -6,10 +6,11 @@ which explains specific design patterns/decisions that we used.
 ## How to run
 
 - Clone the code using github desktop
+- Try running outer.ScreenIO.main(). This may not work. If it doesn't, try the next steps.
 - Make sure you mark src/main/java as sources root(rightclick > mark directory as > sources root)
 - Also mark src/test/java as test sources root(rightclick > mark directory as > test sources root)
 - Configure your Java VM
-- Run the main() method in the outer.ScreenIO class
+- run the outer.ScreenIO.main() method again.
 
 Running the program:
 - the enter "help" to get help, or enter [commandname] -h for specific command help
