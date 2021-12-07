@@ -2,9 +2,9 @@
 
 This is our main design document.
 
-** **IMPORTANT RELATED DOCUMENTS CAN BE FOUND IN other-documents** **
+** **IMPORTANT RELATED DOCUMENTS CAN BE FOUND IN THE [other-documents](https://github.com/CSC207-UofT/course-project-group-010/tree/main/phase2/other-documents) FOLDER** **
 
-Keep reading this document, and you will naturally be redirected to the other documents. 
+This includes the accessibility report. If you keep reading this document, you will naturally be redirected to the other documents. 
 
 specific-design-explanations helps clarify our design choices. Reference it instead of looking through our code, for convenience.
 
