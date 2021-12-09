@@ -33,15 +33,15 @@ public class DataPrinter {
      * @return the string representation of the data
      */
     private String processDict(Map<String, Object> data) {
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
         for (String o : data.keySet()) {
             try {
-                returnString = returnString + o + " : " + data.get(o).toString() + "\n";
+                returnString.append(o).append(" : ").append(data.get(o).toString()).append("\n");
             } catch (Exception e) {
-                returnString = returnString + o + " : " + "n/a" + "\n";
+                returnString.append(o).append(" : ").append("n/a").append("\n");
             }
         }
-        return returnString;
+        return returnString.toString();
     }
 
 }

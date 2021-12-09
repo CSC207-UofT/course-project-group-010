@@ -40,7 +40,7 @@ public class CommentPresenter implements IReadModifiable {
     public void cdCommand(String arg) throws ArgumentException {
         // Fun fact, cd stands for change dcomment !
         List<String> arguments = parseArgumentString(arg);
-        String pathTraversed = "";
+        StringBuilder pathTraversed = new StringBuilder();
         for (String id : arguments) {
             try {
                 if (id.equals("..")) {
@@ -48,7 +48,7 @@ public class CommentPresenter implements IReadModifiable {
                 } else {
                     checkoutSingleID(id);
                 }
-                pathTraversed += id + "/";
+                pathTraversed.append(id).append("/");
             } catch (InvalidIDException e) {
                 String errorStr = e.getMessage() + "\n(we managed to traverse " + pathTraversed + ")";
                 throw new ArgumentException(errorStr);
