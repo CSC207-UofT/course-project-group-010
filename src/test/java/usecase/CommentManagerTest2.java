@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("NewClassNamingConvention")
 public class CommentManagerTest2 {
 
     public CommentManager cm;
