@@ -2,7 +2,6 @@ package usecase;
 
 import constants.CommandConstants;
 import constants.UserType;
-import entity.CommentGraph;
 import exceptions.ArgumentException;
 import exceptions.InvalidIDException;
 import interfaces.IReadModifiable;
