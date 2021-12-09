@@ -9,4 +9,4 @@ You can rightclick src/test/java > run with coverage to look at our test coverag
 (you may need to clear courses.ser and users.ser to make the tests pass, as it interferes with some of the tests)
 Here is an image of our test coverage.
 
-![](../resource/testcoverage.png)
+![](../resource/test-coverage.png)

@@ -27,7 +27,7 @@ were excluded. As shown, classes interact with the next layer of clean architect
 
 ## What each group member has worked on since phase 1
 
-Go to [other-documents/progress_report.md](other-documents/progress_report.md) for more info
+Go to [other-documents/progress_report.md](other-documents/progress-report.md) for more info
 
 ## Design Decisions we implemented in phase 2
 
@@ -89,9 +89,9 @@ Thus, we are choosing not to implement the pattern, as it would create a lot of 
 
 ## Clean architecture
 
-Read [other-documents/clean architecture.md](other-documents/clean architecture.md) for details on how our project follows clean architecture
+Read [other-documents/clean architecture.md](other-documents/clean-architecture.md) for details on how our project follows clean architecture
 
-Read [other-documents/CleanArchitectureDependencies.pdf](other-documents/CleanArchitectureDependencies.pdf) to see our actual code dependencies, which show that clean architecture is followed.
+Read [other-documents/CleanArchitectureDependencies.pdf](other-documents/clean-architecture-dependencies.pdf) to see our actual code dependencies, which show that clean architecture is followed.
 
 **IMPORTANT** there's a single instance where clean architecture is not followed. SCROLL TO THE BOTTOM OF
 [specific-design-explanations/database.md](specific-design-explanations/database.md) for more info.
