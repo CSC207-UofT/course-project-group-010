@@ -9,7 +9,9 @@ public class Rating implements Serializable {
 
     private final IUser rater;
     private final double score;
+    @SuppressWarnings("FieldCanBeLocal")
     private final double MAX_SCORE = 10.0;
+    @SuppressWarnings("FieldCanBeLocal")
     private final double MIN_SCORE = 0.0;
 
 
