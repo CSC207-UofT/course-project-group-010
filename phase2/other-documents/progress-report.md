@@ -30,6 +30,11 @@
 - Junhyuk: Implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
     - [CourseManager implementation](https://github.com/CSC207-UofT/course-project-group-010/pull/100)
 - Wilson:
-  - Assisted Fiona with implementing Simple Factory pattern for User subclass instantiation
+  - Assisted Fiona with [implementing Simple Factory pattern](https://github.com/CSC207-UofT/course-project-group-010/pull/89) for User subclass instantiation
+    - This ensures that UserManager follows OCP and also removes duplicate methods in UserManager
   - Various minor refactors (to fix naming conventions, use more readable variable names, remove unnecessary dependencies etc.)
   - Code review / Debugging (see GitHub issues board)
+  - Suggest further program enhancements (not implemented due to time constraints)
+    - Better course rating calculation algorithm based on [SteamDB's rating system](https://steamdb.info/blog/steamdb-rating/)
+    - Strategy pattern for course rating to allow different algorithms to be used
+    - [Re-rate optimization](https://github.com/CSC207-UofT/course-project-group-010/issues/144)
