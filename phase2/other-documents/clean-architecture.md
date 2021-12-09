@@ -5,7 +5,7 @@ Our program follows clean architecture
 - a diagram of how our program approximately works can be found in phase2/diagram.png
 - an explanation of what each class does can be found in phase2/specific-design-explanations/Classes Explanation.md
 
-# Scenario Walkthrough
+## Scenario Walkthrough
 
 Assume the user is logged in and viewing a page, and enters checkout -c into the console
 
@@ -29,12 +29,12 @@ Outer layer
 
 As shown, the data travels down through the layers, and then back up through the layers as methods calls return different values.
 
-# Violations?
+## Violations?
 
 The only violation of clean architecture is Database. This problem is explained in phase2/specific-design-explanations/database.md.
 Otherwise, if you look at our import statements, you will see that there are no incorrect dependencies, by looking at phase2/CleanArchitectureDependencies.pdf.
 
-# Is the Dependency Rule consistently followed when interacting with details in the outer layer?
+## Is the Dependency Rule consistently followed when interacting with details in the outer layer?
 
 eg. if you run the print command while viewing a page, the outer layer will call the command(controller) to gather data and return a string to be printed on the screen. Classes
 from non-adjacent layers don't interact, and the request data and response goes through the layers one at a time.

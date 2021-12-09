@@ -17,11 +17,11 @@ public class ProgramConstants {
 
     @Override
     public String toString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (String s : possiblePrograms) {
-            str += s + "\n";
+            str.append(s).append("\n");
         }
-        return str;
+        return str.toString();
     }
 
     public boolean contains(String s) {

@@ -11,7 +11,7 @@ import entity.*;
 
 import static org.junit.Assert.*;
 
-public class CoursePageTestnew {
+public class CoursePageTest {
 
     @Test(timeout = 100)
     public void testgetCourse() {

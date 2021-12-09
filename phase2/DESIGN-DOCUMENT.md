@@ -27,14 +27,14 @@ were excluded. As shown, classes interact with the next layer of clean architect
 
 ## What each group member has worked on since phase 1
 
-Go to [other-documents/progress_report.md](other-documents/progress_report.md) for more info
+Go to [other-documents/progress_report.md](other-documents/progress-report.md) for more info
 
 ## Design Decisions we implemented in phase 2
 
-In phase 2, we mostly implemented design patterns to clean up the code. This will
-be discussed later. The only new feature we designed is relativeRating.
+In phase 2, we mostly implemented design patterns to clean up the code and make future development easier. This will
+be discussed later. The only new feature we implemented is relativeRating.
 
-CourseManager handles the calculation of ratings. Each rating has a stored user object and a rating(double) object already.
+CourseManager handles the calculation of course ratings. Each rating has a stored user object and a rating(double) object already.
 
 To get relative rating, we simply filter the list of rating objects by programs and re-calculate a rating in CourseManager.
 Thus, we only had to extend CourseManager rather than changing anything else. It was quite easy to implement.
@@ -43,7 +43,7 @@ However, we had to prompt the user to enter their program detail. We quickly not
 users and instructors to enter their program detail, and had to have some sort of IF statement to differentiate between them.
 This is explained in our design patterns, under Controller.
 
-**IMPORTANT** we have a finite list of possible programs for now, that we can expand on later. We made ProgramConstants to
+**IMPORTANT:** We have a finite list of possible programs for now, that we can expand on later. We made ProgramConstants to
 keep track of the list, satisfying the single responsibility principle.
 
 ## Design Patterns we used in phase 2
@@ -71,7 +71,7 @@ keep track of the list, satisfying the single responsibility principle.
   UserPageGetter all implement this interface. A factory method was created in CheckoutCommand to help implement this strategy pattern.
   - Follows single responsibility principle. We separated three getters into separate classes, rather than having an if else statement that does all 3 things.
 
-Checkout phase2/specific-design-explanations/commands.md for more details on this(if you need it).
+Check out [specific-design-explanations/commands.md](specific-design-explanations/commands.md) for more details on this(if you need it).
 
 - DataPrinter an example of the Facade pattern. In the print command, we noticed that the frontend team cares about how we process data gotten from the IGettable
   interface, and the backend team cares about how we get that data in the first place. Thus, controllers.commands.commandHelpers.DataPrinter is a class that has the single responsibility of
@@ -89,9 +89,9 @@ Thus, we are choosing not to implement the pattern, as it would create a lot of 
 
 ## Clean architecture
 
-Read [other-documents/clean architecture.md](other-documents/clean architecture.md) for details on how our project follows clean architecture
+Read [other-documents/clean architecture.md](other-documents/clean-architecture.md) for details on how our project follows clean architecture
 
-Read [other-documents/CleanArchitectureDependencies.pdf](other-documents/CleanArchitectureDependencies.pdf) to see our actual code dependencies, which show that clean architecture is followed.
+Read [other-documents/CleanArchitectureDependencies.pdf](other-documents/clean-architecture-dependencies.pdf) to see our actual code dependencies, which show that clean architecture is followed.
 
 **IMPORTANT** there's a single instance where clean architecture is not followed. SCROLL TO THE BOTTOM OF
 [specific-design-explanations/database.md](specific-design-explanations/database.md) for more info.
@@ -122,8 +122,8 @@ allows us to run the print command on a lot of different pages.
 
 ## OTHER DOCUMENTS
 
-- Accessibility report: [other-documents/accessibility.md](other-documents/accessibility.md)
-- Refactoring evidence: [other-documents/refactoring.md](other-documents/refactoring.md)
-- Testing coverage: [other-documents/testing.md](other-documents/testing.md)
-- Use of github features [here](other-documents/Use%20of%20GitHub%20Features.md)
-- Code documentation, use of code > inspect code, etc. [here](other-documents/code-documentation.md)
+- [Accessibility report](other-documents/accessibility.md)
+- [Refactoring evidence](other-documents/refactoring.md)
+- [Testing coverage](other-documents/testing.md)
+- [Use of GitHub features](other-documents/Use%20of%20GitHub%20Features.md)
+- [Code documentation and debugging](other-documents/code-documentation.md)

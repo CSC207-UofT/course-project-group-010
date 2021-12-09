@@ -30,3 +30,6 @@
 - Junhyuk: Implemented relative ratings related methods mainly in CourseManager. Fixed warnings using inspect code feature.
     - [CourseManager implementation](https://github.com/CSC207-UofT/course-project-group-010/pull/100)
 - Wilson:
+  - Assisted Fiona with implementing Simple Factory pattern for User subclass instantiation
+  - Various minor refactors (to fix naming conventions, use more readable variable names, remove unnecessary dependencies etc.)
+  - Code review / Debugging (see GitHub issues board)
